@@ -257,7 +257,7 @@ $(document).on('click', 'input[name="quantity"], input[name="quantity[]"]', func
         <!--begin::Copyright-->
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted fw-semibold me-1">2023&copy;</span>
-            <a href="{{ route('home') }}" class="text-gray-800 text-hover-primary">NSITF</a>
+            <a href="{{ route('home') }}" class="text-gray-800 text-hover-primary">NIWA</a>
         </div>
         <!--end::Copyright-->
         <!--begin::Menu-->
