@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
+
 @section('content')
+<style>
+    /* Add a custom style to override conflicting styles */
+    .btn-primary {
+      background-color: blue !important;
+      border-color: blue !important;
+    }
+  </style>
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -31,7 +39,7 @@
                             <!--begin::Wrapper-->
                             <div class="stepper-wrapper">
                                 <!--begin::Icon-->
-                                <div class="stepper-icon w-40px h-40px">
+                                <div class="stepper-icon w-40px h-40px ">
                                     <i class="stepper-check fas fa-check"></i>
                                     <span class="stepper-number">1</span>
                                 </div>
