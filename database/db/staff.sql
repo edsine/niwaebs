@@ -115,23 +115,25 @@ INSERT INTO `all_departments` (`department_id`, `dep_unit`, `status`, `createdAt
 (2, 'Administration, Coporate Services And Human Resources', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (3, ' Research Planning and ICT', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (4, 'Legal', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
--- (5, 'Investment & Treasury Management', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (6, 'Finance & Accounts', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (7, 'Procurement', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
--- (8, 'Servicom', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (9, 'Marine', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (10, 'Port and Environment Services', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (11, 'Project Management and Special Duties', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (12, 'Co-ordination', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
--- (13, 'Port and Environment', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (14, 'Surveyt', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (15, 'Audit and Internal Control', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (16, 'Engineering', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
--- (17, 'Health Safety & Environment', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (18, 'Inland Waterways Police Command', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
--- (19, 'General', 1, '2023-05-18 11:08:10', '2023-05-18 11:07:54'),
--- (20, 'ED Directorate', 1, '2023-05-24 12:53:24', '2023-05-24 12:51:33'),
--- (21, 'MD Directorate', 1, '2023-05-24 12:53:24', '2023-05-24 12:51:33');
+
+
+(5, 'Investment & Treasury Management', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
+(8, 'Servicom', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
+(17, 'Health Safety & Environment', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
+(13, 'Port and Environment', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
+(19, 'General', 1, '2023-05-18 11:08:10', '2023-05-18 11:07:54'),
+(20, 'ED Directorate', 1, '2023-05-24 12:53:24', '2023-05-24 12:51:33'),
+(21, 'MD Directorate', 1, '2023-05-24 12:53:24', '2023-05-24 12:51:33');
 
 --
 -- Indexes for table `all_departments`
@@ -190,10 +192,10 @@ CREATE TABLE `staff_tb` (
 
 
 INSERT INTO `staff_tb` (`staffId`, `roles`, `departmentId`, `dash_type`, `USER_ROLES`, `firstname`, `middlename`, `lastname`, `staff_id`, `gender`, `branch`, `branchId`, `region`, `phone`, `unit`, `staff_email`, `PROFILE_PICTURE`, `DATE_CREATED`, `STATUS`, `active_staus`, `USERID`, `alternative_email`, `CREATED_BY`, `DATE_APPROVED`, `APPROVED_BY`, `security_key`, `DATE_MODIFIED`, `MODIFIED_BY`, `OFFICE_POSITION`, `POSITION`, `ABOUT_ME`, `TOTAL_RECIEVED_EMAILS`, `TOTAL_SENT_EMAIL`, `TOTAL_DRAFT_EMAIL`, `TOTAL_EVENT`, `MYGROUPS`, `createdAt`) VALUES
-(4624, 8, 13, 1, 'JUNIOR ADMINISTRATOR', 'DAE', '', 'MON', '000000001000101', NULL, '', 2, '', '', 0, 'dmon@nsitf.gov.ng', NULL, '09 May, 2023', 'IN-ACTIVE', 1, '1650BB24-A4F0-BDE0-E707F1370891EFDA000000001000101', 'h.balogun@herts.ac.uk', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$JSRZBJDKAWAF8XkAS0PRTOABhviCKljKc6CcV31Sb9xgMTlFAMcTW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
-(4618, 8, 13, 1, 'USER', 'USER', '', 'TESTUSER', '00000000111', NULL, 'MARARABA', 2, 'ABUJA', '', 0, 'utestuser@nsitf.gov.ng', NULL, '09 May, 2023', 'ACTIVE', 1, '03D4F1D9-BB50-17A4-948013062E0731F900000000111', 'balogunhabeeb14@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$AIAgr3M7VzrtAUvwumWcxuIejgdYyEylVn8mUk6NRcMrPkun2wx8O', NULL, NULL, NULL, NULL, NULL, '1', '0', '0', '0', NULL, '2023-05-18 08:21:34'),
-(4627, 8, 13, 1, 'USER', 'BOSCO', 'PRINCE', 'JOHN', '0001', NULL, 'FCT', 2, 'ABUJA', '', 0, 'bjohn@nsitf.gov.ng', NULL, '10 May, 2023', 'ACTIVE', 1, '30958DBC-06C6-BDAC-BA800C584BE8E9A30001', 'bloomaroonservices@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$xLr4aHODjfQQLfvr1O9B9eNIRbrKNvekn7ojhsAt7jOt7gsS3Gjge', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
-(4416, 8, 13, 1, 'USER', 'NSITF', '', 'CUSTOMER SERVICE', '0011', NULL, 'HEAD OFFICE', 2, 'HEAD OFFICE', '+234 (09) 2911810', 0, 'info@nsitf.gov.ng', NULL, '06 January, 2023', 'ACTIVE', 1, '4D2EB853-F2C3-4671-926F767B0301BF9E0011', 'blessingognnaji@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$EBBPU2W38nYt9sa9KtqX5e1ufvGtme3wsFpZu/DQQpz0VBUswU6Re', '20 April, 2023', 'SYSTEM  ADMINISTRATOR [1001]', NULL, NULL, NULL, '441', '0', '0', '0', NULL, '2023-05-18 08:21:34'),
+(4624, 8, 1, 1, 'JUNIOR ADMINISTRATOR', 'DAE', '', 'MON', '000000001000101', NULL, '', 2, '', '', 0, 'dmon@nsitf.gov.ng', NULL, '09 May, 2023', 'IN-ACTIVE', 1, '1650BB24-A4F0-BDE0-E707F1370891EFDA000000001000101', 'h.balogun@herts.ac.uk', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$JSRZBJDKAWAF8XkAS0PRTOABhviCKljKc6CcV31Sb9xgMTlFAMcTW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
+(4618, 8, 1, 1, 'USER', 'USER', '', 'TESTUSER', '00000000111', NULL, 'MARARABA', 2, 'ABUJA', '', 0, 'utestuser@nsitf.gov.ng', NULL, '09 May, 2023', 'ACTIVE', 1, '03D4F1D9-BB50-17A4-948013062E0731F900000000111', 'balogunhabeeb14@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$AIAgr3M7VzrtAUvwumWcxuIejgdYyEylVn8mUk6NRcMrPkun2wx8O', NULL, NULL, NULL, NULL, NULL, '1', '0', '0', '0', NULL, '2023-05-18 08:21:34'),
+(4627, 8, 1, 1, 'USER', 'BOSCO', 'PRINCE', 'JOHN', '0001', NULL, 'FCT', 2, 'ABUJA', '', 0, 'bjohn@nsitf.gov.ng', NULL, '10 May, 2023', 'ACTIVE', 1, '30958DBC-06C6-BDAC-BA800C584BE8E9A30001', 'bloomaroonservices@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$xLr4aHODjfQQLfvr1O9B9eNIRbrKNvekn7ojhsAt7jOt7gsS3Gjge', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
+(4416, 8, 1, 1, 'USER', 'NSITF', '', 'CUSTOMER SERVICE', '0011', NULL, 'HEAD OFFICE', 2, 'HEAD OFFICE', '+234 (09) 2911810', 0, 'info@nsitf.gov.ng', NULL, '06 January, 2023', 'ACTIVE', 1, '4D2EB853-F2C3-4671-926F767B0301BF9E0011', 'blessingognnaji@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$EBBPU2W38nYt9sa9KtqX5e1ufvGtme3wsFpZu/DQQpz0VBUswU6Re', '20 April, 2023', 'SYSTEM  ADMINISTRATOR [1001]', NULL, NULL, NULL, '441', '0', '0', '0', NULL, '2023-05-18 08:21:34'),
 (4588, 8, 13, 1, 'USER', 'ADA', '', 'ADA', '0023', NULL, 'ABUJA', 2, '', '', 0, 'aada@nsitf.gov.ng', NULL, '01 May, 2023', 'IN-ACTIVE', 1, '6AE4D7A6-E6DF-57E7-846431B80CD3A2940023', '', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$fuHqmtJ4IFytur/xeAkKiuXsDLvzgoe77jc5o0oXgGQotlW0nSJR2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
 (4593, 8, 13, 1, 'USER', 'FASHOLA', '', 'FASHOLA', '0024', NULL, 'KANO', 2, '', '', 0, 'ffashola@nsitf.gov.ng', NULL, '01 May, 2023', 'IN-ACTIVE', 1, '6AE4D9A2-B256-1425-60484725B24FC7D60024', '', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$HU4zB.ZbrQWOGtdt67TEQ.KY3.0YR/FelW/L0IFzfnwAhzrQFahp.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
 (4589, 8, 13, 1, 'USER', 'NGOZI', '', 'NGOZI', '0025', NULL, 'KANO', 2, '', '', 0, 'nngozi@nsitf.gov.ng', NULL, '01 May, 2023', 'IN-ACTIVE', 1, '6AE4D83D-9F87-E91F-2F8AE2B1B679F8160025', '', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$te3Ml.KPowls06HP7Xssz./.BmV4fF4YpAQ0WDS/msub2etUCeORC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
@@ -237,7 +239,7 @@ INSERT INTO `staff_tb` (`staffId`, `roles`, `departmentId`, `dash_type`, `USER_R
 (1681, 8, 13, 1, 'USER', 'GODIYA', '', 'MANASSEH', '10051', NULL, 'N/A', 2, 'ABUJA', '8032912340', 0, 'godiya.manasseh@nsitf.gov.ng', NULL, '28 November, 2022', 'ACTIVE', 1, '77BE67D9-DDD6-8FCE-726715E93C43371610051', 'godiyamanasseh@yahoo.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$gFIIhAFMHfGddlNiUAuDAun6qk/tLQf.c17PH93zVfryEpE21nppa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
 (1723, 8, 13, 1, 'USER', 'OJONUBA', '', 'OMEDE', '10053', NULL, 'N/A', 2, 'ABUJA', '8065471541', 0, 'ojonuba.omede@nsitf.gov.ng', NULL, '28 November, 2022', 'ACTIVE', 1, '77BE6C0A-CEAE-1AE9-B1F787649AE9EF0910053', 'sheddypedro@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$3hXo6yuFOxx9ED7xN3b/YO/9HDy2n5BsS4l31A5L003/FWcpU1qsa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
 (4107, 8, 13, 1, 'USER', 'HOPE', 'CHIKA', 'ENU', '10054', NULL, 'MARARABA', 2, 'ABUJA', '8037921210', 0, 'henu@nsitf.gov.ng', NULL, '02 December, 2022', 'ACTIVE', 1, '259DB840-AA57-295B-DBAED2693758D23A10054', 'hope4real55@yahoo.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$IZMOW03W2wAWgrOavU.KUOman.KYzqqhjgZG0UvKKc0kQN2mP3BYq', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
-(328, 8, 13, 1, 'USER', 'ARINZE', '', 'CHUKWUEMEKA', '10055', NULL, 'HEAD OFFICE', 2, 'HEAD OFFICE', '', 0, 'achukwuemeka@nsitf.gov.ng', NULL, '27 September, 2022', 'ACTIVE', 1, 'DDA2726F-F6CC-89F5-0228025037A81E4F10055', '', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$I1qeEx.2b49Wq8zG0N15R.I2sarXcrdTZksax7zWRm/IYehlnhegq', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', NULL, '2023-05-18 08:21:34'),
+(328, 8, 1, 1, 'USER', 'ARINZE', '', 'CHUKWUEMEKA', '10055', NULL, 'HEAD OFFICE', 2, 'HEAD OFFICE', '', 0, 'achukwuemeka@nsitf.gov.ng', NULL, '27 September, 2022', 'ACTIVE', 1, 'DDA2726F-F6CC-89F5-0228025037A81E4F10055', '', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$I1qeEx.2b49Wq8zG0N15R.I2sarXcrdTZksax7zWRm/IYehlnhegq', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', NULL, '2023-05-18 08:21:34'),
 (2704, 8, 13, 1, 'USER', 'GOODLUCK', 'EFE', 'ONYOKPE', '10056', NULL, 'WARRI', 2, 'ASABA', '8063723372', 0, 'goodluck.onyokpe@nsitf.gov.ng', NULL, '28 November, 2022', 'ACTIVE', 1, '77BEDFB8-0783-5E1C-56F672E1621C2B6E10056', 'goodluckefe881@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$flLu1N1l8fnwUILh2G1XSO1YJY9vcsM9FjeyWsqrpOjWXx/0fOCJ.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
 (1653, 8, 13, 1, 'USER', 'ARINZE', 'RUTH', 'AGILIGA', '10057', NULL, 'N/A', 2, 'ABUJA', '7067784093', 0, 'arinze.agiliga@nsitf.gov.ng', NULL, '28 November, 2022', 'ACTIVE', 1, '77BE64C1-ADE0-A067-CE177534BC90B2EC10057', 'okohruthagiliga90@gmail.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$eLeGcqTPcWZ4DreJ/kWE9OUUgXrqhr2x6qLWTJZj4h7QGnH0I9CF2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),
 (2549, 8, 13, 1, 'USER', 'ONYEKWELI', 'CHINEDU', 'CHARLES', '10059', NULL, 'ASABA', 2, 'ASABA', '8169379604', 0, 'onyekweli.charles@nsitf.gov.ng', NULL, '28 November, 2022', 'ACTIVE', 1, '77BECBC4-B707-F119-F041609F49C219B210059', 'onyekweli4delta@yahoo.com', 'ANDREW  AZEEZ [2100]', NULL, NULL, '$2y$10$qvFSSpGQSQgEXk7NxZ3XE.K/dOEf.iP8xNrTKvVgiCUodQSJjl1Ni', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-05-18 08:21:34'),

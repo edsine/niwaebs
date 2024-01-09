@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="d-flex flex-column col-md-6 mb-8 fv-row">
-                            {!! Form::label('unit_id', 'SELECT UINIT') !!}
+                            {!! Form::label('unit_id', 'SELECT SECTION') !!}
                             {!! Form::select('unit_id', [] ,null, ['class' => 'form-control form-control-solid border border-2','id' => 'unitSelect']) !!}
                         </div>
 
@@ -101,7 +101,7 @@
 
                     <!-- Branch Field -->
                     <div class="d-flex flex-column col-md-12 mb-8 fv-row">
-                        {!! Form::label('branch_id', 'Branch') !!}
+                        {!! Form::label('branch_id', 'Area Office') !!}
                         {!! Form::select('branch_id',$branch,null, ['class' => 'form-control form-control-solid border border-2']) !!}
                     </div>
                    

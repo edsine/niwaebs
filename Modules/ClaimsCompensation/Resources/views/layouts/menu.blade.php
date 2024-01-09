@@ -54,7 +54,7 @@
             </span>
             <!--end::Svg Icon-->
         </span>
-        <span class="menu-title">Claims Notificatons</span>
+        <span class="menu-title">Request</span>
         <span class="menu-arrow"></span>
     </span>
     <div class="menu-sub menu-sub-accordion">
@@ -64,22 +64,20 @@
         <span class="bullet bullet-dot"></span>
     </span>
     <span
-            class="nk-menu-text">Death
-            Claims</span></a>
+            class="nk-menu-text">Notification Of Accident</span></a>
 
     <a href="{{ route('accident.index') }}" class="menu-link">
         <span class="menu-bullet">
             <span class="bullet bullet-dot"></span>
         </span>
         <span
-            class="nk-menu-text">Accident
-            Claims</span></a>
+            class="nk-menu-text">Spare Parts</span></a>
 
     <a href="{{route('disease.index')}}" class="menu-link">
         <span class="menu-bullet">
             <span class="bullet bullet-dot"></span>
         </span>
-        <span class="nk-menu-text">Occupations
-            Disease Claims</span></a>
+        <span class="nk-menu-text">Certificate Renewal
+        </span></a>
     </div>
  </div>
