@@ -3871,7 +3871,7 @@ var KTChartsWidget19 = (function () {
             // Data
             var data = [
                 {
-                    category: "C&C",
+                    category: "PERMITS",
                     value: 80,
                     full: 100,
                     columnSettings: {
@@ -3880,7 +3880,7 @@ var KTChartsWidget19 = (function () {
                     },
                 },
                 {
-                    category: "Ad-Rt",
+                    category: "LICENCES",
                     value: 35,
                     full: 100,
                     columnSettings: {
@@ -3889,7 +3889,7 @@ var KTChartsWidget19 = (function () {
                     },
                 },
                 {
-                    category: "Di-Pay",
+                    category: "CERTIFICATES",
                     value: 92,
                     full: 100,
                     columnSettings: {
@@ -3898,7 +3898,7 @@ var KTChartsWidget19 = (function () {
                     },
                 },
                 {
-					category: "OPE",
+					category: "FORM APPLICATION",
                     value: 68,
                     full: 100,
                     columnSettings: {
@@ -13144,7 +13144,7 @@ var KTChartsWidget38 = function () {
                 colors: ['transparent']
             },
             xaxis: {
-				categories: ['HR', 'C&C', 'Ad-Rt', 'Di-pay', 'OPE', 'DTA', 'TAX'],
+				categories: ['HR', 'Permits', 'Licences', 'Certificates', 'Form Application', 'Admin', 'TAX'],
                 axisBorder: {
                     show: false,
                 },

@@ -17,10 +17,10 @@
 --
 -- Dumping data for table `departments`
 --
-
+-- from me atp, if you are looking for department seeder go to staff.sql
 INSERT INTO `departments` (`id`, `name`, `department_unit`, `status`, `description`, `branch_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, NULL, 'Survey', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(2, NULL, 'Human Resource Management', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+(2, NULL, 'Adminstration,Corporate Services and Human Resource ', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (3, NULL, 'ICT', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (4, NULL, 'Legal', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (5, NULL, 'Investment & Treasury Management', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
@@ -30,7 +30,7 @@ INSERT INTO `departments` (`id`, `name`, `department_unit`, `status`, `descripti
 (9, NULL, 'Marine', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (10, NULL, 'Informal Sector', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (11, NULL, 'Risk Management', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(12, NULL, 'Actuarial Planning Research & Development', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+(12, NULL, 'Co-ordination', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (13, NULL, 'Estate & Maintenance', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (14, NULL, 'Social Security Development', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (15, NULL, 'Inspections', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),

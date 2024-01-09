@@ -11,7 +11,7 @@
 			<!--begin::Page title-->
 			<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
 				<!--begin::Title-->
-				<h1 class="text-black-50 pt-5"> Audit :<b style="color: #000">Overview</b></h1>
+				<h1 class="text-black-50 pt-5"> Audit and Internal Control:<b style="color: #000">Overview</b></h1>
 				<!--end::Title-->
 			</div>
 			<!--end::Page title-->
@@ -323,10 +323,10 @@
 												<!--begin::Content-->
 												<div class="me-5">
 													<!--begin::Title-->
-													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">C&C</a>
+													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Permits</a>
 													<!--end::Title-->
 													<!--begin::Desc-->
-													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Claims and Compensation</span>
+													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Revenue Generated From Permits</span>
 													<!--end::Desc-->
 												</div>
 												<!--end::Content-->
@@ -369,10 +369,10 @@
 												<!--begin::Content-->
 												<div class="me-5">
 													<!--begin::Title-->
-													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Ad-Rt</a>
+													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Licences</a>
 													<!--end::Title-->
 													<!--begin::Desc-->
-													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Advance Retirement</span>
+													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Revenue Generated From Licences</span>
 													<!--end::Desc-->
 												</div>
 												<!--end::Content-->
@@ -415,10 +415,10 @@
 												<!--begin::Content-->
 												<div class="me-5">
 													<!--begin::Title-->
-													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Di-Pay</a>
+													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Certificates</a>
 													<!--end::Title-->
 													<!--begin::Desc-->
-													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Direct Payment</span>
+													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Revenue Generated From Certificates</span>
 													<!--end::Desc-->
 												</div>
 												<!--end::Content-->
@@ -461,10 +461,10 @@
 												<!--begin::Content-->
 												<div class="me-5">
 													<!--begin::Title-->
-													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">OPE</a>
+													<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Form Application</a>
 													<!--end::Title-->
 													<!--begin::Desc-->
-													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Out of Pockect Expenses</span>
+													<span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">Revenue Generated From Form Application</span>
 													<!--end::Desc-->
 												</div>
 												<!--end::Content-->
@@ -599,7 +599,7 @@
 										</div>
 										<!--end::Statistics-->
 										<!--begin::Description-->
-										<span class="fs-6 fw-semibold text-gray-400">Budget for April</span>
+										<span class="fs-6 fw-semibold text-gray-400">January</span>
 										<!--end::Description-->
 									</div>
 									<!--end::Item-->
@@ -612,7 +612,7 @@
 										</div>
 										<!--end::Statistics-->
 										<!--begin::Description-->
-										<span class="fs-6 fw-semibold text-gray-400">Actual for April</span>
+										<span class="fs-6 fw-semibold text-gray-400">Actual for January</span>
 										<!--end::Description-->
 									</div>
 									<!--end::Item-->

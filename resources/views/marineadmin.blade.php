@@ -29,7 +29,7 @@
                 </svg>
               </span>
               <div class="text-white fw-bold fs-2 mb-2 mt-5">{{$diseaseclaims}}</div>
-              <div class="fw-semibold text-white">PERMANENT DISABILITY & INJURY</div>
+              <div class="fw-semibold text-white text-uppercase">Total Number Of Application Forms</div>
             </div>
             <!--end::Body-->
           </a>
@@ -51,7 +51,7 @@
               </span>
               <!--end::Svg Icon-->
               <div class="text-dark fw-bold fs-2 mb-2 mt-5">{{$deathclaims}}</div>
-              <div class="fw-semibold text-dark">Claims (Death)</div>
+              <div class="fw-semibold text-dark text-uppercase">Total Number Of Inspected Sites</div>
             </div>
             <!--end::Body-->
           </a>
@@ -71,7 +71,7 @@
               </span>
               <!--end::Svg Icon-->
               <div class="text-white fw-bold fs-2 mb-2 mt-5">{{$registered_employees}}</div>
-              <div class="fw-semibold text-white">RETIRIES NOTIFICATION</div>
+              <div class="fw-semibold text-white">TOTAL NUMBER OF DEMAND NOTICE</div>
             </div>
             <!--end::Body-->
           </a>
@@ -95,8 +95,8 @@
               <div class="card-header pt-7">
                 <!--begin::Title-->
                 <h3 class="card-title align-items-start flex-column">
-                  <span class="card-label fw-bolder text-gray-800">Monthly Notifications Analytics</span>
-                  <span class="text-gray-400 mt-1 fw-bold fs-6">Hours per course</span>
+                  <span class="card-label fw-bolder text-gray-800">Monthly Issuance of Permits</span>
+                  <span class="text-gray-400 mt-1 fw-bold fs-6"></span>
                 </h3>
                 <!--end::Title-->
                 <!--begin::Toolbar-->
@@ -153,7 +153,7 @@
             <!--end::Svg Icon-->
             <!-- <div class="text-gray-100 fw-bold fs-2 mb-2 mt-5">{{$pending_employers}}</div> -->
             <hr />
-            <div class="fw-semibold ">REHABILITATION CASE</div>
+            <div class="fw-semibold text-uppercase ">Verified Document</div>
 
             <div class="progress">
               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
@@ -170,7 +170,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title text-uppercase text-muted mb-0">TOTAL COMPENSATION AMOUNT PAID</h5>
+                <h5 class="card-title text-uppercase text-muted mb-0">TOTAL NUMBER OF ISSUED CERTIFICATES</h5>
                 <!-- <span class="h2 font-weight-bold mb-0">2,356</span> -->
               </div>
               <div class="col-auto">
@@ -179,12 +179,12 @@
                 </div>
               </div>
             </div>
-            <p class="mt-3 mb-0 text-muted text-sm">
+            {{-- <p class="mt-3 mb-0 text-muted text-sm">
               <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
               <span class="text-nowrap">Since last week</span>
-            </p>
+            </p> --}}
             <hr />
-            <div class="fw-semibold ">PROSTHESIS CASE</div>
+            <div class="fw-semibold ">TOTAL NUMBER ISSUED LICENCES</div>
             <div class="progress">
               <div class="progress-bar bg-dark" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
                 60%
@@ -200,14 +200,14 @@
             <!--end::Svg Icon-->
             <!-- <div class="text-gray-100 fw-bold fs-2 mb-2 mt-5">{{$pending_employers}}</div> -->
             <hr />
-            <div class="fw-semibold ">AVERAGE TURNAROUND TIME</div>
+            {{-- <div class="fw-semibold ">AVERAGE TURNAROUND TIME</div> --}}
 
-            <div class="progress">
-              <div class="progress-bar bg-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+            {{-- <div class="progress"> --}}
+              {{-- <div class="progress-bar bg-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
                 60%
-              </div>
+              </div> --}}
 
-            </div>
+            {{-- </div> --}}
             <!--end::Statistics Widget 5-->
           </div>
 
@@ -227,7 +227,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">PENDING CLAIMS</h5>
+                    <h5 class="card-title text-uppercase text-muted mb-0">PENDING LICENCES</h5>
                     <span class="h2 font-weight-bold mb-0">{{$pendingclaims}}</span>
                   </div>
                   <div class="col-auto">
@@ -246,7 +246,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">APPROVED CLAIMS</h5>
+                  <h5 class="card-title text-uppercase text-muted mb-0">APPROVED LICNECES</h5>
                   <span class="h2 font-weight-bold mb-0">{{$approvedclaims}}</span>
                 </div>
                 <div class="col-auto">
@@ -265,7 +265,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">DISCONTINUED CLAIMS</h5>
+                  <h5 class="card-title text-uppercase text-muted mb-0">TERMINATED LICENCES</h5>
                   <span class="h2 font-weight-bold mb-0">0</span>
                 </div>
                 <div class="col-auto">

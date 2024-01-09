@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-black-50 pt-5">Business Development:<b style="color: #000"> Overview</b></h1>
+<h1 class="text-black-50 pt-5">Business Development :<b style="color: #000"> Overview</b></h1>
 <br>
 
 
@@ -30,7 +30,7 @@
 				</span>
 				<!--end::Svg Icon-->
 				<div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">26085</div>
-				<div class="fw-semibold text-gray-400">Total Issued Reciept</div>
+				<div class="fw-semibold text-gray-400">Total Issued Certificate</div>
 			</div>
 			<!--end::Body-->
 		</a>
@@ -51,7 +51,7 @@
 				</span>
 				<!--end::Svg Icon-->
 				<div class="text-gray-100 fw-bold fs-2 mb-2 mt-5">0</div>
-				<div class="fw-semibold text-gray-100">Total ECS Reconciliation</div>
+				<div class="fw-semibold text-gray-100">Total Issued Licences</div>
 			</div>
 			<!--end::Body-->
 		</a>
@@ -71,7 +71,7 @@
 				</span>
 				<!--end::Svg Icon-->
 				<div class="text-white fw-bold fs-2 mb-2 mt-5">0</div>
-				<div class="fw-semibold text-white">Total Verified Certificate</div>
+				<div class="fw-semibold text-white">Total Issued Permits</div>
 			</div>
 			<!--end::Body-->
 		</a>
@@ -86,7 +86,7 @@
 			<!--begin::Header-->
 			<div class="card-header border-0 pt-5">
 				<h3 class="card-title align-items-start flex-column">
-					<span class="card-label fw-bold fs-3 mb-1">ECS Payment Analysis</span>
+					<span class="card-label fw-bold fs-3 mb-1">Certificate Payment Analysis</span>
 					<!-- <span class="text-muted fw-semibold fs-7">More than 500 new customers</span> -->
 				</h3>
 				<!--begin::Toolbar-->
@@ -139,16 +139,16 @@
 
 
 <!--begin::Tables Widget 12-->
-<div class="card mb-5 mb-xl-8">
+{{-- <div class="card mb-5 mb-xl-8"> --}}
 	<!--begin::Header-->
-	<div class="card-header border-0 pt-5">
+	{{-- <div class="card-header border-0 pt-5">
 		<h3 class="card-title align-items-start flex-column">
 			<span class="card-label fw-bold fs-3 mb-1"> ECS Payments (Pending/Approved)</span>
 			<!-- <span class="text-muted mt-1 fw-semibold fs-7">Over 500 new members</span> -->
 		</h3>
-	</div>
+	</div> --}}
 	<!--end::Header-->
-	<!--begin::Body-->
+	{{-- <!--begin::Body-->
 	<div class="card-body py-3">
 		<!-- Tabs content -->
 		<div class="tab-content" id="ex2-content">
@@ -208,7 +208,7 @@
 				</div>
 			</div>
 			<!--begin::Body-->
-		</div>
+		</div> --}}
 		<!--end::Tables Widget 12-->
 	</div>
 </div>

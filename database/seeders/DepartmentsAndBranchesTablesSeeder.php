@@ -19,6 +19,7 @@ class DepartmentsAndBranchesTablesSeeder extends Seeder
      *
      * @return void
      */
+    // -- from me atp, if you are looking for department seeder go to staff.sql
     public function run()
     {
                     // create roles and assign created permissions

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-black-50 pt-5">Enginerring:<b style="color: #000"> Overview</b></h1>
+<h1 class="text-black-50 pt-5">Engineering Department:<b style="color: #000"> Overview</b></h1>
 <br>
 
 <!--begin::Row-->
@@ -22,9 +22,9 @@
             <!--begin::Body-->
             <div class="card-body my-3">
                 <span class="float-end">
-                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">OPE</div>
+                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">DOCUMENTS</div>
                 </span>
-                <a href="#" class="card-title fw-bold text-success fs-5 mb-3 d-block">Treated</a>
+                <a href="#" class="card-title fw-bold text-success fs-5 mb-3 d-block">New</a>
 
                 <div class="py-1">
                     <span class="text-dark fs-1 fw-bold me-2">50%</span>
@@ -44,7 +44,7 @@
             <!--begin::Body-->
             <div class="card-body my-3">
                 <span class="float-end">
-                    <div class="text-white fw-bold fs-2 mb-2 mt-5">OPE</div>
+                    <div class="text-white fw-bold fs-2 mb-2 mt-5">DOCUMENTS</div>
                 </span>
                 <a href="#" class="card-title fw-bold text-warning fs-5 mb-3 d-block">Pending</a>
                 <div class="py-1">
@@ -65,9 +65,9 @@
             <!--begin::Body-->
             <div class="card-body my-3">
                 <span class="float-end">
-                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">OPE</div>
+                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">DOCUMENTS</div>
                 </span>
-                <a href="#" class="card-title fw-bold text-primary fs-5 mb-3 d-block">New</a>
+                <a href="#" class="card-title fw-bold text-primary fs-5 mb-3 d-block">Treated</a>
                 <div class="py-1">
                     <span class="text-dark fs-1 fw-bold me-2">76%</span>
                     <span class="fw-semibold text-muted fs-7">High Compared to existing</span>
@@ -98,7 +98,7 @@
                     </svg>
                 </span>
                 <span class="float-end">
-                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">ECS Certificate</div>
+                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">Licences</div>
                 </span>
                 <!--end::Svg Icon-->
                 <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">26085</div>
@@ -123,7 +123,7 @@
                 </span>
                 <!--end::Svg Icon-->
                 <span class="float-end">
-                    <div class="text-white fw-bold fs-2 mb-2 mt-5">ECS Certificate</div>
+                    <div class="text-white fw-bold fs-2 mb-2 mt-5">Inspection</div>
                 </span>
                 <div class="text-gray-100 fw-bold fs-2 mb-2 mt-5">0</div>
                 <div class="fw-semibold text-gray-100">New Request</div>
@@ -146,10 +146,10 @@
                 </span>
                 <!--end::Svg Icon-->
                 <span class="float-end">
-                    <div class="text-white fw-bold fs-2 mb-2 mt-5">ECS Certificate</div>
+                    <div class="text-white fw-bold fs-2 mb-2 mt-5">Permits</div>
                 </span>
                 <div class="text-white fw-bold fs-2 mb-2 mt-5">0</div>
-                <div class="fw-semibold text-white">Total Defaulters</div>
+                <div class="fw-semibold text-white">Total Issued</div>
             </div>
             <!--end::Body-->
         </a>
@@ -158,7 +158,7 @@
 </div>
 
 <div class="row g-5 g-xl-8">
-    <div class="col-xl-12">
+    {{-- <div class="col-xl-12">
         <!--begin::Charts Widget 5-->
         <div class="card card-xl-stretch mb-xl-8">
             <!--begin::Header-->
@@ -182,13 +182,13 @@
                 <div id="kt_charts_widget_14_chart" class="w-100 h-350px"></div>
                 <!--end::Chart container-->
             </div>
-            <!--end::Body-->
+            <!--end::Body--> --}}
         </div>
         <!--end::Charts Widget 5-->
     </div>
     <div class="col-xl-12">
         <!--begin::Charts Widget 5-->
-        <div class="card card-xl-stretch mb-5 mb-xl-8">
+        {{-- <div class="card card-xl-stretch mb-5 mb-xl-8">
             <!--begin::Header-->
             <div class="card-header border-0 pt-5">
                 <h3 class="card-title align-items-start flex-column">
@@ -210,7 +210,7 @@
                 <!--end::Chart container-->
             </div>
             <!--end::Body-->
-        </div>
+        </div> --}}
         <!--end::Charts Widget 5-->
     </div>
 </div>

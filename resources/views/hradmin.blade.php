@@ -11,7 +11,7 @@
       <!--begin::Page title-->
       <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <!--begin::Title-->
-        <h1 class="text-black-50 pt-5">Human Resource :<b style="color: #000"> Overview</b></h1>
+        <h1 class="text-black-50 pt-5">1.	Administration, Corporate Services and Human Resources :<b style="color: #000"> Overview</b></h1>
         <!--end::Title-->
         <br>
       </div>
@@ -436,17 +436,17 @@
       <div class="row g-5 g-xl-10">
         <div class="col-xxl-12 mb-5 mb-xl-10">
           <!--begin::Tables Widget 12-->
-          <div class="card mb-5 mb-xl-8">
+          {{-- <div class="card mb-5 mb-xl-8">
             <!--begin::Header-->
             <div class="card-header border-0 pt-5">
               <h3 class="card-title align-items-start flex-column">
                 <span class="card-label fw-bold fs-3 mb-1">REGISTRATION SHORTCUT</span>
                 <!-- <span class="text-muted mt-1 fw-semibold fs-7">Over 500 new members</span> -->
               </h3>
-            </div>
+            </div> --}}
             <!--end::Header-->
             <!--begin::Body-->
-            <div class="card-body py-3">
+            {{-- <div class="card-body py-3">
               <!-- Tabs navs -->
               <ul class="nav nav-tabs" id="ex1" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -461,11 +461,11 @@
                 <li class="nav-item" role="presentation">
                   <a class="nav-link" id="ex2-tab-4" data-bs-toggle="tab" href="#ex2-tabs-4" role="tab" aria-controls="ex2-tabs-4" aria-selected="false">INCOMPLETE EMPLOYEES</a>
                 </li>
-              </ul>
+              </ul> --}}
               <!-- Tabs navs -->
 
               <!-- Tabs content -->
-              <div class="tab-content" id="ex2-content">
+              {{-- <div class="tab-content" id="ex2-content">
                 <div class="tab-pane fade show active" id="ex2-tabs-1" role="tabpanel" aria-labelledby="ex2-tab-1">
                   <!--begin::Table container-->
                   <div class="table-responsive">
@@ -519,8 +519,8 @@
                       </div>
                     </div>
                     <!--end::Table-->
-                  </div>
-                  <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
+                  </div> --}}
+                  {{-- <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
                     <!--begin::Table container-->
                     <div class="table-responsive">
                       <!--begin::Table-->
@@ -568,8 +568,8 @@
                       <!--end::Table-->
                     </div>
                     <!--end::Table container-->
-                  </div>
-                  <div class="tab-pane fade" id="ex2-tabs-3" role="tabpanel" aria-labelledby="ex2-tab-3">
+                  </div> --}}
+                  {{-- <div class="tab-pane fade" id="ex2-tabs-3" role="tabpanel" aria-labelledby="ex2-tab-3">
                     <!--begin::Table container-->
                     <div class="table-responsive">
                       <!--begin::Table-->
@@ -671,9 +671,9 @@
                 <!-- Tabs content -->
               </div>
               <!-- Tabs content -->
-            </div>
+            </div> --}}
             <!--begin::Body-->
-          </div>
+          {{-- </div> --}}
           <!--end::Tables Widget 12-->
           <div class="card">
             <div class="card-body">
