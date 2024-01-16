@@ -24,6 +24,8 @@
                 @include('itmadmin')
             @elseif (auth()->user()->staff->department_id == 17)
                 @include('hseadmin')
+            @elseif (auth()->user()->staff->department_id == 11)
+                @include('surveyadmin')
             @elseif (auth()->user()->hasRole('minister'))
                 @include('minister')
             @elseif (auth()->user()->hasRole('permsec'))
@@ -36,8 +38,9 @@
                 @include('informalsectoradmin')
             @elseif (auth()->user()->staff->department_id == 3)
                 @include('ictadmin')
-            @elseif (auth()->user()->staff->department_id == 14)
-                @include('socialsecurityadmin')
+            {{-- @elseif (auth()->user()->staff->department_id == 14)
+                @include('socialsecurityadmin') --}}
+
             @elseif (auth()->user()->staff->department_id == 7)
                 @include('procurement')
             @elseif (auth()->user()->staff->department_id == 11)

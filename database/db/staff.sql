@@ -123,7 +123,7 @@ INSERT INTO `all_departments` (`department_id`, `dep_unit`, `status`, `createdAt
 (10, 'Port and Environment Services', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (11, 'Project Management and Special Duties', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (12, 'Co-ordination', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
-(14, 'Surveyt', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
+(14, 'Survey', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (15, 'Audit and Internal Control', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (16, 'Engineering', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),
 (18, 'Inland Waterways Police Command', 1, '2023-05-14 12:56:48', '2023-05-14 12:50:29'),

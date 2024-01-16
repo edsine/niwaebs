@@ -17,7 +17,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-stack">
                       
-                        <h3 class="m-0 text-white fw-bolder fs-3">Complaince Report</h3>
+                        <h3 class="m-0 text-white fw-bolder fs-3">Complaince Report </h3>
                         
                     </div>
                     <!--end::Heading-->
