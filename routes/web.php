@@ -17,6 +17,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ZoomMeetingController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use App\Http\Controllers\ESSPPaymentController;
+use App\Http\Controllers\EmployerDocumentController;
 
 
 /*
@@ -34,6 +35,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'clockIn'])->name('home');
     Route::post('/home/clock-in', [HomeController::class, 'clockIn'])->name('clock-in');
     Route::post('/home/clock-out', [HomeController::class, 'clockOut'])->name('clock-out');
+	Route::get('/document/index', 'App\Http\Controllers\EmployerDocumentController@index')->name('document.index');
+    Route::patch('/approve-document/{id}', [EmployerDocumentController::class, 'approveDocument'])
+    ->name('approveDocument');
+    Route::get('/inspection-notice/{id}', [EmployerDocumentController::class, 'inspectionNotice'])
+    ->name('inspection.notice');
+    Route::post('/inspection-send', [EmployerDocumentController::class, 'sendInspectionNotice'])
+    ->name('inspection.send');
 });
 
 

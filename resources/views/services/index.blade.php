@@ -98,6 +98,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $services->links() }}
             </div>
         </div><!-- .card-preview -->
     </div> <!-- nk-block -->
