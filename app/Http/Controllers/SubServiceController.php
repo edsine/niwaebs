@@ -11,7 +11,7 @@ class SubServiceController extends Controller
     //
     public function index()
     {
-        $services = SubService::all();
+        $services = SubService::paginate(10);
 
         return view('sub_services.index', compact('services'));
     }
