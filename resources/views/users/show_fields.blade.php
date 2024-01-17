@@ -46,9 +46,9 @@
 
 <!-- Department Field -->
 <div class="col-sm-4">
-    {!! Form::label('name', 'Department Unit') !!}
+    {!! Form::label('department_unit', 'Department Unit') !!}
     <div class="form-group">
-        <p>{!! $user->name !!}</p>
+        <p>{!! $user->department_unit !!}</p>
     </div>
 </div>
 

@@ -63,6 +63,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/hradmin', [HomeController::class, 'hradmin'])->name('hradmin');
     Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
     Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
+    Route::resource('services', App\Http\Controllers\ServiceController::class);
+    Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
 });
 
 // Route::middleware(['auth', 'authuserbyrole'])->group(function(){
