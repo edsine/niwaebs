@@ -12,7 +12,7 @@
 
 <!-- users Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('user_id', 'Unit Heads:') !!}
+    {!! Form::label('user_id', 'HEAD SECTION:') !!}
     {!! Form::select('user_id', $users, null, ['class' => 'form-control custom-select','id'=>'userSelect']) !!}
 </div>
 

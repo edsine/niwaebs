@@ -105,7 +105,7 @@ class UserController extends AppBaseController
             ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
-            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
 
         $noroleQuery = DB::table('users')
             ->leftJoin('staff', 'users.id', '=', 'staff.user_id')
@@ -113,7 +113,7 @@ class UserController extends AppBaseController
             ->whereNull('model_has_roles.role_id')
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
-            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
          
         }else{
             $usersQuery = DB::table('users')
@@ -123,7 +123,7 @@ class UserController extends AppBaseController
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
             ->where('staff.branch_id',$userbranch_id)
-            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
 
         $noroleQuery = DB::table('users')
             ->leftJoin('staff', 'users.id', '=', 'staff.user_id')
@@ -132,7 +132,7 @@ class UserController extends AppBaseController
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
             ->where('staff.branch_id',$userbranch_id)
-            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
 
          }
 
@@ -283,7 +283,7 @@ class UserController extends AppBaseController
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
       
       
-        $department = $this->departmentRepository->all()->pluck('department_unit', 'id');
+        $department = $this->departmentRepository->all()->pluck('name', 'id');
         return view('users.create', compact('roles', 'branch', 'department', 'rank'));
     }
 
@@ -504,7 +504,7 @@ class UserController extends AppBaseController
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
 
         
-        $department = $this->departmentRepository->all()->pluck('department_unit', 'id');
+        $department = $this->departmentRepository->all()->pluck('name', 'id');
 
 
         $rank = Ranking::all()->pluck('name', 'id');

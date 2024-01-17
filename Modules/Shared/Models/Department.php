@@ -61,19 +61,19 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Unit;
     public $table = 'departments';
 
     public $fillable = [
-        'department_unit',
+        'name',
         'description',
         'branch_id'
     ];
 
     protected $casts = [
-        'department_unit' => 'string',
+        'name' => 'string',
         'description' => 'string'/* ,
         'branch_id' => 'integer' */
     ];
 
     public static array $rules = [
-        'department_unit' => 'required',
+        'name' => 'required',
        /*  'branch_id' => 'required' */
     ];
 

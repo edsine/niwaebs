@@ -28,15 +28,14 @@ class RealRolesTablesSeeder extends Seeder
                 'ADMINISTRATION',
                 'USER',
                 'SUPERVISOR',
-                'CERTIFICATE/COMPLIANCE',
+                'CERTIFICATE',
                 'LEAVE PROCESSING OFFICER',
                 'REGISTRY OFFICER',
                 'ED ADMIN',
                 'HR',
-                'Branch Manager',
-                'Regional Manager',
                 'permsec',
                 'minister',
+                'Area Manager',
                 
                 
             ];
