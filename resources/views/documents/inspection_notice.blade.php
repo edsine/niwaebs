@@ -15,7 +15,7 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Inspection Notice</h3>
                 <div class="nk-block-des text-soft">
-                    <p>Send Inspection Notice To </p>
+                    <p>Send Inspection Notice To {{ $employer->contact_firstname.' '.$employer->contact_surname }}</p>
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->
@@ -37,7 +37,7 @@
                                         <div class="form-file">
                                             <label class="form-file-label" for="inspection_datetime">Inspection Date & Time</label>
                                             <input type="hidden" name="employer_id" value="{{ $id }}"/>
-                                            <input type="date" name="inspection_datetime" value=""/>
+                                            <input type="datetime-local" class="form-control" name="inspection_datetime" value="" />
                                             
                                             
                                         </div>

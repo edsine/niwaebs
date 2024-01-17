@@ -16,6 +16,7 @@
                 <h3 class="nk-block-title page-title">Uploaded documents</h3>
                 <div class="nk-block-des text-soft">
                     <p>List of uploaded documents</p>
+                    @include('layouts.messages')
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->

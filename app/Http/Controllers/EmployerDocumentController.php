@@ -10,7 +10,7 @@ use App\Models\EmployerDocuments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use App\Mail\EmployerDocumentEmail;
+use App\Mail\SendInspectionNoticeEmail;
 use Illuminate\Support\Facades\DB;
 
 class EmployerDocumentController extends Controller
@@ -35,7 +35,7 @@ class EmployerDocumentController extends Controller
         $employer = Employer::findOrFail($document_status->employer_id);
         $employer->update(['inspection_status' => 1]);
 
-
+        return redirect('/inspection-notice/'.$document_status->employer_id)->with('success', 'Document approved successfully');
         }
 
         // Redirect back with a success message
@@ -44,11 +44,32 @@ class EmployerDocumentController extends Controller
     public function inspectionNotice($id)
     {
         $employer = Employer::findOrFail($id);
-        return view('documents.inspection_notice', compact(['id']));
+        return view('documents.inspection_notice', compact(['id','employer']));
     }
     public function sendInspectionNotice(Request $request)
     {
+        $request->validate([
+            'employer_id' => 'required',
+            'inspection_datetime' => 'required',
+        ]);
         
+        $employer_id = $request->employer_id;
+        $inspection_datetime = $request->inspection_datetime;
+        
+        try {
+            $employer = Employer::findOrFail($employer_id);
+
+            $email = $employer->company_email;
+        
+            // Send thank you email to each filtered email address
+                Mail::to($email)->send(new SendInspectionNoticeEmail($inspection_datetime));
+        
+        
+            return redirect('/document/index')->with('success', 'Inspection notice sent successfully.');
+        } catch (\Exception $e) {
+            // Handle the exception here
+            return redirect()->route('document.index')->with('error', 'Failed to notify the client: ' . $e->getMessage());
+        }       
         
     }
     public function create()
@@ -105,42 +126,7 @@ class EmployerDocumentController extends Controller
         $payment = Payment::where('employer_id', auth()->user()->id)->where('document_uploads', 1)->latest()->first();
 
            $payment->document_uploads = 0;
-            $payment->save();
-
-            
-            try {
-                // Fetch user roles, email, and department from the staff table and roles table
-                $userDetails = DB::table('staff')
-                    ->join('model_has_roles', 'staff.user_id', '=', 'model_has_roles.model_id')
-                    ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-                    ->join('users', 'staff.user_id', '=', 'users.id')
-                    ->where('model_has_roles.model_type', 'App\Models\User')
-                    ->select('users.email', 'roles.name as role', 'staff.department_id')
-                    ->get();
-            
-                // Define the roles and departments you want to notify
-                $targetRoles = ['HOD'];
-                $targetDepartments = ['MARINE', 'SURVEY', 'ENGINEERING'];
-            
-                // Filter email addresses based on user roles and departments
-                $filteredEmailAddresses = [];
-            
-                foreach ($userDetails as $user) {
-                    if (in_array($user->role, $targetRoles) && in_array($user->department_id, $targetDepartments)) {
-                        $filteredEmailAddresses[] = $user->email;
-                    }
-                }
-            
-                // Send thank you email to each filtered email address
-                foreach ($filteredEmailAddresses as $email) {
-                    Mail::to($email)->send(new EmployerDocumentEmail($employer_documents, auth()->user()));
-                }
-            
-                return redirect('/documents/index')->with('success', 'Document uploaded successfully.');
-            } catch (\Exception $e) {
-                // Handle the exception here
-                return redirect()->route('documents.index')->with('error', 'Failed to notify everyone: ' . $e->getMessage());
-            }            
+            $payment->save();     
         
         
     }
