@@ -45,7 +45,7 @@
                         
                         </td>
                            
-                            <td>{!! $p->name !!}</td>
+                            <td>{!! $p->department_unit !!}</td>
                             <td>{!! $p->branch_name !!}</td>
                             {{-- <td>
                                  @if (isset($p->status) && $p->status == 1)
@@ -67,7 +67,7 @@
                                 data-fullname="{{ $p->first_name.' '.$p->middle_name.' '.$p->last_name }}"
                                 data-email="{{ $p->email }}"
                                 data-role="{{ $p->role }}"
-                                data-department="{{ $p->name }}"
+                                data-department="{{ $p->department_unit }}"
                                 data-branch="{{ $p->branch_name }}">
                             <i class="far fa-eye"></i>
                         </button>
@@ -124,7 +124,7 @@
             
                 <td >Not yet assigned a role</td>
                    
-                    <td>{!! $p->name !!}</td>
+                    <td>{!! $p->department_unit !!}</td>
                     <td>{!! $p->branch_name !!}</td>
                    
                     <td style="width: 120px">
@@ -134,7 +134,7 @@
                             data-fullname="{{ $p->first_name.' '.$p->middle_name.' '.$p->last_name }}"
                             data-email="{{ $p->email }}"
                             data-role="{{ $p->role }}"
-                            data-department="{{ $p->name }}"
+                            data-department="{{ $p->department_unit }}"
                             data-branch="{{ $p->branch_name }}">
                         <i class="far fa-eye"></i>
                     </button>

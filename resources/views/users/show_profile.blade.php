@@ -367,7 +367,7 @@
             <!--begin::Col-->
             
             <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800"> {{auth()->user()->staff->department->name}}</span>
+                <span class="fw-bolder fs-6 text-gray-800"> {{auth()->user()->staff->department->department_unit}}</span>
             </div>
             <!--end::Col-->
         </div>
