@@ -63,45 +63,46 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row grid-margin">
+        <div class="row grid-margin">
             <div class="col-12">
                 <div class="card card-statistics">
                     <div class="card-body">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                             <div class="statistics-item">
                                 <p>
-                                    <i class="icon-sm fa fa-user mr-2"></i>
-                                    Employee Turnover Rate
+                                    <i class="icon-sm fa fa-table mr-2"></i>
+                                    Desk Utilization
                                 </p>
-                                <h2>5400</h2>
-                                <label class="badge badge-outline-success badge-pill">89.7% increase</label>
+                                <h6>Total Desks: 3000</h6>
+                                <h6>Used Desks: 2000</h6>
+                                <label class="badge badge-outline-success badge-pill">Remaining Desks: 1000</label>
                             </div>
                             <div class="statistics-item">
                                 <p>
-                                    <i class="icon-sm fas fa-hourglass-half mr-2"></i>
-                                    Number of New Hires
+                                    <i class="icon-sm fa fa-computer mr-2"></i>
+                                    Computer Utilization
                                 </p>
-                                <h2>100</h2>
-                                <label class="badge badge-outline-danger badge-pill">30% decrease</label>
+                                <h6>Total Computers: 2000</h6>
+                                <h6>Used Computers: 1500</h6>
+                                <label class="badge badge-outline-success badge-pill">Remaining Computers: 1000</label>
                             </div>
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
-                                    Average Time to Hire
+                                    Main Facility Utilization Metrics
                                 </p>
-                                <h2>140 hours</h2>
-                                <label class="badge badge-outline-success badge-pill">12% increase</label>
+                                <h6>Condition: Good</h6>
+                                <label class="badge badge-outline-success badge-pill">Usage: 12%</label>
                             </div>
                             <div class="statistics-item">
                                 <p>
-                                    <i class="icon-sm fas fa-check-circle mr-2"></i>
-                                    Percentage of Employees Completed Training
-
+                                    <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
+                                    Second Facility Utilization Metrics
                                 </p>
-                                <h2>950</h2>
-                                <label class="badge badge-outline-success badge-pill">57% increase</label>
+                                <h6>Structure Condition: Good</h6>
+                                <label class="badge badge-outline-success badge-pill">Usage: 48%</label>
                             </div>
-                            <div class="statistics-item">
+                            {{-- <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-chart-line mr-2"></i>
                                     Overall Employee Satisfaction Score
@@ -116,12 +117,12 @@
                                 </p>
                                 <h2>70</h2>
                                 <label class="badge badge-outline-danger badge-pill">16% decrease</label>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <div class="row">
             <div class="col-md-4 grid-margin">
                 <div class="card shadow">
