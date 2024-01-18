@@ -7,6 +7,7 @@ use App\Models\Employee;
 use Modules\EmployerManager\Models\Employer;
 use Modules\EmployerManager\Models\Payment;
 use App\Models\EmployerDocuments;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -55,8 +56,16 @@ class EmployerDocumentController extends Controller
         
         $employer_id = $request->employer_id;
         $inspection_datetime = $request->inspection_datetime;
+        $message = $request->message;
         
         try {
+            Notification::create([
+                'user_id' => $employer_id,
+                'type' => $inspection_datetime,
+                'data' => $message,
+                'is_read' => 1,
+            ]);
+
             $employer = Employer::findOrFail($employer_id);
 
             $email = $employer->company_email;

@@ -43,11 +43,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br/>
+                                <div class="form-group">
+                                    
+                                    <div class="form-control-wrap">
+                                        <div class="form-file">
+                                            <label class="form-file-label" for="message">Message</label>
+                                            <textarea class="form-control" name="message" ></textarea>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
                             </div>
+
+                           
                            
                         </div>
                     
-                        <hr class="preview-hr">
+                        
                         <div class="row g-4">
                             <div class="col-2">
                                 <div class="form-group">
