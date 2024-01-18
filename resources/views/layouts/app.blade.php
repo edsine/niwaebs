@@ -396,14 +396,14 @@
     </style>
 
     <!-- plugins:css -->
-    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/iconfonts/font-awesome/css/all.min.css') }}" >
-    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/css/vendor.bundle.base.css') }}" >
-    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/css/vendor.bundle.addons.css') }}" >
+    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/css/vendor.bundle.addons.css') }}">
     <!-- endinject -->
     <!-- plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="{{ asset('sh_assets/css/style.css') }}" >
+    <link rel="stylesheet" href="{{ asset('sh_assets/css/style.css') }}">
     <!-- endinject -->
 </head>
 
@@ -441,19 +441,21 @@
         <!--begin::Wrapper-->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_settings-panel.html -->
-            
+
             <!--begin::Sidebar-->
             @include('layouts.sidebar')
             <!--end::Sidebar-->
             <!--begin::Main-->
-            <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
                 <!--begin::Content wrapper-->
-                @include('layouts.content')
-                <!--end::Content wrapper-->
-                <!--begin::Footer-->
-                @include('layouts.footer')
-                <!--end::Footer-->
-            </div>
+                <!-- main-panel starts -->
+                <div class="main-panel">
+                    @include('layouts.content')
+                    <!--end::Content wrapper-->
+                    <!--begin::Footer-->
+                    @include('layouts.footer')
+                    <!--end::Footer-->
+                </div>
+                <!-- main-panel ends -->
             <!--end:::Main-->
         </div>
         <!--end::Wrapper-->
@@ -649,7 +651,7 @@
 
     <!-- plugins:js -->
     <script src="{{ asset('sh_assets/vendors/js/vendor.bundle.base.js') }}"></script>
-    
+
     <script src="{{ asset('sh_assets/vendors/js/vendor.bundle.addons.js') }}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page-->
