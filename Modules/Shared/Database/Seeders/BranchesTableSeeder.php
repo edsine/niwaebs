@@ -19,7 +19,6 @@ class BranchesTableSeeder extends Seeder
 
         // DB::table('branches')->truncate();
         $areaoffices = [
-            ['branch_name'=>'Headquaters'],
             ['branch_name'=>'Lagos'],
             ['branch_name'=>'Port Harcourt'],
             ['branch_name'=>'Warri'],
