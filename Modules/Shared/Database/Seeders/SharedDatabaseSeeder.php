@@ -4,6 +4,7 @@ namespace Modules\Shared\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Shared\Database\Seeders\BranchesTableSeeder;
 
 class SharedDatabaseSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class SharedDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(DepartmentsTableSeeder::class);
+         $this->call(BranchesTableSeeder::class);
     }
 }

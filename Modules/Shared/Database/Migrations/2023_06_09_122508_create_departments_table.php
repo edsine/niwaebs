@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id('id');
             $table->string('name')->nullable();
             $table->string('department_unit')->nullable();
-            $table->integer('status')->nullable();
             $table->text('description')->nullable();
+            $table->integer('status')->nullable();
             $table->foreignId('branch_id')->nullable()->constrained('branches')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

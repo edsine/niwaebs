@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>ESSP Payments</h1>
+                    <h1>NIWA Payments</h1>
                 </div>
                 
             </div>
@@ -37,7 +37,7 @@
             <tbody>
                 @foreach ($payments as $payment)
                     <tr>
-                        <td>{{ $payment->payment_type == 1 ? 'ECS Registration Fee' : ($payment->payment_type == 2 ? 'Certificate Request' : 'ECS Payment '.$payment->contribution_year . ($payment->contribution_period=='Monthly' ? ' ('.$payment->contribution_months.' months)' : '')) }}
+                        <td>{{ $payment->payment_type == 1 ? 'Registration Fee' : ($payment->payment_type == 2 ? 'Processing Fee' : 'Application Fee + Processing Fee '.$payment->contribution_year . ($payment->contribution_period=='Monthly' ? ' ('.$payment->contribution_months.' months)' : '')) }}
                         </td>
                         <td>{{ $payment->invoice_number }}</td>
                         <td>{{ $payment->rrr }}</td>
