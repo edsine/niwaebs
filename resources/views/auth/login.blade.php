@@ -35,6 +35,24 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/NSITF-Logo-login.png') }}" />
 
+
+    <style>
+        input{
+            font-size: large !important;
+        }
+        .btn-check:checked + .btn.btn-primary, .btn-check:active + .btn.btn-primary, .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .btn.btn-primary:active:not(.btn-active), .btn.btn-primary.active, .btn.btn-primary.show, .show > .btn.btn-primary {
+            background-color: #59A766 !important;
+            color: #ffffff;
+        }
+
+        .font {
+            font-size: large !important;
+        }
+        label {
+            font-size: large !important;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -87,11 +105,11 @@
                                 <div class="my-2 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
-                                            <input type="checkbox" id="remember" class="form-check-input">
+                                            <input type="checkbox" id="remember" class="font form-check-input">
                                             Keep me signed in
                                         </label>
                                     </div>
-                                    <a href="{{ route('password.request') }}" class="auth-link text-black">Forgot password?</a>
+                                    <a href="{{ route('password.request') }}" class="font auth-link text-black">Forgot password?</a>
                                 </div>
                                 <div class="my-3">
                                     <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">LOGIN</button>
@@ -111,7 +129,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 login-half-bg d-flex flex-row">
-                        <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy;
+                        <p class="text-white font-weight-medium text-center flex-grow align-self-end font">Copyright &copy;
                             2024 All rights reserved.</p>
                     </div>
                 </div>
