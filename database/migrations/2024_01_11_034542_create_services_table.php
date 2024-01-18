@@ -8,18 +8,13 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->id('id');
+        Schema::create('services', function (Blueprint $table) {
+            $table->id();
             $table->string('name')->nullable();
-            $table->string('department_unit')->nullable();
-            $table->text('description')->nullable();
             $table->integer('status')->nullable();
-            $table->foreignId('branch_id')->nullable()->constrained('branches')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,11 +22,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::drop('departments');
+        Schema::dropIfExists('services');
     }
 };
