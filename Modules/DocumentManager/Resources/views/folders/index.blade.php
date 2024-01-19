@@ -30,7 +30,7 @@
                     <div class="d-flex flex-column">
                         <h2 class="mb-1">Documents Manager</h2>
                         <div class="text-muted fw-bold">
-                            <a href="#">NSITFEBS</a>
+                            <a href="#">NIWAEBS</a>
                             <span class="mx-3">|</span>
                             <a href="#">Documents Manager</a>
                         </div>

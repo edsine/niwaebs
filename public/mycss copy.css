@@ -145,7 +145,7 @@ align-self: center;
     height: auto; /* Let the height adjust proportionally */
     opacity: 0.2; /* Adjust the opacity to control the watermark effect */
     pointer-events: none; /* Ensure the pseudo-element doesn't interfere with form interactions */
-    background-image: url('NSITF-logo.png'); /* Replace with your logo's path */
+    background-image: url('NIWA-logo.png'); /* Replace with your logo's path */
     background-repeat: no-repeat;
     background-size: contain; /* Adjust this based on how you want the logo's size to be */
   }

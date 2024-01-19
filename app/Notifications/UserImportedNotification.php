@@ -45,7 +45,7 @@ class UserImportedNotification extends Notification
             ->line('You can use this details to login and access your dashboard.')
             ->action('Login', url('/login'))
             ->line('Thank you.')
-            ->line('E-NSITF');
+            ->line('E-NIWA');
     }
 
     /**

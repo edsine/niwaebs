@@ -134,7 +134,7 @@
     </div>
     <div class="col-sm-6 col-xl-4">
         <!--begin::Statistics Widget 5-->
-        <a href="#" class="card shadow bg-warning hoverable card-xl-stretch mb-xl-8">
+        <a href="#" class="card shadow bg-dark hoverable card-xl-stretch mb-xl-8">
             <!--begin::Body-->
             <div class="card-body">
                 <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
@@ -213,6 +213,7 @@
         </div> --}}
         <!--end::Charts Widget 5-->
     </div>
+
 </div>
 
 @endsection
