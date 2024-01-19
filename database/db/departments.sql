@@ -18,7 +18,7 @@
 -- Dumping data for table `departments`
 --
 -- from me atp, if you are looking for department seeder go to staff.sql
-INSERT INTO `departments` (`id`, `name`, `department_unit`, `status`, `description`, `branch_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `departments` (`id`, `department_unit`, `name`, `status`, `description`, `branch_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, NULL, 'Survey', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (2, NULL, 'Adminstration,Corporate Services and Human Resource ', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
 (3, NULL, 'ICT', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),

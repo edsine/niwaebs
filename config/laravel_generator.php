@@ -9,99 +9,99 @@ return [
     |
     */
 
-    // 'path' => [
-
-    //     'migration'         => database_path('migrations/'),
-
-    //     'model'             => app_path('Models/'),
-
-    //     'datatables'        => app_path('DataTables/'),
-
-    //     'livewire_tables'   => app_path('Http/Livewire/'),
-
-    //     'repository'        => app_path('Repositories/'),
-
-    //     'routes'            => base_path('routes/web.php'),
-
-    //     'api_routes'        => base_path('routes/api.php'),
-
-    //     'request'           => app_path('Http/Requests/'),
-
-    //     'api_request'       => app_path('Http/Requests/API/'),
-
-    //     'controller'        => app_path('Http/Controllers/'),
-
-    //     'api_controller'    => app_path('Http/Controllers/API/'),
-
-    //     'api_resource'      => app_path('Http/Resources/'),
-
-    //     'schema_files'      => resource_path('model_schemas/'),
-
-    //     'seeder'            => database_path('seeders/'),
-
-    //     'database_seeder'   => database_path('seeders/DatabaseSeeder.php'),
-
-    //     'factory'           => database_path('factories/'),
-
-    //     'view_provider'     => app_path('Providers/ViewServiceProvider.php'),
-
-    //     'tests'             => base_path('tests/'),
-
-    //     'repository_test'   => base_path('tests/Repositories/'),
-
-    //     'api_test'          => base_path('tests/APIs/'),
-
-    //     'views'             => resource_path('views/'),
-
-    //     'menu_file'         => resource_path('views/layouts/menu.blade.php'),
-    // ],
-
     'path' => [
 
-        'migration'         => base_path('Modules/DocumentManager/Database/Migrations/'),
+        'migration'         => database_path('migrations/'),
 
-        'model'             => base_path('Modules/DocumentManager/Models/'),
+        'model'             => app_path('Models/'),
 
-        'datatables'        => base_path('Modules/DocumentManager/DataTables/'),
+        'datatables'        => app_path('DataTables/'),
 
-        'livewire_tables'   => base_path('Modules/DocumentManager/Http/Livewire/'),
+        'livewire_tables'   => app_path('Http/Livewire/'),
 
-        'repository'        => base_path('Modules/DocumentManager/Repositories/'),
+        'repository'        => app_path('Repositories/'),
 
-        'routes'            => base_path('Modules/DocumentManager/Routes/web.php'),
+        'routes'            => base_path('routes/web.php'),
 
-        'api_routes'        => base_path('Modules/DocumentManager/Routes/api.php'),
+        'api_routes'        => base_path('routes/api.php'),
 
-        'request'           => base_path('Modules/DocumentManager/Http/Requests/'),
+        'request'           => app_path('Http/Requests/'),
 
-        'api_request'       => base_path('Modules/DocumentManager/Http/Requests/API/'),
+        'api_request'       => app_path('Http/Requests/API/'),
 
-        'controller'        => base_path('Modules/DocumentManager/Http/Controllers/'),
+        'controller'        => app_path('Http/Controllers/'),
 
-        'api_controller'    => base_path('Modules/DocumentManager/Http/Controllers/API/'),
+        'api_controller'    => app_path('Http/Controllers/API/'),
 
-        'api_resource'      => base_path('Modules/DocumentManager/Http/Resources/'),
+        'api_resource'      => app_path('Http/Resources/'),
 
-        'schema_files'      => base_path('Modules/DocumentManager/model_schemas/'),
+        'schema_files'      => resource_path('model_schemas/'),
 
-        'seeder'            => base_path('Modules/DocumentManager/Database/Seeders/'),
+        'seeder'            => database_path('seeders/'),
 
-        'database_seeder'   => base_path('Modules/DocumentManager/Database/Seeders/DatabaseSeeder.php'),
+        'database_seeder'   => database_path('seeders/DatabaseSeeder.php'),
 
-        'factory'           => base_path('Modules/DocumentManager/Database/factories/'),
+        'factory'           => database_path('factories/'),
 
-        'view_provider'     => base_path('Modules/DocumentManager/Providers/ViewServiceProvider.php'),
+        'view_provider'     => app_path('Providers/ViewServiceProvider.php'),
 
-        'tests'             => base_path('Modules/DocumentManager/Tests/'),
+        'tests'             => base_path('tests/'),
 
-        'repository_test'   => base_path('Modules/DocumentManager/Tests/Repositories/'),
+        'repository_test'   => base_path('tests/Repositories/'),
 
-        'api_test'          => base_path('Modules/DocumentManager/Tests/APIs/'),
+        'api_test'          => base_path('tests/APIs/'),
 
-        'views'             => base_path('Modules/DocumentManager/Resources/views/'),
+        'views'             => resource_path('views/'),
 
-        'menu_file'         => base_path('Modules/DocumentManager/Resources/views/layouts/menu.blade.php'),
+        'menu_file'         => resource_path('views/layouts/menu.blade.php'),
     ],
+
+    // 'path' => [
+
+    //     'migration'         => base_path('Modules/DocumentManager/Database/Migrations/'),
+
+    //     'model'             => base_path('Modules/DocumentManager/Models/'),
+
+    //     'datatables'        => base_path('Modules/DocumentManager/DataTables/'),
+
+    //     'livewire_tables'   => base_path('Modules/DocumentManager/Http/Livewire/'),
+
+    //     'repository'        => base_path('Modules/DocumentManager/Repositories/'),
+
+    //     'routes'            => base_path('Modules/DocumentManager/Routes/web.php'),
+
+    //     'api_routes'        => base_path('Modules/DocumentManager/Routes/api.php'),
+
+    //     'request'           => base_path('Modules/DocumentManager/Http/Requests/'),
+
+    //     'api_request'       => base_path('Modules/DocumentManager/Http/Requests/API/'),
+
+    //     'controller'        => base_path('Modules/DocumentManager/Http/Controllers/'),
+
+    //     'api_controller'    => base_path('Modules/DocumentManager/Http/Controllers/API/'),
+
+    //     'api_resource'      => base_path('Modules/DocumentManager/Http/Resources/'),
+
+    //     'schema_files'      => base_path('Modules/DocumentManager/model_schemas/'),
+
+    //     'seeder'            => base_path('Modules/DocumentManager/Database/Seeders/'),
+
+    //     'database_seeder'   => base_path('Modules/DocumentManager/Database/Seeders/DatabaseSeeder.php'),
+
+    //     'factory'           => base_path('Modules/DocumentManager/Database/factories/'),
+
+    //     'view_provider'     => base_path('Modules/DocumentManager/Providers/ViewServiceProvider.php'),
+
+    //     'tests'             => base_path('Modules/DocumentManager/Tests/'),
+
+    //     'repository_test'   => base_path('Modules/DocumentManager/Tests/Repositories/'),
+
+    //     'api_test'          => base_path('Modules/DocumentManager/Tests/APIs/'),
+
+    //     'views'             => base_path('Modules/DocumentManager/Resources/views/'),
+
+    //     'menu_file'         => base_path('Modules/DocumentManager/Resources/views/layouts/menu.blade.php'),
+    // ],
     /*
     |--------------------------------------------------------------------------
     | Namespaces
@@ -140,36 +140,6 @@ return [
     //     'api_test'          => 'Tests\APIs',
     // ],
 
-    // 'namespace' => [
-
-    //     'model'             => 'Modules\DocumentManager\Models',
-
-    //     'datatables'        => 'Modules\DocumentManager\DataTables',
-
-    //     'livewire_tables'   => 'Modules\DocumentManager\Http\Livewire',
-
-    //     'repository'        => 'Modules\DocumentManager\Repositories',
-
-    //     'controller'        => 'Modules\DocumentManager\Http\Controllers',
-
-    //     'api_controller'    => 'Modules\DocumentManager\Http\Controllers\API',
-
-    //     'api_resource'      => 'Modules\DocumentManager\Http\Resources',
-
-    //     'request'           => 'Modules\DocumentManager\Http\Requests',
-
-    //     'api_request'       => 'Modules\DocumentManager\Http\Requests\API',
-
-    //     'seeder'            => 'Modules\DocumentManager\Database\Seeders',
-
-    //     'factory'           => 'Modules\DocumentManager\Database\Factories',
-
-    //     'tests'             => 'Modules\DocumentManager\Tests',
-
-    //     'repository_test'   => 'Modules\DocumentManager\Tests\Repositories',
-
-    //     'api_test'          => 'Modules\DocumentManager\Tests\APIs',
-    // ],
     'namespace' => [
 
         'model'             => 'Modules\DocumentManager\Models',
@@ -200,6 +170,36 @@ return [
 
         'api_test'          => 'Modules\DocumentManager\Tests\APIs',
     ],
+    // 'namespace' => [
+
+    //     'model'             => 'Modules\DocumentManager\Models',
+
+    //     'datatables'        => 'Modules\DocumentManager\DataTables',
+
+    //     'livewire_tables'   => 'Modules\DocumentManager\Http\Livewire',
+
+    //     'repository'        => 'Modules\DocumentManager\Repositories',
+
+    //     'controller'        => 'Modules\DocumentManager\Http\Controllers',
+
+    //     'api_controller'    => 'Modules\DocumentManager\Http\Controllers\API',
+
+    //     'api_resource'      => 'Modules\DocumentManager\Http\Resources',
+
+    //     'request'           => 'Modules\DocumentManager\Http\Requests',
+
+    //     'api_request'       => 'Modules\DocumentManager\Http\Requests\API',
+
+    //     'seeder'            => 'Modules\DocumentManager\Database\Seeders',
+
+    //     'factory'           => 'Modules\DocumentManager\Database\Factories',
+
+    //     'tests'             => 'Modules\DocumentManager\Tests',
+
+    //     'repository_test'   => 'Modules\DocumentManager\Tests\Repositories',
+
+    //     'api_test'          => 'Modules\DocumentManager\Tests\APIs',
+    // ],
 
     /*
     |--------------------------------------------------------------------------
