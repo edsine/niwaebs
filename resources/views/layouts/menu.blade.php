@@ -257,51 +257,45 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var menuItems = document.querySelectorAll('.nav-item');
+    document.addEventListener("DOMContentLoaded", function() {
+        var myTaskItems = document.querySelectorAll('#myTask, #myTaskLayouts');
 
-        menuItems.forEach(function (item) {
-            item.addEventListener('click', function (event) {
+        myTaskItems.forEach(function(item) {
+            item.addEventListener('click', function(event) {
                 event.stopPropagation();
 
                 // Toggle sub-menu visibility
                 var subMenu = item.querySelector('.sub-menu');
                 if (subMenu) {
-                    subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+                    subMenu.style.display = subMenu.style.display === 'block' ? 'none' :
+                        'block';
                 }
 
-                // Toggle sub-sub-menu visibility
-                var subSubMenu = item.querySelector('.sub-sub-menu');
-                if (subSubMenu) {
-                    subSubMenu.style.display = 'none'; // Close sub-sub-menu when main menu is clicked
+                // Check if it's a sub-sub-menu item
+                if (!item.querySelector('.sub-sub-menu')) {
+                    // Toggle sub-sub-menu visibility if it exists
+                    var subSubMenu = item.querySelector('.sub-sub-menu');
+                    if (subSubMenu) {
+                        subSubMenu.style.display = subSubMenu.style.display === 'block' ?
+                            'none' : 'block';
+                    }
                 }
             });
         });
 
         // Add event listener for sub-menu items
-        var subMenuItems = document.querySelectorAll('.sub-menu .nav-item');
-
-        subMenuItems.forEach(function (subMenuItem) {
-            subMenuItem.addEventListener('click', function (event) {
+        var subMenuItems = document.querySelectorAll('.sub-menu .nav-link');
+        subMenuItems.forEach(function(subMenuItem) {
+            subMenuItem.addEventListener('click', function(event) {
                 event.stopPropagation();
 
                 // Toggle sub-sub-menu visibility for sub-menu items
-                var subSubMenu = subMenuItem.querySelector('.sub-sub-menu');
-                if (subSubMenu) {
-                    subSubMenu.style.display = subSubMenu.style.display === 'block' ? 'none' : 'block';
+                var subSubMenu = subMenuItem.nextElementSibling;
+                if (subSubMenu && subSubMenu.classList.contains('sub-sub-menu')) {
+                    subSubMenu.style.display = subSubMenu.style.display === 'block' ? 'none' :
+                        'block';
                 }
-            });
-        });
-
-        // Add event listener for sub-sub-menu items
-        var subSubMenuItems = document.querySelectorAll('.sub-sub-menu .nav-item');
-
-        subSubMenuItems.forEach(function (subSubMenuItem) {
-            subSubMenuItem.addEventListener('click', function (event) {
-                event.stopPropagation();
-                // Handle sub-sub-menu item click if needed
             });
         });
     });
 </script>
-
