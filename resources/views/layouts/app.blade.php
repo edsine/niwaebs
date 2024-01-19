@@ -666,6 +666,9 @@
     <!-- Custom js for this page-->
     <script src="{{ asset('sh_assets/js/dashboard.js') }}"></script>
     <!-- End custom js for this page-->
+    <!-- Custom js for this page-->
+  <script src="{{ asset('sh_assets/js/wizard.js') }}"></script>
+  <!-- End custom js for this page-->
 </body>
 
 </html>
