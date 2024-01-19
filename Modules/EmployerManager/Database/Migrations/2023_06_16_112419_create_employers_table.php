@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('company_localgovt')->nullable();
             $table->integer('company_state')->nullable();
             $table->integer('number_of_employees')->nullable();
-            $table->string('business_area');
+            $table->string('business_area')->nullable();
             $table->string('inspection_status')->nullable();
             $table->string('status')->nullable();
             $table->string('registered_date')->nullable();

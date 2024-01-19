@@ -75,6 +75,20 @@
             </a>
         </li> --}}
 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('niwa.payments') }}">
+                <i class="fa fa-list menu-icon"></i>
+                <span class="menu-title">Payments</span>
+                
+            </a>
+        </li> 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('document.index') }}">
+                <i class="fa fa-list menu-icon"></i>
+                <span class="menu-title">Client Documents</span>
+                
+            </a>
+        </li> 
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>
