@@ -49,7 +49,7 @@ class LoginController extends Controller
 {
     // Validate the user's input
     $request->validate([
-        'email' => 'required|email|regex:/@niwa\.com$/i',
+        'email' => 'required|email',
         'password' => 'required',
     ]);
 

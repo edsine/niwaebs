@@ -152,7 +152,7 @@
     <script src="{{ asset('assets/js/custom/authentication/sign-in/general.js') }}"></script>
     <!-- endinject -->
     <script>
-        document.querySelector('form').addEventListener('submit', function(e) {
+        /* document.querySelector('form').addEventListener('submit', function(e) {
             const emailInput = document.getElementById('email');
             const email = emailInput.value;
 
@@ -161,7 +161,7 @@
                 e.preventDefault(); // Prevent form submission
                 alert('Only email addresses with @niwa.com domain are allowed.');
             }
-        });
+        }); */
     </script>
 </body>
 
