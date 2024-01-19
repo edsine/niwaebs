@@ -164,26 +164,42 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var menuItems = document.querySelectorAll('.nav-item');
+        var myTaskItems = document.querySelectorAll('#myTask, #myTaskLayouts');
 
-        menuItems.forEach(function(item) {
+        myTaskItems.forEach(function(item) {
             item.addEventListener('click', function(event) {
                 event.stopPropagation();
 
                 // Toggle sub-menu visibility
                 var subMenu = item.querySelector('.sub-menu');
                 if (subMenu) {
-                    subMenu.style.display = subMenu.style.display === 'block' ? 'none' :
-                        'block';
+                    subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
                 }
 
-                // Toggle sub-sub-menu visibility
-                var subSubMenu = item.querySelector('.sub-sub-menu');
-                if (subSubMenu) {
-                    subSubMenu.style.display = subSubMenu.style.display === 'block' ? 'none' :
-                        'block';
+                // Check if it's a sub-sub-menu item
+                if (!item.querySelector('.sub-sub-menu')) {
+                    // Toggle sub-sub-menu visibility if it exists
+                    var subSubMenu = item.querySelector('.sub-sub-menu');
+                    if (subSubMenu) {
+                        subSubMenu.style.display = subSubMenu.style.display === 'block' ? 'none' : 'block';
+                    }
+                }
+            });
+        });
+
+        // Add event listener for sub-menu items
+        var subMenuItems = document.querySelectorAll('.sub-menu .nav-link');
+        subMenuItems.forEach(function(subMenuItem) {
+            subMenuItem.addEventListener('click', function(event) {
+                event.stopPropagation();
+                
+                // Toggle sub-sub-menu visibility for sub-menu items
+                var subSubMenu = subMenuItem.nextElementSibling;
+                if (subSubMenu && subSubMenu.classList.contains('sub-sub-menu')) {
+                    subSubMenu.style.display = subSubMenu.style.display === 'block' ? 'none' : 'block';
                 }
             });
         });
     });
 </script>
+
