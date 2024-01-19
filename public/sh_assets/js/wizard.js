@@ -8,7 +8,7 @@
     onFinished: function(event, currentIndex) {
     //   alert("Submitted!");
 
-   
+
 
     }
   });
@@ -57,8 +57,4 @@
       alert("Submitted!");
     }
   });
-
-
 })(jQuery);
-
-

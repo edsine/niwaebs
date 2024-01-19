@@ -300,7 +300,7 @@ class UserController extends AppBaseController
      {
          $input = $request->all();
 
-         dd($input);
+         //dd($input);
          //$email = $input['email'];
      
          $input['plain_password'] = $input['password'];
@@ -315,7 +315,7 @@ class UserController extends AppBaseController
          $checkboxValue = $request->input('checkbox');
      
          // Check if the checkbox is checked
-         if ($checkboxValue == 1) {
+         //if ($checkboxValue == 1) {
              // Checkbox is checked
              //Get user id from newly created user and assign it to user_id post input
              $input['user_id'] = $user->id;
@@ -328,15 +328,15 @@ class UserController extends AppBaseController
              }
      
              // Attempt to create email password
-             $email = $input['email'];
-             $password = $input['plain_password'];
+             //$email = $input['email'];
+             $password = $input['password'];
      
              // Email password creation was successful
              // Continue with user data saving
              // Create a new staff
              
-             $this->staffRepository->create($input);
-         }
+           $staff =  $this->staffRepository->create($input);
+         //}
      
         //   //storing the rank
         //   $user->staff->rank->create($input['ranking_id']);
@@ -353,13 +353,13 @@ class UserController extends AppBaseController
          // Send notification to user about his account details
          //Notification::send($user, new UserCreated($input));
          try {
-            Mail::to($input['alternative_email'])->send(new BulkStaffEmail($user, $input['alternative_email'], $password));
+            Mail::to($input['email'])->send(new BulkStaffEmail($user, $input['email'], $password));
             
             Flash::success('User saved successfully.');
             return redirect(route('users.index'));
         } catch (\Exception $e) {
             // Handle the exception here
-            Flash::error('Failed to send email: ' . $e->getMessage());
+            Flash::error('User saved successfully. Failed to send email: ' . $e->getMessage());
             // You might want to log the exception for further investigation
             Log::error('Failed to send email: ' . $e->getMessage());
             

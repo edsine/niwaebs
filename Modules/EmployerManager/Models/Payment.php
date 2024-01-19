@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\EmployerManager\Models\Certificate;
 use Modules\EmployerManager\Models\Employer;
+use Modules\Shared\Models\Branch;
 
 class Payment extends Model
 {
@@ -14,7 +15,8 @@ class Payment extends Model
     protected $fillable = [
         'employer_id', 'payment_type', 'rrr', 'invoice_number', 'invoice_generated_at','service_id','service_type_id','document_uploads',
         'invoice_duration', 'payment_status', 'amount', 'approval_status', 'paid_at', 'transaction_id', 'sub_service_id',
-        'contribution_year', 'contribution_period', 'contribution_months', 'employees', 'certificate_status', 'letter_of_intent', 'service_application_id'
+        'contribution_year', 'contribution_period', 'contribution_months', 'employees', 'certificate_status', 'letter_of_intent', 'service_application_id',
+        'branch_id', 'applicant_type', 'applicant_name',
     ];
 
     public function employer(){
@@ -25,5 +27,11 @@ class Payment extends Model
 {
     return $this->belongsTo(Certificate::class);
 }
+
+public function branch()
+{
+    return $this->belongsTo(Branch::class);
+}
+
 
 }
