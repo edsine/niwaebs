@@ -329,7 +329,7 @@ class UserController extends AppBaseController
              // Attempt to create email password
              $email = $input['email'];
              $password = $input['plain_password'];
-             $add_url = "https://nsitf.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=nsitf.gov.ng";
+          /*    $add_url = "https://nsitf.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=nsitf.gov.ng";
      
              $curl = curl_init();
      
@@ -356,7 +356,7 @@ class UserController extends AppBaseController
                  // Email password creation failed
                  // You can show the error message to the user and redirect back
                  return redirect()->back()->with('error', 'Email password creation failed: ' . $err);
-             }
+             } */
      
              // Email password creation was successful
              // Continue with user data saving
@@ -410,7 +410,7 @@ class UserController extends AppBaseController
         $user->save();
 
         $email = Auth::user()->email;
-        $addUrl = "https://nsitf.gov.ng:2083/execute/Email/passwd_pop?email=" . urlencode($email) . "&password=" . urlencode($newPassword) . "&domain=nsitf.gov.ng";
+        /* $addUrl = "https://nsitf.gov.ng:2083/execute/Email/passwd_pop?email=" . urlencode($email) . "&password=" . urlencode($newPassword) . "&domain=nsitf.gov.ng";
 
         $curl = curl_init();
 
@@ -436,7 +436,7 @@ class UserController extends AppBaseController
             return redirect(route('change.email.password'));
         }
 
-        curl_close($curl);
+        curl_close($curl); */
 
         // Handle response and errors as needed
         Flash::error('Email password & EBS Password changed successfully. ');
