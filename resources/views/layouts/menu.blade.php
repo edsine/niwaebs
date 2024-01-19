@@ -33,7 +33,31 @@
                 </div>
             </div>
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas fa-columns menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">Marine Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pages/layout/sidebar-hidden.html">Engineering Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">finance and account
+                        Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Audit Dashboard</a>
+                </li>
+            </ul>
+        </li>
+        {{-- <li class="nav-item">
             <a class="nav-link"data-toggle="collapse" href="#page-layouts" aria-expanded="false"
                 aria-controls="page-layouts" href="{{ route('home') }}">
                 <i class="fa fa-home menu-icon"></i>
@@ -49,7 +73,7 @@
                     </ul>
                 </div>
             </a>
-        </li>       
+        </li> --}}
 
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
@@ -58,17 +82,20 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-                
+
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-collapsed.html">Approval Type</a>
+                    <a class="nav-link" href="">Approval Request</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-hidden.html">Approval List</a>
+                    <a class="nav-link" href="">Appraisal</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Appraisal</a>
-                </li>                
             </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">
+                <i class="fas fa-book menu-icon"></i>
+                <span>Report</span>
+            </a>
         </li>
 
         <li class="nav-item" id="myTask">
@@ -81,6 +108,67 @@
                 <li class="nav-item" id="myTaskLayouts">
                     <a class="nav-link" href="#">
                         <i class="fas fa-columns menu-icon"></i>
+                        <span class="menu-title">Human resource</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <ul class="nav flex-column sub-sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/compact-menu.html">Apply for Leave</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Leave Status</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item" id="myTaskLayouts">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-columns menu-icon"></i>
+                        <span class="menu-title">Finance and Account</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <ul class="nav flex-column sub-sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/compact-menu.html">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/sidebar-hidden.html">Permits and Licences</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Operators Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Request Notifications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Accident Notification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Spare Parts Request</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Certificate Renewal</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas fa-columns menu-icon"></i>
+                <span class="menu-title">My Task</span>
+                <i class="menu-arrow"></i>
+            </a>
+
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item" id="myTaskLayouts">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-columns menu-icon"></i>
                         <span class="menu-title">File Manager</span>
                         <i class="menu-arrow"></i>
                     </a>
@@ -89,31 +177,37 @@
                             <a class="nav-link" href="pages/layout/compact-menu.html">File Type</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-collapsed.html">Uploads</a>
+                            <a class="nav-link" href="">Uploads</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="pages/layout/sidebar-hidden.html">List</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Folders</a>
+                            <a class="nav-link" href="">Folders</a>
                         </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="pages/layout/sidebar-fixed.html">Sidebar Fixed</a>
                         </li> --}}
                     </ul>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-collapsed.html">Icon menu</a>
+            </ul>
+            
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item" id="myTaskLayouts">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-columns menu-icon"></i>
+                        <span class="menu-title">Intercom</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <ul class="nav flex-column sub-sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/layout/compact-menu.html">Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Mail</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-hidden.html">Sidebar Hidden</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Sidebar Overlay</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-fixed.html">Sidebar Fixed</a>
-                </li> --}}
             </ul>
         </li>
 
@@ -163,11 +257,11 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var myTaskItems = document.querySelectorAll('#myTask, #myTaskLayouts');
+    document.addEventListener("DOMContentLoaded", function () {
+        var menuItems = document.querySelectorAll('.nav-item');
 
-        myTaskItems.forEach(function(item) {
-            item.addEventListener('click', function(event) {
+        menuItems.forEach(function (item) {
+            item.addEventListener('click', function (event) {
                 event.stopPropagation();
 
                 // Toggle sub-menu visibility
@@ -176,28 +270,36 @@
                     subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
                 }
 
-                // Check if it's a sub-sub-menu item
-                if (!item.querySelector('.sub-sub-menu')) {
-                    // Toggle sub-sub-menu visibility if it exists
-                    var subSubMenu = item.querySelector('.sub-sub-menu');
-                    if (subSubMenu) {
-                        subSubMenu.style.display = subSubMenu.style.display === 'block' ? 'none' : 'block';
-                    }
+                // Toggle sub-sub-menu visibility
+                var subSubMenu = item.querySelector('.sub-sub-menu');
+                if (subSubMenu) {
+                    subSubMenu.style.display = 'none'; // Close sub-sub-menu when main menu is clicked
                 }
             });
         });
 
         // Add event listener for sub-menu items
-        var subMenuItems = document.querySelectorAll('.sub-menu .nav-link');
-        subMenuItems.forEach(function(subMenuItem) {
-            subMenuItem.addEventListener('click', function(event) {
+        var subMenuItems = document.querySelectorAll('.sub-menu .nav-item');
+
+        subMenuItems.forEach(function (subMenuItem) {
+            subMenuItem.addEventListener('click', function (event) {
                 event.stopPropagation();
-                
+
                 // Toggle sub-sub-menu visibility for sub-menu items
-                var subSubMenu = subMenuItem.nextElementSibling;
-                if (subSubMenu && subSubMenu.classList.contains('sub-sub-menu')) {
+                var subSubMenu = subMenuItem.querySelector('.sub-sub-menu');
+                if (subSubMenu) {
                     subSubMenu.style.display = subSubMenu.style.display === 'block' ? 'none' : 'block';
                 }
+            });
+        });
+
+        // Add event listener for sub-sub-menu items
+        var subSubMenuItems = document.querySelectorAll('.sub-sub-menu .nav-item');
+
+        subSubMenuItems.forEach(function (subSubMenuItem) {
+            subSubMenuItem.addEventListener('click', function (event) {
+                event.stopPropagation();
+                // Handle sub-sub-menu item click if needed
             });
         });
     });
