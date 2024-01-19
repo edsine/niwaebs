@@ -157,8 +157,8 @@ class EmployerController extends AppBaseController
 
         $currentYearExpiration = Carbon::createFromFormat('Y-m-d', $currentYearExpiration1)->format('F d, Y');
 
-        // Generate a QR code for the data 'NSITF'
-        $qrCode = QrCode::generate('http://ebs.nsitf.com.ng/');
+        // Generate a QR code for the data 'NIWA'
+        $qrCode = QrCode::generate('http://ebs.NIWA.com.ng/');
 
         $signature = Signature::with('user')->find(1);
 

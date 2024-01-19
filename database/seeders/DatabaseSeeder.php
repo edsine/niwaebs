@@ -9,7 +9,7 @@ use Modules\WorkflowEngine\Database\Seeders\WorkflowEngineDatabaseSeeder;
 use Modules\DocumentManager\Database\Seeders\DocumentManagerDatabaseSeeder;
 use Modules\EmployerManager\Database\Seeders\EmployerManagerDatabaseSeeder;
 use Modules\Approval\Database\Seeders\ApprovalDatabaseSeeder;
-
+use Modules\Shared\Database\Seeders\SharedDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->call(StatesTableSeeder::class);
         $this->call(LocalGovernmentsTableSeeder::class);
         $this->call(RealRolesTablesSeeder::class);
-        $this->call(DepartmentsAndBranchesTablesSeeder::class);
+        // $this->call(DepartmentsAndBranchesTablesSeeder::class);
         $this->call(DTAPermissionsTableSeeder::class);
-        $this->call(RealUsersAndStaffTablesSeeder::class);
+        // $this->call(RealUsersAndStaffTablesSeeder::class);
         $this->call(StaffTableSeeder::class);
         $this->call(EmployersTableSeeder::class);
         $this->call(NewRolesAndPermissionsTablesSeeder::class);
@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HumanResourceDatabaseSeeder::class);
         $this->call(ApprovalDatabaseSeeder::class);
         $this->call(ClaimsCompensationDatabaseSeeder::class);
+        $this->call(SharedDatabaseSeeder::class);
      
     }
 }

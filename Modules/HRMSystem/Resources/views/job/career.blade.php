@@ -18,7 +18,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
-        {{ !empty($companySettings['header_text']) ? $companySettings['header_text']->value : config('app.name', 'NSITF EBS') }}
+        {{ !empty($companySettings['header_text']) ? $companySettings['header_text']->value : config('app.name', 'NIWA EBS') }}
         - {{ __('Career') }}</title>
     <meta name="title" content="{{$metatitle}}">
     <meta name="description" content="{{$metsdesc}}">

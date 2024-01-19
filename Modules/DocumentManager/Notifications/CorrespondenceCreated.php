@@ -47,7 +47,7 @@ class CorrespondenceCreated extends Notification
             ->line('A new internal correspondence has been uploaded!')
             ->line('Please login and check your dashboard.')
             ->line('Thank you.')
-            ->line('E-NSITF');
+            ->line('E-NIWA');
     }
 
     /**

@@ -31,7 +31,7 @@ class EBSMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from nsitf.com')
+        return $this->subject('Mail from NIWA.com')
                     ->view('emails.mail');
     }
 

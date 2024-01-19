@@ -42,7 +42,7 @@ class UnitHeadNotification extends Notification
     {
         return (new MailMessage)
             ->line('You have been assigned as a unit head.')
-            ->line('You have a new DTA request from EBS NSITF portal')
+            ->line('You have a new DTA request from EBS NIWA portal')
             ->line('You can use this details to login and access your dashboard.')
             ->action('View Dashboard', url('/dtarequests/dtarequests'))
             ->line('Thank you for using our application!');

@@ -648,6 +648,7 @@
 								<!--end::Items-->
 								<!--begin::Chart-->
 								<div id="kt_charts_widget_20" class="min-h-auto ps-4 pe-6" data-kt-chart-info="Revenue" style="height: 300px"></div>
+								{{-- <div id="barChart" class="min-h-auto ps-4 pe-6" data-kt-chart-info="Revenue" style="height: 300px"></div> --}}
 								<!--end::Chart-->
 							</div>
 							<!--end::Card body-->

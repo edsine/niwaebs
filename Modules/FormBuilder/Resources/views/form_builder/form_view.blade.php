@@ -1,12 +1,12 @@
 @php
     $logo="assets/media/logos/";
-    $company_favicon="NSITF-logo.png";
-    $favicon="NSITF-logo.png";//Utility::getValByName('company_favicon');
+    $company_favicon="NIWA-logo.png";
+    $favicon="NIWA-logo.png";//Utility::getValByName('company_favicon');
     // $getseo= App\Models\Utility::getSeoSetting();
-    $metatitle =  'NSITF Portal';
+    $metatitle =  'NIWA Portal';
     $metsdesc= 'Enterprise resource planning with';
     $meta_image = "assets/media/logos/";//\App\Models\Utility::get_file('uploads/meta/');
-    $meta_logo = "NSITF-logo.png";//isset($getseo['meta_image'])?$getseo['meta_image']:'';
+    $meta_logo = "NIWA-logo.png";//isset($getseo['meta_image'])?$getseo['meta_image']:'';
 
    // $get_cookie = \App\Models\Utility::getCookieSetting();
 @endphp
@@ -14,7 +14,7 @@
 <html lang="en">
 <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
 <head>
-    <title>{{($metatitle) ? $metatitle : config('app.name', 'NSITF')}}</title>
+    <title>{{($metatitle) ? $metatitle : config('app.name', 'NIWA')}}</title>
 
     <meta name="title" content="{{$metatitle}}">
     <meta name="description" content="{{$metsdesc}}">

@@ -47,7 +47,7 @@ class MemoAssignedToUser extends Notification implements ShouldQueue
             ->line('A new memo has been assigned to you!')
             ->line('Please login and check your dashboard.')
             ->line('Thank you.')
-            ->line('E-NSITF');
+            ->line('E-NIWA');
     }
 
     /**

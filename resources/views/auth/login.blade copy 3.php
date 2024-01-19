@@ -58,7 +58,7 @@
             <!--begin::Body-->
             <div class="card cardy w-md-550px">
                 <!-- <div class="my-5 py-5">
-                    <span style="color: #02a14d; font-size: 40px" class="text-center"> Welcome to The NSITF EBS</span>
+                    <span style="color: #02a14d; font-size: 40px" class="text-center"> Welcome to The NIWA EBS</span>
                 </div> -->
                 <!--begin::Card-->
                 <div class="card shadow rounded-3 w-md-450px">

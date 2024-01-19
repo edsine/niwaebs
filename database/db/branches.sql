@@ -26,7 +26,7 @@ CREATE TABLE `branches` (
 
 INSERT INTO `branches` (`id`, `branch_name`, `branch_region`, `branch_code`, `last_ecsnumber`, `highest_rank`, `staff_strength`, `managing_id`, `branch_email`, `branch_phone`, `branch_address`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'HEADQUARTER', '20', '1001', '1345', 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
-(2, 'LAGOS', '1', '1004', '1327', 1, NULL, 1, 'fct1@nsitf.gov.ng', '08032144152; 08012213324; 07063123413', 'Zone 6', '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
+(2, 'LAGOS', '1', '1004', '1327', 1, NULL, 1, 'fct1@NIWA.gov.ng', '08032144152; 08012213324; 07063123413', 'Zone 6', '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
 (3, 'PORT HARCOURT', '1', '1007', '0389', 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
 (4, 'WARRI', '1', '1005', '1428', 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
 (5, 'ONITSHA A/O', '18', '1002', NULL, 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
@@ -81,7 +81,7 @@ INSERT INTO `branches` (`id`, `branch_name`, `branch_region`, `branch_code`, `la
 -- (54, 'PORT HARCOURT', '27', '2004', NULL, 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
 -- (55, 'CALABAR', '5', '2005', NULL, 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
 -- (56, 'NNEWI', '9', NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
-(57, 'JAHI', '1', '1008', '0036', 1, 50, 1, 'corporateaffairs@nsitf.gov.ng', '08083132023', 'Plot 1184 Cadastral Zone B08, Jahi District, Abuja', '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL);
+(57, 'JAHI', '1', '1008', '0036', 1, 50, 1, 'corporateaffairs@NIWA.gov.ng', '08083132023', 'Plot 1184 Cadastral Zone B08, Jahi District, Abuja', '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL);
 
 /* --
 -- Indexes for dumped tables
