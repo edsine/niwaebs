@@ -35,13 +35,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'clockIn'])->name('home');
     Route::post('/home/clock-in', [HomeController::class, 'clockIn'])->name('clock-in');
     Route::post('/home/clock-out', [HomeController::class, 'clockOut'])->name('clock-out');
-	Route::get('/document/index', 'App\Http\Controllers\EmployerDocumentController@index')->name('document.index');
+    Route::get('/document/index', 'App\Http\Controllers\EmployerDocumentController@index')->name('document.index');
     Route::patch('/approve-document/{id}', [EmployerDocumentController::class, 'approveDocument'])
-    ->name('approveDocument');
+        ->name('approveDocument');
     Route::get('/inspection-notice/{id}', [EmployerDocumentController::class, 'inspectionNotice'])
-    ->name('inspection.notice');
+        ->name('inspection.notice');
     Route::post('/inspection-send', [EmployerDocumentController::class, 'sendInspectionNotice'])
-    ->name('inspection.send');
+        ->name('inspection.send');
 });
 
 
@@ -79,11 +79,11 @@ Route::group(['middleware' => ['auth']], function () {
 //     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // });
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/essp/payments', [ESSPPaymentController::class, 'index'])->name('essp.payments');
     Route::patch('/approve-payment/{id}', [ESSPPaymentController::class, 'approvePayment'])
-    ->name('approvePayment');
+        ->name('approvePayment');
 });
 
 
@@ -91,8 +91,8 @@ Route::middleware(['auth'])->group(function(){
 
 Route::get('/roundcube-login', [HomeController::class, 'roundcubeLogin']);
 
-Route::get('auditadmin',[HomeController::class,'auditadmin']);
-Route::get('ictadmin',[HomeController::class,'ictadmin'])->name('ict');
+Route::get('auditadmin', [HomeController::class, 'auditadmin']);
+Route::get('ictadmin', [HomeController::class, 'ictadmin'])->name('ict');
 Route::get('/hradmin', [HomeController::class, 'hradmin'])->name('hradmin');
 Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
 Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
@@ -105,13 +105,13 @@ Route::get('/region', [HomeController::class, 'regional'])->name('region');
 Route::get('/ed_md', [HomeController::class, 'edfinance'])->name('ed_md');
 Route::get('/ed_admin', [HomeController::class, 'edadmin'])->name('ed_admin');
 
-Route::get('/riskadmin',[HomeController::class,'riskadmin']);
+Route::get('/riskadmin', [HomeController::class, 'riskadmin']);
 
-Route::get('/aprd',[HomeController::class,'aprd']);
-Route::get('/fre',[HomeController::class,'fre']);
-Route::get('/copaffairs',[HomeController::class,'copaffairs']);
-Route::get('legaladmin',[HomeController::class,'legaladmin']);
-Route::get('procurementadmin',[HomeController::class,'procurementadmin']);
+Route::get('/aprd', [HomeController::class, 'aprd']);
+Route::get('/fre', [HomeController::class, 'fre']);
+Route::get('/copaffairs', [HomeController::class, 'copaffairs']);
+Route::get('legaladmin', [HomeController::class, 'legaladmin']);
+Route::get('procurementadmin', [HomeController::class, 'procurementadmin']);
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/view-profile', [ProfileController::class, 'showProfile'])->name('view-profile');
@@ -137,19 +137,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('myedit/{id}', [UserController::class, 'myupdate'])->name('myupdate');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::get('/minister',[HomeController::class,'minister'])->name('minister');
-    
- Route::get('users/{id}', 'UserController@show')->name('users.show');
-Route::get('certicate',[CertificateController::class,'index'])->name('certicate');
+    Route::get('/minister', [HomeController::class, 'minister'])->name('minister');
 
-    Route::get('/active', [UserController::class,'getactive'])->name('active');
-    Route::get('/pending', [UserController::class,'getpending'])->name('pending');
-    Route::post('/upload', [UserController::class,'upload'])->name('upload');
-    Route::get('/bulkUpload', [UserController::class,'bulkUpload'])->name('bulkUpload');
-    Route::get('change-email-password', [UserController::class,'showChangePasswordForm'])->name('change.email.password.form');
-    Route::post('change-email-password', [UserController::class,'changePassword'])->name('change.email.password');
-    Route::post('/save-signature', [UserController::class,'saveSignature']);
-    Route::get('/change-signature', [UserController::class,'changeSignature'])->name('change.signature');
+    Route::get('users/{id}', 'UserController@show')->name('users.show');
+    Route::get('certicate', [CertificateController::class, 'index'])->name('certicate');
+
+    Route::get('/active', [UserController::class, 'getactive'])->name('active');
+    Route::get('/pending', [UserController::class, 'getpending'])->name('pending');
+    Route::post('/upload', [UserController::class, 'upload'])->name('upload');
+    Route::get('/bulkUpload', [UserController::class, 'bulkUpload'])->name('bulkUpload');
+    Route::get('change-email-password', [UserController::class, 'showChangePasswordForm'])->name('change.email.password.form');
+    Route::post('change-email-password', [UserController::class, 'changePassword'])->name('change.email.password');
+    Route::post('/save-signature', [UserController::class, 'saveSignature']);
+    Route::get('/change-signature', [UserController::class, 'changeSignature'])->name('change.signature');
 });
 
 // Route::get('/account', function () {
@@ -158,7 +158,7 @@ Route::get('certicate',[CertificateController::class,'index'])->name('certicate'
 
 
 //=================================== Zoom Meeting ======================================================================
-Route::get('zoom' ,function(){
+Route::get('zoom', function () {
     return view('zoom-meeting.index');
 })->name('zoom');
 // // Route::resource('zoom-meeting', ZoomMeetingController::class)->middleware(['auth']);
@@ -178,13 +178,13 @@ Route::group(
         'middleware' => [
             'auth',
         ],
-    ], function (){
-    Route::get('support/{id}/reply', [SupportController::class, 'reply'])->name('support.reply');
-    Route::post('support/{id}/reply', [SupportController::class, 'replyAnswer'])->name('support.reply.answer');
-    Route::get('support/grid', [SupportController::class, 'grid'])->name('support.grid');
-    Route::resource('support', SupportController::class);
-
-}
+    ],
+    function () {
+        Route::get('support/{id}/reply', [SupportController::class, 'reply'])->name('support.reply');
+        Route::post('support/{id}/reply', [SupportController::class, 'replyAnswer'])->name('support.reply.answer');
+        Route::get('support/grid', [SupportController::class, 'grid'])->name('support.grid');
+        Route::resource('support', SupportController::class);
+    }
 );
 
 Route::resource('setsalary', SetSalaryController::class)->middleware(['auth']);
@@ -258,4 +258,14 @@ Route::resource('email_template', EmailTemplateController::class)->middleware(['
 // End Email Templates
 
 //Botman side that i do match route
-Route::match(['get','post'],'/botman','App\Http\Controllers\BotmanController@handle')->name('botman');
+Route::match(['get', 'post'], '/botman', 'App\Http\Controllers\BotmanController@handle')->name('botman');
+
+Route::resource('equipmentAndFees', App\Http\Controllers\EquipmentAndFeeController::class)->middleware(['auth']);
+
+Route::resource('serviceApplications', App\Http\Controllers\ServiceApplicationController::class);
+Route::post('approve-document/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveOrDeclineDocument'])->name('application.approve.document');
+Route::post('final-documents-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveDocuments'])->name('application.final.documents.approval');
+Route::post('processing-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveProcessingFee'])->name('application.processingfee.approval');
+Route::post('inspection-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveInspectionFee'])->name('application.inspectionfee.approval');
+Route::post('set-inspection-status/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'setInspectionStatus'])->name('application.inspection.status');
+Route::post('application-equipment-invoice/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'generateEquipmentInvoice'])->name('application.equipmemt.invoice');

@@ -20,25 +20,30 @@ class RealRolesTablesSeeder extends Seeder
 
         $roleNames =
             [
-                'MD',
-                'INSPECTION',
-                'HOD',
-                'ED FINANCE & ACCOUNT',
-            
-                'ADMINISTRATION',
+                // 'MD',
+                // 'INSPECTION',
+                // 'HOD',
+                // 'ED FINANCE & ACCOUNT',
+
+                // 'ADMINISTRATION',
+                // 'USER',
+                // 'SUPERVISOR',
+                // 'CERTIFICATE/COMPLIANCE',
+                // 'LEAVE PROCESSING OFFICER',
+                // 'REGISTRY OFFICER',
+                // 'ED ADMIN',
+                // 'HR',
+                // 'Branch Manager',
+                // 'Regional Manager',
+                // 'permsec',
+                // 'minister',
+
+                'Desk Officer MSE',
+                'HOD MSE',
+                'Desk Officer Finance',
+                'HOD Finance',
+                'Area Officer',
                 'USER',
-                'SUPERVISOR',
-                'CERTIFICATE/COMPLIANCE',
-                'LEAVE PROCESSING OFFICER',
-                'REGISTRY OFFICER',
-                'ED ADMIN',
-                'HR',
-                'Branch Manager',
-                'Regional Manager',
-                'permsec',
-                'minister',
-                
-                
             ];
 
         $roles = collect($roleNames)->map(function ($roles_arrays) {
