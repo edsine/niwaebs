@@ -7,12 +7,12 @@
   2023-08-15 22:31:53 /assets/js/scripts.bundle.js ...................... ~ 1s
   2023-08-15 22:31:55 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
   2023-08-15 22:31:53 /assets/plugins/global/plugins.bundle.js .......... ~ 2s
-  2023-08-15 22:31:54 /assets/media/logos/NSITF-Logo-login.png .......... ~ 2s
+  2023-08-15 22:31:54 /assets/media/logos/NIWA-Logo-login.png .......... ~ 2s
   2023-08-15 22:31:53 /assets/plugins/global/plugins.bundle.css ......... ~ 4s
   2023-08-15 22:31:52 /css/app.css ...................................... ~ 8s
   2023-08-15 22:31:53 /assets/css/style.bundle.css ...................... ~ 7s
   2023-08-15 22:32:01 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 2s
-  2023-08-15 22:32:03 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-15 22:32:03 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-15 22:32:04 ................................................. ~ 124s
   2023-08-15 22:32:03 ................................................. ~ 126s
    WARN  80.66.75.127:64441 Invalid request (Malformed HTTP request).  
@@ -31,7 +31,7 @@
   2023-08-16 04:47:16 ................................................... ~ 1s
   2023-08-16 04:47:17 ................................................... ~ 0s
   2023-08-16 04:47:18 /assets/js/scripts.bundle.js ...................... ~ 0s
-  2023-08-16 04:47:18 /assets/media/logos/NSITF-Logo-login.png .......... ~ 0s
+  2023-08-16 04:47:18 /assets/media/logos/NIWA-Logo-login.png .......... ~ 0s
   2023-08-16 04:47:18 /assets/plugins/global/plugins.bundle.css ......... ~ 1s
   2023-08-16 04:47:18 /css/app.css ...................................... ~ 1s
   2023-08-16 04:47:19 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
@@ -41,13 +41,13 @@
   2023-08-16 04:48:21 ................................................... ~ 0s
   2023-08-16 04:48:21 /assets/plugins/global/plugins.bundle.css ........ ~ 13s
   2023-08-16 04:48:36 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
-  2023-08-16 04:48:21 /assets/media/logos/NSITF-Logo-login.png ......... ~ 19s
+  2023-08-16 04:48:21 /assets/media/logos/NIWA-Logo-login.png ......... ~ 19s
   2023-08-16 04:48:21 /css/app.css ..................................... ~ 27s
   2023-08-16 04:48:21 /assets/js/scripts.bundle.js ..................... ~ 27s
   2023-08-16 04:48:21 /assets/css/style.bundle.css ..................... ~ 59s
   2023-08-16 04:48:21 /assets/plugins/global/plugins.bundle.js ......... ~ 62s
   2023-08-16 04:49:23 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
-  2023-08-16 04:49:26 /assets/media/logos/NSITF-Logo-login.png .......... ~ 2s
+  2023-08-16 04:49:26 /assets/media/logos/NIWA-Logo-login.png .......... ~ 2s
   2023-08-16 04:50:36 ................................................... ~ 0s
   2023-08-16 04:50:38 /assets/plugins/global/plugins.bundle.css ......... ~ 1s
   2023-08-16 04:50:38 /css/app.css ...................................... ~ 1s
@@ -55,9 +55,9 @@
   2023-08-16 04:50:40 /assets/js/scripts.bundle.js ...................... ~ 1s
   2023-08-16 04:50:41 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
   2023-08-16 04:50:40 /assets/plugins/global/plugins.bundle.js .......... ~ 1s
-  2023-08-16 04:50:41 /assets/media/logos/NSITF-Logo-login.png .......... ~ 0s
+  2023-08-16 04:50:41 /assets/media/logos/NIWA-Logo-login.png .......... ~ 0s
   2023-08-16 04:50:42 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
-  2023-08-16 04:50:44 /assets/media/logos/NSITF-Logo-login.png .......... ~ 0s
+  2023-08-16 04:50:44 /assets/media/logos/NIWA-Logo-login.png .......... ~ 0s
   2023-08-16 04:51:10 ................................................... ~ 0s
   2023-08-16 04:51:10 ................................................... ~ 1s
   2023-08-16 04:51:11 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.css  ~ 0s
@@ -70,7 +70,7 @@
   2023-08-16 04:51:13 /assets/js/scripts.bundle.js ...................... ~ 0s
   2023-08-16 04:51:13 /assets/plugins/global/fonts/@fortawesome/fa-regular-400.woff2  ~ 0s
   2023-08-16 04:51:13 /js/app.js ........................................ ~ 0s
-  2023-08-16 04:51:13 /assets/media/logos/NSITF-logo.png ................ ~ 0s
+  2023-08-16 04:51:13 /assets/media/logos/NIWA-logo.png ................ ~ 0s
   2023-08-16 04:51:13 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 0s
   2023-08-16 04:51:13 /assets/plugins/global/plugins.bundle.js .......... ~ 1s
   2023-08-16 04:51:15 /assets/js/custom/apps/inbox/listing.js ........... ~ 0s
@@ -107,7 +107,7 @@
   2023-08-16 04:51:54 /assets/media/avatars/blank.png ................... ~ 0s
   2023-08-16 04:51:54 /assets/js/scripts.bundle.js ...................... ~ 0s
   2023-08-16 04:51:54 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
-  2023-08-16 04:51:54 /assets/media/logos/NSITF-logo.png ................ ~ 0s
+  2023-08-16 04:51:54 /assets/media/logos/NIWA-logo.png ................ ~ 0s
   2023-08-16 04:51:54 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 0s
   2023-08-16 04:51:54 /assets/plugins/custom/datatables/datatables.bundle.js  ~ 1s
   2023-08-16 04:51:54 /assets/plugins/global/plugins.bundle.js .......... ~ 1s
@@ -148,7 +148,7 @@
   2023-08-16 04:54:48 /assets/js/scripts.bundle.js ...................... ~ 1s
   2023-08-16 04:54:48 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 1s
   2023-08-16 04:54:49 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
-  2023-08-16 04:54:49 /assets/media/logos/NSITF-logo.png ................ ~ 0s
+  2023-08-16 04:54:49 /assets/media/logos/NIWA-logo.png ................ ~ 0s
   2023-08-16 04:54:48 /assets/plugins/global/plugins.bundle.js .......... ~ 1s
   2023-08-16 04:54:48 /assets/plugins/custom/datatables/datatables.bundle.js  ~ 1s
   2023-08-16 04:54:50 /assets/js/custom/apps/inbox/listing.js ........... ~ 0s
@@ -185,7 +185,7 @@
   2023-08-16 04:56:04 /assets/media/avatars/blank.png ................... ~ 0s
   2023-08-16 04:56:04 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
   2023-08-16 04:56:04 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 1s
-  2023-08-16 04:56:04 /assets/media/logos/NSITF-logo.png ................ ~ 1s
+  2023-08-16 04:56:04 /assets/media/logos/NIWA-logo.png ................ ~ 1s
   2023-08-16 04:56:04 /assets/plugins/custom/datatables/datatables.bundle.js  ~ 1s
   2023-08-16 04:56:04 /assets/plugins/global/plugins.bundle.js .......... ~ 1s
   2023-08-16 04:56:06 /assets/js/custom/apps/chat/chat.js ............... ~ 0s
@@ -223,7 +223,7 @@
   2023-08-16 04:58:12 /assets/media/avatars/blank.png ................... ~ 0s
   2023-08-16 04:58:12 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 0s
   2023-08-16 04:58:12 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
-  2023-08-16 04:58:12 /assets/media/logos/NSITF-logo.png ................ ~ 0s
+  2023-08-16 04:58:12 /assets/media/logos/NIWA-logo.png ................ ~ 0s
   2023-08-16 04:58:12 /assets/plugins/global/plugins.bundle.js .......... ~ 0s
   2023-08-16 04:58:12 /assets/plugins/custom/datatables/datatables.bundle.js  ~ 1s
   2023-08-16 04:58:13 /assets/js/custom/apps/chat/chat.js ............... ~ 0s
@@ -259,7 +259,7 @@
   2023-08-16 04:58:46 /assets/js/scripts.bundle.js ...................... ~ 0s
   2023-08-16 04:58:46 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
   2023-08-16 04:58:46 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 1s
-  2023-08-16 04:58:46 /assets/media/logos/NSITF-logo.png ................ ~ 1s
+  2023-08-16 04:58:46 /assets/media/logos/NIWA-logo.png ................ ~ 1s
   2023-08-16 04:58:46 /assets/plugins/custom/datatables/datatables.bundle.js  ~ 1s
   2023-08-16 04:58:46 /assets/plugins/global/plugins.bundle.js .......... ~ 1s
   2023-08-16 04:58:47 /assets/js/custom/apps/chat/chat.js ............... ~ 0s
@@ -298,7 +298,7 @@
   2023-08-16 05:00:42 /assets/plugins/global/fonts/@fortawesome/fa-regular-400.woff2  ~ 0s
   2023-08-16 05:00:42 /assets/media/avatars/blank.png ................... ~ 0s
   2023-08-16 05:00:42 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
-  2023-08-16 05:00:42 /assets/media/logos/NSITF-logo.png ................ ~ 1s
+  2023-08-16 05:00:42 /assets/media/logos/NIWA-logo.png ................ ~ 1s
   2023-08-16 05:00:42 /assets/plugins/custom/datatables/datatables.bundle.js  ~ 1s
   2023-08-16 05:00:47 /assets/js/custom/apps/chat/chat.js ............... ~ 0s
   2023-08-16 05:00:47 /assets/js/custom/utilities/modals/upgrade-plan.js  ~ 0s
@@ -327,9 +327,9 @@
   2023-08-16 05:01:37 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
   2023-08-16 05:01:37 /assets/js/scripts.bundle.js ...................... ~ 0s
   2023-08-16 05:01:37 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
-  2023-08-16 05:01:37 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 05:01:37 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 05:01:37 /assets/plugins/global/plugins.bundle.js .......... ~ 1s
-  2023-08-16 05:01:39 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 05:01:39 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 05:02:06 ................................................... ~ 1s
   2023-08-16 05:02:07 ................................................... ~ 1s
   2023-08-16 05:02:08 /css/sweetalert2.min.css .......................... ~ 0s
@@ -342,7 +342,7 @@
   2023-08-16 05:02:09 /assets/js/scripts.bundle.js ...................... ~ 1s
   2023-08-16 05:02:10 /assets/plugins/global/fonts/@fortawesome/fa-regular-400.woff2  ~ 0s
   2023-08-16 05:02:10 /assets/media/avatars/blank.png ................... ~ 1s
-  2023-08-16 05:02:10 /assets/media/logos/NSITF-logo.png ................ ~ 1s
+  2023-08-16 05:02:10 /assets/media/logos/NIWA-logo.png ................ ~ 1s
   2023-08-16 05:02:09 /assets/plugins/global/plugins.bundle.js .......... ~ 2s
   2023-08-16 05:02:10 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 2s
   2023-08-16 05:02:12 /assets/js/custom/apps/inbox/listing.js ........... ~ 0s
@@ -382,7 +382,7 @@
   2023-08-16 05:02:41 /assets/plugins/global/fonts/@fortawesome/fa-regular-400.woff2  ~ 1s
   2023-08-16 05:02:41 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 1s
   2023-08-16 05:02:42 /assets/js/custom/apps/inbox/listing.js ........... ~ 0s
-  2023-08-16 05:02:41 /assets/media/logos/NSITF-logo.png ................ ~ 1s
+  2023-08-16 05:02:41 /assets/media/logos/NIWA-logo.png ................ ~ 1s
   2023-08-16 05:02:42 /assets/media/avatars/blank.png ................... ~ 0s
   2023-08-16 05:02:41 /assets/plugins/global/plugins.bundle.js .......... ~ 2s
   2023-08-16 05:02:41 /assets/plugins/custom/datatables/datatables.bundle.js  ~ 2s
@@ -408,12 +408,12 @@
   2023-08-16 05:03:00 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
   2023-08-16 05:03:00 /assets/js/scripts.bundle.js ...................... ~ 1s
   2023-08-16 05:03:00 /assets/plugins/global/plugins.bundle.css ......... ~ 1s
-  2023-08-16 05:03:00 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 05:03:00 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 05:03:00 /assets/css/style.bundle.css ...................... ~ 1s
   2023-08-16 05:03:00 /assets/plugins/global/plugins.bundle.js .......... ~ 2s
   2023-08-16 05:03:00 /css/app.css ...................................... ~ 3s
   2023-08-16 05:03:04 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
-  2023-08-16 05:03:05 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 05:03:05 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 05:03:05 .................................................. ~ 20s
   2023-08-16 05:03:25 ................................................... ~ 1s
   2023-08-16 05:03:26 /css/sweetalert2.min.css .......................... ~ 0s
@@ -429,7 +429,7 @@
   2023-08-16 05:03:27 /assets/plugins/custom/fullcalendar/fullcalendar.bundle.js  ~ 1s
   2023-08-16 05:03:28 /assets/media/avatars/blank.png ................... ~ 1s
   2023-08-16 05:03:29 /assets/js/custom/apps/inbox/listing.js ........... ~ 0s
-  2023-08-16 05:03:28 /assets/media/logos/NSITF-logo.png ................ ~ 1s
+  2023-08-16 05:03:28 /assets/media/logos/NIWA-logo.png ................ ~ 1s
   2023-08-16 05:03:29 /assets/js/custom/apps/chat/chat.js ............... ~ 0s
   2023-08-16 05:03:29 /assets/js/custom/utilities/modals/upgrade-plan.js  ~ 0s
   2023-08-16 05:03:29 /assets/js/custom/widgets.js ...................... ~ 0s
@@ -464,15 +464,15 @@
   2023-08-16 05:14:08 /assets/plugins/global/plugins.bundle.css ......... ~ 1s
   2023-08-16 05:14:11 /assets/js/scripts.bundle.js ...................... ~ 2s
   2023-08-16 05:14:14 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
-  2023-08-16 05:14:15 /assets/media/logos/NSITF-Logo-login.png .......... ~ 0s
+  2023-08-16 05:14:15 /assets/media/logos/NIWA-Logo-login.png .......... ~ 0s
   2023-08-16 05:14:09 /assets/css/style.bundle.css ...................... ~ 9s
   2023-08-16 05:14:10 /assets/plugins/global/plugins.bundle.js ......... ~ 22s
   2023-08-16 05:14:33 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
-  2023-08-16 05:14:34 /assets/media/logos/NSITF-Logo-login.png .......... ~ 0s
+  2023-08-16 05:14:34 /assets/media/logos/NIWA-Logo-login.png .......... ~ 0s
   2023-08-16 05:06:46 ................................................. ~ 715s
   2023-08-16 05:07:46 ................................................. ~ 655s
   2023-08-16 05:24:00 ................................................... ~ 0s
-  2023-08-16 05:24:00 /assets/media/logos/NSITF-Logo-login.png ......... ~ 10s
+  2023-08-16 05:24:00 /assets/media/logos/NIWA-Logo-login.png ......... ~ 10s
   2023-08-16 05:24:15 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
   2023-08-16 05:24:00 /assets/js/scripts.bundle.js ..................... ~ 22s
   2023-08-16 05:24:00 /css/app.css ..................................... ~ 44s
@@ -480,35 +480,35 @@
   2023-08-16 05:24:00 /assets/plugins/global/plugins.bundle.css ........ ~ 56s
   2023-08-16 05:24:00 /assets/css/style.bundle.css ..................... ~ 66s
   2023-08-16 05:25:08 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
-  2023-08-16 05:25:08 /assets/media/logos/NSITF-Logo-login.png .......... ~ 3s
+  2023-08-16 05:25:08 /assets/media/logos/NIWA-Logo-login.png .......... ~ 3s
   2023-08-16 05:25:10 .................................................. ~ 34s
   2023-08-16 05:25:35 /css/app.css ..................................... ~ 24s
   2023-08-16 05:25:44 /assets/plugins/global/plugins.bundle.css ........ ~ 16s
   2023-08-16 05:26:02 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
-  2023-08-16 05:26:00 /assets/media/logos/NSITF-Logo-login.png .......... ~ 5s
+  2023-08-16 05:26:00 /assets/media/logos/NIWA-Logo-login.png .......... ~ 5s
   2023-08-16 05:26:11 /favicon.ico ...................................... ~ 9s
   2023-08-16 05:26:00 /assets/js/scripts.bundle.js ..................... ~ 22s
   2023-08-16 05:25:44 /assets/css/style.bundle.css ..................... ~ 45s
   2023-08-16 05:26:31 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
   2023-08-16 05:26:00 /assets/plugins/global/plugins.bundle.js ......... ~ 47s
-  2023-08-16 05:26:50 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 05:26:50 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 05:26:11 /favicon.ico ..................................... ~ 51s
   2023-08-16 05:26:50 .................................................. ~ 44s
   2023-08-16 05:27:35 /assets/css/style.bundle.css ..................... ~ 19s
   2023-08-16 05:27:57 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
-  2023-08-16 05:27:50 /assets/media/logos/NSITF-Logo-login.png .......... ~ 9s
+  2023-08-16 05:27:50 /assets/media/logos/NIWA-Logo-login.png .......... ~ 9s
   2023-08-16 05:27:35 /assets/plugins/global/plugins.bundle.css ........ ~ 25s
   2023-08-16 05:27:50 /assets/js/scripts.bundle.js ..................... ~ 12s
   2023-08-16 05:27:34 /css/app.css ..................................... ~ 57s
   2023-08-16 05:27:50 /assets/plugins/global/plugins.bundle.js ......... ~ 46s
   2023-08-16 05:28:38 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 0s
-  2023-08-16 05:28:38 /assets/media/logos/NSITF-Logo-login.png .......... ~ 2s
+  2023-08-16 05:28:38 /assets/media/logos/NIWA-Logo-login.png .......... ~ 2s
   2023-08-16 05:33:57 ................................................. ~ 140s
   2023-08-16 05:33:57 ................................................. ~ 140s
   2023-08-16 05:27:01 ................................................. ~ 980s
   2023-08-16 06:20:29 /assets/js/scripts.bundle.js ..................... ~ 11s
   2023-08-16 06:20:42 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
-  2023-08-16 06:20:29 /assets/media/logos/NSITF-Logo-login.png ......... ~ 39s
+  2023-08-16 06:20:29 /assets/media/logos/NIWA-Logo-login.png ......... ~ 39s
   2023-08-16 06:20:29 /css/app.css ..................................... ~ 54s
   2023-08-16 06:20:29 /assets/css/style.bundle.css ..................... ~ 55s
   2023-08-16 06:20:29 /assets/plugins/global/plugins.bundle.css ........ ~ 58s
@@ -524,22 +524,22 @@
   2023-08-16 09:17:10 /assets/js/scripts.bundle.js ...................... ~ 1s
   2023-08-16 09:17:10 /assets/plugins/global/plugins.bundle.css ......... ~ 1s
   2023-08-16 09:17:12 /assets/js/custom/authentication/sign-in/general.js  ~ 0s
-  2023-08-16 09:17:11 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 09:17:11 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 09:17:10 /assets/plugins/global/plugins.bundle.js .......... ~ 3s
   2023-08-16 09:17:10 /assets/css/style.bundle.css ...................... ~ 3s
   2023-08-16 09:17:10 /css/app.css ...................................... ~ 5s
   2023-08-16 09:17:16 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
-  2023-08-16 09:17:17 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 09:17:17 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 09:46:41 ................................................... ~ 0s
   2023-08-16 09:46:42 ................................................... ~ 0s
   2023-08-16 09:46:45 /assets/plugins/global/plugins.bundle.css ......... ~ 1s
   2023-08-16 09:46:45 /assets/css/style.bundle.css ...................... ~ 1s
-  2023-08-16 09:47:02 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 09:47:02 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 09:47:02 /assets/js/scripts.bundle.js ...................... ~ 1s
   2023-08-16 09:47:02 /assets/js/custom/authentication/sign-in/general.js  ~ 1s
   2023-08-16 09:47:02 /assets/plugins/global/plugins.bundle.js .......... ~ 2s
   2023-08-16 09:47:06 /assets/plugins/global/fonts/@fortawesome/fa-solid-900.woff2  ~ 1s
-  2023-08-16 09:47:07 /assets/media/logos/NSITF-Logo-login.png .......... ~ 1s
+  2023-08-16 09:47:07 /assets/media/logos/NIWA-Logo-login.png .......... ~ 1s
   2023-08-16 09:47:57 ................................................. ~ 373s
   2023-08-16 09:47:57 ................................................. ~ 373s
   2023-08-16 09:54:10 .................................................. ~ 95s

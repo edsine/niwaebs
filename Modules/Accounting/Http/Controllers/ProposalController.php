@@ -852,7 +852,7 @@ class ProposalController extends AppBaseController
             $img = Utility::get_file('proposal_logo/') . $proposal_logo;
         }
         else{
-            $img          = asset($logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'NSITF-logo.png'));
+            $img          = asset($logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'NIWA-logo.png'));
         }
 
         if($proposal)

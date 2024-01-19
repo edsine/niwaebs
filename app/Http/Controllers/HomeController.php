@@ -53,10 +53,11 @@ class HomeController extends Controller
 
             return redirect()->route('region');
         }
-        else if(Auth::check() && Auth::user()->hasRole('Branch Manager'))
+        else if(Auth::check() && Auth::user()->hasRole('Area Manager'))
+        // else if(Auth::check() && Auth::user()->hasAnyRole(['super-admin', 'branch-manager']))
         {
 
-            return redirect()->route('branch');
+            return redirect()->route('am');
         }
         else if(Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT'))
         {
@@ -80,10 +81,10 @@ class HomeController extends Controller
             return redirect()->route('ed_md');
         }
 
-        else if(Auth::check() && Auth::user()->staff->department_id==6){
-            return redirect()->route('dashboard');
+        // else if(Auth::check() && Auth::user()->staff->department_id==6){
+        //     return redirect()->route('dashboard');
         
-        }
+        // }
 
         else {
 
@@ -227,7 +228,7 @@ public function branch(Request $request){
 
     $managementstaff =Staff::where('ranking_id','!==',1)->count();
     
-    return view('branchadmin',compact('allstaff','totaldept','totalbranches','totalregion','totaldept',
+    return view('areaadmin',compact('allstaff','totaldept','totalbranches','totalregion','totaldept',
     'totalemployer','managementstaff'));                 
             
 
@@ -496,9 +497,9 @@ public function procurementadmin(){
 
     public function roundcubeLogin(Request $request)
     {
-        $username = 'test1@nsitf.gov.ng';
+        $username = 'test1@NIWA.gov.ng';
         $password = 'Testingdata1!';
-        $roundcubeUrl = 'http://localhost/nsitfmail/?_task=login';
+        $roundcubeUrl = 'http://localhost/NIWAmail/?_task=login';
 
         $response = $this->loginToRoundcube($username, $password, $roundcubeUrl);
 

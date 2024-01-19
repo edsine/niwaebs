@@ -224,7 +224,7 @@ class UserController extends AppBaseController
     public function html_email()
     {
         /* $mailData = [
-            'title' => 'Mail from nsitf.gov.ng',
+            'title' => 'Mail from NIWA.gov.ng',
             'body' => 'This is for testing email using smtp.'
         ];
 
@@ -236,9 +236,9 @@ class UserController extends AppBaseController
             echo "Sorry!  mail not sent!";
         } */
 
-        $email = "test1@nsitf.gov.ng";
+        $email = "test1@NIWA.gov.ng";
              $password = "Testing1!";
-             $add_url = "https://nsitf.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=nsitf.gov.ng";
+             $add_url = "https://NIWA.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=NIWA.gov.ng";
      
              $curl = curl_init();
      
@@ -251,7 +251,7 @@ class UserController extends AppBaseController
                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                  CURLOPT_CUSTOMREQUEST => "GET",
                  CURLOPT_HTTPHEADER => array(
-                     "Authorization: cpanel nsitfmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
+                     "Authorization: cpanel NIWAmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
                      "Cache-Control: no-cache",
                  ),
              ));
@@ -329,7 +329,9 @@ class UserController extends AppBaseController
              // Attempt to create email password
              $email = $input['email'];
              $password = $input['plain_password'];
-          /*    $add_url = "https://nsitf.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=nsitf.gov.ng";
+
+              $add_url = "https://nsitf.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=nsitf.gov.ng";
+
      
              $curl = curl_init();
      
@@ -342,7 +344,7 @@ class UserController extends AppBaseController
                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                  CURLOPT_CUSTOMREQUEST => "GET",
                  CURLOPT_HTTPHEADER => array(
-                     "Authorization: cpanel nsitfmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
+                     "Authorization: cpanel NIWAmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
                      "Cache-Control: no-cache",
                  ),
              ));
@@ -410,7 +412,9 @@ class UserController extends AppBaseController
         $user->save();
 
         $email = Auth::user()->email;
-        /* $addUrl = "https://nsitf.gov.ng:2083/execute/Email/passwd_pop?email=" . urlencode($email) . "&password=" . urlencode($newPassword) . "&domain=nsitf.gov.ng";
+
+         $addUrl = "https://nsitf.gov.ng:2083/execute/Email/passwd_pop?email=" . urlencode($email) . "&password=" . urlencode($newPassword) . "&domain=nsitf.gov.ng";
+ 
 
         $curl = curl_init();
 
@@ -423,7 +427,7 @@ class UserController extends AppBaseController
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
-                "Authorization: cpanel nsitfmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
+                "Authorization: cpanel NIWAmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
                 "Cache-Control: no-cache",
             ),
         ));

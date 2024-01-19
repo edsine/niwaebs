@@ -48,7 +48,7 @@ class Leaverequest extends Notification
 
                   //  ->action('Notification Action', 'https://laravel.com')
                     ->line('Thank you ')
-                    ->line('E-Nsitf ');
+                    ->line('E-NIWA ');
     }
 
     /**

@@ -19,7 +19,7 @@
     <div class="main">
         <div class="header">
            
-            <img src="{{ asset('niwalogo.jpeg') }}" alt="NSITF Logo">
+            <img src="{{ asset('niwalogo.jpeg') }}" alt="NIWA Logo">
             <h1>NATIONAL INLAND WATERWAYS AUTHORITY</h1>
             <h1>ECS CLEARANCE CERTIFICATE</h1>
         </div>
@@ -135,7 +135,7 @@
     </style>
     {{-- <script>
         
-        JsBarcode('#barcode', 'NSITF');
+        JsBarcode('#barcode', 'NIWA');
     </script> --}}
 </body>
 </html>

@@ -81,7 +81,7 @@ INSERT INTO `branches` (`id`, `branch_name`, `branch_region`, `branch_code`, `la
 -- (54, 'PORT HARCOURT', '27', '2004', NULL, 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
 -- (55, 'CALABAR', '5', '2005', NULL, 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
 -- (56, 'NNEWI', '9', NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL),
-(57, 'JAHI', '1', '1008', '0036', 1, 50, 1, 'corporateaffairs@nsitf.gov.ng', '08083132023', 'Plot 1184 Cadastral Zone B08, Jahi District, Abuja', '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL);
+(57, 'JAHI', '1', '1008', '0036', 1, 50, 1, 'corporateaffairs@NIWA.gov.ng', '08083132023', 'Plot 1184 Cadastral Zone B08, Jahi District, Abuja', '2023-07-12 15:43:12', '2023-07-12 15:43:12', NULL);
 
 /* --
 -- Indexes for dumped tables

@@ -8,24 +8,36 @@
         {{-- end::Sweet-alert --}}
         <!--begin::Row-->
         @if (auth()->user()->staff != null)
-            @if (auth()->user()->staff->department_id == 1)
+            @if (auth()->user()->staff->department_id == 14)
                 @include('businessdevadmin')
-            @elseif (auth()->user()->staff->department_id == 2)
+
+            @elseif (auth()->user()->staff->department_id == 1)
                 @include('hradmin')
-            @elseif (auth()->user()->staff->department_id == 6)
+            @elseif (auth()->user()->staff->department_id == 2)
                 @include('financeadmin')
-            @elseif (auth()->user()->staff->department_id == 16)
+                @elseif (auth()->user()->staff->department_id == 3)
+                    @include('marineadmin')
+            @elseif (auth()->user()->staff->department_id == 4)
                 @include('engineering')
-            @elseif (auth()->user()->staff->department_id == 15)
+                @elseif (auth()->user()->staff->department_id == 5)
+                    @include('surveyadmin')
+                @elseif (auth()->user()->staff->department_id == 6)
+                    @include('portsandenvironment')
+
+            @elseif (auth()->user()->staff->department_id == 7)
                 @include('auditadmin')
-            @elseif (auth()->user()->staff->department_id == 9)
-                @include('marineadmin')
-            @elseif (auth()->user()->staff->department_id == 5)
+            @elseif (auth()->user()->staff->department_id == 8)
+                @include('policeadmin')
+
+
+                @elseif (auth()->user()->staff->department_id == 13)
+                    @include('ictadmin')
+
+            {{-- @elseif (auth()->user()->staff->department_id == 5)
                 @include('itmadmin')
+                
             @elseif (auth()->user()->staff->department_id == 17)
                 @include('hseadmin')
-            @elseif (auth()->user()->staff->department_id == 11)
-                @include('surveyadmin')
             @elseif (auth()->user()->hasRole('minister'))
                 @include('minister')
             @elseif (auth()->user()->hasRole('permsec'))
@@ -35,9 +47,7 @@
             @elseif (auth()->user()->staff->department_id == 13)
                 @include('estateadmin')
             @elseif (auth()->user()->staff->department_id == 10)
-                @include('informalsectoradmin')
-            @elseif (auth()->user()->staff->department_id == 3)
-                @include('ictadmin')
+                @include('informalsectoradmin') --}}
             {{-- @elseif (auth()->user()->staff->department_id == 14)
                 @include('socialsecurityadmin') --}}
 
