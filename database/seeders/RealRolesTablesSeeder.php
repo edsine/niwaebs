@@ -33,10 +33,11 @@ class RealRolesTablesSeeder extends Seeder
                 'REGISTRY OFFICER',
                 'ED ADMIN',
                 'HR',
-                'Branch Manager',
-                'Regional Manager',
+                'Area Manager',
+                
                 'permsec',
                 'minister',
+                
                 
                 
             ];

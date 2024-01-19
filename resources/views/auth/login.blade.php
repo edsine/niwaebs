@@ -33,7 +33,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('sh_assets/css/style.css') }}" rel="stylesheet" type="text/css" />
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/NSITF-Logo-login.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/NIWA-Logo-login.png') }}" />
 
 
     <style>

@@ -49,7 +49,7 @@ class MemoAssignedToDepartment extends Notification implements ShouldQueue
             ->line('A new memo has been assigned to your department!')
             ->line('Please login and check your dashboard.')
             ->line('Thank you.')
-            ->line('E-NSITF');
+            ->line('E-NIWA');
     }
 
     /**

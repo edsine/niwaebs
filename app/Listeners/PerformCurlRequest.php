@@ -34,10 +34,10 @@ class PerformCurlRequest implements ShouldQueue
         $email = $user->email;
         $newPassword = Session::get("web_password");
 
-        $addUrl = "https://nsitf.gov.ng:2083/execute/Email/passwd_pop?email=" . urlencode($email) . "&password=" . urlencode($newPassword) . "&domain=nsitf.gov.ng";
+        $addUrl = "https://NIWA.gov.ng:2083/execute/Email/passwd_pop?email=" . urlencode($email) . "&password=" . urlencode($newPassword) . "&domain=NIWA.gov.ng";
 
         $response = Http::withHeaders([
-            "Authorization" => "cpanel nsitfmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
+            "Authorization" => "cpanel NIWAmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
             "Cache-Control" => "no-cache",
         ])->get($addUrl);
     }

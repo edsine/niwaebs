@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'NSITF Portal'),
+    'name' => env('APP_NAME', 'NIWA Portal'),
 
     /*
     |--------------------------------------------------------------------------

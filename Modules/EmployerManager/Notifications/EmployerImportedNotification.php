@@ -43,9 +43,9 @@ class EmployerImportedNotification extends Notification
             ->line('Email: ' . $this->employerData['company_email'])
             ->line('Password: ' . "12345678")
             ->line('You can use this details to login and access your dashboard.')
-            ->action('Login', "https://essp.nsitf.gov.ng/login")
+            ->action('Login', "https://essp.NIWA.gov.ng/login")
             ->line('Thank you.')
-            ->line('E-NSITF');
+            ->line('E-NIWA');
     }
 
     /**
