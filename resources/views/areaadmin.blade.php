@@ -182,7 +182,7 @@ Total No of Certificate Issued</span>
 															<!--end::Amount-->
 															<!--begin::Subtitle-->
 															<span class="text-gray-400 pt-1 fw-bold fs-6">
-Number Of Certificate Issues</span>
+Number Of Licences Issued</span>
 															<!--end::Subtitle-->
 														</div>
 														<!--end::Title-->

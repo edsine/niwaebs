@@ -28,7 +28,7 @@ class StaffTableSeeder extends Seeder
 
             $user = new Staff();
             $user->user_id = 1;
-            $user->department_id = 2;
+            $user->department_id = 1;
             $user->branch_id = 1;
             $user->ranking_id = 1;
         

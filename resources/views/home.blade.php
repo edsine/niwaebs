@@ -26,6 +26,8 @@
 
             @elseif (auth()->user()->staff->department_id == 7)
                 @include('auditadmin')
+            @elseif (auth()->user()->staff->department_id == 8)
+                @include('policeadmin')
 
 
                 @elseif (auth()->user()->staff->department_id == 13)
