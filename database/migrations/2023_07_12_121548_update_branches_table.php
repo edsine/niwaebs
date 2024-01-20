@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::table('branches', function (Blueprint $table) {
-            $table->string('branch_region')->change()->nullable();
-        });
+        // Schema::table('branches', function (Blueprint $table) {
+        //     $table->string('branch_region')->change()->nullable();
+        // });
         
     }
 
