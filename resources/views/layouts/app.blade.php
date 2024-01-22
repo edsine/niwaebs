@@ -393,6 +393,14 @@
             width: 75px;
             margin-right: 10px;
         }
+
+        p,
+        h6,
+        tr,
+        td,
+        th {
+            font-size: larger !important;
+        }
     </style>
 
     <!-- plugins:css -->
@@ -446,16 +454,16 @@
             @include('layouts.sidebar')
             <!--end::Sidebar-->
             <!--begin::Main-->
-                <!--begin::Content wrapper-->
-                <!-- main-panel starts -->
-                <div class="main-panel">
-                    @include('layouts.content')
-                    <!--end::Content wrapper-->
-                    <!--begin::Footer-->
-                    @include('layouts.footer')
-                    <!--end::Footer-->
-                </div>
-                <!-- main-panel ends -->
+            <!--begin::Content wrapper-->
+            <!-- main-panel starts -->
+            <div class="main-panel">
+                @include('layouts.content')
+                <!--end::Content wrapper-->
+                <!--begin::Footer-->
+                @include('layouts.footer')
+                <!--end::Footer-->
+            </div>
+            <!-- main-panel ends -->
             <!--end:::Main-->
         </div>
         <!--end::Wrapper-->
@@ -663,18 +671,20 @@
     <script src="{{ asset('sh_assets/js/settings.js') }}"></script>
     <script src="{{ asset('sh_assets/js/todolist.js') }}"></script>
 
-   
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM&amp;callback=initMap"></script>
- 
-    <script src="{{asset('sh_assets/js/google-maps.js')}}"></script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM&amp;callback=initMap">
+    </script>
+
+    <script src="{{ asset('sh_assets/js/google-maps.js') }}"></script>
     <!-- End custom js for this page-->
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="{{ asset('sh_assets/js/dashboard.js') }}"></script>
     <!-- End custom js for this page-->
     <!-- Custom js for this page-->
-  <script src="{{ asset('sh_assets/js/wizard.js') }}"></script>
-  <!-- End custom js for this page-->
+    <script src="{{ asset('sh_assets/js/wizard.js') }}"></script>
+    <!-- End custom js for this page-->
 </body>
 
 </html>

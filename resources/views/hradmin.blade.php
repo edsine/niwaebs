@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <!--begin::Content wrapper-->
     <!-- partial -->
     <div class="content-wrapper">

@@ -8,10 +8,18 @@
         display: none;
         padding-left: 20px;
     }
+
+    .nav-link span{
+        font-size: larger!important;
+    }
+    .nav-link {
+        font-size: larger;
+    }
+    
 </style>
 
 <!-- partial:partials/_sidebar.html -->
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar-text  sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
             <div class="nav-link">
