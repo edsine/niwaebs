@@ -28,37 +28,22 @@
                 @include('auditadmin')
             @elseif (auth()->user()->staff->department_id == 8)
                 @include('policeadmin')
-
-
-                @elseif (auth()->user()->staff->department_id == 13)
-                    @include('ictadmin')
-
-            {{-- @elseif (auth()->user()->staff->department_id == 5)
-                @include('itmadmin')
                 
-            @elseif (auth()->user()->staff->department_id == 17)
-                @include('hseadmin')
-            @elseif (auth()->user()->hasRole('minister'))
-                @include('minister')
-            @elseif (auth()->user()->hasRole('permsec'))
-                @include('pamsec')
-            @elseif (auth()->user()->staff->department_id == 4)
-                @include('legaladmin')
-            @elseif (auth()->user()->staff->department_id == 13)
-                @include('estateadmin')
+            @elseif (auth()->user()->staff->department_id == 9)
+                @include('coordinationadmin')
             @elseif (auth()->user()->staff->department_id == 10)
-                @include('informalsectoradmin') --}}
-            {{-- @elseif (auth()->user()->staff->department_id == 14)
-                @include('socialsecurityadmin') --}}
-
-            @elseif (auth()->user()->staff->department_id == 7)
-                @include('procurement')
+                @include('projectadmin')
             @elseif (auth()->user()->staff->department_id == 11)
-                @include('fre')
-            @elseif (auth()->user()->staff->department_id == 18)
-                @include('copaffairs')
+                @include('procurementadmin')
             @elseif (auth()->user()->staff->department_id == 12)
-                @include('aprd')
+                @include('legalsadmin')
+
+
+            @elseif (auth()->user()->staff->department_id == 13)
+                 @include('ictadmin')
+
+
+           
             @else
                 @include('defaultdashboard')
             @endif
