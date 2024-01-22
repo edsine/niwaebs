@@ -109,67 +109,67 @@ return [
     |
     */
 
-    // 'namespace' => [
-
-    //     'model'             => 'App\Models',
-
-    //     'datatables'        => 'App\DataTables',
-
-    //     'livewire_tables'   => 'App\Http\Livewire',
-
-    //     'repository'        => 'App\Repositories',
-
-    //     'controller'        => 'App\Http\Controllers',
-
-    //     'api_controller'    => 'App\Http\Controllers\API',
-
-    //     'api_resource'      => 'App\Http\Resources',
-
-    //     'request'           => 'App\Http\Requests',
-
-    //     'api_request'       => 'App\Http\Requests\API',
-
-    //     'seeder'            => 'Database\Seeders',
-
-    //     'factory'           => 'Database\Factories',
-
-    //     'tests'             => 'Tests',
-
-    //     'repository_test'   => 'Tests\Repositories',
-
-    //     'api_test'          => 'Tests\APIs',
-    // ],
-
     'namespace' => [
 
-        'model'             => 'Modules\DocumentManager\Models',
+        'model'             => 'App\Models',
 
-        'datatables'        => 'Modules\DocumentManager\DataTables',
+        'datatables'        => 'App\DataTables',
 
-        'livewire_tables'   => 'Modules\DocumentManager\Http\Livewire',
+        'livewire_tables'   => 'App\Http\Livewire',
 
-        'repository'        => 'Modules\DocumentManager\Repositories',
+        'repository'        => 'App\Repositories',
 
-        'controller'        => 'Modules\DocumentManager\Http\Controllers',
+        'controller'        => 'App\Http\Controllers',
 
-        'api_controller'    => 'Modules\DocumentManager\Http\Controllers\API',
+        'api_controller'    => 'App\Http\Controllers\API',
 
-        'api_resource'      => 'Modules\DocumentManager\Http\Resources',
+        'api_resource'      => 'App\Http\Resources',
 
-        'request'           => 'Modules\DocumentManager\Http\Requests',
+        'request'           => 'App\Http\Requests',
 
-        'api_request'       => 'Modules\DocumentManager\Http\Requests\API',
+        'api_request'       => 'App\Http\Requests\API',
 
-        'seeder'            => 'Modules\DocumentManager\Database\Seeders',
+        'seeder'            => 'Database\Seeders',
 
-        'factory'           => 'Modules\DocumentManager\Database\Factories',
+        'factory'           => 'Database\Factories',
 
-        'tests'             => 'Modules\DocumentManager\Tests',
+        'tests'             => 'Tests',
 
-        'repository_test'   => 'Modules\DocumentManager\Tests\Repositories',
+        'repository_test'   => 'Tests\Repositories',
 
-        'api_test'          => 'Modules\DocumentManager\Tests\APIs',
+        'api_test'          => 'Tests\APIs',
     ],
+
+    // 'namespace' => [
+
+    //     'model'             => 'Modules\DocumentManager\Models',
+
+    //     'datatables'        => 'Modules\DocumentManager\DataTables',
+
+    //     'livewire_tables'   => 'Modules\DocumentManager\Http\Livewire',
+
+    //     'repository'        => 'Modules\DocumentManager\Repositories',
+
+    //     'controller'        => 'Modules\DocumentManager\Http\Controllers',
+
+    //     'api_controller'    => 'Modules\DocumentManager\Http\Controllers\API',
+
+    //     'api_resource'      => 'Modules\DocumentManager\Http\Resources',
+
+    //     'request'           => 'Modules\DocumentManager\Http\Requests',
+
+    //     'api_request'       => 'Modules\DocumentManager\Http\Requests\API',
+
+    //     'seeder'            => 'Modules\DocumentManager\Database\Seeders',
+
+    //     'factory'           => 'Modules\DocumentManager\Database\Factories',
+
+    //     'tests'             => 'Modules\DocumentManager\Tests',
+
+    //     'repository_test'   => 'Modules\DocumentManager\Tests\Repositories',
+
+    //     'api_test'          => 'Modules\DocumentManager\Tests\APIs',
+    // ],
     // 'namespace' => [
 
     //     'model'             => 'Modules\DocumentManager\Models',

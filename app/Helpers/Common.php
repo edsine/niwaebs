@@ -170,3 +170,32 @@ function enum_marital_status()
 
     return $option;
 }
+
+
+function enum_equipment_fees_metrics()
+{
+    $option[0] = 'Per Day';
+    $option[1] = 'Per Month';
+    $option[2] = 'For 3 Months';
+    $option[3] = 'Up-to 6 Months';
+    $option[4] = 'Beyond 6 Months';
+    $option[5] = 'Per Year';
+    $option[6] = 'Per Tonne';
+    $option[7] = 'One-time';
+    $option[8] = 'Per Trip';
+
+
+    return $option;
+}
+
+function enum_payment_types()
+{
+    $option[0] = 'Registration Fee';
+    $option[1] = 'Application Form Fee';
+    $option[2] = 'Processing Fee';
+    $option[3] = 'Inspection Fee';
+    $option[4] = 'Application Form Fee + Processing Fee';
+    $option[5] = 'Equipment and Monitoring Fee';
+
+    return $option;
+}
