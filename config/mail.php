@@ -37,7 +37,7 @@ return [
         'smtp' => [
             'transport' => 'smtp',
            // 'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', 'nsitf.gov.ng'),
+            'host' => env('MAIL_HOST', 'NIWA.gov.ng'),
             'port' => env('MAIL_PORT', 465),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),

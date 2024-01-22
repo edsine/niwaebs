@@ -42,15 +42,6 @@ class ESSPPaymentController extends AppBaseController
 
     public function generateRemita(Request $request, $amount, $serviceApplication)
     {
-        //validation only for ECS payments
-        // $request->validate([
-        //     'year' => 'required_with:contribution_period',
-        //     'number_of_months' => 'required_if:contribution_period,Monthly|numeric',
-        //     'contribution_period' => 'required_with:year|string',
-        //     'payment_type' => 'required|numeric',
-        //     'employees' => 'required_with:year,contribution_period',
-        //     'letter_of_intent' => 'file|mimes:pdf|max:2048',
-        // ]);
 
         //generate invoice number
         $lastInvoice = Payment::get()->last();
@@ -119,7 +110,7 @@ class ESSPPaymentController extends AppBaseController
 
         if ($err) {
             Flash::error($err);
-            return redirect()->back();
+            return false;
         }
 
         $result = substr($result, 7);
@@ -153,15 +144,12 @@ class ESSPPaymentController extends AppBaseController
                 'employer_id' => $serviceApplication->employer()->id
             ]);
 
-            $serviceApplication->current_step = 1;
-            $serviceApplication->status_summary = "Payment of equipment fees required, Invoice has been sent to you";
-            $serviceApplication->save();
-
-
 
             Flash::success('Payment Reference Generated! RRR = ' . $data['RRR']);
+            return true;
         } else {
             Flash::error('Problems encountered in generating RRR');
+            return false;
         }
     }
 }

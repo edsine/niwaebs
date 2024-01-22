@@ -289,10 +289,50 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $input = $request->all();
+
         $essp_payment = (new ESSPPaymentController)->generateRemita($request, $sum_total, $serviceApplication);
+
+        if ($essp_payment == true) {
+            if ($input['payment_type'] == "5") {
+                $serviceApplication->current_step = 11;
+                $serviceApplication->status_summary = "Payment of equipment fees required, Invoice has been sent to you";
+                $serviceApplication->save();
+            }
+        }
 
         return redirect()->back();
     }
+
+    public function approveEquipmentFee(Request $request, $id)
+    {
+        $serviceApplication = ServiceApplication::find($id);
+
+        $selected_status = $request->input('selected_status');
+
+        if (empty($serviceApplication)) {
+            Flash::error('Application not found');
+
+            return redirect()->back();
+        }
+
+        if ($selected_status == 'decline') {
+            $serviceApplication->finance_is_inspection_fee_verified = 0;
+            $serviceApplication->status_summary = 'Equipment fee has been declined';
+            Flash::success('Payment has been declined.');
+        } else if ($selected_status == 'approve') {
+            $serviceApplication->finance_is_inspection_fee_verified = 1;
+            $serviceApplication->current_step = 13;
+            $serviceApplication->status_summary = 'Equipment fee has been approved';
+            Flash::success('Payment has been approved');
+        }
+
+        $serviceApplication->save();
+
+
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified ServiceApplication from storage.
      *

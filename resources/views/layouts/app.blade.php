@@ -27,20 +27,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.js"></script>
 
-
-    {{--
-    <script src="{{ asset('node_modules/apexcharts/dist/apexcharts.min.js') }}"></script> --}}
-
-    {{-- <script src="{{ url('node_modules/apexcharts/dist/apexcharts.min.js') }}"></script> --}}
-
-
-
-
-    {{-- <script src="{{asset('new_assets/assets/js/jscolor.js')}}"></script>
-<script src="{{asset('new_assets/assets/js/custom.js')}}"></script> --}}
-
-    {{-- <script src="{{asset('new_assets/assets/plugins/apexcharts.min.js')}}"></script>
-    --}}
     <!-- Custom Asset Start -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet">
@@ -48,16 +34,12 @@
     <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 
-
-
     <!-- Start::bootstrap-sweet-alert -->
     <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
     <!-- end::bootstrap-sweet-alert -->
 
-
     <link rel="stylesheet" href="{{ asset('new_assets/assets/css/plugins/flatpickr.min.css') }}">
 
-    {{-- <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet"> --}}
     <!-- Custom Asset end -->
 
     @stack('third_party_stylesheets')
@@ -412,12 +394,23 @@
             margin-right: 10px;
         }
     </style>
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('sh_assets/vendors/css/vendor.bundle.addons.css') }}">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ asset('sh_assets/css/style.css') }}">
+    <!-- endinject -->
 </head>
 
-<body id="kt_app_body" data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true"
-    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
-    data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
-    data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default"
+<body data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true"
+    data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true"
+    data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
+    class="app-default"
     data-kt-app-sidebar-minimize="{{ auth()->user()->hasRole('minister') ||auth()->user()->hasRole('permsec')? 'on': 'off' }}">
     <!--begin::Theme mode setup on page load-->
     <script>
@@ -441,31 +434,31 @@
     </script>
     <!--end::Theme mode setup on page load-->
     <!--begin::App-->
-    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-        <!--begin::Page-->
-        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
-            <!--begin::Header-->
-            @include('layouts.header')
-            <!--end::Header-->
-            <!--begin::Wrapper-->
-            <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-                <!--begin::Sidebar-->
-                @include('layouts.sidebar')
-                <!--end::Sidebar-->
-                <!--begin::Main-->
-                <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-                    <!--begin::Content wrapper-->
+    <div class="container-scroller">
+        <!--begin::Header-->
+        @include('layouts.header')
+        <!--end::Header-->
+        <!--begin::Wrapper-->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+
+            <!--begin::Sidebar-->
+            @include('layouts.sidebar')
+            <!--end::Sidebar-->
+            <!--begin::Main-->
+                <!--begin::Content wrapper-->
+                <!-- main-panel starts -->
+                <div class="main-panel">
                     @include('layouts.content')
                     <!--end::Content wrapper-->
                     <!--begin::Footer-->
                     @include('layouts.footer')
                     <!--end::Footer-->
                 </div>
-                <!--end:::Main-->
-            </div>
-            <!--end::Wrapper-->
+                <!-- main-panel ends -->
+            <!--end:::Main-->
         </div>
-        <!--end::Page-->
+        <!--end::Wrapper-->
     </div>
     <!--end::App-->
     <script>
@@ -498,9 +491,6 @@
             }, 100); // Adjust the delay if needed
         }
     </script>
-
-
-    {{--  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
 
     <script>
         function clockIn() {
@@ -559,41 +549,12 @@
         document.getElementById("clock_in").addEventListener("click", clockIn);
     </script>
 
-
-    //
-    <script>
-        // document.getElementById("clock_in").addEventListener("click", function() {
-        //     // Simulate a successful clock-in action.
-        //     const currentTime = new Date().toLocaleTimeString();
-
-        //     // Display a SweetAlert success message.
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Clocked In Successfully!',
-        //         text: `You clocked in at ${currentTime}`,
-        //         showConfirmButton: false,
-        //         footer: '<button class="btn btn-success">OK</button>'
-        //     });
-
-        //     // Disable the "CLOCK IN" button and change its color to light green.
-        //     document.getElementById("clock_in").disabled = true;
-        //     document.getElementById("clock_in").classList.remove("btn-clk");
-        //     document.getElementById("clock_in").classList.add("btn-success");
-        // });
-
-        // // Add logic for the "CLOCK OUT" button here.
-        //
-    </script> -->
-
-    {{-- <script src="{{asset('assets/js/plugins/apexcharts.min.js')}}"></script> --}}
-
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         var hostUrl = "asset/";
     </script>
 
     <!-- Start::bootstrap-sweet-alert -->
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <!-- end::bootstrap-sweet-alert -->
@@ -640,9 +601,6 @@
     {{-- <script src="{{asset('new_assets/assets/js/plugins/flatpickr.min.js')}}"></script> --}}
     <script src="{{ asset('new_assets/assets/js/plugins/main.min.js') }}"></script>
 
-    {{--
-<script> --}}
-
     <script>
         $(document).ready(function() {
             /* if ($(".datatable").length > 0) {
@@ -669,7 +627,6 @@
             }
         });
     </script>
-
     @stack('third_party_scripts')
 
     @stack('page_scripts')
@@ -688,6 +645,30 @@
 
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 
+
+
+
+
+    <!-- plugins:js -->
+    <script src="{{ asset('sh_assets/vendors/js/vendor.bundle.base.js') }}"></script>
+
+    <script src="{{ asset('sh_assets/vendors/js/vendor.bundle.addons.js') }}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="{{ asset('sh_assets/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/misc.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/settings.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/todolist.js') }}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="{{ asset('sh_assets/js/dashboard.js') }}"></script>
+    <!-- End custom js for this page-->
+    <!-- Custom js for this page-->
+  <script src="{{ asset('sh_assets/js/wizard.js') }}"></script>
+  <!-- End custom js for this page-->
 </body>
 
 </html>

@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ebs_nsitf_helpdesk`
+-- Database: `ebs_NIWA_helpdesk`
 --
 
 -- --------------------------------------------------------
@@ -522,13 +522,13 @@ INSERT INTO `settings` (`id`, `access_key`, `value`) VALUES
 (23, 'mm_allowed_ips', ''),
 (24, 'mm_message', 'We\'re very sorry for the inconvenience, the site is currently undergoing scheduled maintenance.'),
 (25, 'show_tp_message', '1'),
-(26, 'site_about', 'About NSITF Support Helpdesk App Welcome to the NSITF Support Helpdesk App, your dedicated companion for seamless assistance and information regarding the Nigeria Social Insurance Trust Fund (NSITF). Our app has been meticulously crafted to cater to your inquiries, concerns, and needs, providing you with swift access to the vital resources you require. Who We Are: The NSITF Support Helpdesk App is an extension of the Nigeria Social Insurance Trust Fund, an institution committed to safeguarding the welfare of Nigerian workers and their families. With a history of serving as a reliable safety net for workers\' compensation, injury-related support, and social insurance, NSITF continues its legacy by extending its services into the digital realm through this app. Our Mission: Our mission is to ensure that every individual\'s interaction with NSITF is as effortless and effective as possible. The NSITF Support Helpdesk App has been designed to bridge the gap between you and the valuable services NSITF offers. We strive to enhance accessibility, streamline communication, and provide timely solutions to your queries. Key Features: Instant Support: Have a question or concern? The app offers real-time support, connecting you to our knowledgeable representatives who are ready to assist. Information Hub: Access comprehensive information about NSITF\'s services, eligibility criteria, claims process, and more. Stay informed about your entitlements as a worker. Claims Tracking: Monitor the progress of your claims through the app. Receive updates and notifications as your claim moves through the processing stages. Resource Center: Browse through a collection of resources, including safety guidelines, educational materials, and informative articles related to workplace safety and insurance. Document Submission: Upload and submit essential documents directly through the app, ensuring a seamless and paperless experience. Notification Center: Stay informed about important announcements, policy changes, and upcoming events related to NSITF. User-Friendly Interface: The app\'s intuitive design makes navigation effortless, ensuring that you can find the information you need without any hassle.'),
+(26, 'site_about', 'About NIWA Support Helpdesk App Welcome to the NIWA Support Helpdesk App, your dedicated companion for seamless assistance and information regarding the Nigeria Social Insurance Trust Fund (NIWA). Our app has been meticulously crafted to cater to your inquiries, concerns, and needs, providing you with swift access to the vital resources you require. Who We Are: The NIWA Support Helpdesk App is an extension of the Nigeria Social Insurance Trust Fund, an institution committed to safeguarding the welfare of Nigerian workers and their families. With a history of serving as a reliable safety net for workers\' compensation, injury-related support, and social insurance, NIWA continues its legacy by extending its services into the digital realm through this app. Our Mission: Our mission is to ensure that every individual\'s interaction with NIWA is as effortless and effective as possible. The NIWA Support Helpdesk App has been designed to bridge the gap between you and the valuable services NIWA offers. We strive to enhance accessibility, streamline communication, and provide timely solutions to your queries. Key Features: Instant Support: Have a question or concern? The app offers real-time support, connecting you to our knowledgeable representatives who are ready to assist. Information Hub: Access comprehensive information about NIWA\'s services, eligibility criteria, claims process, and more. Stay informed about your entitlements as a worker. Claims Tracking: Monitor the progress of your claims through the app. Receive updates and notifications as your claim moves through the processing stages. Resource Center: Browse through a collection of resources, including safety guidelines, educational materials, and informative articles related to workplace safety and insurance. Document Submission: Upload and submit essential documents directly through the app, ensuring a seamless and paperless experience. Notification Center: Stay informed about important announcements, policy changes, and upcoming events related to NIWA. User-Friendly Interface: The app\'s intuitive design makes navigation effortless, ensuring that you can find the information you need without any hassle.'),
 (27, 'site_color', '3'),
-(28, 'site_description', 'NSITF Support HelpDesk'),
+(28, 'site_description', 'NIWA Support HelpDesk'),
 (29, 'site_favicon', 'ac696024b61d305a9b30b550711beacc.png'),
-(30, 'site_keywords', 'NSITF, Helpdesk, NSITF Support, NSITF Helpdesk,'),
+(30, 'site_keywords', 'NIWA, Helpdesk, NIWA Support, NIWA Helpdesk,'),
 (31, 'site_logo', 'ca303150c07893a1faa1008a163e735e.png'),
-(32, 'site_name', 'NSITF HELP DESK'),
+(32, 'site_name', 'NIWA HELP DESK'),
 (33, 'site_show_cookie_popup', '1'),
 (34, 'site_tagline', 'Support Tickets System with Knowledge Base and FAQs'),
 (35, 'site_theme', 'default'),
@@ -741,7 +741,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email_address`, `pending_email_address`, `password`, `picture`, `date_format`, `time_format`, `timezone`, `language`, `role`, `is_online`, `online_time`, `online_date`, `status`, `is_verified`, `send_email_notifications`, `announcements_last_read_at`, `last_activity`, `last_login`, `updated_at`, `registration_source`, `oauth_identifier`, `registered_month_year`, `registered_at`) VALUES
-(1, 'Super', 'Admin', 'superadmin', 'helpdesk@nsitf.gov.ng', '', '$2y$10$J5ph8N8yXbMgoeyHNpV9UOhjK7wTNa4g3PvvcSBS99bF76j0B1AP2', 'default.png', 'd/m/Y', 'H:i:s', '', '', 1, 1, 1692457347, '2023-08-19', 1, 1, 1, NULL, 1692457563, 1692457031, NULL, 1, '', '8-2023', 1692456994);
+(1, 'Super', 'Admin', 'superadmin', 'helpdesk@NIWA.gov.ng', '', '$2y$10$J5ph8N8yXbMgoeyHNpV9UOhjK7wTNa4g3PvvcSBS99bF76j0B1AP2', 'default.png', 'd/m/Y', 'H:i:s', '', '', 1, 1, 1692457347, '2023-08-19', 1, 1, 1, NULL, 1692457563, 1692457031, NULL, 1, '', '8-2023', 1692456994);
 
 -- --------------------------------------------------------
 

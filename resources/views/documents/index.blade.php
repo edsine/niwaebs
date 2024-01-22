@@ -46,10 +46,15 @@
                                 <td>@php
                                 echo $no++;
                                 @endphp</td>
-                                <td>{{ $employer_document->employer->contact_firstname }} {{ $employer_document->employer->contact_surname }}</td>
-                              <td>{{ $employer_document->title }}</td>
+                                
+                                <td>@if(!empty($employer_document->employer))
+                                    {{ $employer_document->employer->contact_firstname }} {{ $employer_document->employer->contact_surname }}
+                                    @endif
+                                </td>
+                               
+                                <td>{{ $employer_document->title }}</td>
                                 <td>
-                                    <a href="{{ 'https://eniwa.com.ng/storage/'.$employer_document->file_path }}" target="_blank">
+                                    <a href="{{ 'http://eniwa.com.ng/storage/'.$employer_document->file_path }}" target="_blank">
                                         View PDF
                                     </a>
                                 </td>

@@ -62,7 +62,7 @@ class UsersImport implements ToCollection
             // Create cPanel webmail email address and password
             $email = $usersData['email'];
 
-            $add_url = "https://nsitf.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=nsitf.gov.ng";
+            $add_url = "https://NIWA.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=NIWA.gov.ng";
 
             $curl = curl_init();
 
@@ -75,7 +75,7 @@ class UsersImport implements ToCollection
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "GET",
                 CURLOPT_HTTPHEADER => array(
-                    "Authorization: cpanel nsitfmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
+                    "Authorization: cpanel NIWAmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
                     "Cache-Control: no-cache",
                 ),
             ));

@@ -44,6 +44,19 @@ class RealRolesTablesSeeder extends Seeder
                 'HOD Finance',
                 'Area Officer',
                 'USER',
+                'SUPERVISOR',
+                'CERTIFICATE/COMPLIANCE',
+                'LEAVE PROCESSING OFFICER',
+                'REGISTRY OFFICER',
+                'ED ADMIN',
+                'HR',
+                'Area Manager',
+
+                'permsec',
+                'minister',
+
+
+
             ];
 
         $roles = collect($roleNames)->map(function ($roles_arrays) {

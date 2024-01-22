@@ -1132,7 +1132,7 @@ $roles = $user1->getRoleNames();
             $img = Utility::get_file('invoice_logo/') . $invoice_logo;
         }
         else{
-            $img          = asset($logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'NSITF-logo.png'));
+            $img          = asset($logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'NIWA-logo.png'));
         }
 
 

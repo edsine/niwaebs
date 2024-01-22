@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
 // });
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/essp/payments', [ESSPPaymentController::class, 'index'])->name('essp.payments');
+    Route::get('/niwa/payments', [ESSPPaymentController::class, 'index'])->name('niwa.payments');
     Route::patch('/approve-payment/{id}', [ESSPPaymentController::class, 'approvePayment'])
         ->name('approvePayment');
 });
@@ -100,7 +100,7 @@ Route::get('/itmadmin', [HomeController::class, 'itmadmin'])->name('itmadmin');
 Route::get('/complianceadmin', [HomeController::class, 'complianceadmin'])->name('complianceadmin');
 Route::get('/hseadmin', [HomeController::class, 'hseadmin'])->name('hseadmin');
 Route::get('/permsec', [HomeController::class, 'pamsec'])->name('permsec');
-Route::get('/branch', [HomeController::class, 'branch'])->name('branch');
+Route::get('/am', [HomeController::class, 'branch'])->name('am');
 Route::get('/region', [HomeController::class, 'regional'])->name('region');
 Route::get('/ed_md', [HomeController::class, 'edfinance'])->name('ed_md');
 Route::get('/ed_admin', [HomeController::class, 'edadmin'])->name('ed_admin');
@@ -269,3 +269,4 @@ Route::post('processing-fee-payment-approval/{id}', [App\Http\Controllers\Servic
 Route::post('inspection-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveInspectionFee'])->name('application.inspectionfee.approval');
 Route::post('set-inspection-status/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'setInspectionStatus'])->name('application.inspection.status');
 Route::post('application-equipment-invoice/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'generateEquipmentInvoice'])->name('application.equipmemt.invoice');
+Route::post('equipment-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveEquipmentFee'])->name('application.equipmentfee.approval');

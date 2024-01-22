@@ -153,11 +153,14 @@
                 <div class="row col-sm-12">
                     <div class="form-group col-sm-3">
                         {!! Form::label('equipment', 'Equipment:') !!}
-                        {!! Form::select('price', $equipment_and_fees, null, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::select('price', ['' => '', ...$equipment_and_fees], null, ['class' => 'form-control', 'required']) !!}
                     </div>
                     <div class="form-group col-sm-3">
                         {!! Form::label('qty', 'Qty/Days/Trip:') !!}
                         {!! Form::number('qty', null, ['class' => 'form-control', 'required']) !!}
+                        <div>
+                            <p class="price">Price: </p>
+                        </div>
                     </div>
                     <!-- Delete Button -->
                     <div class="form-group col-sm-3">
@@ -172,8 +175,36 @@
         <div class="form-group col-sm-3 mt-5">
             {!! Form::button('Add New', ['class' => 'btn btn-success', 'data-repeater-create']) !!}
         </div>
+        <div class="form-group col-sm-3 mt-5">
+            <span class="total-price"></span>
+        </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-success btn-xs">Generate Invoice</button>
+        </div>
+        {!! Form::close() !!}
+    </div>
+@endif
+
+@if ($serviceApplication->current_step == 12)
+    <div class="col-sm-12">
+        <!-- Documents Approval -->
+        <h3>Equipment Fee Payment Approval</h3>
+        {!! Form::open([
+            'route' => ['application.equipmentfee.approval', $serviceApplication->id],
+            'method' => 'post',
+        ]) !!}
+
+        @push('page_scripts')
+            <script type="text/javascript">
+                $('#date_of_inspection').datepicker()
+            </script>
+        @endpush
+        <input type="hidden" name="selected_status" id="selected_status_input">
+        <div class='btn-group'>
+            <button type="submit" class="m-2 btn btn-success btn-xs"
+                onclick="setSelectedStatus('approve')">Approve</button>
+            <button type="submit" class="m-2 btn btn-danger btn-xs"
+                onclick="setSelectedStatus('decline')">Decline</button>
         </div>
         {!! Form::close() !!}
     </div>
@@ -318,6 +349,59 @@
                 // defaults to false.
                 isFirstItemUndeletable: true
             });
+        });
+    </script>
+
+    {{-- <script>
+        $(document).ready(function() {
+            // Listen for changes in the select and number elements
+            $('[data-repeater-list="equipment"]').on('change', 'select, input[type="number"]', function() {
+                // Get the parent repeater item
+                var repeaterItem = $(this).closest('[data-repeater-item]');
+
+                // Get the selected value from the select element
+                var selectedValue = repeaterItem.find('select').val();
+
+                // Get the quantity from the number element
+                var quantity = repeaterItem.find('input[type="number"]').val();
+
+                // Calculate the price (You might need to adjust this calculation based on your requirements)
+                var price = selectedValue * quantity;
+
+                // Update the corresponding p tag with the calculated price
+                repeaterItem.find('.price').text('Price: ' + price);
+            });
+        });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            // Listen for changes in the select and number elements
+            $('[data-repeater-list="equipment"]').on('change', 'select, input[type="number"]', function() {
+                updatePrice($(this).closest('[data-repeater-list="equipment"]'));
+            });
+
+            // Function to update the price for a specific repeater list
+            function updatePrice(repeaterList) {
+                var totalPrice = 0;
+
+                // Iterate through each repeater item
+                repeaterList.find('[data-repeater-item]').each(function() {
+                    var repeaterItem = $(this);
+                    var selectedValue = repeaterItem.find('select').val();
+                    var quantity = repeaterItem.find('input[type="number"]').val();
+                    var price = selectedValue * quantity;
+
+                    // Update the corresponding p tag with the calculated price
+                    repeaterItem.find('.price').text('Price: ' + price);
+
+                    // Add the price to the total
+                    totalPrice += price;
+                });
+
+                // Update the total price for the repeater list
+                $('.total-price').text('Total Price: ' + totalPrice);
+            }
         });
     </script>
 @endpush

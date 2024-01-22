@@ -12,7 +12,7 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/NSITF-Logo-login.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/NIWA-Logo-login.png') }}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -23,7 +23,7 @@
     <!--begin::Page bg image-->
     <style>
         body {
-            background-image: url('assets/media/auth/Optimized-nsitf-login-img2.jpg');
+            background-image: url('assets/media/auth/Optimized-NIWA-login-img2.jpg');
         }
 
         [data-bs-theme="dark"] body {
@@ -85,7 +85,7 @@
                 <div class="d-flex flex-center flex-lg-start flex-column">
                     <!--begin::Logo-->
                     <a href="{{ route('home') }}" class="mb-7">
-                        <img alt="Logo" class="img-fluid" style="max-height: 20vw;" src="{{ asset('assets/media/logos/NSITF-Logo-login.png') }}" />
+                        <img alt="Logo" class="img-fluid" style="max-height: 20vw;" src="{{ asset('assets/media/logos/NIWA-Logo-login.png') }}" />
                     </a>
                     <!--end::Logo-->
                 </div>
@@ -95,7 +95,7 @@
             <!--begin::Body-->
             <div class="flex-center w-lg-50 p-10">
                 <div class="my-5 py-5">
-                    <span style="color: #02a14d; font-size: 40px" class="text-center"> Welcome to The NSITF EBS</span>
+                    <span style="color: #02a14d; font-size: 40px" class="text-center"> Welcome to The NIWA EBS</span>
                 </div>
                 <!--begin::Card-->
                 <div class="card shadow rounded-3 w-md-550px">

@@ -59,9 +59,9 @@ class RequestSavedNotification extends Notification
 
             ->line(new HtmlString('If you have any questions, please do not hesitate to
                     contact us at <a style="color: #0fac81; text-decoration:none;"
-                        href="mailto:info@nsitf.gov.ng">info@nsitf.gov.ng</a>, or visit our website
+                        href="mailto:info@NIWA.gov.ng">info@NIWA.gov.ng</a>, or visit our website
                     at <a style="color: #0fac81; text-decoration:none;" target="_blank"
-                        href="https://nsitf.gov.ng">www.nsitf.gov.ng</a> anytime.'));
+                        href="https://NIWA.gov.ng">www.NIWA.gov.ng</a> anytime.'));
     }
 
     /**

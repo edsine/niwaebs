@@ -11,7 +11,7 @@
 
 <head>
     <title>
-        {{ \Modules\Accounting\Models\Utility::getValByName('title_text') ? \Modules\Accounting\Models\Utility::getValByName('title_text') : config('app.name', 'NSITF EBS') }}
+        {{ \Modules\Accounting\Models\Utility::getValByName('title_text') ? \Modules\Accounting\Models\Utility::getValByName('title_text') : config('app.name', 'NIWA EBS') }}
         - @yield('page-title')</title>
     <!-- Meta -->
     <meta charset="utf-8" />
