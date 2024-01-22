@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Modules\Shared\Models\Branch;
 use Modules\Shared\Models\Department;
 use Illuminate\Database\Eloquent\Model as Eloquent;
