@@ -79,16 +79,23 @@
             <a class="nav-link" href="{{ route('niwa.payments') }}">
                 <i class="fa fa-list menu-icon"></i>
                 <span class="menu-title">Payments</span>
-                
+
             </a>
-        </li> 
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('document.index') }}">
                 <i class="fa fa-list menu-icon"></i>
                 <span class="menu-title">Client Documents</span>
-                
+
             </a>
-        </li> 
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('serviceApplications.index') }}">
+                <i class="fa fa-list menu-icon"></i>
+                <span class="menu-title">Service Applications</span>
+
+            </a>
+        </li>
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>
@@ -205,7 +212,7 @@
                     </ul>
                 </li>
             </ul>
-            
+
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item" id="myTaskLayouts">
                     <a class="nav-link" href="#">
