@@ -87,6 +87,12 @@
                     <a class="nav-link" href="">Approval Request</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="">Payment Approval</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Document Approval</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="">Appraisal</a>
                 </li>
             </ul>
