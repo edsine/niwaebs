@@ -66,6 +66,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -97,6 +99,20 @@
     </div>
 </div>
 
+
+<div class="row">
+    {{-- <div class="col-md-6 col-lg-4 grid-margin"> --}}
+    <div class="col grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">SITES VISITED</h6>
+          <div class="map-container">
+            <div id="map-with-marker" class="google-map"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
 
 
