@@ -37,7 +37,7 @@ class DepartmentsTableSeeder extends Seeder
             
 
         ];
-        DB::table('departments')->insert($offices);
+       // DB::table('departments')->insert($offices);
     }
     
 }
