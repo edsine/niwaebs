@@ -297,6 +297,7 @@ class ServiceApplicationController extends AppBaseController
             if ($input['payment_type'] == "5") {
                 $serviceApplication->current_step = 11;
                 $serviceApplication->status_summary = "Payment of equipment fees required, Invoice has been sent to you";
+                $serviceApplication->equipment_fees_list = $equipment;
                 $serviceApplication->save();
             }
         }

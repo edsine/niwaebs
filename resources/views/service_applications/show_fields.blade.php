@@ -160,6 +160,7 @@
                         {!! Form::number('qty', null, ['class' => 'form-control', 'required']) !!}
                         <div>
                             <p class="price">Price: </p>
+                            <input type="hidden" name="sub_price" class=".sub-price">
                         </div>
                     </div>
                     <!-- Delete Button -->
@@ -177,6 +178,7 @@
         </div>
         <div class="form-group col-sm-3 mt-5">
             <span class="total-price"></span>
+            <input type="hidden" class="total-price-input" name="total_price">
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-success btn-xs">Generate Invoice</button>
@@ -402,28 +404,6 @@
         });
     </script>
 
-    {{-- <script>
-        $(document).ready(function() {
-            // Listen for changes in the select and number elements
-            $('[data-repeater-list="equipment"]').on('change', 'select, input[type="number"]', function() {
-                // Get the parent repeater item
-                var repeaterItem = $(this).closest('[data-repeater-item]');
-
-                // Get the selected value from the select element
-                var selectedValue = repeaterItem.find('select').val();
-
-                // Get the quantity from the number element
-                var quantity = repeaterItem.find('input[type="number"]').val();
-
-                // Calculate the price (You might need to adjust this calculation based on your requirements)
-                var price = selectedValue * quantity;
-
-                // Update the corresponding p tag with the calculated price
-                repeaterItem.find('.price').text('Price: ' + price);
-            });
-        });
-    </script> --}}
-
     <script>
         $(document).ready(function() {
             // Listen for changes in the select and number elements
@@ -444,6 +424,7 @@
 
                     // Update the corresponding p tag with the calculated price
                     repeaterItem.find('.price').text('Price: ' + price);
+                    repeaterItem.find('.sub-price').val(price);
 
                     // Add the price to the total
                     totalPrice += price;
@@ -451,6 +432,7 @@
 
                 // Update the total price for the repeater list
                 $('.total-price').text('Total Price: ' + totalPrice);
+                $('.total-price-input').val(totalPrice);
             }
         });
     </script>
