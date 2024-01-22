@@ -317,11 +317,11 @@ class ServiceApplicationController extends AppBaseController
         }
 
         if ($selected_status == 'decline') {
-            $serviceApplication->finance_is_inspection_fee_verified = 0;
+            $serviceApplication->are_equipment_and_monitoring_fees_verified = 0;
             $serviceApplication->status_summary = 'Equipment fee has been declined';
             Flash::success('Payment has been declined.');
         } else if ($selected_status == 'approve') {
-            $serviceApplication->finance_is_inspection_fee_verified = 1;
+            $serviceApplication->are_equipment_and_monitoring_fees_verified = 1;
             $serviceApplication->current_step = 13;
             $serviceApplication->status_summary = 'Equipment fee has been approved';
             Flash::success('Payment has been approved');
@@ -332,6 +332,67 @@ class ServiceApplicationController extends AppBaseController
 
         return redirect()->back();
     }
+
+    public function areaOfficerApproval(Request $request, $id)
+    {
+        $serviceApplication = ServiceApplication::find($id);
+
+        $selected_status = $request->input('selected_status');
+
+        if (empty($serviceApplication)) {
+            Flash::error('Application not found');
+
+            return redirect()->back();
+        }
+
+        if ($selected_status == 'decline') {
+            $serviceApplication->area_officer_approval = 0;
+            $serviceApplication->current_step = 10;
+            $serviceApplication->status_summary = 'Declined by Area officer';
+            Flash::success('Declined.');
+        } else if ($selected_status == 'approve') {
+            $serviceApplication->area_officer_approval = 1;
+            $serviceApplication->current_step = 14;
+            $serviceApplication->status_summary = 'Approved by Area officer';
+            Flash::success('Approved');
+        }
+
+        $serviceApplication->save();
+
+
+        return redirect()->back();
+    }
+
+    public function hodMarineApproval(Request $request, $id)
+    {
+        $serviceApplication = ServiceApplication::find($id);
+
+        $selected_status = $request->input('selected_status');
+
+        if (empty($serviceApplication)) {
+            Flash::error('Application not found');
+
+            return redirect()->back();
+        }
+
+        if ($selected_status == 'decline') {
+            $serviceApplication->hod_marine_approval = 0;
+            $serviceApplication->current_step = 12;
+            $serviceApplication->status_summary = 'Declined by HOD Marine';
+            Flash::success('Declined.');
+        } else if ($selected_status == 'approve') {
+            $serviceApplication->hod_marine_approval = 1;
+            $serviceApplication->current_step = 15;
+            $serviceApplication->status_summary = 'Approved by HOD Marine';
+            Flash::success('Approved');
+        }
+
+        $serviceApplication->save();
+
+
+        return redirect()->back();
+    }
+
 
     /**
      * Remove the specified ServiceApplication from storage.

@@ -210,6 +210,56 @@
     </div>
 @endif
 
+@if ($serviceApplication->current_step == 13)
+    <div class="col-sm-12">
+        <!-- Documents Approval -->
+        <h3>Area Officer Approval</h3>
+        {!! Form::open([
+            'route' => ['application.areaofficer.approval', $serviceApplication->id],
+            'method' => 'post',
+        ]) !!}
+
+        @push('page_scripts')
+            <script type="text/javascript">
+                $('#date_of_inspection').datepicker()
+            </script>
+        @endpush
+        <input type="hidden" name="selected_status" id="selected_status_input">
+        <div class='btn-group'>
+            <button type="submit" class="m-2 btn btn-success btn-xs"
+                onclick="setSelectedStatus('approve')">Approve</button>
+            <button type="submit" class="m-2 btn btn-danger btn-xs"
+                onclick="setSelectedStatus('decline')">Decline</button>
+        </div>
+        {!! Form::close() !!}
+    </div>
+@endif
+
+@if ($serviceApplication->current_step == 14)
+    <div class="col-sm-12">
+        <!-- Documents Approval -->
+        <h3>HOD Marine Approval</h3>
+        {!! Form::open([
+            'route' => ['application.hodmarine.approval', $serviceApplication->id],
+            'method' => 'post',
+        ]) !!}
+
+        @push('page_scripts')
+            <script type="text/javascript">
+                $('#date_of_inspection').datepicker()
+            </script>
+        @endpush
+        <input type="hidden" name="selected_status" id="selected_status_input">
+        <div class='btn-group'>
+            <button type="submit" class="m-2 btn btn-success btn-xs"
+                onclick="setSelectedStatus('approve')">Approve</button>
+            <button type="submit" class="m-2 btn btn-danger btn-xs"
+                onclick="setSelectedStatus('decline')">Decline</button>
+        </div>
+        {!! Form::close() !!}
+    </div>
+@endif
+
 <script>
     function setSelectedStatus(value) {
         document.getElementById('selected_status_input').value = value;
