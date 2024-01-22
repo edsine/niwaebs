@@ -329,36 +329,6 @@ class UserController extends AppBaseController
              // Attempt to create email password
              $email = $input['email'];
              $password = $input['plain_password'];
-
-              $add_url = "https://nsitf.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=nsitf.gov.ng";
-
-     
-             $curl = curl_init();
-     
-             curl_setopt_array($curl, array(
-                 CURLOPT_URL => $add_url,
-                 CURLOPT_RETURNTRANSFER => true,
-                 CURLOPT_ENCODING => "",
-                 CURLOPT_MAXREDIRS => 10,
-                 CURLOPT_TIMEOUT => 30,
-                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                 CURLOPT_CUSTOMREQUEST => "GET",
-                 CURLOPT_HTTPHEADER => array(
-                     "Authorization: cpanel NIWAmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
-                     "Cache-Control: no-cache",
-                 ),
-             ));
-     
-             $response = curl_exec($curl);
-             $err = curl_error($curl);
-     
-             curl_close($curl);
-     
-             if ($err) {
-                 // Email password creation failed
-                 // You can show the error message to the user and redirect back
-                 return redirect()->back()->with('error', 'Email password creation failed: ' . $err);
-             } */
      
              // Email password creation was successful
              // Continue with user data saving
@@ -412,35 +382,6 @@ class UserController extends AppBaseController
         $user->save();
 
         $email = Auth::user()->email;
-
-         $addUrl = "https://nsitf.gov.ng:2083/execute/Email/passwd_pop?email=" . urlencode($email) . "&password=" . urlencode($newPassword) . "&domain=nsitf.gov.ng";
- 
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $addUrl,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: cpanel NIWAmai:CBQGD88REZCOO15NI5VB64VEGQLPVOBQ",
-                "Cache-Control: no-cache",
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        if($err){
-            Flash::error('Email password not changed. '.$err);
-            return redirect(route('change.email.password'));
-        }
-
-        curl_close($curl); */
 
         // Handle response and errors as needed
         Flash::error('Email password & EBS Password changed successfully. ');
