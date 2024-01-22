@@ -46,7 +46,7 @@
                     <a class="nav-link" href="">Marine Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/layout/sidebar-hidden.html">Engineering Dashboard</a>
+                    <a class="nav-link" href="#">Engineering Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">finance and account
@@ -75,6 +75,27 @@
             </a>
         </li> --}}
 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('niwa.payments') }}">
+                <i class="fa fa-list menu-icon"></i>
+                <span class="menu-title">Payments</span>
+
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('document.index') }}">
+                <i class="fa fa-list menu-icon"></i>
+                <span class="menu-title">Client Documents</span>
+
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('serviceApplications.index') }}">
+                <i class="fa fa-list menu-icon"></i>
+                <span class="menu-title">Service Applications</span>
+
+            </a>
+        </li>
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>
@@ -119,7 +140,7 @@
                     </a>
                     <ul class="nav flex-column sub-sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/compact-menu.html">Apply for Leave</a>
+                            <a class="nav-link" href="#">Apply for Leave</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Leave Status</a>
@@ -134,32 +155,32 @@
                     </a>
                     <ul class="nav flex-column sub-sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/compact-menu.html">Clients</a>
+                            <a class="nav-link" href="#">Clients</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Payments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-hidden.html">Permits and Licences</a>
+                            <a class="nav-link" href="#">Permits and Licences</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Operators Certification</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Request Notifications</a>
+                            <a class="nav-link" href="#">Request Notifications</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Accident Notification</a>
+                            <a class="nav-link" href="#">Accident Notification</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Spare Parts Request</a>
+                            <a class="nav-link" href="#">Spare Parts Request</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Certificate Renewal</a>
+                            <a class="nav-link" href="#">Certificate Renewal</a>
                         </li>
                     </ul>
                 </li>
-            </ul>            
+            </ul>
         </li>
 
         <li class="nav-item" id="myTask">
@@ -178,19 +199,19 @@
                     </a>
                     <ul class="nav flex-column sub-sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/compact-menu.html">File Type</a>
+                            <a class="nav-link" href="#">File Type</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Uploads</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-hidden.html">List</a>
+                            <a class="nav-link" href="#">List</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Folders</a>
                         </li>
                         {{-- <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/sidebar-fixed.html">Sidebar Fixed</a>
+                            <a class="nav-link" href="#">Sidebar Fixed</a>
                         </li> --}}
                     </ul>
                 </li>
@@ -202,7 +223,7 @@
                     </a>
                     <ul class="nav flex-column sub-sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/layout/compact-menu.html">Chat</a>
+                            <a class="nav-link" href="#">Chat</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Mail</a>

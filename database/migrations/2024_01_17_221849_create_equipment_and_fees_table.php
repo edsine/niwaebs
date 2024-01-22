@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('equipment_and_fees', function (Blueprint $table) {
             $table->id('id');
-            $table->string('branch_name')->unique()->nullable();
-          
+            $table->integer('service_id')->nullable();
+            $table->string('name');
+            $table->decimal('price');
+            $table->integer('metric');
+            $table->integer('sub_service_id')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('branches');
+        Schema::drop('equipment_and_fees');
     }
 };
