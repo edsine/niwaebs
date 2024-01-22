@@ -43,7 +43,7 @@ class BranchesTableSeeder extends Seeder
             ['branch_name'=>'Baro Port'],
 
         ];
-        DB::table('branches')->insert($areaoffices);
+        //DB::table('branches')->insert($areaoffices);
     }
     
 }

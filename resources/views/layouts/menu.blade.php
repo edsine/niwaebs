@@ -83,7 +83,7 @@
             </a>
         </li> --}}
 
-        <li class="nav-item">
+       {{--  <li class="nav-item">
             <a class="nav-link" href="{{ route('niwa.payments') }}">
                 <i class="fa fa-list menu-icon"></i>
                 <span class="menu-title">Payments</span>
@@ -96,7 +96,7 @@
                 <span class="menu-title">Client Documents</span>
 
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('serviceApplications.index') }}">
                 <i class="fa fa-list menu-icon"></i>
@@ -123,6 +123,18 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Appraisal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('niwa.payments') }}">
+                       Payments
+        
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('document.index') }}">
+                        Client Documents
+        
+                    </a>
                 </li>
             </ul>
         </li>
