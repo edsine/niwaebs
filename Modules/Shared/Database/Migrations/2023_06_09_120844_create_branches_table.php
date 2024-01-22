@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->id('id');
             $table->string('branch_name')->unique()->nullable();
-            $table->integer('branch_region')->nullable();
-            $table->string('branch_code')->unique()->nullable();
-            $table->string('last_ecsnumber')->unique()->nullable();
-            $table->integer('highest_rank')->nullable();
-            $table->integer('staff_strength')->nullable();
-            $table->integer('managing_id')->nullable();
-            $table->string('branch_email')->unique()->nullable();
-            $table->string('branch_phone')->unique()->nullable();
-            $table->string('branch_address')->nullable();
+            // $table->integer('branch_region')->nullable();
+            // $table->string('branch_code')->unique()->nullable();
+            // $table->string('last_ecsnumber')->unique()->nullable();
+            // $table->integer('highest_rank')->nullable();
+            // $table->integer('staff_strength')->nullable();
+            // $table->integer('managing_id')->nullable();
+            // $table->string('branch_email')->unique()->nullable();
+            // $table->string('branch_phone')->unique()->nullable();
+            // $table->string('branch_address')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

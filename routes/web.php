@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
 // });
 Route::middleware(['auth'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/essp/payments', [ESSPPaymentController::class, 'index'])->name('essp.payments');
+    Route::get('/niwa/payments', [ESSPPaymentController::class, 'index'])->name('niwa.payments');
     Route::patch('/approve-payment/{id}', [ESSPPaymentController::class, 'approvePayment'])
     ->name('approvePayment');
 });
