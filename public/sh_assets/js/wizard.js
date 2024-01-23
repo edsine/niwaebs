@@ -47,7 +47,22 @@
     transitionEffect: "slideLeft",
     stepsOrientation: "vertical",
     onFinished: function(event, currentIndex) {
-      alert("Submitted!");
+      fetch("{{ route('users.store') }}", {
+        method: "POST",
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle successful response
+        alert("Form submitted successfully!");
+        window.location.href = "{{route('users.index')}}";
+      })
+      .catch(error => {
+        // Handle errors
+        console.error(error);
+        document.print("Error submitting form:", error);
+      });
+
     }
   });
 })(jQuery);

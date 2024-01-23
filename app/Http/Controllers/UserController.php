@@ -300,6 +300,7 @@ class UserController extends AppBaseController
      {
          $input = $request->all();
 
+         dd($input);
          //$email = $input['email'];
      
          $input['plain_password'] = $input['password'];
