@@ -54,7 +54,7 @@
                                
                                 <td>{{ $employer_document->title }}</td>
                                 <td>
-                                    <a href="{{ 'http://eniwa.com.ng/storage/'.$employer_document->file_path }}" target="_blank">
+                                    <a href="{{ 'http://ebs.eniwa.com.ng/storage/'.$employer_document->file_path }}" target="_blank">
                                         View PDF
                                     </a>
                                 </td>
