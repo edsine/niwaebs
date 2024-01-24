@@ -197,7 +197,8 @@ Route::resource('allowance', AllowanceController::class)->middleware(['auth']);
 Route::get('allowances/create/{eid}', [AllowanceController::class, 'allowanceCreate'])->name('allowances.create')->middleware(['auth']);
 
 
-Route::post('newuserstore',[UserController::class,'store'])->name('newuser')->middleware(['auth']);
+Route::post('newuserstore', [UserController::class, 'store'])->name('newuser')->middleware(['auth']);
+// Route::post('newuserstore',[UserController::class,'store'])->name('newuser')->middleware(['auth']);
 //payslip
 
 /* Route::resource('paysliptype', PayslipTypeController::class)->middleware(['auth']);

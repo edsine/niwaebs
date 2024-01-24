@@ -6,9 +6,14 @@
     bodyTag: "section",
     transitionEffect: "slideLeft",
     onFinished: function(event, currentIndex) {
-      alert("Submitted!");
+    //   alert("Submitted!");
+
+   
+
     }
   });
+
+
   var validationForm = $("#example-validation-form");
   validationForm.val({
     errorPlacement: function errorPlacement(error, element) {
@@ -40,6 +45,8 @@
       alert("Submitted!");
     }
   });
+
+
   var verticalForm = $("#example-vertical-wizard");
   verticalForm.children("div").steps({
     headerTag: "h3",
@@ -47,22 +54,11 @@
     transitionEffect: "slideLeft",
     stepsOrientation: "vertical",
     onFinished: function(event, currentIndex) {
-      fetch("{{ route('users.store') }}", {
-        method: "POST",
-        body: formData,
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Handle successful response
-        alert("Form submitted successfully!");
-        window.location.href = "{{route('users.index')}}";
-      })
-      .catch(error => {
-        // Handle errors
-        console.error(error);
-        document.print("Error submitting form:", error);
-      });
-
+      alert("Submitted!");
     }
   });
+
+
 })(jQuery);
+
+
