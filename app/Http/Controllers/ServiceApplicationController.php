@@ -384,6 +384,7 @@ class ServiceApplicationController extends AppBaseController
         } else if ($selected_status == 'approve') {
             $serviceApplication->hod_marine_approval = 1;
             $serviceApplication->current_step = 15;
+            $serviceApplication->issued_on = now();
             $serviceApplication->status_summary = 'Approved by HOD Marine';
             Flash::success('Approved');
         }
