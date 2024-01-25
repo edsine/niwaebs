@@ -14,7 +14,7 @@
 
     <div class="content px-3">
 
-        @include('layouts.messages')
+        {{-- @include('layouts.messages') --}}
 
         <div class="clearfix"></div>
 
