@@ -84,6 +84,7 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
+
         // Auth::check() && Auth::user()->hasRole('minister')
         // if ((Auth::check() && Auth::user()->hasRole('super-admin') || (Auth::check() && Auth::user()->hasRole('supervisor')&& Auth()->user()->staff->department_id=3) ) )
       if   (Auth::check() && (Auth::user()->hasRole('super-admin') || (Auth::user()->hasRole('SUPERVISOR') && Auth::user()->staff->department_id == 3)))
@@ -97,6 +98,7 @@ class UserController extends AppBaseController
 
 
 
+
          if(Auth::user()->hasRole('super-admin')){
 
         $usersQuery = DB::table('users')
@@ -105,7 +107,7 @@ class UserController extends AppBaseController
             ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
-            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
 
         $noroleQuery = DB::table('users')
             ->leftJoin('staff', 'users.id', '=', 'staff.user_id')
@@ -113,7 +115,7 @@ class UserController extends AppBaseController
             ->whereNull('model_has_roles.role_id')
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
-            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
 
         }else{
             $usersQuery = DB::table('users')
@@ -123,7 +125,8 @@ class UserController extends AppBaseController
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
             ->where('staff.branch_id',$userbranch_id)
-            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
+
 
         $noroleQuery = DB::table('users')
             ->leftJoin('staff', 'users.id', '=', 'staff.user_id')
@@ -158,7 +161,7 @@ class UserController extends AppBaseController
 
         $users = $usersQuery->paginate(10);
         $norole = $noroleQuery->paginate(10);
-
+// dd( $users);
         return view('users.index', compact('users', 'norole'));
 
     } else {
@@ -300,7 +303,7 @@ class UserController extends AppBaseController
      {
          $input = $request->all();
 
-         //dd($input);
+
          //$email = $input['email'];
 
          $input['plain_password'] = $input['password'];
