@@ -283,8 +283,6 @@ class UserController extends AppBaseController
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
 
 
-
-
         $department = $this->departmentRepository->all()->pluck('name', 'id');
         return view('users.create', compact('roles', 'branch', 'department', 'rank'));
     }
@@ -628,5 +626,5 @@ class UserController extends AppBaseController
         $designations = Designation::where('department_id', $request->department_id)->get()->pluck('name', 'id')->toArray();
 
         return response()->json($designations);
-    }
+}
 }
