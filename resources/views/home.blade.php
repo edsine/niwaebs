@@ -3,52 +3,35 @@
 @section('content')
 
     <div class="container-fluid">
-        {{-- Start::Sweet-alert --}}
+        {{-- Sweet-alert --}}
         @include('flash::message')
         {{-- end::Sweet-alert --}}
+
         <!--begin::Row-->
-        @if (auth()->user()->staff != null)
-            @if (auth()->user()->staff->department_id == 14)
-                @include('businessdevadmin')
+        @php
+            $departmentId = optional(auth()->user()->staff)->department_id;
+        // dd($departmentId);
+        @endphp
 
-            @elseif (auth()->user()->staff->department_id == 1)
-                @include('hradmin')
-            @elseif (auth()->user()->staff->department_id == 2)
-                @include('financeadmin')
-                @elseif (auth()->user()->staff->department_id == 3)
-                    @include('marineadmin')
-            @elseif (auth()->user()->staff->department_id == 4)
-                @include('engineering')
-                @elseif (auth()->user()->staff->department_id == 5)
-                    @include('surveyadmin')
-                @elseif (auth()->user()->staff->department_id == 6)
-                    @include('portsandenvironment')
+@includeWhen($departmentId == 1, 'hradmin')
+@includeWhen($departmentId == 2, 'financeadmin')
+@includeWhen($departmentId == 3, 'marineadmin')
+@includeWhen($departmentId == 4, 'engineering')
+@includeWhen($departmentId == 5, 'surveyadmin')
+@includeWhen($departmentId == 6, 'portsandenvironment')
+@includeWhen($departmentId == 7, 'auditadmin')
+{{-- @includeWhen($departmentId == 8, 'policeadmin') --}}
+@includeWhen($departmentId == 8, 'policeadmin')
+@includeWhen($departmentId == 9, 'coordinationadmin')
 
-            @elseif (auth()->user()->staff->department_id == 7)
-                @include('auditadmin')
-            @elseif (auth()->user()->staff->department_id == 8)
-                @include('policeadmin')
-                
-            @elseif (auth()->user()->staff->department_id == 9)
-                @include('coordinationadmin')
-            @elseif (auth()->user()->staff->department_id == 10)
-                @include('projectadmin')
-            @elseif (auth()->user()->staff->department_id == 11)
-                @include('procurementadmin')
-            @elseif (auth()->user()->staff->department_id == 12)
-                @include('legalsadmin')
+@includeWhen($departmentId == 10, 'projectadmin')
+@includeWhen($departmentId == 11, 'procurementadmin')
+@includeWhen($departmentId == 12, 'legalsadmin')
 
 
-            @elseif (auth()->user()->staff->department_id == 13)
-                 @include('ictadmin')
 
-
-           
-            @else
-                @include('defaultdashboard')
-            @endif
-        @else
-            @include('defaultdashboard')
-        @endif
+@includeWhen($departmentId == 13, 'ictadmin')
+@includeWhen($departmentId == 14, 'businessdevadmin')
+        @include('defaultdashboard')
     </div>
 @endsection
