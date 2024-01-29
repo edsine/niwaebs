@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <div class="container-fluid">
   {{-- Start::Sweet-alert --}}
   @include('flash::message')
@@ -78,7 +79,7 @@
           <!--end::Statistics Widget 5-->
         </div>
       </div>
-    </div>    
+    </div>
 
     <div class="row">
 

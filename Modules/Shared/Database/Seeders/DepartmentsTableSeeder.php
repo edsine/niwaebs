@@ -34,10 +34,10 @@ class DepartmentsTableSeeder extends Seeder
             ['name'=>'Legal'],
             ['name'=>'Research Planning and ICT'],
             ['name'=>'Business Development'],
-            
+
 
         ];
-       // DB::table('departments')->insert($offices);
+       DB::table('departments')->insert($offices);
     }
-    
+
 }
