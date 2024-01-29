@@ -3,6 +3,9 @@
     <!--begin::Toolbar-->
     @include('layouts.toolbar')
     <!--end::Toolbar-->
+    <!--begin::Notification Messages-->
+    @include('layouts.messages')
+    <!--end::Notification Messages-->
     <!--begin::Content-->
     @yield('content')
     <!--end::Content-->

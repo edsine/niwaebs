@@ -12,7 +12,7 @@
             <a class="nav-link text-primary" href="#approve" data-bs-toggle="tab">Approved Staff</a>
         </li> --}}
     </ul>
- 
+
     <div class="tab-content" id="myTabContent" >
 
         <!-- All Staff Table -->
@@ -30,22 +30,22 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                   
+
                     <tbody>
                         @foreach ($users as $p)
                         <tr>
                             <td>{!! $p->first_name.' '.$p->middle_name.' '.$p->last_name !!}</td>
                             <td>{!! $p->email !!}</td>
-                        
+
                            <td> @if ($p->role)
-                            {!! $p->role !!} 
+                            {!! $p->role !!}
                            @else
                            <span>No role yet</span>
                            @endif
-                        
+
                         </td>
-                           
-                            <td>{!! $p->department_unit !!}</td>
+
+                            <td>{!! $p->name !!}</td>
                             <td>{!! $p->branch_name !!}</td>
                             {{-- <td>
                                  @if (isset($p->status) && $p->status == 1)
@@ -57,21 +57,21 @@
                             <td style="width: 120px">
                                 {!! Form::open(['route' => ['users.destroy', $p->id], 'method' => 'delete']) !!}
                                 <div class='btn-group' id="aa">
-                                    
+
                                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#abel">
-                                    
+
                                         <i class="far fa-eye"></i>
                                     </button> --}}
-                                    
+
                                     <button type="button" class="btn btn-primary btn-show-user" data-bs-toggle="modal" data-bs-target="#userModal"
                                 data-fullname="{{ $p->first_name.' '.$p->middle_name.' '.$p->last_name }}"
                                 data-email="{{ $p->email }}"
                                 data-role="{{ $p->role }}"
-                                data-department="{{ $p->department_unit }}"
+                                data-department="{{ $p->name}}"
                                 data-branch="{{ $p->branch_name }}">
                             <i class="far fa-eye"></i>
                         </button>
-                                    
+
                                     {{-- <a href="{{ route('users.show', [$p->id]) }}" class='btn btn-default btn-xs'>
                                     </a> --}}
                                     <a href="{{ route('users.edit', [$p->id]) }}" class='btn btn-default btn-xs'>
@@ -111,22 +111,22 @@
                     <th scope="col"> Role</th>
                     <th scope="col"> Department</th>
                     <th scope="col">Branch</th>
-                   
+
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
-           
+
             <tbody>
                 @foreach ($norole as $p)
                 <tr>
                     <td>{!! $p->first_name.' '.$p->middle_name.' '.$p->last_name !!}</td>
                     <td>{!! $p->email !!}</td>
-            
+
                 <td >Not yet assigned a role</td>
-                   
+
                     <td>{!! $p->department_unit !!}</td>
                     <td>{!! $p->branch_name !!}</td>
-                   
+
                     <td style="width: 120px">
                         {!! Form::open(['route' => ['users.destroy', $p->id], 'method' => 'delete']) !!}
                         <div class='btn-group' >
@@ -134,7 +134,7 @@
                             data-fullname="{{ $p->first_name.' '.$p->middle_name.' '.$p->last_name }}"
                             data-email="{{ $p->email }}"
                             data-role="{{ $p->role }}"
-                            data-department="{{ $p->department_unit }}"
+                            data-department="{{ $p->name }}"
                             data-branch="{{ $p->branch_name }}">
                         <i class="far fa-eye"></i>
                     </button>
@@ -189,14 +189,14 @@
 <script>
 
 $(document).ready(function() {
-    $('#mytable1').DataTable(); 
-    $('#mytable2').DataTable();  
+    $('#mytable1').DataTable();
+    $('#mytable2').DataTable();
 });
 
 
 // </script>
 
-        
+
     </div>
 </div>
 <script>

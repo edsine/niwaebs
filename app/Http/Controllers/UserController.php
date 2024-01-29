@@ -84,16 +84,18 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
+
         // Auth::check() && Auth::user()->hasRole('minister')
-        // if ((Auth::check() && Auth::user()->hasRole('super-admin') || (Auth::check() && Auth::user()->hasRole('supervisor')&& Auth()->user()->staff->department_id=3) ) ) 
+        // if ((Auth::check() && Auth::user()->hasRole('super-admin') || (Auth::check() && Auth::user()->hasRole('supervisor')&& Auth()->user()->staff->department_id=3) ) )
       if   (Auth::check() && (Auth::user()->hasRole('super-admin') || (Auth::user()->hasRole('SUPERVISOR') && Auth::user()->staff->department_id == 3)))
         {
-         
-            
-      
-            
-            
+
+
+
+
+
          $userbranch_id=auth()->user()->staff->branch_id;
+
 
 
 
@@ -105,7 +107,7 @@ class UserController extends AppBaseController
             ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
-            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
 
         $noroleQuery = DB::table('users')
             ->leftJoin('staff', 'users.id', '=', 'staff.user_id')
@@ -113,8 +115,8 @@ class UserController extends AppBaseController
             ->whereNull('model_has_roles.role_id')
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
-            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
-         
+            ->select('users.id', DB::raw("NULL as role"), 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
+
         }else{
             $usersQuery = DB::table('users')
             ->join('staff', 'users.id', '=', 'staff.user_id')
@@ -123,7 +125,8 @@ class UserController extends AppBaseController
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             ->join('branches', 'staff.branch_id', '=', 'branches.id')
             ->where('staff.branch_id',$userbranch_id)
-            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.department_unit', 'branches.branch_name');
+            ->select('users.id', 'roles.name as role', 'users.first_name', 'users.middle_name', 'users.last_name', 'users.email', 'users.status', 'departments.name', 'branches.branch_name');
+
 
         $noroleQuery = DB::table('users')
             ->leftJoin('staff', 'users.id', '=', 'staff.user_id')
@@ -158,9 +161,9 @@ class UserController extends AppBaseController
 
         $users = $usersQuery->paginate(10);
         $norole = $noroleQuery->paginate(10);
-
+// dd( $users);
         return view('users.index', compact('users', 'norole'));
-              
+
     } else {
         flash::success('oops!....,you are not allowed ');
         return redirect()->route('home');
@@ -239,9 +242,9 @@ class UserController extends AppBaseController
         $email = "test1@NIWA.gov.ng";
              $password = "Testing1!";
              $add_url = "https://NIWA.gov.ng:2083/execute/Email/add_pop?email=" . urlencode($email) . "&password=" . urlencode($password) . "&domain=NIWA.gov.ng";
-     
+
              $curl = curl_init();
-     
+
              curl_setopt_array($curl, array(
                  CURLOPT_URL => $add_url,
                  CURLOPT_RETURNTRANSFER => true,
@@ -255,10 +258,10 @@ class UserController extends AppBaseController
                      "Cache-Control: no-cache",
                  ),
              ));
-     
+
              $response = curl_exec($curl);
              $err = curl_error($curl);
-     
+
              curl_close($curl);
 
              if ($err) {
@@ -281,13 +284,13 @@ class UserController extends AppBaseController
         $roles = $this->roleRepository->all()->pluck('name', 'id');
         $roles->prepend('Select role', '');
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
-      
-      
-        $department = $this->departmentRepository->all()->pluck('department_unit', 'id');
+
+
+        $department = $this->departmentRepository->all()->pluck('name', 'id');
         return view('users.create', compact('roles', 'branch', 'department', 'rank'));
     }
 
-    
+
     /**
      * Store a newly created User in storage.
      *
@@ -300,21 +303,22 @@ class UserController extends AppBaseController
      {
          $input = $request->all();
 
+
          //$email = $input['email'];
-     
+
          $input['plain_password'] = $input['password'];
-     
+
          $input['password'] = Hash::make($input['password']);
 
-         
+
          //Create a new user
          $user = $this->userRepository->create($input);
-        
+
          // Retrieve the value of the checkbox
          $checkboxValue = $request->input('checkbox');
-     
+
          // Check if the checkbox is checked
-         if ($checkboxValue == 1) {
+         //if ($checkboxValue == 1) {
              // Checkbox is checked
              //Get user id from newly created user and assign it to user_id post input
              $input['user_id'] = $user->id;
@@ -325,48 +329,48 @@ class UserController extends AppBaseController
                  $path = $file->store('public');
                  $input['profile_picture'] = $fileName;
              }
-     
+
              // Attempt to create email password
-             $email = $input['email'];
-             $password = $input['plain_password'];
-     
+             //$email = $input['email'];
+             $password = $input['password'];
+
              // Email password creation was successful
              // Continue with user data saving
              // Create a new staff
-             
-             $this->staffRepository->create($input);
-         }
-     
+
+           $staff =  $this->staffRepository->create($input);
+         //}
+
         //   //storing the rank
         //   $user->staff->rank->create($input['ranking_id']);
-     
+
          $role = $this->roleRepository->getByUserRoles($input['roles']);
-     
+
          if (empty($role)) {
              Flash::error('Role not found');
              return redirect(route('users.index'));
          }
-     
+
          $user->assignRole($role);
-         
+
          // Send notification to user about his account details
          //Notification::send($user, new UserCreated($input));
          try {
-            Mail::to($input['alternative_email'])->send(new BulkStaffEmail($user, $input['alternative_email'], $password));
-            
+            Mail::to($input['email'])->send(new BulkStaffEmail($user, $input['email'], $password));
+
             Flash::success('User saved successfully.');
             return redirect(route('users.index'));
         } catch (\Exception $e) {
             // Handle the exception here
-            Flash::error('Failed to send email: ' . $e->getMessage());
+            Flash::error('User saved successfully. Failed to send email: ' . $e->getMessage());
             // You might want to log the exception for further investigation
             Log::error('Failed to send email: ' . $e->getMessage());
-            
+
             // Redirect back to the form or wherever you need
             return redirect(route('users.index'));
         }
      }
-     
+
      public function showChangePasswordForm()
     {
         return view('users.change-email-password');
@@ -391,7 +395,7 @@ class UserController extends AppBaseController
     public function saveSignature(Request $request)
     {
         $signatureData = $request->input('signature_data');
-         
+
         //$staffId = Auth()->user()->staff->id;
         $userId = Auth()->id();
 
@@ -448,7 +452,7 @@ class UserController extends AppBaseController
 
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
 
-        
+
         $department = $this->departmentRepository->all()->pluck('department_unit', 'id');
 
 
@@ -503,18 +507,18 @@ class UserController extends AppBaseController
 
         $input =  $request->all();
 
-        
+
         // Retrieve the value of the checkbox
         $checkboxValue = $request->input('checkbox');
-        
+
         // Check if the checkbox is checked
         if ($checkboxValue == 1) {
             // Checkbox is checked
             //Get user id from newly created user and assign it to user_id post input
             $input['user_id'] = $user->userId;
-            
-           
-            
+
+
+
             //Check for file upload and upload to public  directory
             if ($request->hasFile('profile_picture')) {
                 $file = $request->file('profile_picture');
@@ -544,11 +548,11 @@ class UserController extends AppBaseController
         } else {
             unset($input['password']);
         }
-        
-        
+
+
        //updating their staff_id
        $input['staff_id']=$request->input('staff_id');
-       
+
         $input['unit_id']=$request->input('unit_id');
 
         $user = $this->userRepository->update($input, $id);
@@ -625,5 +629,5 @@ class UserController extends AppBaseController
         $designations = Designation::where('department_id', $request->department_id)->get()->pluck('name', 'id')->toArray();
 
         return response()->json($designations);
-    }
+}
 }
