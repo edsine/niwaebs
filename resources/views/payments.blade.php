@@ -25,13 +25,12 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Applicant Name</th>
                     <th>Payment Type</th>
                     <th>Invoice Number</th>
                     <th>Remita RR</th>
                     <th>Amount</th>
                     <th>Area Office</th>
-                    <th>Applicant Type</th>
-                    <th>Applicant Name</th>
                     <th>Payment Status</th>
                     <th>Payment Date</th>
                     <th>Confirmation</th>
@@ -43,20 +42,25 @@
                 @foreach ($payments as $payment)
                     <tr>
                         <td>{{ $count++ }}</td>
+                        <td>
+                            @if(!empty($payment->employer))
+                                {{ $payment->employer->contact_firstname.' '.$payment->employer->contact_surname }}
+                            @endif
+                        </td>
                         <td>{{ $payment->payment_type == 1 ? 'Registration Fee' : ($payment->payment_type == 4 ? 'Application Fee + Processing Fee' : 'Inspection Fee '.$payment->contribution_year . ($payment->contribution_period=='Monthly' ? ' ('.$payment->contribution_months.' months)' : '')) }}
                         </td>
                         <td>{{ $payment->invoice_number }}</td>
                         <td>{{ $payment->rrr }}</td>
                         <td>&#8358;{{ number_format($payment->amount, 2) }}</td>
                         <td>{{ isset($payment->branch) ? $payment->branch->branch_name : 'NILL' }}</td>
-                        <td>{{ isset($payment->applicant_type) ? $payment->applicant_type : 'NILL' }}</td>
-                        <td>{{ isset($payment->applicant_name) ? $payment->applicant_name : 'NILL' }}</td>
                         <td><span
                                 class="tb-status text-{{ $payment->payment_status != 1 ? 'warning' : 'success' }}">{{ $payment->payment_status != 1 ? 'PENDING' : 'PAID' }}</span>
                         </td>
                         <td>{{ $payment->paid_at }}</td>
-                        <td><span
-                                class="tb-status  text-{{ $payment->approval_status != 1 ? 'warning' : 'success' }}">{{ $payment->approval_status == 0 ? 'Awaiting Approval' : 'Approved' }}</span>
+                        <td>
+                            <span class="tb-status text-{{ $payment->approval_status == 0 ? 'warning' : ($payment->approval_status == 1 ? 'success' : 'danger') }}">
+                                {{ $payment->approval_status == null ? 'Pending Approval' : ($payment->approval_status == 1 ? 'Approved' : 'Not Approved') }}
+                            </span>
                         </td>
                         <td>
                             @if($payment->payment_status == 1)
@@ -64,13 +68,23 @@
                                     @csrf
                                     @method('PATCH')
                                     @if($payment->approval_status != 1)
-                                    <a href="#" title="Approve Payment" onclick="confirmApprove({{$payment->id}})">
-                                        <span class="nk-menu-icon text-primary">Approve
-                                    </a>
+                                        <a class="btn" href="#" title="Approve Payment" onclick="confirmApprove({{$payment->id}})">
+                                            <i class="fas fa-check-circle text-success"></i> Approve
+                                        </a>
+                                    @endif
+                                </form>
+                                <form action="{{ route('rejectPayment', $payment->id) }}" method="post" id="rejectForm{{$payment->id}}">
+                                    @csrf
+                                    @method('PATCH')
+                                    @if($payment->approval_status != 1)
+                                        <a class="btn" href="#" title="Reject Payment" onclick="confirmReject({{$payment->id}})">
+                                            <i class="fas fa-times-circle text-danger"></i> Reject
+                                        </a>
                                     @endif
                                 </form>
                             @endif
                         </td>
+                        
                         
                         <script>
                             function confirmApprove(paymentId) {
@@ -79,6 +93,16 @@
                                 if (confirmation) {
                                     // If the user clicks "OK" in the confirmation dialog, submit the form
                                     document.getElementById('approveForm' + paymentId).submit();
+                                } else {
+                                    // If the user clicks "Cancel" in the confirmation dialog, do nothing
+                                }
+                            }
+                            function confirmReject(paymentId) {
+                                var confirmation = window.confirm('Are you sure you want to reject this payment?');
+                        
+                                if (confirmation) {
+                                    // If the user clicks "OK" in the confirmation dialog, submit the form
+                                    document.getElementById('rejectForm' + paymentId).submit();
                                 } else {
                                     // If the user clicks "Cancel" in the confirmation dialog, do nothing
                                 }
