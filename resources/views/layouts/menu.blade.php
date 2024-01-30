@@ -155,10 +155,10 @@
                     </a>
                     <ul class="nav flex-column sub-sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Apply for Leave</a>
+                            <a class="nav-link" href="{{ route('leave_request.create') }}">Apply for Leave</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Leave Status</a>
+                            <a class="nav-link" href="{{route('leave_request.index') }}">Leave Status</a>
                         </li>
                     </ul>
                 </li>
@@ -206,6 +206,36 @@
             </a>
 
             <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('units.create') }}">
+                        <i class="fas fa-book menu-icon"></i>
+                        <span>Add New Unit</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('units.index') }}">
+                        <i class="fas fa-book menu-icon"></i>
+                        <span>Unit List</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dtarequests.create') }}">
+                        <i class="fas fa-book menu-icon"></i>
+                        <span>New DTA Requests</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dtarequests.index') }}">
+                        <i class="fas fa-book menu-icon"></i>
+                        <span>My DTA Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dtareview.index') }}">
+                        <i class="fas fa-book menu-icon"></i>
+                        <span>View Reviewed DTA</span>
+                    </a>
+                </li>
                 <li class="nav-item" id="myTaskLayouts">
                     <a class="nav-link" href="#">
                         <i class="fas fa-columns menu-icon"></i>
