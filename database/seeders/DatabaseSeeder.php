@@ -26,12 +26,13 @@ class DatabaseSeeder extends Seeder
         $this->call(StatesTableSeeder::class);
         $this->call(LocalGovernmentsTableSeeder::class);
         $this->call(RealRolesTablesSeeder::class);
+        $this->call(SharedDatabaseSeeder::class);
         $this->call(DepartmentsAndBranchesTablesSeeder::class);
         $this->call(DTAPermissionsTableSeeder::class);
         // $this->call(RealUsersAndStaffTablesSeeder::class);
         $this->call(StaffTableSeeder::class);
         //$this->call(EmployersTableSeeder::class);
-        
+
         $this->call(NewRolesAndPermissionsTablesSeeder::class);
 
         // Modules
@@ -41,7 +42,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HumanResourceDatabaseSeeder::class);
         $this->call(ApprovalDatabaseSeeder::class);
         $this->call(ClaimsCompensationDatabaseSeeder::class);
-        $this->call(SharedDatabaseSeeder::class);
-     
+
     }
 }

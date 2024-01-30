@@ -14,13 +14,15 @@
         @endphp
 
 @includeWhen($departmentId == 1, 'hradmin')
-@includeWhen($departmentId == 2, 'financeadmin')
+
+<!-- the department_id ==2  will be from the finace module dashboard, it is redirecting to dashoard-->
+{{-- @includeWhen($departmentId == 2, 'financeadmin') --}}
+
 @includeWhen($departmentId == 3, 'marineadmin')
 @includeWhen($departmentId == 4, 'engineering')
 @includeWhen($departmentId == 5, 'surveyadmin')
 @includeWhen($departmentId == 6, 'portsandenvironment')
 @includeWhen($departmentId == 7, 'auditadmin')
-{{-- @includeWhen($departmentId == 8, 'policeadmin') --}}
 @includeWhen($departmentId == 8, 'policeadmin')
 @includeWhen($departmentId == 9, 'coordinationadmin')
 

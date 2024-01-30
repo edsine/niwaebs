@@ -4,17 +4,20 @@
 @endsection
 {{-- @push('script-page') --}}
 @push('page_script')
-    
+
 @endpush
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{__('Dashboard')}}</a></li>
     <li class="breadcrumb-item">{{__('Account')}}</li>
 @endsection
 @section('content')
+<div class=" _wrapper mx-5">
+
+<center><h1 class="text-primary text-center mb-5">FINANCE AND ACCOUNTING DEPARTMENT</h1></center>
     <div class="row">
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-xxl-7">
+                <div class="col-xxl-8">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
@@ -60,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-6">
-                                    <div class="card">
+                                    <div class="card mt-2">
                                         <div class="card-body">
                                             <div class="theme-avtar bg-danger">
                                                 <i class="ti ti-report-money"></i>
@@ -81,9 +84,11 @@
                                     </h5>
 
                                 </div>
+
                                 <div class="card-body">
-                                  
-                                    <div id="incExpBarChart"></div>
+
+                                    {{-- <div id="incExpBarChart"></div> --}}
+                                    <canvas id="barChart" class=" h-250px"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +279,7 @@
 
                     </div>
                 </div>
-                <div class="col-xxl-5">
+                <div class="col-xxl-4">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -282,7 +287,8 @@
                                     <h5 class="mt-1 mb-0">{{__('Cashflow')}}</h5>
                                 </div>
                                 <div class="card-body">
-                                    <div id="cash-flow"></div>
+                                    {{-- <div id="cash-flow"></div> --}}
+                                    <div id="morris-area-example"></div>
                                 </div>
                             </div>
                             <div class="card">
@@ -349,7 +355,8 @@
 
                                 </div>
                                 <div class="card-body">
-                                    <div id="incomeByCategory"></div>
+                                    {{-- <div id="incomeByCategory"></div> --}}
+                                <div id="morris-donut-example"></div>
                                 </div>
                             </div>
                         </div>
@@ -362,7 +369,7 @@
 
                                 </div>
                                 <div class="card-body">
-                                    
+
                                     <div id=" expenseByCategory "></div>
                                 </div>
                             </div>
@@ -659,6 +666,7 @@
             </div>
         </div>
     </div>
+</div>
     <script>
         //   @if(\Auth::user()->can('show account dashboard'))
     (function () {

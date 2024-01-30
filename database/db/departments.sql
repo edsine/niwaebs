@@ -18,28 +18,28 @@
 -- Dumping data for table `departments`
 --
 -- from me atp, if you are looking for department seeder go to staff.sql
-INSERT INTO `departments` (`id`, `department_unit`, `name`, `status`, `description`, `branch_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'Survey', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(2, NULL, 'Adminstration,Corporate Services and Human Resource ', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(3, NULL, 'ICT', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(4, NULL, 'Legal', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(5, NULL, 'Investment & Treasury Management', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(6, NULL, 'Finance & Accounts', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(7, NULL, 'Procurement', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(8, NULL, 'Servicom', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(9, NULL, 'Marine', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(10, NULL, 'Informal Sector', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(11, NULL, 'Risk Management', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(12, NULL, 'Co-ordination', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(13, NULL, 'Estate & Maintenance', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(14, NULL, 'Social Security Development', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(15, NULL, 'Inspections', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(16, NULL, 'Engineering', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(17, NULL, 'Health Safety & Environment', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(18, NULL, 'Corporate Affairs', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
-(19, NULL, 'General', 1, NULL, 2, '2023-05-18 10:08:10', '2023-05-18 10:07:54', NULL),
-(20, NULL, 'ED Directorate', 1, NULL, 2, '2023-05-24 11:53:24', '2023-05-24 11:51:33', NULL),
-(21, NULL, 'MD Directorate', 1, NULL, 2, '2023-05-24 11:53:24', '2023-05-24 11:51:33', NULL);
+-- INSERT INTO `departments` (`id`, `department_unit`, `name`, `status`, `description`, `branch_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+-- (1, NULL, 'Survey', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (2, NULL, 'Adminstration,Corporate Services and Human Resource ', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (3, NULL, 'ICT', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (4, NULL, 'Legal', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (5, NULL, 'Investment & Treasury Management', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (6, NULL, 'Finance & Accounts', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (7, NULL, 'Procurement', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (8, NULL, 'Servicom', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (9, NULL, 'Marine', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (10, NULL, 'Informal Sector', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (11, NULL, 'Risk Management', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (12, NULL, 'Co-ordination', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (13, NULL, 'Estate & Maintenance', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (14, NULL, 'Social Security Development', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (15, NULL, 'Inspections', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (16, NULL, 'Engineering', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (17, NULL, 'Health Safety & Environment', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (18, NULL, 'Corporate Affairs', 1, NULL, 2, '2023-05-14 11:56:48', '2023-05-14 11:50:29', NULL),
+-- (19, NULL, 'General', 1, NULL, 2, '2023-05-18 10:08:10', '2023-05-18 10:07:54', NULL),
+-- (20, NULL, 'ED Directorate', 1, NULL, 2, '2023-05-24 11:53:24', '2023-05-24 11:51:33', NULL),
+-- (21, NULL, 'MD Directorate', 1, NULL, 2, '2023-05-24 11:53:24', '2023-05-24 11:51:33', NULL);
 
 INSERT INTO `settings` (`id`, `name`, `value`, `created_by`, `created_at`, `updated_at`) VALUES
 (1, 'storage_setting', 'local', 1, '2023-10-24 06:42:04', '2023-10-23 21:00:00'),
