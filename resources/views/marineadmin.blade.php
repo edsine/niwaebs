@@ -8,8 +8,9 @@
   @include('flash::message')
   {{-- end::Sweet-alert --}}
   <!--begin::Row-->
+  <center> <h1 class="text-black-50  text-center pt-5">MARINE DEPARTMENT: <b style="color: #000">Overview</b></h1> </center>
   <div class="row g-5 g-xl-8 pt-5">
-    <h1 class="text-black-50 pt-5">Marine: <b style="color: #000">Overview</b></h1>
+    {{-- <h1 class="text-black-50 pt-5">Marine: <b style="color: #000">Overview</b></h1> --}}
     @include('clokin')
     <div class="col-xl-12">
     <button id="showButton" onclick="showCards()">
@@ -19,9 +20,9 @@
         <line x1="8" y1="12" x2="16" y2="12" />
     </svg>
 </button>
-      <div class="row">
+      <div class="row mx-3">
         <div class="col-xl-4">
-          <a href="#" class="card shadow bg-success hoverable card-xl-stretch mb-xl-8">
+          <a href="#" class="card shadow bg-primary hoverable card-xl-stretch mb-xl-8">
             <div class="card-body">
               <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +61,7 @@
         </div>
         <div class="col-xl-4">
           <!--begin::Statistics Widget 5-->
-          <a href="#" class="card shadow bg-dark hoverable card-xl-stretch mb-xl-8">
+          <a href="#" class="card shadow bg-primary hoverable card-xl-stretch mb-xl-8">
             <!--begin::Body-->
             <div class="card-body">
               <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
@@ -288,69 +289,9 @@
 
 
 
-
-
-        <div id="kt_app_content" class="app-content flex-column-fluid">
-          <!--begin::Content container-->
-          <div id="kt_app_content_container" class="app-container container-xxl">
-            <!--begin::Tables Widget 12-->
-            <div class="card shadow mb-5 mb-xl-8">
-              <!--begin::Header-->
-
-              <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
-                <!--begin::Table container-->
-                <div class="table-responsive">
-                  <!--begin::Table-->
-                  <table class="table align-middle gs-0 gy-4">
-                    <!--begin::Table head-->
-                    <thead>
-                      <tr class="fw-bold text-muted bg-light">
-                        <th class="ps-4 min-w-200px rounded-start">REGISTERED EMPLOYERS</th>
-                        <th class="min-w-200px">PENDING EMPLOYERS</th>
-                        <th class="min-w-200px">REGISTERED EMPLOYEES</th>
-                        <th class="min-w-200px">INCOMPLETE EMPLOYEES</th>
-                        <th class="min-w-200px text-end rounded-end">ACTIONS</th>
-                      </tr>
-                    </thead>
-                    <!--end::Table head-->
-                    <!--begin::Table body-->
-                    <tbody>
-                      <tr>
-                        <td>
-                          <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">$8,000,000</a>
-                          <span class="text-muted fw-semibold text-muted d-block fs-7">Pending</span>
-                        </td>
-                        <td>
-                          <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">$5,400</a>
-                          <span class="text-muted fw-semibold text-muted d-block fs-7">Paid</span>
-                        </td>
-                        <td>
-                          <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">Intertico</a>
-                          <span class="text-muted fw-semibold text-muted d-block fs-7">Web, UI/UX
-                            Design</span>
-                        </td>
-                        <td>
-                          <a href="#" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">Intertico</a>
-                          <span class="text-muted fw-semibold text-muted d-block fs-7">Web, UI/UX
-                            Design</span>
-                        </td>
-                        <td class="text-end">
-                          <a href="#" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">View</a>
-                          <a href="#" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Edit</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <!--end::Table body-->
-                  </table>
-                  <!--end::Table-->
-                </div>
-                <!--end::Table container-->
-              </div>
-
-              <!--begin::Body-->
-            </div>
-            <!--end::Tables Widget 12-->
-          </div>
+      </div>
+    </div>
+ </div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
           <script>
             var xValues = ["Italy", "France", "Spain", "USA", "Argentina", "Health", "Staffs", "Argentina", "Health", "Staffs"];
