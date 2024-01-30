@@ -84,6 +84,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/niwa/payments', [ESSPPaymentController::class, 'index'])->name('niwa.payments');
     Route::patch('/approve-payment/{id}', [ESSPPaymentController::class, 'approvePayment'])
         ->name('approvePayment');
+    Route::patch('/reject-payment/{id}', [ESSPPaymentController::class, 'rejectPayment'])
+        ->name('rejectPayment');
 });
 
 

@@ -33,8 +33,8 @@
                             <th>Name</th>
                             <th>Document Name</th>
                             <th>Document (PDF)</th>
-                            <th>Date Uploaded</th>
                             <th>Approval Status</th>
+                            <th>Date Uploaded</th>
                             {{-- <th>Manage</th> --}}
                         </tr>
                     </thead>
