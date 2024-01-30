@@ -19,7 +19,7 @@ class EmployerDocumentController extends Controller
 
     public function index()
     {
-        $employer_documents = EmployerDocuments::paginate(10);
+        $employer_documents = EmployerDocuments::orderBy('id','desc')->paginate(10);
         return view('documents.index', compact(['employer_documents']));
     }
 
