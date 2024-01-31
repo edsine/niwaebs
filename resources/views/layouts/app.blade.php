@@ -670,7 +670,7 @@
     <script src="{{ asset('sh_assets/js/misc.js') }}"></script>
     <script src="{{ asset('sh_assets/js/settings.js') }}"></script>
     <script src="{{ asset('sh_assets/js/todolist.js') }}"></script>
-
+    <script src="{{ asset('sh_assets/js/file-upload.js') }}"></script>
 
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM&amp;callback=initMap">

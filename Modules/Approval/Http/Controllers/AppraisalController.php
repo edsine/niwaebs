@@ -203,6 +203,14 @@ return view('approval::appraisal.index', compact('requests'));
             'next_step' => $request->order,
             // Add other columns and their values as needed
         ]);
+        $final = $mr->type->flows->count();
+        $final2 = $mr->timelines()->count();
+        if($final2 > $final){
+            ModelsRequest::where('id', $request->id)->update([
+                'status' => 1,
+                // Add other columns and their values as needed
+            ]);
+        }
 
         Flash::success('Request appraised successfully.');
 
