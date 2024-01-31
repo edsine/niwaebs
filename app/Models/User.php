@@ -71,7 +71,7 @@ class User extends Authenticatable implements Auditable
         'tax_payer_id',
         'salary',
         'salary_type' ,
-        'department_id'
+       
     ];
 
     /**

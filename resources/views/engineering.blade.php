@@ -4,7 +4,15 @@
 <h4 class="text-black-50 pt-5">Engineering Department:<b style="color: #000"> Overview</b></h4>
 <br>
 
-<!--begin::Row-->
+
+
+
+
+
+<center><h1 class="text-black-50  text-center text-uppercase mb-4 pt-5">Engineering Department:<b style="color: #000"> Overview</b></h1></center>
+<div class="row my-4 mx-7 mx-7">
+    @include('clokin')
+    <!--begin::Row-->
 <button id="showButton" onclick="showCards()">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10" />
@@ -12,23 +20,42 @@
         <line x1="8" y1="12" x2="16" y2="12" />
     </svg>
 </button>
-<div class="row g-5 g-xl-8">
+    <div class=" mt-3 col-6">
 
-@include('clokin')
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title text-center">ANNUAL DREDGING PERFORMANCE </h4>
+                <canvas id="lineChart"></canvas>
+              </div>
+            </div>
+    </div>
+    <div class="col-lg-6 grid-margin mt-3 stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center bold">DREDGING VS SURVEY</h4>
+            <div id="morris-bar-example"></div>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="row g-5 g-xl-8 mx-7">
+
+
+
     <div class="col-sm-6 col-xl-4">
-        
+
         <!--begin: Statistics Widget 6-->
         <div class="card  shadow bg-light-success card-xl-stretch mb-xl-8">
             <!--begin::Body-->
             <div class="card-body my-3">
                 <span class="float-end">
-                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">DOCUMENTS</div>
+                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">SURVEY </div>
                 </span>
-                <a href="#" class="card-title fw-bold text-success fs-5 mb-3 d-block">New</a>
+                <a href="#" class="card-title fw-bold text-success fs-5 mb-3 d-block">Pending</a>
 
                 <div class="py-1">
-                    <span class="text-dark fs-1 fw-bold me-2">50%</span>
-                    <span class="fw-semibold text-muted fs-7">Avarage</span>
+                    <span class="text-dark fs-1 fw-bold me-2">5</span>
+                    <span class="fw-semibold text-muted fs-7"></span>
                 </div>
                 <div class="progress h-7px bg-success bg-opacity-50 mt-7">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -44,12 +71,12 @@
             <!--begin::Body-->
             <div class="card-body my-3">
                 <span class="float-end">
-                    <div class="text-white fw-bold fs-2 mb-2 mt-5">DOCUMENTS</div>
+                    <div class="text-white fw-bold fs-2 mb-2 mt-5">Survey</div>
                 </span>
-                <a href="#" class="card-title fw-bold text-warning fs-5 mb-3 d-block">Pending</a>
+                <a href="#" class="card-title fw-bold text-warning fs-5 mb-3 d-block">On-going</a>
                 <div class="py-1">
-                    <span class="text-white fs-1 fw-bold me-2">50%</span>
-                    <span class="fw-semibold text-muted fs-7">Average</span>
+                    <span class="text-white fs-1 fw-bold me-2">5</span>
+                    <span class="fw-semibold text-muted fs-7"></span>
                 </div>
                 <div class="progress h-7px bg-white bg-opacity-50 mt-7">
                     <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -65,12 +92,12 @@
             <!--begin::Body-->
             <div class="card-body my-3">
                 <span class="float-end">
-                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">DOCUMENTS</div>
+                    <div class="text-gray-900 fw-bold fs-2 mb-2 mt-5">Total Survey </div>
                 </span>
-                <a href="#" class="card-title fw-bold text-primary fs-5 mb-3 d-block">Treated</a>
+                <a href="#" class="card-title fw-bold text-primary fs-5 mb-3 d-block">Completed</a>
                 <div class="py-1">
-                    <span class="text-dark fs-1 fw-bold me-2">76%</span>
-                    <span class="fw-semibold text-muted fs-7">High Compared to existing</span>
+                    <span class="text-dark fs-1 fw-bold me-2">30</span>
+                    <span class="fw-semibold text-muted fs-7"></span>
                 </div>
                 <div class="progress h-7px bg-secondary bg-opacity-50 mt-7">
                     <div class="progress-bar bg-secondry" role="progressbar" style="width: 76%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -82,7 +109,7 @@
     </div>
 </div>
 <!--end::Row-->
-<div class="row g-5 g-xl-8 pt-5">
+<div class="row g-5 g-xl-8 pt-5  mx-7">
     <div class="col-sm-6 col-xl-4">
         <!--begin::Statistics Widget 5-->
         <a href="#" class="card shadow bg-body hoverable card-xl-stretch mb-xl-8">
@@ -157,62 +184,7 @@
     </div>
 </div>
 
-<div class="row g-5 g-xl-8">
-    {{-- <div class="col-xl-12">
-        <!--begin::Charts Widget 5-->
-        <div class="card card-xl-stretch mb-xl-8">
-            <!--begin::Header-->
-            <div class="card-header border-0 pt-5">
-                <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label fw-bold fs-3 mb-1">Contribution and Employment Analysis</span>
-                    <!-- <span class="text-muted fw-semibold fs-7">More than 500 new customers</span> -->
-                </h3>
-                <!--begin::Toolbar-->
-                <div class="card-toolbar" data-kt-buttons="true" data-kt-initialized="1">
-                    <a class="btn btn-sm btn-color-muted btn-active btn-active-secondary px-4 me-1" id="kt_charts_widget_5_year_btn">Year</a>
-                    <a class="btn btn-sm btn-color-muted btn-active btn-active-secondary px-4 me-1" id="kt_charts_widget_5_month_btn">Month</a>
-                    <!-- <a class="btn btn-sm btn-color-muted btn-active btn-active-secondary px-4 active" id="kt_charts_widget_5_week_btn">Week</a> -->
-                </div>
-                <!--end::Toolbar-->
-            </div>
-            <!--end::Header-->
-            <!--begin::Body-->
-            <div class="card-body pt-5">
-                <!--begin::Chart container-->
-                <div id="kt_charts_widget_14_chart" class="w-100 h-350px"></div>
-                <!--end::Chart container-->
-            </div>
-            <!--end::Body--> --}}
-        </div>
-        <!--end::Charts Widget 5-->
-    </div>
-    <div class="col-xl-12">
-        <!--begin::Charts Widget 5-->
-        {{-- <div class="card card-xl-stretch mb-5 mb-xl-8">
-            <!--begin::Header-->
-            <div class="card-header border-0 pt-5">
-                <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label fw-bold fs-3 mb-1">Public/Private Sector Contribution Analysis</span>
-                    <!-- <span class="text-muted fw-semibold fs-7">More than 500+ new orders</span> -->
-                </h3>
-                <!--begin::Toolbar-->
-                <div class="card-toolbar" data-kt-buttons="true" data-kt-initialized="1">
-                    <a class="btn btn-sm btn-color-muted btn-active btn-active-primary active px-4 me-1" id="kt_charts_widget_6_sales_btn">Public</a>
-                    <a class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4 me-1" id="kt_charts_widget_6_expenses_btn">Private</a>
-                </div>
-                <!--end::Toolbar-->
-            </div>
-            <!--end::Header-->
-            <!--begin::Body-->
-            <div class="card-body">
-                <!--begin::Chart container-->
-                <div id="kt_charts_widget_2_chart" class="w-100 h-350px"></div>
-                <!--end::Chart container-->
-            </div>
-            <!--end::Body-->
-        </div> --}}
-        <!--end::Charts Widget 5-->
-    </div>
+
 
 </div>
 

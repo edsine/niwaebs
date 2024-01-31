@@ -82,10 +82,10 @@ class HomeController extends Controller
         }
 
 
-        // else if(Auth::check() && Auth::user()->staff->department_id==6){
-        //     return redirect()->route('dashboard');
+        else if(Auth::check() && Auth::user()->staff->department_id==2){
+            return redirect()->route('dashboard');
 
-        // }
+        }
 
         else {
 

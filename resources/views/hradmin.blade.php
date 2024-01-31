@@ -4,59 +4,65 @@
     <!--begin::Content wrapper-->
     <!-- partial -->
     <div class="content-wrapper">
+        <center>
+            <h1 class="text-center uppercase  bold mb-3">Human Resources Department</h1>
+        </center>
         <div class="row grid-margin">
             <div class="col-12">
+                @php
+                    $staff = DB::table('users')->count();
+                @endphp
                 <div class="card card-statistics">
                     <div class="card-body">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fa fa-user mr-2"></i>
-                                    Employee Turnover Rate
+                                    Total Number Of Employee
                                 </p>
-                                <h2>10</h2>
-                                <label class="badge badge-outline-success badge-pill">89.7% decrease</label>
+                                <h2>{{ $staff }}</h2>
+                                <label class="badge badge-outline-success badge-pill">0% increase</label>
                             </div>
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-hourglass-half mr-2"></i>
-                                    Number of New Hires
+                                    Number of Staff On Leave
                                 </p>
-                                <h2>67</h2>
-                                <label class="badge badge-outline-danger badge-pill">30% decrease</label>
+                                <h2>0</h2>
+                                <label class="badge badge-outline-success badge-pill">0% decrease</label>
                             </div>
-                            <div class="statistics-item">
+                            {{-- <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
                                     Average Time to Hire
                                 </p>
-                                <h2>140 hours</h2>
-                                <label class="badge badge-outline-success badge-pill">12% increase</label>
-                            </div>
+                                <h2>0 hour</h2>
+                                <label class="badge badge-outline-success badge-pill">0% increase</label>
+                            </div> --}}
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-check-circle mr-2"></i>
-                                    Percentage of Employees Completed Training
+                                    Training Completed
 
                                 </p>
-                                <h2>950</h2>
-                                <label class="badge badge-outline-success badge-pill">57% increase</label>
+                                <h2>0</h2>
+                                <label class="badge badge-outline-success badge-pill">0% increase</label>
                             </div>
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-chart-line mr-2"></i>
                                     Overall Employee Satisfaction Score
                                 </p>
-                                <h2>67%</h2>
-                                <label class="badge badge-outline-success badge-pill">10% increase</label>
+                                <h2>0%</h2>
+                                <label class="badge badge-outline-success badge-pill">0% increase</label>
                             </div>
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-circle-notch mr-2"></i>
                                     Top Training Programs
                                 </p>
-                                <h2>70</h2>
-                                <label class="badge badge-outline-danger badge-pill">16% increase</label>
+                                <h2>0</h2>
+                                <label class="badge badge-outline-danger badge-pill">0% decrease</label>
                             </div>
                         </div>
                     </div>
@@ -71,7 +77,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-inline-block pt-3">
                                 <div class="d-md-flex">
-                                    <h2 class="mb-0">#2,310,000,200.00</h2>
+                                    <h2 class="mb-0">0</h2>
                                     <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
                                         <i class="far fa-clock text-muted"></i>
                                         <small class=" ml-1 mb-0">Updated: 9:10am</small>
@@ -92,7 +98,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-inline-block pt-3">
                                 <div class="d-md-flex">
-                                    <h2 class="mb-0">#921,200,056.00</h2>
+                                    <h2 class="mb-0">0</h2>
                                     <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
                                         <i class="far fa-clock text-muted"></i>
                                         <small class="ml-1 mb-0">Updated: 05:42pm</small>
@@ -113,7 +119,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-inline-block pt-3">
                                 <div class="d-md-flex">
-                                    <h2 class="mb-0">#1,103,000,200.00</h2>
+                                    <h2 class="mb-0">0</h2>
                                     <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
                                         <i class="far fa-clock text-muted"></i>
                                         <small class=" ml-1 mb-0">Updated: 9:10am</small>
@@ -134,7 +140,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-inline-block pt-3">
                                 <div class="d-md-flex">
-                                    <label class="badge badge-outline-danger badge-pill">30% decrease</label>
+                                    <label class="badge badge-outline-danger badge-pill">0% decrease</label>
                                     <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
                                         <i class="far fa-clock text-muted"></i>
                                         <small class="ml-1 mb-0">Updated: 05:42pm</small>
@@ -155,7 +161,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-inline-block pt-3">
                                 <div class="d-md-flex">
-                                    <label class="badge badge-outline-danger badge-pill">67% decrease</label>
+                                    <label class="badge badge-outline-danger badge-pill">0% decrease</label>
                                     <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
                                         <i class="far fa-clock text-muted"></i>
                                         <small class=" ml-1 mb-0">Updated: 9:10am</small>
@@ -176,7 +182,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-inline-block pt-3">
                                 <div class="d-md-flex">
-                                    <h2 class="mb-0">2778</h2>
+                                    <h2 class="mb-0">0</h2>
                                     <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
                                         <i class="far fa-clock text-muted"></i>
                                         <small class="ml-1 mb-0">Updated: 05:42pm</small>
@@ -229,81 +235,81 @@
                                             Salaries
                                         </td>
                                         <td>
-                                            # 960,000,000.00
+                                            0
                                         </td>
                                         <td>
-                                            # 780,000,000.00
+                                            0
                                         </td>
                                         <td>
-                                            # 190,000,000.00
+                                            # 0
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            2
+                                            0
                                         </td>
                                         <td>
                                             Marketing
                                         </td>
                                         <td>
-                                            # 370,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            # 196,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            #80,000,000.00
+                                            #0
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            2
+                                            0
                                         </td>
                                         <td>
                                             Marketing
                                         </td>
                                         <td>
-                                            # 370,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            # 196,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            #80,000,000.00
+                                            #0
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            2
+                                            0
                                         </td>
                                         <td>
                                             Marketing
                                         </td>
                                         <td>
-                                            # 370,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            # 196,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            #80,000,000.00
+                                            #0
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            2
+                                            0
                                         </td>
                                         <td>
                                             Marketing
                                         </td>
                                         <td>
-                                            # 370,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            # 196,000,000.00
+                                            # 0
                                         </td>
                                         <td>
-                                            #80,000,000.00
+                                            #0
                                         </td>
                                     </tr>
                                 </tbody>
@@ -323,8 +329,8 @@
                                     <i class="icon-sm fa fa-table mr-2"></i>
                                     Desk Utilization
                                 </p>
-                                <h6>Total Desks: 3000</h6>
-                                <h6>Used Desks: 2000</h6>
+                                <h6>Total Desks: 0</h6>
+                                <h6>Used Desks: 0</h6>
                                 <label class="badge badge-outline-success badge-pill">Remaining Desks: 1000</label>
                             </div>
                             <div class="statistics-item">
@@ -332,8 +338,8 @@
                                     <i class="icon-sm fa fa-computer mr-2"></i>
                                     Computer Utilization
                                 </p>
-                                <h6>Total Computers: 2000</h6>
-                                <h6>Used Computers: 1500</h6>
+                                <h6>Total Computers: 0</h6>
+                                <h6>Used Computers: 0</h6>
                                 <label class="badge badge-outline-success badge-pill">Remaining Computers: 1000</label>
                             </div>
                             <div class="statistics-item">
@@ -342,7 +348,7 @@
                                     Main Facility Utilization Metrics
                                 </p>
                                 <h6>Condition: Good</h6>
-                                <label class="badge badge-outline-success badge-pill">Usage: 12%</label>
+                                <label class="badge badge-outline-success badge-pill">Usage: 0%</label>
                             </div>
                             <div class="statistics-item">
                                 <p>
@@ -350,7 +356,7 @@
                                     Second Facility Utilization Metrics
                                 </p>
                                 <h6>Structure Condition: Good</h6>
-                                <label class="badge badge-outline-success badge-pill">Usage: 48%</label>
+                                <label class="badge badge-outline-success badge-pill">Usage: 0%</label>
                             </div>
                             {{-- <div class="statistics-item">
                                 <p>

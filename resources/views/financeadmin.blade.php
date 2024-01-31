@@ -326,7 +326,7 @@
 					<!--begin::Chart widget 23-->
 					<div class="card card-flush overflow-hidden h-md-100">
 						<!--begin::Header-->
-						
+
 						<div class="card-header py-5">
 							<!--begin::Title-->
 							<h3 class="card-title fw-bold text-gray-800">Total Expenditure</h3>
@@ -418,8 +418,8 @@
 							<!--end::Chart-->
 						</div>
 						<!--end::Card body-->
-					
-						
+
+
 						<!--end::Card body-->
 					</div>
 					<!--end::Chart widget 23-->
@@ -428,7 +428,7 @@
 					<!--begin::Chart widget 13-->
 					<div class="card card-flush h-md-100">
 						<!--begin::Header-->
-						
+
 						<div class="card-header pt-7">
 							<!--begin::Title-->
 							<h3 class="card-title align-items-start flex-column">
@@ -465,15 +465,15 @@
 							<!--end::Chart-->
 						</div>
 
-						
-						
+
+
 						<!--end::Body-->
 					</div>
 					<!--end::Chart widget 13-->
 				</div>
 				<!--end::Col-->
 			</div>
-			<!--end::Row-->			
+			<!--end::Row-->
 		</div>
 		<!--end::Content container-->
 	</div>
