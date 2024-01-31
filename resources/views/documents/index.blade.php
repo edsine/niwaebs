@@ -16,7 +16,7 @@
                 <h3 class="nk-block-title page-title">Uploaded documents</h3>
                 <div class="nk-block-des text-soft">
                     <p>List of uploaded documents</p>
-                    @include('layouts.messages')
+                    {{-- @include('layouts.messages') --}}
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->
@@ -33,8 +33,8 @@
                             <th>Name</th>
                             <th>Document Name</th>
                             <th>Document (PDF)</th>
-                            <th>Date Uploaded</th>
                             <th>Approval Status</th>
+                            <th>Date Uploaded</th>
                             {{-- <th>Manage</th> --}}
                         </tr>
                     </thead>
@@ -54,7 +54,7 @@
                                
                                 <td>{{ $employer_document->title }}</td>
                                 <td>
-                                    <a href="{{ 'http://eniwa.com.ng/storage/'.$employer_document->file_path }}" target="_blank">
+                                    <a href="{{ 'http://ebs.eniwa.com.ng/storage/'.$employer_document->file_path }}" target="_blank">
                                         View PDF
                                     </a>
                                 </td>

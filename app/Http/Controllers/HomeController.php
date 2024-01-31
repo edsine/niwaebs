@@ -81,21 +81,22 @@ class HomeController extends Controller
             return redirect()->route('ed_md');
         }
 
-        // else if(Auth::check() && Auth::user()->staff->department_id==6){
-        //     return redirect()->route('dashboard');
-        
-        // }
+
+        else if(Auth::check() && Auth::user()->staff->department_id==2){
+            return redirect()->route('dashboard');
+
+        }
 
         else {
 
-            
+
             $claims_table = 'death_claims';
             $claims_death_count = DB::table($claims_table)->count();
-            
+
             $staffs = 'staff';
             $staff_count = DB::table($staffs)->count();
             $ictstaff= Staff::where('department_id',3)->count();
-            
+
             $totalemployers=Employer::count();
             $registered_employers = Employer::where('status', 1)->count();
             $pending_employers = Employer::where('status', 2)->count();
@@ -108,10 +109,10 @@ class HomeController extends Controller
             // $diseaseclaims=ClaimsCompensation::where('id',1)->count();
             $approvedclaims =ClaimsCompensation::where('regional_manager_status',1)->count();
             $pendingclaims =ClaimsCompensation::where('regional_manager_status',0)->count();
-            
-            
+
+
             return view('home', compact('registered_employers', 'pending_employers', 'registered_employees', 'pending_employees',
-            'claims_death_count','deathclaims', 
+            'claims_death_count','deathclaims',
             'staff_count','diseaseclaims', 'data','ictstaff',
             'totalemployers','pendingclaims','approvedclaims'));
         }
@@ -123,11 +124,11 @@ class HomeController extends Controller
     //     $totaldept= Department::count();
     //     $totalemployer=Employer::count();
     //     $managementstaff =Staff::where('ranking_id','!==',1)->count();
-    
+
     // $userdepartment=auth()->user()->staff->department_id;
     // $userbranch=auth()->user()->staff->branch_id;
     // $allstaff=Staff::where('branch_id',$userbranch)->count() ;
-   
+
     // $totalregion = Region::count();
     // // $totaldept= Department::count();
     // $totaldept= DB::table('departments')
@@ -150,24 +151,24 @@ public function regional(){
     $region =Region::all();
 
     $myregionid = auth()->user()->staff->branch->region_id;
-   
+
     $totalbranchinregion = DB::table('branches')
     ->where('region_id',$myregionid)->count();
 
-  
 
- 
+
+
     $totaldepartmentinregion =DB::table('departments')
     ->join('branches','departments.branch_id','=','branches.id')
     ->join('regions','branches.region_id','=','regions.id')
     ->count();
 
-   
+
     $totalstaffinregion =DB::table('staff')
     ->join('branches','staff.branch_id','=','branches.id')
     ->join('regions','branches.region_id','=','regions.id')
     ->count();
-    
+
     $totalunitinregion =DB::table('units')
     ->join('departments as d','units.department_id','=','d.id')
     ->join('branches as b','d.branch_id','=','b.id')
@@ -187,9 +188,9 @@ public function regional(){
     ->join('branches as b','c.branch_id','=','b.id')
     ->join('regions as r','b.region_id','=','r.id')
     ->count();
-    
 
-    
+
+
     return view('regionaladmin',compact('totalbranches',
     'totalregional','totaldepartment','region','totalbranchinregion',
     'totaldepartmentinregion','totalstaffinregion','totalunitinregion',
@@ -212,7 +213,7 @@ public function branch(Request $request){
     ->join('branches as b','s.branch_id','=','b.id')
     ->count();
     // $allstaff=Staff::where('branch_id',$userbranch)->count() ;
-   
+
     $totalregion = Region::count();
     // $totaldept= Department::count();
     $totaldept= DB::table('departments')
@@ -227,17 +228,17 @@ public function branch(Request $request){
     $totalemployer=Employer::count();
 
     $managementstaff =Staff::where('ranking_id','!==',1)->count();
-    
+
     return view('areaadmin',compact('allstaff','totaldept','totalbranches','totalregion','totaldept',
-    'totalemployer','managementstaff'));                 
-            
+    'totalemployer','managementstaff'));
+
 
 }
 
 public function edfinance(){
     $branchtotal= Branch::count();
-        
-    
+
+
     $departmenttotal = Department::count();
     $regiontotal= Region::count();
     $revenuefromecs=Payment::where('payment_type',1)->count();
@@ -252,7 +253,7 @@ public function edfinance(){
     'regiontotal','revenuefromecs',
     'revenuefromcertificate','revenuefromregistration','totalemployers',
     'totalemployees','totalcertificate',
-   
+
     'totalstaff'));
 }
 public function edadmin(){
@@ -268,8 +269,8 @@ public function edadmin(){
     public function minister()
     {
         $branchtotal= Branch::count();
-        
-    
+
+
         $departmenttotal = Department::count();
         $regiontotal= Region::count();
         $revenuefromecs=Payment::where('payment_type',1)->count();
@@ -279,19 +280,19 @@ public function edadmin(){
         $totalemployers=Employer::count();
         $totalemployees=Employee::count();
         $totalcertificate=Certificate::count();
-    
+
         return view('minister',compact('branchtotal','departmenttotal',
         'regiontotal','revenuefromecs',
         'revenuefromcertificate','revenuefromregistration','totalemployers',
         'totalemployees','totalcertificate',
-       
+
         'totalstaff'));
     }
 
 
     public function hradmin()
     {
-        
+
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
@@ -303,7 +304,7 @@ public function edadmin(){
 
     public function aprd()
     {
-        
+
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
@@ -315,7 +316,7 @@ public function edadmin(){
 
     public function fre()
     {
-        
+
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
@@ -326,7 +327,7 @@ public function edadmin(){
     }
     public function copaffairs()
     {
-        
+
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
@@ -338,7 +339,7 @@ public function edadmin(){
 
     public function financeadmin()
     {
-        
+
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
@@ -361,16 +362,16 @@ $diseaseclaims= ClaimsCompensation::where('claimstype_id' ,2)->count();
     $pending_employers = Employer::where('status', 2)->count();
     $registered_employees = Employee::where('status', 1)->count();
     $pending_employees = Employee::where('status', 2)->count();
-    
+
     $data = Employer::where('status', 1);
     $data = $data->paginate(10);
-    
-    
+
+
     return view('claimsadmin', compact(
-        'registered_employers', 
-        'pending_employers', 
-        'registered_employees', 
-        'pending_employees', 
+        'registered_employers',
+        'pending_employers',
+        'registered_employees',
+        'pending_employees',
         'data',
         'deathclaims',
         'diseaseclaims'
@@ -386,7 +387,7 @@ return view('ictadmin',compact('ictstaff'));
 
     public function itmadmin()
     {
-        
+
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
@@ -406,7 +407,7 @@ public function procurementadmin(){
 
     public function complianceadmin()
     {
-   
+
 
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
@@ -418,7 +419,7 @@ public function procurementadmin(){
     }
 
     public function riskadmin(){
-        
+
         return view('riskadmins');
     }
 
@@ -444,7 +445,7 @@ public function procurementadmin(){
         $totaldept= Department::count();
         $totalemployer=Employer::count();
         $managementstaff =Staff::where('ranking_id','!==',1)->count();
-        
+
         return view('pamsec',compact('allstaff','totalregion','totaldept',
         'totalemployer','managementstaff'));
     }

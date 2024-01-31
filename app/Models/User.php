@@ -54,7 +54,7 @@ class User extends Authenticatable implements Auditable
      *
      * @var array<int, string>
      */
-    
+
     protected $fillable = [
         'email',
         'password',
@@ -70,7 +70,8 @@ class User extends Authenticatable implements Auditable
         'documents',
         'tax_payer_id',
         'salary',
-        'salary_type'       
+        'salary_type' ,
+       
     ];
 
     /**
@@ -185,7 +186,7 @@ class User extends Authenticatable implements Auditable
         {
             return $this->created_by;
         } */
-        
+
         return $this->id;
     }
 
@@ -223,7 +224,7 @@ class User extends Authenticatable implements Auditable
 
         return date($settings['site_date_format'], strtotime($date));
     }
-    
+
     public function expenseNumberFormat($number)
     {
         $settings = Utility::settings();
@@ -237,7 +238,7 @@ class User extends Authenticatable implements Auditable
 
         return $settings["journal_prefix"] . sprintf("%05d", $number);
     }
-    
+
     //Supposed Customer
     /* public function authId()
     {
@@ -253,7 +254,7 @@ class User extends Authenticatable implements Auditable
         else
         {
             return $this->created_by;
-        } 
+        }
         //return $this->id;
     }*/
 
@@ -477,7 +478,7 @@ class User extends Authenticatable implements Auditable
        return 0;
     }
 
-    
+
     public function getincExpBarChartData()
     {
         $month[]          = __('January');
@@ -589,7 +590,7 @@ class User extends Authenticatable implements Auditable
     }
 
 
-    
+
     public function weeklyInvoice()
     {
         $staticstart  = date('Y-m-d', strtotime('last Week'));
@@ -613,7 +614,7 @@ class User extends Authenticatable implements Auditable
     }
 
 
-    
+
     public function monthlyInvoice()
     {
         $staticstart  = date('Y-m-d', strtotime('last Month'));
@@ -636,7 +637,7 @@ class User extends Authenticatable implements Auditable
         return $invoiceDetail;
     }
 
-    
+
     public function weeklyBill()
     {
         $staticstart = date('Y-m-d', strtotime('last Week'));
@@ -698,7 +699,7 @@ class User extends Authenticatable implements Auditable
     public function countCustomers()
     {
         return Customer::where('created_by', '=', $this->creatorId())->count();
-        
+
     }
     public function countemployers(){
         return Employer::count();
@@ -730,7 +731,7 @@ class User extends Authenticatable implements Auditable
         return $totalIncome;
     }
 
-    
+
     public function todayExpense()
     {
         $payment = Payment::where('created_by', '=', $this->creatorId())->where('created_by', \Auth::user()->creatorId())->whereRaw('Date(date) = CURDATE()')->sum('amount');
@@ -766,7 +767,7 @@ class User extends Authenticatable implements Auditable
 
     }
 
-    
+
     public function expenseCurrentMonth()
     {
         $currentMonth = date('m');
@@ -1037,6 +1038,6 @@ class User extends Authenticatable implements Auditable
     {
         return $this->hasMany(AttendanceEmployee::class, 'employee_id');
     }
-    
+
 
 }

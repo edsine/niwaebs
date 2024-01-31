@@ -23,7 +23,7 @@ class ESSPPaymentController extends AppBaseController
     public function index()
     {
 
-        $payments = Payment::paginate(10);
+        $payments = Payment::orderBy('id','desc')->paginate(10);
         return view('payments', compact('payments'));
     }
 
@@ -37,6 +37,18 @@ class ESSPPaymentController extends AppBaseController
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Payment approved successfully');
+    }
+
+    public function rejectPayment($id)
+    {
+        // Find the payment by ID
+        $payment = Payment::findOrFail($id);
+
+        // Update the payment status or perform any other necessary actions
+        $payment->update(['approval_status' => 0]); // Assuming '1' represents the approved status
+
+        // Redirect back with a success message
+        return redirect()->back()->with('error', 'Payment not approved.');
     }
 
 

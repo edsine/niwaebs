@@ -18,7 +18,7 @@
                                 <h4>POSITION ATTAINED</h4>
                                 <div class="form-group">
                                     {!! Form::label('ranking_id', 'Rank') !!}
-                                    {!! Form::select('ranking_id', $rank, null, ['class' => 'form-control form-control-solid border border-2 form-select']) !!}
+                                    {!! Form::select('ranking_id', $rank, null,  ['class' => 'form-control form-control-solid border border-2 form-select']) !!}
                                 </div>
                                 <div class="form-group">
 
@@ -28,7 +28,7 @@
 
                                 <div class="form-group">
                                     {!! Form::label('email', 'Email') !!}
-                                    {!! Form::email('email', null, ['class' => 'form-control form-control-solid border border-2']) !!}
+                                    {!! Form::email('email', null, ['class' => 'form-control form-control-solid border border-2',]) !!}
                                 </div>
 
                             </section>

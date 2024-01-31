@@ -20,7 +20,7 @@
                         {{-- <small class="text-gray">Raised from 89 orders.</small> --}}
                     </div>
                     {{-- <div class="d-inline-block">
-                        <i class="fas fa-chart-pie text-info icon-lg"></i>                                    
+                        <i class="fas fa-chart-pie text-info icon-lg"></i>
                     </div> --}}
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         {{-- <small class="text-gray">hey, let’s have lunch together</small> --}}
                     </div>
                     {{-- <div class="d-inline-block">
-                        <i class="fas fa-shopping-cart text-danger icon-lg"></i>                                    
+                        <i class="fas fa-shopping-cart text-danger icon-lg"></i>
                     </div> --}}
                 </div>
             </div>
@@ -56,7 +56,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-row">
-                   
+
                     <div class="ml-3">
                         <h6>Maria</h6>
                         <p class="text-muted">maria@gmail.com</p>
@@ -87,7 +87,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-row">
-            
+
                     <div class="ml-3">
                         <h6>Edward</h6>
                         <p class="text-muted">edward@gmail.com</p>
@@ -100,8 +100,8 @@
 </div>
 
 
-<div class="row">
-    {{-- <div class="col-md-6 col-lg-4 grid-margin"> --}}
+{{-- <div class="col-md-6 col-lg-4 grid-margin"> --}}
+{{-- <div class="row">
     <div class="col grid-margin">
       <div class="card">
         <div class="card-body">
@@ -112,7 +112,7 @@
         </div>
       </div>
     </div>
-</div>
+</div> --}}
 
 
 
