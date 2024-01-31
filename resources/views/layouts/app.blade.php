@@ -684,6 +684,9 @@
     <!-- End custom js for this page-->
     <!-- Custom js for this page-->
     <script src="{{ asset('sh_assets/js/wizard.js') }}"></script>
+    <script src="{{asset('sh_assets/js/chart.js')}}"></script>
+    <script src="{{asset('sh_assets/js/flot-chart.js')}}"></script>
+    <script src="{{asset('sh_assets/js/morris.js')}}"></script>
     <!-- End custom js for this page-->
 </body>
 

@@ -454,10 +454,11 @@ class UserController extends AppBaseController
 
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
 
+// dd(Department::all());
+        // $department = $this->departmentRepository->all()->pluck('name', 'id');
 
         $department = $this->departmentRepository->all()->pluck('name', 'id');
-
-
+        // dd($branch);
         $rank = Ranking::all()->pluck('name', 'id');
 
         if (empty($user)) {
