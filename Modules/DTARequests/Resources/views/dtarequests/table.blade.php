@@ -9,11 +9,11 @@
                 <th>TRAVEL DATE</th>
                 <th>ARRIVAL DATE</th>
                 <th>ESTIMATED EXPENSES</th>
-                <th>ACCOUNT OFFICER STATUS</th>
+                {{-- <th>ACCOUNT OFFICER STATUS</th>
                 <th>HOD STATUS</th>
                 <th>MD STATUS</th>
                 <th>ACCOUNT STATUS</th>
-                <th>APPROVAL STATUS</th>
+                <th>APPROVAL STATUS</th> --}}
                {{--  <th>STATUS</th> --}}
                 {{-- <th>UPLOADED DOC</th> --}}
                 <th colspan="3">Action</th>
@@ -27,7 +27,7 @@
                     <td>{{ $dtarequests->travel_date}}</td>
                     <td>{{ $dtarequests->arrival_date}}</td>
                     <td>₦{{ $dtarequests->estimated_expenses}}</td>
-                    <td><p> @if (isset($dtarequests->supervisor_status) && $dtarequests->supervisor_status == 1)
+                   {{--  <td><p> @if (isset($dtarequests->supervisor_status) && $dtarequests->supervisor_status == 1)
                         <span class="btn btn-sm btn-success">Approved</span>
                     @else
                         <span class="btn btn-sm btn-danger">Unapproved</span>
@@ -62,7 +62,7 @@
                     @endif
                         </p>
                         </td>
-                    {{-- <td>{{ $dtarequests->status}}</td> --}}
+ --}}                    {{-- <td>{{ $dtarequests->status}}</td> --}}
                     
                     
                     <td  style="width: 120px">

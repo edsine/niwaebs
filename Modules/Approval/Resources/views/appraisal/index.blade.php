@@ -66,7 +66,7 @@
                                 <td>
                                     <a class="btn btn-info" href="{{ route('appraisal.show', $request->id) }}"><i
                                             class="fa fa-check"></i></a>
-                                            @if($request->requestable::class == 'App\Models\DeathClaim')
+                                            {{-- @if($request->requestable::class == 'App\Models\DeathClaim')
                                             <a class="btn btn-info" href="{{ route('death.claims.show', $request->requestable_id) }}"><i
                                                 class="fa fa-eye"></i></a>
                                                 @endif
@@ -77,7 +77,7 @@
                                                 @if($request->requestable::class == 'App\Models\DiseaseClaim')
                                             <a class="btn btn-info" href="{{ route('disease.claims.show', $request->requestable_id) }}"><i
                                                 class="fa fa-eye"></i></a>
-                                                @endif
+                                                @endif --}}
                                                 @if($request->requestable::class == 'Modules\DTARequests\Models\DTARequests')
                                                 <a href="/dtarequests/dtarequests/{{$request->requestable->id}}" target="_blank" class="btn">
                                                     <i class="fa fa-eye"></i>
@@ -87,11 +87,11 @@
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                             @endif
-                                            @if($request->requestable::class == 'Modules\FormBuilder\Models\FormResponse')
+                                            {{-- @if($request->requestable::class == 'Modules\FormBuilder\Models\FormResponse')
                                                 </a>
                                             <a class="btn btn-info" href="#" data-url="{{ route('response.detail',$request->requestable_id) }}" data-ajax-popup="true" data-size="md" data-bs-toggle="tooltip" title="{{__('View')}}" data-title="{{__('Response Detail')}}"><i
                                                 class="fa fa-eye"></i></a>
-                                                @endif
+                                                @endif --}}
                                 </td>
                             </tr>
                         @endforeach

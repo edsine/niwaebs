@@ -120,8 +120,10 @@ class RequestSavedListener
     ->where('status', 1)
     ->latest('approval_order')
     ->first();
+    $lastRequest = Request::find($request->id);
+    $final = $lastRequest->type->flows->count();
                     $request->next_step = $next_step ? $next_step->approval_order : 1;
-                    $request->status = 0; //($lastStep == null) ? 1 : 0; //request is completed or closed
+                    //$request->status = ($request->order === $final) ? 1 : 0; //request is completed or closed
                     $request->saveQuietly(); //do not trigger notifications $mr->status = ($request->order === 1) ? 1 : 0;
 
                     if ($next_step) {

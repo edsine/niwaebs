@@ -670,7 +670,7 @@
     <script src="{{ asset('sh_assets/js/misc.js') }}"></script>
     <script src="{{ asset('sh_assets/js/settings.js') }}"></script>
     <script src="{{ asset('sh_assets/js/todolist.js') }}"></script>
-
+    <script src="{{ asset('sh_assets/js/file-upload.js') }}"></script>
 
 
     <script src="{{ asset('sh_assets/js/google-maps.js') }}"></script>
