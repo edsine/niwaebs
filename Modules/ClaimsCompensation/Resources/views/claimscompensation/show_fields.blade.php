@@ -30,9 +30,9 @@
     {!! Form::label('regional_manager_status', 'Regional Manager Status:') !!}
     <div class="">
         <p> @if (isset($claimscompensations->regional_manager_status) && $claimscompensations->regional_manager_status == 1)
-            <span class="btn btn-sm btn-success">Approved</span>
+            <label class="badge badge-info">Approved</label>
         @else
-            <span class="btn btn-sm btn-danger">Unapproved</span>
+            <label class="badge badge-danger">Unapproved</label>
         @endif
             </p>
     </div>
@@ -43,9 +43,9 @@
     {!! Form::label('head_office_status', 'Head Office Status:') !!}
     <div class="">
         <p> @if (isset($claimscompensations->head_office_status) && $claimscompensations->head_office_status == 1)
-            <span class="btn btn-sm btn-success">Approved</span>
+            <label class="badge badge-info">Approved</label>
         @else
-            <span class="btn btn-sm btn-danger">Unapproved</span>
+            <label class="badge badge-danger">Unapproved</label>
         @endif
             </p>
     </div>
@@ -56,9 +56,9 @@
     {!! Form::label('medical_team_status', 'Medical Team Status:') !!}
     <div class="">
         <p> @if (isset($claimscompensations->medical_team_status) && $claimscompensations->medical_team_status == 1)
-            <span class="btn btn-sm btn-success">Approved</span>
+            <label class="badge badge-info">Approved</label>
         @else
-            <span class="btn btn-sm btn-danger">Unapproved</span>
+            <label class="badge badge-danger">Unapproved</label>
         @endif
             </p>
     </div>

@@ -302,7 +302,7 @@
     {{-- </div> --}}
     <!--end::Wrapper-->
     <div class="fs-6 text-gray-700">
-        <h1>REGISTRATION COMPLETED  </h1>
+        <h4 class="card-title">REGISTRATION COMPLETED  </h4>
         <p> kindly click the submit button </p>
         <div class="float-end">
             

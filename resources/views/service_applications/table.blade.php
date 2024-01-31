@@ -1,8 +1,8 @@
 <div class="card-body p-5">
     <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="service-applications-table">
+        <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
-                <tr class="fw-bold text-muted bg-light">
+                <tr>
                     <th class="min-w-200px">Employer</th>
                     <th class="min-w-200px">Service</th>
                     <th class="min-w-200px">Application Form Payment Status</th>

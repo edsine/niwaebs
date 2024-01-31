@@ -16,8 +16,8 @@
  <!-- partial:partials/_navbar.html -->
  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-         <a class="navbar-brand brand-logo" href="#"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo"/></a>
-         <a class="navbar-brand brand-logo-mini" href="#"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo" class="h-30px"/></a>
+         <a class="navbar-brand brand-logo" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo"/></a>
+         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo" class="h-30px"/></a>
      </div>
      {{-- <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
          <a href="#" class="navbar-brand brand-logo">

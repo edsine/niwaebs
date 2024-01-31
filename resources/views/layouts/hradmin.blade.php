@@ -11,7 +11,7 @@
       <!--begin::Page title-->
       <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <!--begin::Title-->
-        <h1 class="text-black-50 pt-5">Human Resource :<b style="color: #000"> Overview</b></h1>
+        <h4 class="text-black-50 pt-5">Human Resource :<b style="color: #000"> Overview</b></h4>
         <!--end::Title-->
       </div>
       <!--end::Page title-->
@@ -272,7 +272,7 @@
               <!--begin::Modal header-->
               <div class="modal-header">
                 <!--begin::Modal title-->
-                <h1>Event Details</h1>
+                <h4 class="card-title">Event Details</h4>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -665,7 +665,7 @@
           <!--end::Tables Widget 12-->
           <div class="card">
             <div class="card-body">
-              {{-- <h1>Events</h1> --}}
+              {{-- <h4 class="card-title">Events</h4> --}}
               <button id="add-event-button" class="btn btn-primary" data-toggle="modal" data-target="#event-modal">Add Event</button>
               <div id="calendar"></div>
 
