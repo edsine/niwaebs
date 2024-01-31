@@ -11,7 +11,7 @@
 			<!--begin::Page title-->
 			<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
 				<!--begin::Title-->
-				<h1 class="text-black-50 pt-5"> Audit and Internal Control:<b style="color: #000">Overview</b></h1>
+
 				<!--end::Title-->
 			</div>
 			<!--end::Page title-->
@@ -22,20 +22,21 @@
 	<!--begin::Content-->
 	<div id="kt_app_content" class="app-content flex-column-fluid">
 		<!--begin::Content container-->
-		<div id="kt_app_content_container" class="app-container container-xxl">
+		<div id="kt_app_content_container" class=" mx-9">
+            <center><h1 class=" mb-7 text-center text-uppercase text-primary pt-5"> Audit and Internal Control:<b style="color: #000">Overview</b></h1></center>
 			<!--begin::Row-->
 			<div class="row gy-5 g-xl-10">
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card h-lg-100">
+					<div class="card bg-light-danger h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
 							<div class="m-0">
 								<!--begin::Svg Icon | path: icons/duotune/maps/map004.svg-->
-								<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<span class="svg-icon svg-icon-2hx svg-icon-gray-600 ">
+									<svg  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path opacity="0.3" d="M18.4 5.59998C21.9 9.09998 21.9 14.8 18.4 18.3C14.9 21.8 9.2 21.8 5.7 18.3L18.4 5.59998Z" fill="currentColor" />
 										<path d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM19.9 11H13V8.8999C14.9 8.6999 16.7 8.00005 18.1 6.80005C19.1 8.00005 19.7 9.4 19.9 11ZM11 19.8999C9.7 19.6999 8.39999 19.2 7.39999 18.5C8.49999 17.7 9.7 17.2001 11 17.1001V19.8999ZM5.89999 6.90002C7.39999 8.10002 9.2 8.8 11 9V11.1001H4.10001C4.30001 9.4001 4.89999 8.00002 5.89999 6.90002ZM7.39999 5.5C8.49999 4.7 9.7 4.19998 11 4.09998V7C9.7 6.8 8.39999 6.3 7.39999 5.5ZM13 17.1001C14.3 17.3001 15.6 17.8 16.6 18.5C15.5 19.3 14.3 19.7999 13 19.8999V17.1001ZM13 4.09998C14.3 4.29998 15.6 4.8 16.6 5.5C15.5 6.3 14.3 6.80002 13 6.90002V4.09998ZM4.10001 13H11V15.1001C9.1 15.3001 7.29999 16 5.89999 17.2C4.89999 16 4.30001 14.6 4.10001 13ZM18.1 17.1001C16.6 15.9001 14.8 15.2 13 15V12.8999H19.9C19.7 14.5999 19.1 16.0001 18.1 17.1001Z" fill="currentColor" />
 									</svg>
@@ -46,7 +47,7 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">5,000,000</span>
+								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
@@ -75,7 +76,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card h-lg-100">
+					<div class="card text-bg-danger h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -93,7 +94,7 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">3,500,000</span>
+								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
@@ -122,7 +123,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card h-lg-100">
+					<div class="card bg-light-danger h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -140,7 +141,7 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">1,500,000</span>
+								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
@@ -149,7 +150,7 @@
 								<!--end::Follower-->
 							</div>
 							<!--end::Section-->
-							
+
 						</div>
 						<!--end::Body-->
 					</div>
@@ -159,7 +160,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card h-lg-100">
+					<div class="card text-bg-info h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -180,7 +181,7 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">2,000,000</span>
+								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
@@ -189,7 +190,7 @@
 								<!--end::Follower-->
 							</div>
 							<!--end::Section-->
-							
+
 						</div>
 						<!--end::Body-->
 					</div>
@@ -199,7 +200,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-5 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card h-lg-100">
+					<div class="card bg-light-danger h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -217,7 +218,7 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">27,000,000</span>
+								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
@@ -226,7 +227,7 @@
 								<!--end::Follower-->
 							</div>
 							<!--end::Section-->
-							
+
 						</div>
 						<!--end::Body-->
 					</div>
@@ -254,7 +255,7 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">75,000,000</span>
+								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
@@ -501,7 +502,7 @@
 									<!--end::Items-->
 								</div>
 								<!--end::Tap pane-->
-								<!--begin::Tap pane-->								
+								<!--begin::Tap pane-->
 							</div>
 							<!--end::Tab Content-->
 						</div>
@@ -559,7 +560,7 @@
 						<!--begin::Chart widget 23-->
 						<div class="card card-flush overflow-hidden h-md-100">
 							<!--begin::Header-->
-							
+
 							<div class="card-header py-5">
 								<!--begin::Title-->
 								<h3 class="card-title fw-bold text-gray-800">Total Expenditure</h3>
@@ -652,18 +653,18 @@
 								<!--end::Chart-->
 							</div>
 							<!--end::Card body-->
-						
-							
+
+
 							<!--end::Card body-->
 						</div>
 						<!--end::Chart widget 23-->
 					</div>
 
-					
-					
+
+
 				<!--end::Col-->
 			</div>
-			<!--end::Row-->			
+			<!--end::Row-->
 		</div>
 		<!--end::Content container-->
 	</div>
