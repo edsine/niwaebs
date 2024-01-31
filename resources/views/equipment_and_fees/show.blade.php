@@ -5,9 +5,9 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>
+                    <h4 class="card-title">
                         Equipment and Fee Details
-                    </h1>
+                    </h4>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-secondary float-end" href="{{ route('equipmentAndFees.index') }}">

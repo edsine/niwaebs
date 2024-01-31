@@ -395,10 +395,7 @@
         }
 
         p,
-        h6,
-        tr,
-        td,
-        th {
+        h6, a {
             font-size: larger !important;
         }
     </style>
@@ -685,6 +682,7 @@
     <!-- Custom js for this page-->
     <script src="{{ asset('sh_assets/js/wizard.js') }}"></script>
     <!-- End custom js for this page-->
+    <script src="{{ asset('sh_assets/js/data-table.js') }}"></script>
 </body>
 
 </html>

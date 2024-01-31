@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-            <h1>Change Email Password & EBS Password</h1>
+            <h4 class="card-title">Change Email Password & EBS Password</h4>
             <p>Password must be a minimum of 12 characters including atleast a number and a symbol </p>
             @include('flash::message')
             <form method="post" action="{{ route('change.email.password') }}">

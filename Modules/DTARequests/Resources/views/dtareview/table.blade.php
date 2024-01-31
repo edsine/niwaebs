@@ -1,10 +1,10 @@
-<div class="card-body p-5">
+<div class="card-body">
     <div class="table-responsive">
-        <table class="table" id="departments-table ">
+        <table class="table" id="order-listing">
             <thead>
             <tr>
                  <th> #</th>
-                <th>Purpose of Travel</th>
+                <th>Purpose of Travelss</th>
                 <th>Destination</th>
                 <th>No. of Days</th>
                 <th>Travel Date</th>
@@ -29,9 +29,9 @@
                     <td>{{ $dtareview->comments }}</td>
                     <td>{{ $dtareview->created_at}}</td>
                     <td><p> @if (isset($dtareview->review_status) && $dtareview->review_status == 1)
-                        <span class="btn btn-sm btn-success">Approved</span>
+                        <label class="badge badge-info">Approved</label>
                     @else
-                        <span class="btn btn-sm btn-danger">Unapproved</span>
+                        <label class="badge badge-danger">Unapproved</label>
                     @endif
                         </p>
                         </td>

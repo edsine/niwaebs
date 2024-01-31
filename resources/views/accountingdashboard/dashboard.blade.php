@@ -106,7 +106,7 @@
                     <div class="col-xxl-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>{{__('Mark Attandance')}}</h4>
+                                <h4 class="card-title">{{__('Mark Attandance')}}</h4>
                             </div>
                             <div class="card-body dash-card-body">
                                 <p class="text-muted pb-0-5">{{__('My Office Time: '.$officeTime['startTime'].' to '.$officeTime['endTime'])}}</p>
@@ -160,7 +160,7 @@
                     <div class="col-xxl-6">
                         <div class="card list_card">
                             <div class="card-header">
-                                <h4>{{__('Announcement List')}}</h4>
+                                <h4 class="card-title">{{__('Announcement List')}}</h4>
                             </div>
                             <div class="card-body dash-card-body">
                                 <div class="table-responsive">
@@ -197,7 +197,7 @@
                         </div>
                         <div class="card list_card">
                             <div class="card-header">
-                                <h4>{{__('Meeting List')}}</h4>
+                                <h4 class="card-title">{{__('Meeting List')}}</h4>
                             </div>
                             <div class="card-body dash-card-body">
                                 @if(count($meetings) > 0)

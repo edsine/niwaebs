@@ -66,7 +66,7 @@
                                 <img src="{{ asset('assets/media/logos/logo-light.png') }}" style="width:100px;">
                             </div>
                             <h3>National Inland WaterWays Authority Enterprise Business Suite (EBS)</h3>
-                            {{-- <h4>Welcome back!</h4> --}}
+                            {{-- <h4 class="card-title">Welcome back!</h4> --}}
                             <h6 class="font-weight-light">Happy to see you again!</h6>
                             <form class="pt-3" action="{{ url('/login') }}" method="post">
                                 @csrf

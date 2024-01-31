@@ -42,9 +42,9 @@
     {!! Form::label('supervisor_office', 'SUPERVISOR  STATUS:') !!}
     <div class="">
         <p> @if (isset($leaverequest->supervisor_office) && $leaverequest->supervisor_office == 1)
-            <span class="btn btn-sm btn-success">Approved</span>
+            <label class="badge badge-info">Approved</label>
         @else
-            <span class="btn btn-sm btn-danger">Unapproved</span>
+            <label class="badge badge-danger">Unapproved</label>
         @endif
             </p>
     </div>
@@ -55,9 +55,9 @@
     {!! Form::label('md_hr', 'MD HR:') !!}
     <div class="">
         <p> @if (isset($leaverequest->md_hr) && $leaverequest->md_hr == 1)
-            <span class="btn btn-sm btn-success">Approved</span>
+            <label class="badge badge-info">Approved</label>
         @else
-            <span class="btn btn-sm btn-danger">Unapproved</span>
+            <label class="badge badge-danger">Unapproved</label>
         @endif
             </p>
     </div>
@@ -68,9 +68,9 @@
     {!! Form::label('leaver_officer', 'LEAVE_OFFICE:') !!}
     <div class="">
         <p> @if (isset($leaverequest->leaver_officer) && $leaverequest->leaver_officer == 1)
-            <span class="btn btn-sm btn-success">Approved</span>
+            <label class="badge badge-info">Approved</label>
         @else
-            <span class="btn btn-sm btn-danger">Unapproved</span>
+            <label class="badge badge-danger">Unapproved</label>
         @endif
             </p>
     </div>

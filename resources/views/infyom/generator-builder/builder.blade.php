@@ -39,7 +39,7 @@
         <div id="info" style="display: none"></div>
         <div class="box box-primary col-lg-12">
             <div class="box-header" style="margin-top: 10px">
-                <h1 class="box-title" style="font-size: 30px">InfyOm Laravel Generator Builder</h1>
+                <h4 class="box-title" style="font-size: 30px">InfyOm Laravel Generator Builder</h4>
             </div>
             <div class="box-body">
                 <form id="form">
@@ -243,7 +243,7 @@
         <div id="rollbackInfo" style="display: none"></div>
         <div class="box box-primary col-lg-12">
             <div class="box-header" style="margin-top: 10px">
-                <h1 class="box-title" style="font-size: 30px">Rollback</h1>
+                <h4 class="box-title" style="font-size: 30px">Rollback</h4>
             </div>
             <div class="box-body">
                 <form id="rollbackForm">
@@ -281,7 +281,7 @@
         <div id="schemaInfo" style="display: none"></div>
         <div class="box box-primary col-lg-12">
             <div class="box-header" style="margin-top: 10px">
-                <h1 class="box-title" style="font-size: 30px">Generate CRUD From Schema</h1>
+                <h4 class="box-title" style="font-size: 30px">Generate CRUD From Schema</h4>
             </div>
             <div class="box-body">
                 <form method="post" id="schemaForm" enctype="multipart/form-data">

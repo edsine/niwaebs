@@ -15,7 +15,7 @@
                         <div>
                             <h3>PERSONAL INFORMATION</h3>
                             <section>
-                                <h4>POSITION ATTAINED</h4>
+                                <h4 class="card-title">POSITION ATTAINED</h4>
                                 <div class="form-group">
                                     {!! Form::label('ranking_id', 'Rank') !!}
                                     {!! Form::select('ranking_id', $rank, null,  ['class' => 'form-control form-control-solid border border-2 form-select']) !!}
@@ -34,7 +34,7 @@
                             </section>
                             <h3>PERSONAL INFORMATION</h3>
                             <section>
-                                <h4>PERSONAL INFORMATION</h4>
+                                <h4 class="card-title">PERSONAL INFORMATION</h4>
 
                                 <div class="form-group">
                                     {!! Form::label('first_name', 'First Name') !!}
@@ -51,7 +51,7 @@
                             </section>
                             <h3>PASSKEY AREA </h3>
                             <section>
-                                <h4>CREDENTIALS AREA </h4>
+                                <h4 class="card-title">CREDENTIALS AREA </h4>
                                 <div class="form-group">
                                     {!! Form::label('password', 'Password (Password must be a minimum of 12 characters including atleast a number and symbol)') !!}
                                     {!! Form::password('password', ['id' => 'password','class' => 'form-control form-control-solid border border-2','autocomplete' => "off"]) !!}
@@ -70,7 +70,7 @@
                             </section>
                             <h3>OTHER INFORMATION</h3>
                             <section>
-                                <h4>OTHER INFORMATION</h4>
+                                <h4 class="card-title">OTHER INFORMATION</h4>
 
                                 <div class="form-group">
                                     {!! Form::label('staff_id', 'Staff ID') !!}
@@ -90,7 +90,7 @@
                             <h3>Finish</h3>
                             <section>
 
-                                <h4>Finish</h4>
+                                <h4 class="card-title">Finish</h4>
                                 <div class="form-group">
                                     {!! Form::label('branch_id', 'Area Office') !!}
                                     {!! Form::select('branch_id',$branch,null, ['class' => 'form-control form-control-solid border border-2']) !!}

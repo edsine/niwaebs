@@ -8,7 +8,7 @@
   {{-- end::Sweet-alert --}}
   <!--begin::Row-->
   <div class="row g-5 g-xl-8 pt-5">
-    <h1 class="text-black-50 pt-5">Marine: <b style="color: #000">Overview</b></h1>
+    <h4 class="text-black-50 pt-5">Marine: <b style="color: #000">Overview</b></h4>
     @include('clokin')
     <div class="col-xl-12">
     <button id="showButton" onclick="showCards()">
