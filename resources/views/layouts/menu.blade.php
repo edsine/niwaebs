@@ -113,11 +113,16 @@
             <ul class="nav flex-column sub-menu">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="">Approval Request</a>
+                    <a class="nav-link" href="{{ route('request.index') }}">Approval Request</a>
                 </li>
                 
+               {{--  @if(Auth()->user()->hasRole('super-admin')) --}}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('appraisal.index') }}">Appraisal</a>
+    </li>
+{{-- @endif --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="">Appraisal</a>
+                    <a class="nav-link" href="{{ route('type.index') }}">Types</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('niwa.payments') }}">
@@ -243,18 +248,18 @@
                         <i class="menu-arrow"></i>
                     </a>
                     <ul class="nav flex-column sub-sub-menu">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="#">File Type</a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('folders.index') }}">Folders</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Uploads</a>
+                            <a class="nav-link" href="{{ route('memos.index') }}">Memos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Folders</a>
-                        </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" href="{{ route('documents.index') }}">Documents</a>
+                        </li> --}}
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="#">Sidebar Fixed</a>
                         </li> --}}

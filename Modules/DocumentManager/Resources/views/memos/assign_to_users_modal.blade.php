@@ -41,7 +41,7 @@
                 minimumInputLength: 2,
                 allowClear: true,
                 ajax: {
-                    url: "{{ url('api/users') }}",
+                    url: "{{ url('api/users/app') }}",
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {
