@@ -4,9 +4,9 @@
     <!--begin::Content wrapper-->
     <!-- partial -->
     <div class="content-wrapper">
-        <center>
-            <h1 class="text-center uppercase  bold mb-3">Human Resources Department</h1>
-        </center>
+        {{-- <center> --}}
+            <h1 class="uppercase  bold mb-3">Human Resources Department</h1>
+        {{-- </center> --}}
         <div class="row grid-margin">
             <div class="col-12">
                 @php
