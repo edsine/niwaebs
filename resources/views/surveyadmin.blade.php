@@ -29,11 +29,12 @@
         <line x1="8" y1="12" x2="16" y2="12" />
     </svg>
 </button>
-		<div class="row gy-5 g-xl-10">
+		<div class="row mx-7 gy-5 g-xl-10">
+            <center> <h1 class="text-black-50 text-center text-uppercase mb-4 pt-5"> SURVEY DEPARTMENT :<b style="color: #000">Overview</b></h1> </center>
 		@include('clokin')
 			<!--begin::Col-->
 			<div class="col-sm-6 col-xl-4 mb-xl-10">
-				
+
 				<!--begin::Card widget 2-->
 				<div class="card h-lg-100">
 					<!--begin::Body-->
@@ -175,7 +176,7 @@
 		<!--end::Row-->
 
 		<!--begin::Row-->
-		<div class="row g-5 g-xl-8">
+		<div class="row mx-7 g-5 g-xl-8">
 			<!--begin::Col-->
 			<div class="col-xl-4">
 				<!--begin::Mixed Widget 2-->
@@ -350,7 +351,7 @@
 		</div>
 		<!--end::Row-->
 		<!--begin::Row-->
-		<div class="row gy-5 g-xl-10">
+		<div class="row gy-5 mx-7 g-xl-10">
 			<!--begin::Col-->
 			<div class="col-xl-12 mb-5 mb-xl-10">
 				<!--begin::Chart widget 4-->
@@ -382,7 +383,7 @@
 		</div>
 		<!--end::Row-->
 		<!--begin::Row-->
-		<div class="row g-5 g-xl-8">
+		<div class="row mx-7 g-5 g-xl-8">
 			<!--begin::Col-->
 			<div class="col-xl-6">
 				<!--begin::Mixed Widget 12-->

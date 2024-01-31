@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mx-7">
             <div class="col-md-4 grid-margin">
                 <div class="card shadow">
                     <div class="card-body">
@@ -197,129 +197,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h4 class="card-title">Budget vs Actuals</h4>
-                        {{-- <p class="card-description">
-                    Add class <code>.table-bordered</code>
-                  </p> --}}
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            #
-                                        </th>
-                                        <th>
-                                            Category
-                                        </th>
-                                        <th>
-                                            Planned Budget
-                                        </th>
-                                        <th>
-                                            Actual Expenditure
-                                        </th>
-                                        <th>
-                                            Variance
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            Salaries
-                                        </td>
-                                        <td>
-                                            0
-                                        </td>
-                                        <td>
-                                            0
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            0
-                                        </td>
-                                        <td>
-                                            Marketing
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            #0
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            0
-                                        </td>
-                                        <td>
-                                            Marketing
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            #0
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            0
-                                        </td>
-                                        <td>
-                                            Marketing
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            #0
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            0
-                                        </td>
-                                        <td>
-                                            Marketing
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            # 0
-                                        </td>
-                                        <td>
-                                            #0
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row grid-margin">
+
+        <div class="row mx-7 grid-margin">
             <div class="col-12">
                 <div class="card card-statistics">
                     <div class="card-body">
@@ -358,33 +237,18 @@
                                 <h6>Structure Condition: Good</h6>
                                 <label class="badge badge-outline-success badge-pill">Usage: 0%</label>
                             </div>
-                            {{-- <div class="statistics-item">
-                                <p>
-                                    <i class="icon-sm fas fa-chart-line mr-2"></i>
-                                    Overall Employee Satisfaction Score
-                                </p>
-                                <h2>67%</h2>
-                                <label class="badge badge-outline-success badge-pill">10% increase</label>
-                            </div>
-                            <div class="statistics-item">
-                                <p>
-                                    <i class="icon-sm fas fa-circle-notch mr-2"></i>
-                                    Top Training Programs
-                                </p>
-                                <h2>70</h2>
-                                <label class="badge badge-outline-danger badge-pill">16% decrease</label>
-                            </div> --}}
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mx-7">
             <div class="col-12 grid-margin">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h4 class="card-title">Employee Leave Table</h4>
-                        <p class="page-description">Employee<code>Leave</code></p>
+                        <h4 class="card-title">STAFF ON LEAVE</h4>
+                        {{-- <p class="page-description">Add class <code></code></p> --}}
                         <div class="row">
                             <div class="table-sorter-wrapper col-lg-12 table-responsive">
                                 <table id="sortable-table-1" class="table">
@@ -438,7 +302,12 @@
     <!-- content-wrapper ends -->
     <!--end::Content wrapper-->
 @endsection
+<script>
 
+let table = new DataTable('sortable-table-1');
+let tablee = new DataTable('table table-bordered');
+
+</script>
 
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>

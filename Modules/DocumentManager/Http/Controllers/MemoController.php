@@ -167,19 +167,19 @@ $userData = $users1->map(function ($user) {
         $path .= $memo_folder->name;
 
 
-        $file = $request->file('file');
+        //$file = $request->file('file');
 
     // Define the destination folder inside the S3 bucket
     
     // Generate a unique file name
-    $document_url = $path . "/" . $file;
+    //$document_url = $path . "/" . $file;
     
-    $title = str_replace(' ', '', $input['title']);
-    $fileName = $title . 'v1' . rand() . '.' . $file->getClientOriginalExtension();
+    //$title = str_replace(' ', '', $input['title']);
+    //$fileName = $title . 'v1' . rand() . '.' . $file->getClientOriginalExtension();
 
     // Upload the file to the S3 bucket
     //$documentUrl = Storage::disk('s3')->putFileAs($path, $file, $fileName);
-        /* $path_folder = public_path($path);
+        $path_folder = public_path($path);
 
         // Save file
 
@@ -191,8 +191,8 @@ $userData = $users1->map(function ($user) {
         $file->move($path_folder, $file_name);
 
         $document_url = $path . "/" . $file_name;
- */
-        $document_input['document_url'] = "0";//$documentUrl;
+
+        $document_input['document_url'] = $document_url;
 
         $document = $this->documentRepository->create($document_input);
 
