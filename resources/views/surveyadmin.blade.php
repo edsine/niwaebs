@@ -207,7 +207,7 @@
 										</svg>
 									</span>
 									<!--end::Svg Icon-->
-									<a href="#" class="text-warning fw-semibold fs-6">Total Number of Clients: 0</a>
+									<a href="#" class="text-dark fw-semibold fs-6">Total Number of Clients: 0</a>
 								</div>
 								<!--end::Col-->
 								<!--begin::Col-->
@@ -264,7 +264,7 @@
 										</svg>
 									</span>
 									<!--end::Svg Icon-->
-									<a href="#" class="text-warning fw-semibold fs-6">Total Revenue: 0</a>
+									<a href="#" class="text-dark fw-semibold fs-6">Total Revenue: 0</a>
 								</div>
 								<!--end::Col-->
 								<!--begin::Col-->
@@ -321,7 +321,7 @@
 										</svg>
 									</span>
 									<!--end::Svg Icon-->
-									<a href="#" class="text-warning fw-semibold fs-6">Total Vessels: 0</a>
+									<a href="#" class="text-dark fw-semibold fs-6">Total Vessels: 0</a>
 								</div>
 								<!--end::Col-->
 								<!--begin::Col-->

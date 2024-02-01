@@ -22,7 +22,7 @@
 <!--begin::Content-->
 <div id="kt_app_content" class="app-content flex-column-fluid">
     <!--begin::Content container-->
-    <div id="kt_app_content_container" class="app-container container-xxl">
+    <div id="kt_app_content_container" class="mx-7">
         <!--begin::Row-->
         <div class="row g-5 g-xl-10">
           <center><h1 class=" pt-5 text-center mb-7 text-primary">PORTS AND ENVIRONMENT SERVICES:<b class="text-uppercase" style="color: #000"> Overview</b></h1></center>
@@ -40,7 +40,7 @@
                   <div class="mb-4 px-9">
                     <!--begin::Info-->
                     <div class="d-flex align-items-center mb-2">
-                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">0</span>
+                    <span class="fs-2hx fw-bold text-white me-2 lh-1">0</span>
                       <!--begin::Value-->
 
                       <!--end::Value-->
@@ -70,7 +70,7 @@
                     <!--begin::Info-->
                     <div class="d-flex align-items-center">
                       <!--begin::Amount-->
-                      <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">0</span>
+                      <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">0</span>
                       <!--end::Amount-->
                       <!--begin::Badge-->
 
@@ -106,7 +106,7 @@
                     <!--begin::Statistics-->
                     <div class="d-flex align-items-center mb-2">
                       <!--begin::Value-->
-                      <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1">0</span>
+                      <span class="fs-2hx fw-bold text-white me-2 lh-1">0</span>
                       <!--end::Value-->
                       <!--begin::Label-->
                       <!--  -->
@@ -132,7 +132,7 @@
                   <!--begin::Title-->
                   <div class="card-title d-flex flex-column">
                     <!--begin::Amount-->
-                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">0</span>
+                    <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">0</span>
                     <!--end::Amount-->
                     <!--begin::Subtitle-->
                     <span class="text-light-success pt-1 fw-semibold fs-6">NUMBER OF PILOTS</span>
