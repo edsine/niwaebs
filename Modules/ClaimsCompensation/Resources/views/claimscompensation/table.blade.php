@@ -1,6 +1,6 @@
 <div class="card-body p-5">
     <div class="table-responsive">
-        <table class="table" id="departments-table">
+        <table class="table" id="order-listing">
             <thead>
             <tr>
                 {{-- <th>Claim Type</th> --}}
@@ -27,25 +27,25 @@
                     </td>
                     <td>
                         <p> @if (isset($claimscompensation->regional_manager_status) && $claimscompensation->regional_manager_status == 1)
-                            <span class="btn btn-sm btn-success">Approved</span>
+                            <label class="badge badge-info">Approved</label>
                         @else
-                            <span class="btn btn-sm btn-danger">Unapproved</span>
+                            <label class="badge badge-danger">Unapproved</label>
                         @endif
                             </p>
                         </td>
                     <td>
                         <p> @if (isset($claimscompensation->head_office_status) && $claimscompensation->head_office_status == 1)
-                            <span class="btn btn-sm btn-success">Approved</span>
+                            <label class="badge badge-info">Approved</label>
                         @else
-                            <span class="btn btn-sm btn-danger">Unapproved</span>
+                            <label class="badge badge-danger">Unapproved</label>
                         @endif
                             </p>
                         </td>
                     <td>
                         <p> @if (isset($claimscompensation->head_office_status) && $claimscompensation->head_office_status == 1)
-                            <span class="btn btn-sm btn-success">Approved</span>
+                            <label class="badge badge-info">Approved</label>
                         @else
-                            <span class="btn btn-sm btn-danger">Unapproved</span>
+                            <label class="badge badge-danger">Unapproved</label>
                         @endif
                             </p>
                         {{ $claimscompensation->medical_team_status }}</td>

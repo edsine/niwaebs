@@ -6,9 +6,9 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
 @if($config->options->localized)
-                    <h1>@@lang('models/{{ $config->modelNames->camelPlural }}.plural')</h1>
+                    <h4 class="card-title">@@lang('models/{{ $config->modelNames->camelPlural }}.plural')</h4>
 @else
-                    <h1>{{ $config->modelNames->humanPlural }}</h1>
+                    <h4 class="card-title">{{ $config->modelNames->humanPlural }}</h4>
 @endif
                 </div>
                 <div class="col-sm-6">

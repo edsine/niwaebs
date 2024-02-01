@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Validator;
 use Modules\HRMSystem\Models\Designation;
 use Modules\HumanResource\Models\Ranking;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Notification;
 use Modules\EmployerManager\Models\Employer;
 use Modules\Shared\Repositories\BranchRepository;
@@ -41,6 +42,7 @@ use Modules\Shared\Repositories\DepartmentRepository;
 use App\Imports\UsersImport; // Create this import class
 use Modules\HumanResource\Repositories\RankingRepository;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 
 
@@ -555,6 +557,7 @@ class UserController extends AppBaseController
        $input['staff_id']=$request->input('staff_id');
 
         $input['unit_id']=$request->input('unit_id');
+        unset($input['department_id']);
 
         $user = $this->userRepository->update($input, $id);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
@@ -631,4 +634,15 @@ class UserController extends AppBaseController
 
         return response()->json($designations);
 }
+
+public function usersAPI(Request $request): JsonResponse
+    {
+        $users = $this->userRepository->all(
+            $request->except(['skip', 'limit']),
+            $request->get('skip'),
+            $request->get('limit')
+        );
+
+        return $this->sendResponse(UserResource::collection($users), 'User retrieved successfully');
+    }
 }

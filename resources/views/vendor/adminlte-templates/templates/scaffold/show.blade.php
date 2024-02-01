@@ -5,13 +5,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>
+                    <h4 class="card-title">
 @if($config->options->localized)
                         {{ $config->modelNames->human }} Details
 @else
                     @@lang('models/{!! $config->modelNames->camelPlural !!}.singular') @@lang('crud.detail')
 @endif
-                    </h1>
+                    </h4>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-secondary float-end"

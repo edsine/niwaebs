@@ -1,9 +1,9 @@
 <?php
- 
+
  use Illuminate\Support\Facades\Auth;
- 
+
  $user = Auth::user();
- 
+
  ?>
 
  <style>
@@ -16,8 +16,8 @@
  <!-- partial:partials/_navbar.html -->
  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-         <a class="navbar-brand brand-logo" href="#"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo"/></a>
-         <a class="navbar-brand brand-logo-mini" href="#"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo" class="h-30px"/></a>
+         <a class="navbar-brand brand-logo" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo"/></a>
+         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo" class="h-30px"/></a>
      </div>
      {{-- <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
          <a href="#" class="navbar-brand brand-logo">
@@ -44,50 +44,7 @@
          </ul>
 
          <ul class="navbar-nav navbar-nav-right">
-             {{-- <li class="nav-item d-none d-lg-flex">
-                 <a class="nav-link" href="#">
-                     <span class="btn btn-primary">+ Create new</span>
-                 </a>
-             </li> --}}
-             {{-- <li class="nav-item d-none d-lg-flex">
-                 <span class="fw-bold p-2 ">
-                     {{ 'Hello,' . ' ' . $user->first_name . ' ' . $user->last_name }}
-                 </span>
-                 <span class=" fw-bold p-2 text-bg-primary rounded-pill text-uppercase ms-4">
-                     {{ auth()->user()->roles->isNotEmpty()? auth()->user()->roles->pluck('name')->first(): 'no role yet' }}
-                 </span>
-                 @php
 
-                 @endphp
-                 <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">
-                     @isset($user->ranking->name)
-                         {{ $user->ranking->name }}
-                     @endisset
-                 </span>
-             </li> --}}
-             {{-- <li class="nav-item dropdown d-none d-lg-flex">
-                 <div class="nav-link">
-                     <span class="dropdown-toggle btn btn-outline-dark" id="languageDropdown"
-                         data-toggle="dropdown">English</span>
-                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
-                         <a class="dropdown-item font-weight-medium" href="#">
-                             French
-                         </a>
-                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item font-weight-medium" href="#">
-                             Espanol
-                         </a>
-                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item font-weight-medium" href="#">
-                             Latin
-                         </a>
-                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item font-weight-medium" href="#">
-                             Arabic
-                         </a>
-                     </div>
-                 </div>
-             </li> --}}
              <li class="nav-item dropdown">
                  <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                      data-toggle="dropdown">
@@ -151,6 +108,7 @@
                      <i class="fas fa-envelope mx-0"></i>
                      <span class="count">25</span>
                  </a>
+
                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                      aria-labelledby="messageDropdown">
                      <div class="dropdown-item">

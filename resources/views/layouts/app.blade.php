@@ -395,10 +395,7 @@
         }
 
         p,
-        h6,
-        tr,
-        td,
-        th {
+        h6, a {
             font-size: larger !important;
         }
     </style>
@@ -670,11 +667,8 @@
     <script src="{{ asset('sh_assets/js/misc.js') }}"></script>
     <script src="{{ asset('sh_assets/js/settings.js') }}"></script>
     <script src="{{ asset('sh_assets/js/todolist.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/file-upload.js') }}"></script>
 
-
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM&amp;callback=initMap">
-    </script>
 
     <script src="{{ asset('sh_assets/js/google-maps.js') }}"></script>
     <!-- End custom js for this page-->
@@ -688,6 +682,7 @@
     <script src="{{asset('sh_assets/js/flot-chart.js')}}"></script>
     <script src="{{asset('sh_assets/js/morris.js')}}"></script>
     <!-- End custom js for this page-->
+    <script src="{{ asset('sh_assets/js/data-table.js') }}"></script>
 </body>
 
 </html>

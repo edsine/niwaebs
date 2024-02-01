@@ -124,7 +124,7 @@
 
                 <td >Not yet assigned a role</td>
 
-                    <td>{!! $p->department_unit !!}</td>
+                    <td>{!! $p->name !!}</td>
                     <td>{!! $p->branch_name !!}</td>
 
                     <td style="width: 120px">

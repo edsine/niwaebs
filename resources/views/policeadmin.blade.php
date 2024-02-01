@@ -1,119 +1,178 @@
 @extends('layouts.app')
-
 @section('content')
-
-
-<div class="row">
-    <div class="col-md-6 grid-margin">
-        <div class="card">
+<div class="mx-9 text-center">
+    <center><h3 class=" text-uppercase text-center  text-primary-emphasis bold fw-bolder  mb-7">Inland Waterways Police Command</h3></center>
+    <div class="row mt-7">
+        @include('clokin')
+        <button id="showButton" onclick="showCards()">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="12" y1="8" x2="12" y2="16" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+</svg>
+</button>
+        <div class="col-sm-4 mb-3  mb-sm-0">
+          <div class="card ">
             <div class="card-body">
-                <h4 class="card-title mb-0">NO OF STAFF IN THE DEPARTMENT</h4>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-inline-block pt-3">
-                        <div class="d-md-flex">
-                            <h2 class="mb-0">2</h2>
-                            <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                {{-- <i class="far fa-clock text-muted"></i> --}}
-                                {{-- <small class=" ml-1 mb-0">Updated: 9:10am</small> --}}
-                            </div>
-                        </div>
-                        {{-- <small class="text-gray">Raised from 89 orders.</small> --}}
+                 <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0">
+                <div class="d-flex flex-stack flex-grow-1 card-p">
+                    <div class="d-flex flex-column me-2">
+                        <a href="#" class="text-dark text-hover-primary fw-bold fs-3">NUMBER OF VESSELS  ON THE WATER WAY</a>
+                        <span class="text-muted fw-semibold mt-1">Analytics as at {{ now()->format('Y-m-d H:i:s') }}
+ </span>
                     </div>
-                    {{-- <div class="d-inline-block">
-                        <i class="fas fa-chart-pie text-info icon-lg"></i>
-                    </div> --}}
+                    <span class="symbol symbol-50px">
+                        <span class="symbol-label fs-5 fw-bold bg-light-success text-success">{{0}}</span>
+                    </span>
                 </div>
+                <div class="statistics-widget-3-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 50px"></div>
+
             </div>
-        </div>
-    </div>
-    <div class="col-md-6 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-0">Accident Notification</h4>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-inline-block pt-3">
-                        <div class="d-md-flex">
-                            <h2 class="mb-0">1</h2>
-                            <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                {{-- <i class="far fa-clock text-muted"></i> --}}
-                                {{-- <small class="ml-1 mb-0">Updated: 05:42pm</small> --}}
-                            </div>
-                        </div>
-                        {{-- <small class="text-gray">hey, let’s have lunch together</small> --}}
-                    </div>
-                    {{-- <div class="d-inline-block">
-                        <i class="fas fa-shopping-cart text-danger icon-lg"></i>
-                    </div> --}}
-                </div>
+            <!--end::Body-->
             </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-md-4 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-row">
-
-                    <div class="ml-3">
-                        <h6>Maria</h6>
-                        <p class="text-muted">maria@gmail.com</p>
-                        <p class="mt-2 text-primary font-weight-bold">Designer</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-4 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-row">
-
-                    <div class="ml-3">
-                        <h6>Thomas Edison</h6>
-                        <p class="text-muted">thomas@gmail.com</p>
-                        <p class="mt-2 text-primary font-weight-bold">Developer</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-row">
-
-                    <div class="ml-3">
-                        <h6>Edward</h6>
-                        <p class="text-muted">edward@gmail.com</p>
-                        <p class="mt-2 text-primary font-weight-bold">Tester</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-{{-- <div class="col-md-6 col-lg-4 grid-margin"> --}}
-{{-- <div class="row">
-    <div class="col grid-margin">
-      <div class="card">
-        <div class="card-body">
-          <h6 class="card-title">SITES VISITED</h6>
-          <div class="map-container">
-            <div id="map-with-marker" class="google-map"></div>
           </div>
         </div>
+        <div class="col-sm-4 mb-3  mb-sm-0">
+          <div class="card ">
+            <div class="card-body">
+                 <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0">
+                <div class="d-flex flex-stack flex-grow-1 card-p">
+                    <div class="d-flex flex-column me-2">
+                        <a href="#" class="text-dark text-hover-primary fw-bold fs-3">NUMBER OF VENDORS/CLIENTS</a>
+                        <span class="text-muted fw-semibold mt-1">Analytics as at {{ now()->format('Y-m-d H:i:s') }}
+ </span>
+                    </div>
+                    <span class="symbol symbol-50px">
+                        <span class="symbol-label fs-5 fw-bold bg-light-success text-success">{{0}}</span>
+                    </span>
+                </div>
+                <div class="statistics-widget-3-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 50px"></div>
+
+            </div>
+            <!--end::Body-->
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3  mb-sm-0">
+          <div class="card ">
+            <div class="card-body">
+                 <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0">
+                <div class="d-flex flex-stack flex-grow-1 card-p">
+                    <div class="d-flex flex-column me-2">
+                        <a href="#" class="text-dark text-hover-primary fw-bold fs-3">ACCIDENTAL NOTIFICATIONS</a>
+                        <span class="text-muted fw-semibold mt-1">Analytics as at {{ now()->format('Y-m-d H:i:s') }}
+ </span>
+                    </div>
+                    <span class="symbol symbol-50px">
+                        <span class="symbol-label fs-5 fw-bold bg-light-success text-success">{{0}}</span>
+                    </span>
+                </div>
+                <div class="statistics-widget-3-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 50px"></div>
+
+            </div>
+            <!--end::Body-->
+            </div>
+          </div>
+        </div>
+
+
       </div>
-    </div>
-</div> --}}
+    <div class="row mt-7">
+        <div class="col-sm-4 mb-3  mb-sm-0">
+          <div class="card ">
+            <div class="card-body">
+                 <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0">
+                <div class="d-flex flex-stack flex-grow-1 card-p">
+                    <div class="d-flex flex-column me-2">
+                        <a href="#" class="text-dark text-hover-primary fw-bold fs-3">TOTAL NUMBER OF VESSELS</a>
+                        <span class="text-muted fw-semibold mt-1">Analytics as at {{ now()->format('Y-m-d H:i:s') }}
+ </span>
+                    </div>
+                    <span class="symbol symbol-50px">
+                        <span class="symbol-label fs-5 fw-bold bg-light-success text-success">{{0}}</span>
+                    </span>
+                </div>
+                <div class="statistics-widget-3-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 50px"></div>
+
+            </div>
+            <!--end::Body-->
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3  mb-sm-0">
+          <div class="card ">
+            <div class="card-body">
+                 <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0">
+                <div class="d-flex flex-stack flex-grow-1 card-p">
+                    <div class="d-flex flex-column me-2">
+                        <a href="#" class="text-dark text-hover-primary fw-bold fs-3">TOTAL NUMBER OF DEFAULTERS</a>
+                        <span class="text-muted fw-semibold mt-1">Analytics as at {{ now()->format('Y-m-d H:i:s') }}
+ </span>
+                    </div>
+                    <span class="symbol symbol-50px">
+                        <span class="symbol-label fs-5 fw-bold bg-light-success text-success">{{0}}</span>
+                    </span>
+                </div>
+                <div class="statistics-widget-3-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 50px"></div>
+
+            </div>
+            <!--end::Body-->
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-3  mb-sm-0">
+          <div class="card ">
+            <div class="card-body">
+                 <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0">
+                <div class="d-flex flex-stack flex-grow-1 card-p">
+                    <div class="d-flex flex-column me-2">
+                        <a href="#" class="text-dark text-hover-primary fw-bold fs-3">TOTAL NUMBER  DEPARTMENTl STAFF</a>
+                        <span class="text-muted fw-semibold mt-1">Analytics as at {{ now()->format('Y-m-d H:i:s') }}
+ </span>
+                    </div>
+                    <span class="symbol symbol-50px">
+                        <span class="symbol-label fs-5 fw-bold bg-light-success text-success">{{20}}</span>
+                    </span>
+                </div>
+                <div class="statistics-widget-3-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 50px"></div>
+
+            </div>
+            <!--end::Body-->
+            </div>
+          </div>
+        </div>
 
 
+      </div>
+
+      <div class="row mt-6">
+        <div class="col-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">STATISTICS OF APPROVED VENDORS </h4>
+                <canvas id="pieChart"></canvas>
+              </div>
+            </div>
+        </div>
+
+            <div class="col-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">PERFORMANCE OF SUCCESSFUL DREDGING</h4>
+                    <canvas id="areaChart"></canvas>
+                  </div>
+                </div>
+            </div>
+
+      </div>
+
+
+  </div>
 
 @endsection

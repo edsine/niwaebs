@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-black-50 pt-5">SOCIAL SECURITY:<b style="color: #000"> Overview</b></h1>
+<h4 class="text-black-50 pt-5">SOCIAL SECURITY:<b style="color: #000"> Overview</b></h4>
 <br>
 
 <!--begin::Row-->
@@ -116,7 +116,7 @@
               <!--begin::Modal header-->
               <div class="modal-header">
                 <!--begin::Modal title-->
-                <h1>Event Details</h1>
+                <h4 class="card-title">Event Details</h4>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">

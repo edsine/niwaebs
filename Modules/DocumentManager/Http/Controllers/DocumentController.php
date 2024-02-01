@@ -115,8 +115,9 @@ class DocumentController extends AppBaseController
         $path .= $folder->name;
 
 
+        $version_input = [];
         // Get the uploaded file
-    $file = $request->file('file');
+    /* $file = $request->file('file');
 
     // Define the destination folder inside the S3 bucket
     $folderPath = 'documents/Expenses';
@@ -125,16 +126,26 @@ class DocumentController extends AppBaseController
     $document_url = $path . "/" . $file;
     $version_input = [];
     $title = str_replace(' ', '', $input['title']);
-    $fileName = $title . 'v1' . rand() . '.' . $file->getClientOriginalExtension();
+    $fileName = $title . 'v1' . rand() . '.' . $file->getClientOriginalExtension(); */
 
     // Upload the file to the S3 bucket
-    $documentUrl = Storage::disk('s3')->putFileAs($path, $file, $fileName);
+    //$documentUrl = Storage::disk('s3')->putFileAs($path, $file, $fileName);
 
     // Save the document URL to your database or perform other actions
-    $input['document_url'] = $documentUrl;
-    $document = $this->documentRepository->create($input);
+   // $input['document_url'] = $documentUrl;
+   /* if ($request->hasFile('profile_picture')) {
+    $file = $request->file('profile_picture');
+    $fileName = $file->hashName();
+    $path = $file->store('public');
+    $input['profile_picture'] = $fileName;
+}
+   $path_folder = public_path($path);
+   $file->move($path_folder, $fileName);
+   $document_url = $path . "/" . $fileName;
+   $input['document_url'] = $document_url;
+   $document = $this->documentRepository->create($input); */
 
-       /*  $path_folder = public_path($path);
+        $path_folder = public_path($path);
         // Save file
         $file = $request->file('file');
         $title = str_replace(' ', '', $input['title']);
@@ -142,7 +153,7 @@ class DocumentController extends AppBaseController
         $file->move($path_folder, $file_name);
         $document_url = $path . "/" . $file_name;
         $input['document_url'] = $document_url;
-        $document = $this->documentRepository->create($input); */
+        $document = $this->documentRepository->create($input);
         // Save document version
 
         $version_input['document_id'] = $document->id;

@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Email Addresses and Password Hashes</h1>
+    <h4 class="card-title">Email Addresses and Password Hashes</h4>
 
     <table>
         <tr>
