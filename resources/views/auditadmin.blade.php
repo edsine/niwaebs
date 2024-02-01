@@ -29,7 +29,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card bg-light-danger h-lg-100">
+					<div class="card bg-light-primary h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -51,7 +51,7 @@
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
-									<span class="fw-semibold fs-6 text-gray-400">Total Revenue</span>
+									<span class="fw-bold fs-6 text-black">Total Revenue</span>
 								</div>
 								<!--end::Follower-->
 							</div>
@@ -76,7 +76,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card text-bg-danger h-lg-100">
+					<div class="card bg-light-primary h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -98,7 +98,7 @@
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
-									<span class="fw-semibold fs-6 text-gray-400">Total Expenditure</span>
+									<span class="fw-bold fs-6 text-dark-400">Total Expenditure</span>
 								</div>
 								<!--end::Follower-->
 							</div>
@@ -123,7 +123,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card bg-light-danger h-lg-100">
+					<div class="card bg-light-primary h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -145,7 +145,7 @@
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
-									<span class="fw-semibold fs-6 text-gray-400">Claims & Compensation Payments</span>
+									<span class="fw-bold fs-6 text-black">Claims & Compensation Payments</span>
 								</div>
 								<!--end::Follower-->
 							</div>
@@ -160,7 +160,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card text-bg-info h-lg-100">
+					<div class="card bg-primary h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -181,11 +181,11 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
+								<span class="fw-semibold fs-3x text-white lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
-									<span class="fw-semibold fs-6 text-gray-400">Out Of Pocket Expenses</span>
+									<span class="fw-bold fs-7  text-white">Out Of Pocket Expenses</span>
 								</div>
 								<!--end::Follower-->
 							</div>
@@ -200,7 +200,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-5 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card bg-light-danger h-lg-100">
+					<div class="card bg-primary h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -218,11 +218,11 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
+								<span class="fw-bold fs-3x text-white lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
-									<span class="fw-semibold fs-6 text-gray-400">Direct Payment</span>
+									<span class="fw-bold fs-6 text-white">Direct Payment</span>
 								</div>
 								<!--end::Follower-->
 							</div>
@@ -237,7 +237,7 @@
 				<!--begin::Col-->
 				<div class="col-sm-6 col-xl-4 mb-5 mb-xl-10">
 					<!--begin::Card widget 2-->
-					<div class="card h-lg-100">
+					<div class="card bg-primary h-lg-100">
 						<!--begin::Body-->
 						<div class="card-body d-flex justify-content-between align-items-start flex-column">
 							<!--begin::Icon-->
@@ -255,11 +255,11 @@
 							<!--begin::Section-->
 							<div class="d-flex flex-column my-7">
 								<!--begin::Number-->
-								<span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">0</span>
+								<span class="fw-bold fs-3x text-white lh-1 ls-n2">0</span>
 								<!--end::Number-->
 								<!--begin::Follower-->
 								<div class="m-0">
-									<span class="fw-semibold fs-6 text-gray-400">Advance Retirement Payments</span>
+									<span class="fw-bold fs-6 text-white">Advance Retirement Payments</span>
 								</div>
 								<!--end::Follower-->
 							</div>
@@ -285,7 +285,7 @@
 							<!--begin::Title-->
 							<h3 class="card-title align-items-start flex-column">
 								<span class="card-label fw-bold text-dark">Percentage Expense Distribution  Categories</span>
-								<span class="text-gray-400 pt-2 fw-semibold fs-6">the percentage distribution of expenses across different categories</span>
+								<span class="text-black pt-2 fw-semibold fs-6">the percentage distribution of expenses across different categories</span>
 							</h3>
 							<!--end::Title-->
 							<!--begin::Toolbar-->
