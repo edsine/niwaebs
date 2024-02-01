@@ -109,7 +109,7 @@
                                 <!--begin::Heading-->
                                 <div class="text-center mb-11">
                                     <!--begin::Title-->
-                                    <h1 class="text-dark fw-bolder mb-3 fs-1 text ">Sign In</h1>
+                                    <h4 class="text-dark fw-bolder mb-3 fs-1 text ">Sign In</h4>
                                     <!--end::Title-->
                                 </div>
                                 <!--begin::Heading-->

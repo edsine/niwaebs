@@ -44,7 +44,7 @@
 
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
-                <i class="fas fa-columns menu-icon"></i>
+                <i class="fas fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -99,14 +99,14 @@
         </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('serviceApplications.index') }}">
-                <i class="fa fa-list menu-icon"></i>
+                <i class="fa fa-compass menu-icon"></i>
                 <span class="menu-title">Service Applications</span>
 
             </a>
         </li>
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
-                <i class="fas fa-columns menu-icon"></i>
+                <i class="fas fa-check menu-icon"></i>
                 <span class="menu-title">Approval</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -140,21 +140,21 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="">
-                <i class="fas fa-book menu-icon"></i>
+                <i class="fas fa-file menu-icon"></i>
                 <span>Report</span>
             </a>
         </li>
 
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
-                <i class="fas fa-columns menu-icon"></i>
+                <i class="fas fa-tasks menu-icon"></i>
                 <span class="menu-title">Operational Task</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item" id="myTaskLayouts">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-columns menu-icon"></i>
+                        <i class="fas fa-users menu-icon"></i>
                         <span class="menu-title">Human resource</span>
                         <i class="menu-arrow"></i>
                     </a>
@@ -169,7 +169,7 @@
                 </li>
                 <li class="nav-item" id="myTaskLayouts">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-columns menu-icon"></i>
+                        <i class="fas fa-wallet menu-icon"></i>
                         <span class="menu-title">Finance and Account</span>
                         <i class="menu-arrow"></i>
                     </a>
@@ -213,37 +213,37 @@
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('units.create') }}">
-                        <i class="fas fa-book menu-icon"></i>
+                        <i class="fas fa-balance-scale menu-icon"></i>
                         <span>Add New Unit</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('units.index') }}">
-                        <i class="fas fa-book menu-icon"></i>
+                        <i class="fas fa-check-square menu-icon"></i>
                         <span>Unit List</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dtarequests.create') }}">
-                        <i class="fas fa-book menu-icon"></i>
+                        <i class="fas fa-code-pull-request menu-icon"></i>
                         <span>New DTA Requests</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dtarequests.index') }}">
-                        <i class="fas fa-book menu-icon"></i>
+                        <i class="fas fa-bars menu-icon"></i>
                         <span>My DTA Applications</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dtareview.index') }}">
-                        <i class="fas fa-book menu-icon"></i>
+                        <i class="fas fa-star menu-icon"></i>
                         <span>View Reviewed DTA</span>
                     </a>
                 </li>
                 <li class="nav-item" id="myTaskLayouts">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-columns menu-icon"></i>
+                        <i class="fas fa-file-archive menu-icon"></i>
                         <span class="menu-title">File Manager</span>
                         <i class="menu-arrow"></i>
                     </a>
@@ -267,7 +267,7 @@
                 </li>
                 <li class="nav-item" id="myTaskLayouts">
                     <a class="nav-link" href="#">
-                        <i class="fas fa-columns menu-icon"></i>
+                        <i class="fab fa-intercom menu-icon"></i>
                         <span class="menu-title">Intercom</span>
                         <i class="menu-arrow"></i>
                     </a>

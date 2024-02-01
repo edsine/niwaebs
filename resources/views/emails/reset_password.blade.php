@@ -4,7 +4,7 @@
     <title>Password Reset</title>
 </head>
 <body>
-    <h1>Password Reset</h1>
+    <h4 class="card-title">Password Reset</h4>
     <p>Hello,</p>
     <p>You are receiving this email because we received a password reset request for your account.</p>
     <p>Click the following link to reset your password:</p>

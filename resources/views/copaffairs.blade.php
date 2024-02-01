@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-black-50 pt-5">Corporate Affairs:<b style="color: #000"> Overview</b></h1>
+<h4 class="text-black-50 pt-5">Corporate Affairs:<b style="color: #000"> Overview</b></h4>
 <br>
 
 

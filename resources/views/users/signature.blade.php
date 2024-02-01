@@ -6,9 +6,9 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>
+                    <h4 class="card-title">
                         Change Staff Signature
-                    </h1>
+                    </h4>
                 </div>
         
             </div>

@@ -4,8 +4,10 @@
     <!--begin::Content wrapper-->
     <!-- partial -->
     <div class="content-wrapper">
-        <center><h1 class="text-center uppercase mb-4 bold mb-3">Human Resources Department</h1></center>
-        <div class="row mx-7 grid-margin">
+        {{-- <center> --}}
+            <h1 class="uppercase  bold mb-3">Human Resources Department</h1>
+        {{-- </center> --}}
+        <div class="row grid-margin">
             <div class="col-12">
                 @php
                     $staff = DB::table('users')->count();
@@ -18,7 +20,7 @@
                                     <i class="icon-sm fa fa-user mr-2"></i>
                                     Total Number Of Employee
                                 </p>
-                                <h2>{{$staff}}</h2>
+                                <h2>{{ $staff }}</h2>
                                 <label class="badge badge-outline-success badge-pill">0% increase</label>
                             </div>
                             <div class="statistics-item">

@@ -1,145 +1,129 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-12">
-                <h1>
-                    LEAVE REQUEST PORTAL
-                </h1>
-            </div>
-        </div>
-    </div>
-</section>
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">REGISTRATION PORTAL</h4>
+                        <form id="example-vertical-wizard" method="POST" action="{{ route('leave_request.index') }}">
+                            @csrf
 
-<!--begin::Content-->
-<div id="kt_app_content" class="app-content flex-column-fluid">
-    <!--begin::Content container-->
-    <div id="kt_app_content_container" class="app-container container-xxl">
-        <!--begin::Stepper-->
-        <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid gap-10" id="kt_create_account_stepper">
-            <!--begin::Aside-->
-            <div class="card d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px w-xxl-400px">
-                <!--begin::Wrapper-->
-                <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
-                    <!--begin::Nav-->
-                    <div class="stepper-nav">
-                        <!--begin::Step 1-->
-                        <div class="stepper-item current" data-kt-stepper-element="nav">
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper">
-                                <!--begin::Icon-->
-                                <div class="stepper-icon w-40px h-40px">
-                                    <i class="stepper-check fas fa-check"></i>
-                                    <span class="stepper-number">1</span>
-                                </div>
-                                <!--end::Icon-->
-                                <!--begin::Label-->
-                                <div class="stepper-label">
-                                    <h3 class="stepper-title">First Step</h3>
-                                    <div style="display: none;" class="stepper-desc fw-semibold">Setup Account Details</div>
-                                </div>
-                                <!--end::Label-->
+                            <div>
+                                <h3>Step 1</h3>
+                                <section>
+                                    <h4 class="card-title">LEAVE DETAILS</h4>
+                                    <div class="form-group ">
+                                        {!! Form::label('type', 'SELECT LEAVE TYPE.:') !!}
+                                        <select name="type"
+                                            class="form-control form-control-solid border border-2 form-select" required
+                                            id="leave_type">
+                                            @foreach ($leavetype as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        {!! Form::label('date_start_new', 'DATE REQUESTED TO COMMENCE PRESENT LEAVE:') !!}
+                                        {!! Form::date('date_start_new', null, [
+                                            'class' => 'form-control form-control-solid border border-2 ',
+                                            'id' => 'date_start',
+                                        ]) !!}
+                                    </div>
+
+
+                                    <div class="form-group ">
+                                        {!! Form::label('number_days', 'NUMBER OF DAYS:') !!}
+                                        {!! Form::number('number_days', null, [
+                                            'class' => 'form-control form-control-solid border border-2 ',
+                                            'readonly' => true,
+                                            'id' => 'number_days',
+                                        ]) !!}
+                                    </div>
+
+                                    <div class="form-group ">
+                                        {!! Form::label('daystaken', 'Number of days to take:') !!}
+                                        {!! Form::number('daystaken', null, [
+                                            'class' => 'form-control form-control-solid border border-2 ',
+                                            'placeholder' => 'input the number of days to take',
+                                            'id' => 'days',
+                                        ]) !!}
+                                    </div>
+                                    <div class="form-group ">
+                                        {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:') !!}
+                                        {!! Form::text('end_date', null, [
+                                            'class' => 'form-control form-control-solid border border-2 ',
+                                            'placeholder' => 'the date for you to resume',
+                                            'id' => 'end_date',
+                                            'readonly' => true,
+                                        ]) !!}
+                                    </div>
+                                    <div class="form-group my-5 ">
+                                        {!! Form::button('Update', ['class' => 'btn btn-info', 'id' => 'u']) !!}
+                                    </div>
+
+                                </section>
+                                <h3>Step 2</h3>
+                                <section>
+                                    <h4 class="card-title">PERSONAL INFORMATION</h4>
+
+                                    <div class="form-group ">
+                                        {!! Form::label('home_address', 'LEAVE DESTINATION ADDRESS:') !!}
+                                        {!! Form::text('home_address', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
+                                    </div>
+                                    <div class="form-group ">
+                                        {!! Form::label('local_council', 'LOCAL COUNCIL/AREA COUNCIL:') !!}
+                                        {!! Form::text('local_council', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
+                                    </div>
+                                </section>
+                                <h3>Step 3</h3>
+                                <section>
+                                    <h4 class="card-title">Additional fields</h4>
+                                    <div class="form-group ">
+                                        {!! Form::label('state', 'STATE:') !!}
+                                        {!! Form::select('state', getBranchRegions(), null, [
+                                            'class' => 'form-control form-control-solid border border-2 form-select ',
+                                        ]) !!}
+                                    </div>
+
+                                    <div class="form-group ">
+                                        {!! Form::label('phone_number', 'PHONE NUMBER:') !!}
+                                        {!! Form::text('phone_number', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
+                                    </div>
+                                    <div class="form-group ">
+                                        {!! Form::label('officer_relieve', 'NAME OF OFFICER TO RELIEVE:') !!}
+                                        {!! Form::text('officer_relieve', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
+                                    </div>
+                                </section>
+                                
+
+                                <h3>Finish</h3>
+                                <section>
+                                    <h4 class="card-title">YOU ARE ABOUT APPLYING FOR A LEAVE</h4>
+                                    <!-- Signature Field -->
+                                    <div class="col-sm-4 my-4">
+                                        {!! Form::label('signature_path', 'UPLOAD SIGNATURE PDF ONLY') !!}
+                                        <div class="form-group">
+                                            {!! Form::file('signature_path', null, [
+                                                'class' => 'form-control form-control-solid border border-2',
+                                                'accept' => 'image/*',
+                                            ]) !!}
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            {{-- <input class="checkbox" type="checkbox"> --}}
+                                            UPLOAD SIGNATURE AND CONFIRM BY PRESSING THE APPLY BUTTON
+                                        </label>
+                                    </div>
+                                </section>
                             </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Line-->
-                            <div class="stepper-line h-40px"></div>
-                            <!--end::Line-->
-                        </div>
-                        <!--end::Step 1-->
-
-                        <!--begin::Step 2-->
-                        <div class="stepper-item" data-kt-stepper-element="nav">
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper">
-                                <!--begin::Icon-->
-                                <div class="stepper-icon w-40px h-40px">
-                                    <i class="stepper-check fas fa-check"></i>
-                                    <span class="stepper-number">2</span>
-                                </div>
-                                <!--end::Icon-->
-                                <!--begin::Label-->
-                                <div class="stepper-label">
-                                    <h3 class="stepper-title">Second Step</h3>
-                                    <div style="display: none;" class="stepper-desc fw-semibold">Setup Account Details</div>
-                                </div>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Line-->
-                            <div class="stepper-line h-40px"></div>
-                            <!--end::Line-->
-                        </div>
-                        <!--end::Step 2-->
-
-                        <!--begin::Step 3-->
-                        <div class="stepper-item" data-kt-stepper-element="nav">
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper">
-                                <!--begin::Icon-->
-                                <div class="stepper-icon w-40px h-40px">
-                                    <i class="stepper-check fas fa-check"></i>
-                                    <span class="stepper-number">3</span>
-                                </div>
-                                <!--end::Icon-->
-                                <!--begin::Label-->
-                                <div class="stepper-label">
-                                    <h3 class="stepper-title">Third Step</h3>
-                                    <div style="display: none;" class="stepper-desc fw-semibold">Setup Account Details</div>
-                                </div>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Line-->
-                            <div class="stepper-line h-40px"></div>
-                            <!--end::Line-->
-                        </div>
-                        <!--end::Step 3-->
-
-                        <!--begin::Step 4-->
-                        <div class="stepper-item mark-completed" data-kt-stepper-element="nav">
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper">
-                                <!--begin::Icon-->
-                                <div class="stepper-icon w-40px h-40px">
-                                    <i class="stepper-check fas fa-check"></i>
-                                    <span class="stepper-number">4</span>
-                                </div>
-                                <!--end::Icon-->
-                                <!--begin::Label-->
-                                <div class="stepper-label">
-                                    <h3 class="stepper-title">Completed</h3>
-                                    <div style="display: none;" class="stepper-desc fw-semibold"></div>
-                                </div>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Wrapper-->
-                        </div>
-                        <!--end::Step 4-->
-
+                        </form>
                     </div>
-                    <!--end::Nav-->
                 </div>
-                <!--end::Wrapper-->
             </div>
-            <!--begin::Aside-->
-            <!--begin::Content-->
-            <div class="card d-flex flex-row-fluid flex-center">
-                <!--begin::Form-->
-                <form class="card-body py-20 w-100 mw-xl-700px px-9" id="kt_create_account_form" method="post" action="{{route('leave_request.index')}}">
-                    @include('humanresource::leaverequest.fields')
-                </form>
-                <!--end::Form-->
-            </div>
-            <!--end::Content-->
         </div>
-        <!--end::Stepper-->
     </div>
-    <!--end::Content container-->
-</div>
-<!--end::Content-->
 @endsection
-<script>
-
-</script>

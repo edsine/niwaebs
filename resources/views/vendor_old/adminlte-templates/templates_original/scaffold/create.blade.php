@@ -5,13 +5,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>
+                    <h4 class="card-title">
 @if($config->options->localized)
                     @@lang('crud.create') @@lang('models/{!! $config->modelNames->camelPlural !!}.singular')
 @else
                     Create {{ $config->modelNames->humanPlural }}
 @endif
-                    </h1>
+                    </h4>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Equipment And Fees</h1>
+                    <h4 class="card-title">Equipment And Fees</h4>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-end"
