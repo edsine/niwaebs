@@ -12,9 +12,9 @@
                             <th>NUMBER OF DAYS</th>
                             <th>OFFICER RELIEVER</th>
                             <th>LEAVE END DATE</th>
-                            <th>ACCOUNT OFFICER STATUS</th>
+                           {{--  <th>ACCOUNT OFFICER STATUS</th>
                             <th>DEPARTMENT HEAD STATUS</th>
-                            <th>HR STATUS</th>
+                            <th>HR STATUS</th> --}}
                             <th colspan="3">Action</th>
                         </tr>
                     </thead>
@@ -31,49 +31,6 @@
 
                                 <td>{{ $leaves->officer_relieve }}</td>
                                 <td>{{ $leaves->end_date }}</td>
-
-
-                                <td>
-                                    {{-- UNIT HEAD APPROVAL SECTION approve_status stands for the unit head approval   --}}
-                                    {{-- <p> --}}
-                                        @if (isset($leaves->supervisor_approval) && $leaves->supervisor_approval == 1)
-                                            {{-- <label class="badge badge-info">Approved</label> --}}
-                                            <label class="badge badge-info">Approved</label>
-                                        @else
-                                            {{-- <span class="btn btn-sm btn-secondary">Unapproved</span> --}}
-                                            <label class="badge badge-danger">Unapproved</label>
-                                        @endif
-                                    {{-- </p> --}}
-                                </td>
-                                <td>
-                                    {{-- UNIT HEAD APPROVAL SECTION approve_status stands for the unit head approval   --}}
-                                    {{-- <p> --}}
-                                        @if (isset($leaves->department_approval) && $leaves->department_approval == 1)
-                                            <label class="badge badge-info">Approved</label>
-                                        @else
-                                            <span class="btn btn-sm btn-secondary">Unapproved</span>
-                                        @endif
-                                    {{-- </p> --}}
-                                </td>
-                                {{-- <td>
-                         
-                        <p> @if (isset($leaves->hod_approval) && $leaves->hod_approval == 1)
-                            <label class="badge badge-info">Approved</label>
-                        @else
-                            <span class="btn btn-sm btn-secondary">Unapproved</span>
-                        @endif
-                            </p>
-                        </td> --}}
-                                <td>
-                                    {{--  HR APPROVAL SECTION    hr --}}
-                                    {{-- <p> --}}
-                                        @if (isset($leaves->hr_approval) && $leaves->hr_approval == 1)
-                                            <label class="badge badge-info">Approved</label>
-                                        @else
-                                            <span class="btn btn-sm btn-secondary">Unapproved</span>
-                                        @endif
-                                    {{-- </p> --}}
-                                </td>
                                 <td style="width: 120px">
                                     {!! Form::open(['route' => ['leave_request.destroy', $leaves->id], 'method' => 'delete']) !!}
                                     <div class='btn-group'>
