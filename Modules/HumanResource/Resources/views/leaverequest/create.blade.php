@@ -6,14 +6,17 @@
             <div class="col-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">REGISTRATION PORTAL</h4>
-                        <form id="example-vertical-wizard" method="POST" action="{{ route('leave_request.index') }}">
+                        <div class="alert alert-danger d-none" id="notificationAlert" role="alert">
+                            <!-- Notification message will be displayed here -->
+                        </div>
+                        <h4 class="card-title">REQUEST FOR LEAVE</h4>
+                        <form id="example-vertical-wizard" method="POST" action="{{ route('leave_request.store') }}">
                             @csrf
 
                             <div>
                                 <h3>Step 1</h3>
                                 <section>
-                                    <h4 class="card-title">LEAVE DETAILS</h4>
+                                    {{-- <h4 class="card-title">LEAVE DETAILS</h4> --}}
                                     <div class="form-group ">
                                         {!! Form::label('type', 'SELECT LEAVE TYPE.:') !!}
                                         <select name="type"
@@ -51,7 +54,7 @@
                                             'id' => 'days',
                                         ]) !!}
                                     </div>
-                                    <div class="form-group ">
+                                   {{--  <div class="form-group ">
                                         {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:') !!}
                                         {!! Form::text('end_date', null, [
                                             'class' => 'form-control form-control-solid border border-2 ',
@@ -62,13 +65,28 @@
                                     </div>
                                     <div class="form-group my-5 ">
                                         {!! Form::button('Update', ['class' => 'btn btn-info', 'id' => 'u']) !!}
-                                    </div>
+                                    </div> --}}
 
                                 </section>
                                 <h3>Step 2</h3>
                                 <section>
-                                    <h4 class="card-title">PERSONAL INFORMATION</h4>
-
+                                    <h4 class="card-title">RESUME DATE, ADDRESS, LGA</h4>
+                                    <div class="row">
+                                        {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:', ['style' => 'font-size: 0.8125rem;']) !!}
+                                        <div class="form-group col-md-10">
+                                            
+                                            {!! Form::text('end_date', null, [
+                                                'class' => 'form-control form-control-solid border border-2 ',
+                                                'placeholder' => 'the date for you to resume',
+                                                'id' => 'end_date',
+                                                'readonly' => true,
+                                            ]) !!}
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            {{-- {!! Form::label('', '') !!} --}}
+                                            {!! Form::button('Update', ['class' => 'btn btn-info', 'id' => 'u', 'onclick' => 'resumeDate()']) !!}
+                                        </div>
+                                    </div>
                                     <div class="form-group ">
                                         {!! Form::label('home_address', 'LEAVE DESTINATION ADDRESS:') !!}
                                         {!! Form::text('home_address', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
@@ -77,6 +95,7 @@
                                         {!! Form::label('local_council', 'LOCAL COUNCIL/AREA COUNCIL:') !!}
                                         {!! Form::text('local_council', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
                                     </div>
+                                    
                                 </section>
                                 <h3>Step 3</h3>
                                 <section>
@@ -126,4 +145,86 @@
             </div>
         </div>
     </div>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script>
+    $(document).ready(function() {
+        $('#leave_type').on('click', function() {
+            const selectedId = $(this).val();
+            const port = location.protocol + '//' + location.host;
+
+            if (selectedId !== '') {
+                $.ajax({
+                    url: `${port}/leave_request_data/get-data/${selectedId}`,
+                    type: 'GET',
+                    data: {
+                        id: selectedId
+                    },
+                    dataType: 'json',
+                    //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    success: function(response) {
+                        var du = JSON.stringify(response.duration);
+                        $('#number_days').val('');
+                        $('#number_days').val(du);
+
+                    },
+                    error: function() {
+                        alert('Failed to retrieve duration.');
+                    }
+                });
+            } else {
+                $('#number_days').val('');
+            }
+        });
+    });
+</script>
+<script>
+    function resumeDate(){
+   /*  document.addEventListener('DOMContentLoaded', function() { */
+        //let updatebtn = document.getElementById('u');
+       // updatebtn.addEventListener('click', () => {
+
+            let datestart = document.getElementById('date_start');
+            let numberofdays = document.getElementById('number_days');
+            let daystaken = document.getElementById('days');
+            let daytoresume = document.getElementById('end_date');
+
+            let date = new Date(datestart.value)
+            let day = parseInt(daystaken.value);
+            let newdate = new Date(date.getTime() + (day * 24 * 60 * 60 * 1000));
+
+            if (parseInt(daystaken.value) > parseInt(numberofdays.value)) {
+                let notificationAlert = document.getElementById('notificationAlert');
+                notificationAlert.textContent = daystaken.value + "   exceeds the allowed limit of " + numberofdays.value + "days";
+                notificationAlert.classList.remove('d-none');
+
+
+            } else {
+                // If days taken is valid, hide the notification alert
+                let notificationAlert = document.getElementById('notificationAlert');
+                notificationAlert.classList.add('d-none');
+
+
+                while (newdate.getDay() == 0 || newdate.getDay() == 6) {
+                    day++
+                    newdate = new Date(date.getTime() + (day * 24 * 60 * 60 * 1000));
+                }
+                if (newdate.getDate() == 0) {
+                    day += 2;
+                    newdate = new Date(date.getTime() + (day * 24 * 60 * 60 * 1000));
+
+                }
+
+                daytoresume.value = newdate.toISOString().slice(0, 10);
+                //
+
+                // Enabling the submit button now
+                let submitbtn = document.getElementById('submit')
+
+                submitbtn.disabled = false;
+
+            }
+
+        };// });
+   /*  }); */
+</script>
 @endsection
