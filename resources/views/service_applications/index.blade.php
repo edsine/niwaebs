@@ -8,10 +8,7 @@
                     <h4 class="card-title">Service Applications</h4>
                 </div>
                 <div class="col-sm-6">
-                    <a class="btn btn-primary float-end"
-                       href="{{ route('serviceApplications.create') }}">
-                        Add New
-                    </a>
+                   
                 </div>
             </div>
         </div>
