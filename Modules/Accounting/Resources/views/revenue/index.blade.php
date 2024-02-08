@@ -83,18 +83,19 @@
     line-height: 0;
 }
 </style>
-<div class="col-md-12">
-    <div class="float-end">
 
-        @can('create revenue')
-            <a href="#" data-url="{{ route('revenue.create') }}" data-size="lg" data-ajax-popup="true" data-title="{{__('Create New Revenue')}}" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="{{__('Create')}}">
-                <i class="fa fa-plus"></i>
-            </a>
-        @endcan
-
-    </div>
-</div>
     <div class="row">
+        <div class="col-md-12">
+            <div class="float-end">
+        
+                @can('create revenue')
+                    <a href="#" data-url="{{ route('revenue.create') }}" data-size="lg" data-ajax-popup="true" data-title="{{__('Create New Revenue')}}" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="{{__('Create')}}">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                @endcan
+        
+            </div>
+        </div>
         <div class="col-sm-12">
             <div class="mt-2 " id="multiCollapseExample1">
                 <div class="card">

@@ -99,16 +99,17 @@
     line-height: 0;
 }
 </style>
-<div class="col-sm-12">
-    <div class="float-end">
-        @can('create bill')
-            <a href="{{ route('expense.create',0) }}" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="{{__('Create')}}">
-                <i class="fa fa-plus"></i>
-            </a>
-        @endcan
-    </div>
-</div>
+
     <div class="row">
+        <div class="col-sm-12">
+            <div class="float-end">
+                @can('create bill')
+                    <a href="{{ route('expense.create',0) }}" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="{{__('Create')}}">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                @endcan
+            </div>
+        </div>
         <div class="col-sm-12">
             <div class=" mt-2 " id="multiCollapseExample1">
                 <div class="card">
