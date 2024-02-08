@@ -15,7 +15,7 @@
     .nav-link {
         font-size: larger;
     }
-    
+
 </style>
 
 <!-- partial:partials/_sidebar.html -->
@@ -64,7 +64,28 @@
                     <a class="nav-link" href="">Audit Dashboard</a>
                 </li>
             </ul>
+
         </li>
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="bi bi-tools menu-icon"></i>
+
+                <span class="menu-title">System Step</span>
+                <i class="menu-arrow"></i>
+
+            </a>
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('users.index')}}">Users</a>
+                </li>
+
+
+
+            </ul>
+
+        </li>
+
         {{-- <li class="nav-item">
             <a class="nav-link"data-toggle="collapse" href="#page-layouts" aria-expanded="false"
                 aria-controls="page-layouts" href="{{ route('home') }}">
@@ -115,7 +136,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('request.index') }}">Approval Request</a>
                 </li>
-                
+
                {{--  @if(Auth()->user()->hasRole('super-admin')) --}}
     <li class="nav-item">
         <a class="nav-link" href="{{ route('appraisal.index') }}">Appraisal</a>
@@ -127,13 +148,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('niwa.payments') }}">
                        Payments Approval
-        
+
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('document.index') }}">
                         Documents Approval
-        
+
                     </a>
                 </li>
             </ul>
