@@ -85,7 +85,7 @@
 }
 </style>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <div class="float-end">
                 {{-- @can('create chart of account') --}}
                     <a href="#" data-url="{{ route('chart-of-account.create') }}" data-bs-toggle="tooltip" title="{{__('Create')}}" data-size="lg" data-ajax-popup="true" data-title="{{__('Create New Account')}}" class="btn btn-sm btn-primary">
@@ -94,8 +94,9 @@
                {{--  @endcan --}}
             </div>
         </div>
+        <div class="col-md-12">
         @foreach($chartAccounts as $type=>$accounts)
-            <div class="col-md-12">
+            
                 <div class="card">
                     <div class="card-header">
                         <h6>{{$type}}</h6>
@@ -189,8 +190,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
         @endforeach
+    </div>
     </div>
     <script>
         $(document).on('change', '#type', function () {

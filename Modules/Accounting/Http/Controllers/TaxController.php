@@ -49,7 +49,7 @@ class TaxController extends AppBaseController
         {
             $validator = Validator::make(
                 $request->all(), [
-                                   'name' => 'required|max:20',
+                                   'name' => 'required|max:50',
                                    'rate' => 'required|numeric',
                                ]
             );

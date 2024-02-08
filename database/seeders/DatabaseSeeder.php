@@ -10,6 +10,7 @@ use Modules\DocumentManager\Database\Seeders\DocumentManagerDatabaseSeeder;
 use Modules\EmployerManager\Database\Seeders\EmployerManagerDatabaseSeeder;
 use Modules\Approval\Database\Seeders\ApprovalDatabaseSeeder;
 use Modules\Shared\Database\Seeders\SharedDatabaseSeeder;
+use Database\Seeders\ServicesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,6 +43,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HumanResourceDatabaseSeeder::class);
         $this->call(ApprovalDatabaseSeeder::class);
         $this->call(ClaimsCompensationDatabaseSeeder::class);
+        $this->call(ServicesSeeder::class);
 
     }
 }
