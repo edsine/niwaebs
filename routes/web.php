@@ -90,7 +90,6 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-
 Route::get('/roundcube-login', [HomeController::class, 'roundcubeLogin']);
 
 Route::get('auditadmin', [HomeController::class, 'auditadmin']);
@@ -157,8 +156,8 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::get('/account', function () {
 //     return view('accountdashboard');
 // });
-
-
+Route::view('/md','md');
+Route::view('am','am');
 //=================================== Zoom Meeting ======================================================================
 Route::get('zoom', function () {
     return view('zoom-meeting.index');
