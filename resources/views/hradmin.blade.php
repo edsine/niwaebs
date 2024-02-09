@@ -18,7 +18,7 @@
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fa fa-user mr-2"></i>
-                                    Total Number Of Employee
+                                     Number Of Employee
                                 </p>
                                 <h2>{{ $staff }}</h2>
                                 <label class="badge badge-outline-success badge-pill">0% increase</label>
@@ -26,7 +26,7 @@
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-hourglass-half mr-2"></i>
-                                    Number of Staff On Leave
+                                     Staff On Leave
                                 </p>
                                 <h2>0</h2>
                                 <label class="badge badge-outline-success badge-pill">0% decrease</label>
@@ -51,7 +51,7 @@
                             <div class="statistics-item">
                                 <p>
                                     <i class="icon-sm fas fa-chart-line mr-2"></i>
-                                    Overall Employee Satisfaction Score
+                                    Employee Satisfaction Score
                                 </p>
                                 <h2>0%</h2>
                                 <label class="badge badge-outline-success badge-pill">0% increase</label>
