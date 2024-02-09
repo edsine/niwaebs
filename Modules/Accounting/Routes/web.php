@@ -106,6 +106,8 @@ Route::group(
 }
 );
 
+
+
 Route::get('/proposal/preview/{template}/{color}', [ProposalController::class, 'previewProposal'])->name('proposal.preview');
 
 Route::post('/proposal/template/setting', [ProposalController::class, 'saveProposalTemplateSettings'])->name('proposal.template.setting');
@@ -167,7 +169,7 @@ Route::get('/customer/invoice/{id}/', [InvoiceController::class, 'invoiceLink'])
 Route::group(
     [
         'middleware' => [
-            'auth',/* 
+            'auth',/*
             'XSS',
             'revalidate', */
         ],
