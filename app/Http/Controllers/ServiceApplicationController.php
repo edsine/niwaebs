@@ -417,4 +417,14 @@ class ServiceApplicationController extends AppBaseController
 
         return redirect(route('serviceApplications.index'));
     }
+
+    public function showMap($id)
+{
+    $serviceApplication = ServiceApplication::find($id);
+    if (!$serviceApplication) {
+        return abort(404); // or handle the case where the service application is not found
+    }
+
+    return view('service_applications.map', compact('serviceApplication'));
+}
 }

@@ -277,3 +277,4 @@ Route::post('application-equipment-invoice/{id}', [App\Http\Controllers\ServiceA
 Route::post('equipment-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveEquipmentFee'])->name('application.equipmentfee.approval');
 Route::post('area-officer-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'areaOfficerApproval'])->name('application.areaofficer.approval');
 Route::post('hod-marine-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'hodMarineApproval'])->name('application.hodmarine.approval');
+Route::get('/map/{id}', 'App\Http\Controllers\ServiceApplicationController@showMap')->name('map.show');

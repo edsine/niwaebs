@@ -31,6 +31,12 @@
                                     <i class="far fa-eye"></i>
                                 </a>
                             </div>
+                            <div class='btn-group'>
+                                <a href="{{ route('map.show', [$serviceApplication->id]) }}"
+                                    class='btn btn-default btn-xs'>
+                                    <i class="fa fa-map-marker"></i>
+                                </a>
+                            </div>
                         </td>
                         <th class="min-w-200px text-end rounded-end"></th>
                     </tr>
