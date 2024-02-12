@@ -1,6 +1,6 @@
 @php
     $logo=\Modules\Accounting\Models\Utility::get_file('uploads/logo/');
-    $setting = App\Models\Utility::colorset();
+    $setting = \Modules\Accounting\Models\Utility::colorset();
     $color = (!empty($setting['color'])) ? $setting['color'] : 'theme-3';
 
     $getseo= \Modules\Accounting\Models\Utility::getSeoSetting();
