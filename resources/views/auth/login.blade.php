@@ -37,10 +37,18 @@
 
 
     <style>
-        input{
+        input {
             font-size: large !important;
         }
-        .btn-check:checked + .btn.btn-primary, .btn-check:active + .btn.btn-primary, .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .btn.btn-primary:active:not(.btn-active), .btn.btn-primary.active, .btn.btn-primary.show, .show > .btn.btn-primary {
+
+        .btn-check:checked+.btn.btn-primary,
+        .btn-check:active+.btn.btn-primary,
+        .btn.btn-primary:focus:not(.btn-active),
+        .btn.btn-primary:hover:not(.btn-active),
+        .btn.btn-primary:active:not(.btn-active),
+        .btn.btn-primary.active,
+        .btn.btn-primary.show,
+        .show>.btn.btn-primary {
             background-color: #59A766 !important;
             color: #ffffff;
         }
@@ -48,6 +56,7 @@
         .font {
             font-size: large !important;
         }
+
         label {
             font-size: large !important;
         }
@@ -95,8 +104,8 @@
                                             </span>
                                         </div>
                                         <input type="password" name="password" placeholder="Password"
-                                            class="form-control password form-control-lg border-left-0" id="exampleInputPassword"
-                                            placeholder="Password">
+                                            class="form-control password form-control-lg border-left-0"
+                                            id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     @error('email')
                                         <span class="error invalid-feedback">{{ $message }}</span>
@@ -109,10 +118,12 @@
                                             Keep me signed in
                                         </label>
                                     </div>
-                                    <a href="{{ route('password.request') }}" class="font auth-link text-black">Forgot password?</a>
+                                    <a href="{{ route('password.request') }}" class="font auth-link text-black">Forgot
+                                        password?</a>
                                 </div>
                                 <div class="my-3">
-                                    <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">LOGIN</button>
+                                    <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+                                        type="submit">LOGIN</button>
                                 </div>
                                 {{-- <div class="mb-2 d-flex">
                                     <button type="button" class="btn btn-facebook auth-form-btn flex-grow mr-1">
@@ -129,7 +140,8 @@
                         </div>
                     </div>
                     <div class="col-lg-6 login-half-bg d-flex flex-row">
-                        <p class="text-white font-weight-medium text-center flex-grow align-self-end font">Copyright &copy;
+                        <p class="text-white font-weight-medium text-center flex-grow align-self-end font">Copyright
+                            &copy;
                             2024 All rights reserved.</p>
                     </div>
                 </div>
@@ -153,15 +165,15 @@
     <!-- endinject -->
     <script>
         /* document.querySelector('form').addEventListener('submit', function(e) {
-            const emailInput = document.getElementById('email');
-            const email = emailInput.value;
+                    const emailInput = document.getElementById('email');
+                    const email = emailInput.value;
 
-            // Check if the email ends with "@niwa.com"
-            if (!email.endsWith('@niwa.com')) {
-                e.preventDefault(); // Prevent form submission
-                alert('Only email addresses with @niwa.com domain are allowed.');
-            }
-        }); */
+                    // Check if the email ends with "@niwa.com"
+                    if (!email.endsWith('@niwa.com')) {
+                        e.preventDefault(); // Prevent form submission
+                        alert('Only email addresses with @niwa.com domain are allowed.');
+                    }
+                }); */
     </script>
 </body>
 

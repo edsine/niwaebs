@@ -235,6 +235,9 @@ public function branch(Request $request){
 
 }
 
+public function areamanager(){
+    return view('am');
+}
 public function edfinance(){
     $branchtotal= Branch::count();
 
