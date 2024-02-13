@@ -156,8 +156,11 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::get('/account', function () {
 //     return view('accountdashboard');
 // });
-Route::view('/md','md');
-Route::view('am','am');
+// Route::view('/md','md');
+// Route::view('am','am');
+
+Route::get('md_user',[HomeController::class,'md'])->name('md');
+Route::get('areamanager',[HomeController::class,'areamanager'])->name('am');
 //=================================== Zoom Meeting ======================================================================
 Route::get('zoom', function () {
     return view('zoom-meeting.index');
