@@ -78,7 +78,7 @@ class HomeController extends Controller
         else if(Auth::check() && Auth::user()->hasRole('MD'))
         {
 
-            return redirect()->route('ed_md');
+            return redirect()->route('md');
         }
 
 
@@ -237,6 +237,9 @@ public function branch(Request $request){
 
 public function areamanager(){
     return view('am');
+}
+public function md(){
+    return view('md');
 }
 public function edfinance(){
     $branchtotal= Branch::count();
