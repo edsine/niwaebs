@@ -159,6 +159,9 @@
                 </li>
             </ul>
         </li>
+        <!-- Start Of REport System Menu -->
+        @include('accounting::layouts.reportmenu')
+        <!-- End Of REport System Menu -->
     
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
@@ -176,9 +179,7 @@
             @include('accounting::layouts.menu')
             <!-- End Of Accounting Menu -->
 
-            <!-- Start Of REport System Menu -->
-            @include('accounting::layouts.reportmenu')
-            <!-- End Of REport System Menu -->
+            
 
                 
             </ul>

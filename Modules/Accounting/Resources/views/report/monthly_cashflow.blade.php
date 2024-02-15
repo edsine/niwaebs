@@ -6,7 +6,7 @@
     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{__('Dashboard')}}</a></li>
     <li class="breadcrumb-item">{{__('Cash Flow')}}</li>
 @endsection
-@push('script-page')
+@push('page_scripts')
     <script type="text/javascript" src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>
     <script>
         var year = '{{$currentYear}}';
@@ -27,18 +27,18 @@
 @endpush
 
 @section('action-btn')
-    <div class="float-end">
-
-        <a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()"data-bs-toggle="tooltip" title="{{__('Download')}}" data-original-title="{{__('Download')}}">
-            <span class="btn-inner--icon"><i class="ti ti-download"></i></span>
-        </a>
-
-    </div>
+    
 @endsection
 
 
 @section('content')
+<div class="float-end">
 
+    <a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()"data-bs-toggle="tooltip" title="{{__('Download')}}" data-original-title="{{__('Download')}}">
+        <span class="btn-inner--icon"><i class="fa fa-download"></i></span>
+    </a>
+
+</div>
     <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#daily-chart" role="tab"
@@ -91,10 +91,10 @@
                                 <div class="row">
                                     <div class="col-auto mt-4">
                                         <a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('monthly_cashflow').submit(); return false;" data-bs-toggle="tooltip" title="{{__('Apply')}}" data-original-title="{{__('apply')}}">
-                                            <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
+                                            <span class="btn-inner--icon"><i class="fa fa-search"></i></span>
                                         </a>
                                         <a href="{{route('report.monthly.cashflow')}}" class="btn btn-sm btn-danger " data-bs-toggle="tooltip"  title="{{ __('Reset') }}" data-original-title="{{__('Reset')}}">
-                                            <span class="btn-inner--icon"><i class="ti ti-trash-off text-white-off "></i></span>
+                                            <span class="btn-inner--icon"><i class="fa fa-trash text-white-off "></i></span>
                                         </a>
                                     </div>
 

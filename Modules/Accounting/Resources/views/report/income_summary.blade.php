@@ -8,10 +8,10 @@
     <li class="breadcrumb-item">{{__('Income Summary')}}</li>
 @endsection
 
-@push('theme-script')
+@push('third_party_scripts')
     <script src="{{ asset('assets/js/plugins/apexcharts.min.js') }}"></script>
 @endpush
-@push('script-page')
+@push('page_scripts')
     <script>
         (function () {
             var chartBarOptions = {
@@ -105,21 +105,21 @@
 @endpush
 
 @section('action-btn')
-    <div class="float-end">
-        {{--        <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-bs-toggle="tooltip" title="{{__('Filter')}}">--}}
-        {{--            <i class="ti ti-filter"></i>--}}
-        {{--        </a>--}}
-
-        <a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()"data-bs-toggle="tooltip" title="{{__('Download')}}" data-original-title="{{__('Download')}}">
-            <span class="btn-inner--icon"><i class="ti ti-download"></i></span>
-        </a>
-
-    </div>
+    
 @endsection
 
 
 @section('content')
+<div class="float-end">
+    {{--        <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-bs-toggle="tooltip" title="{{__('Filter')}}">--}}
+    {{--            <i class="fa fa-filter"></i>--}}
+    {{--        </a>--}}
 
+    <a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()"data-bs-toggle="tooltip" title="{{__('Download')}}" data-original-title="{{__('Download')}}">
+        <span class="btn-inner--icon"><i class="fa fa-download"></i></span>
+    </a>
+
+</div>
     <div class="row">
         <div class="col-sm-12">
             <div class=" mt-2 " id="multiCollapseExample1">
@@ -162,11 +162,11 @@
                                     <div class="col-auto mt-4">
 
                                         <a href="#" class="btn btn-sm btn-primary" onclick="document.getElementById('report_income_summary').submit(); return false;" data-bs-toggle="tooltip" title="{{__('Apply')}}" data-original-title="{{__('apply')}}">
-                                            <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
+                                            <span class="btn-inner--icon"><i class="fa fa-search"></i></span>
                                         </a>
 
                                         <a href="{{route('report.income.summary')}}" class="btn btn-sm btn-danger " data-bs-toggle="tooltip"  title="{{ __('Reset') }}" data-original-title="{{__('Reset')}}">
-                                            <span class="btn-inner--icon"><i class="ti ti-trash-off text-white-off "></i></span>
+                                            <span class="btn-inner--icon"><i class="fa fa-trash text-white-off "></i></span>
                                         </a>
 
 
