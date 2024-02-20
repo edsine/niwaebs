@@ -3,14 +3,16 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\ClaimsCompensation\Database\Seeders\ClaimsCompensationDatabaseSeeder;
+use Database\Seeders\ServicesSeeder;
+use Database\Seeders\NewStaffTableSeeder;
+use Database\Seeders\NewUsersTableSeeder;
+use Modules\Shared\Database\Seeders\SharedDatabaseSeeder;
+use Modules\Approval\Database\Seeders\ApprovalDatabaseSeeder;
 use Modules\HumanResource\Database\Seeders\HumanResourceDatabaseSeeder;
 use Modules\WorkflowEngine\Database\Seeders\WorkflowEngineDatabaseSeeder;
 use Modules\DocumentManager\Database\Seeders\DocumentManagerDatabaseSeeder;
 use Modules\EmployerManager\Database\Seeders\EmployerManagerDatabaseSeeder;
-use Modules\Approval\Database\Seeders\ApprovalDatabaseSeeder;
-use Modules\Shared\Database\Seeders\SharedDatabaseSeeder;
-use Database\Seeders\ServicesSeeder;
+use Modules\ClaimsCompensation\Database\Seeders\ClaimsCompensationDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,6 +34,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DTAPermissionsTableSeeder::class);
         // $this->call(RealUsersAndStaffTablesSeeder::class);
         $this->call(StaffTableSeeder::class);
+        $this->call(NewUsersTableSeeder::class);
+        $this->call(NewStaffTableSeeder::class);
         //$this->call(EmployersTableSeeder::class);
 
         $this->call(NewRolesAndPermissionsTablesSeeder::class);
