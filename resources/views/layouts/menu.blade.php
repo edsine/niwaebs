@@ -159,7 +159,7 @@
                 </li>
             </ul>
         </li>
-    
+
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-tasks menu-icon"></i>
@@ -180,7 +180,7 @@
             @include('accounting::layouts.reportmenu')
             <!-- End Of REport System Menu -->
 
-                
+
             </ul>
         </li>
 
@@ -192,6 +192,12 @@
             </a>
 
             <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('document.create') }}">
+                        <i class="fas fa-balance-scale menu-icon"></i>
+                        <span>DAR</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('units.create') }}">
                         <i class="fas fa-balance-scale menu-icon"></i>

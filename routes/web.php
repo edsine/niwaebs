@@ -10,14 +10,15 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\AllowanceController;
 use App\Http\Controllers\SetSalaryController;
 use App\Http\Controllers\CertificateController;
-use App\Http\Controllers\ZoomMeetingController;
-use Modules\Accounting\Http\Controllers\ReportController;
 use App\Http\Controllers\ESSPPaymentController;
+use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\EmployerDocumentController;
+use Modules\Accounting\Http\Controllers\ReportController;
 
 
 /*
@@ -68,7 +69,7 @@ Route::get('/html_email', [UserController::class, 'html_email'])->name('html_ema
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/hradmin', [HomeController::class, 'hradmin'])->name('hradmin');
+
     Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
     Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
     Route::resource('services', App\Http\Controllers\ServiceController::class);
@@ -94,7 +95,7 @@ Route::get('/roundcube-login', [HomeController::class, 'roundcubeLogin']);
 
 Route::get('auditadmin', [HomeController::class, 'auditadmin']);
 Route::get('ictadmin', [HomeController::class, 'ictadmin'])->name('ict');
-Route::get('/hradmin', [HomeController::class, 'hradmin'])->name('hradmin');
+// Route::get('/hradmin', [HomeController::class, 'hradmin'])->name('hradmin');
 Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
 Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
 Route::get('/itmadmin', [HomeController::class, 'itmadmin'])->name('itmadmin');
@@ -280,3 +281,60 @@ Route::post('equipment-fee-payment-approval/{id}', [App\Http\Controllers\Service
 Route::post('area-officer-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'areaOfficerApproval'])->name('application.areaofficer.approval');
 Route::post('hod-marine-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'hodMarineApproval'])->name('application.hodmarine.approval');
 Route::get('/map/{id}', 'App\Http\Controllers\ServiceApplicationController@showMap')->name('map.show');
+
+
+
+
+
+
+
+Route::group(['middleware' => 'auth'], function() {
+
+
+    Route::get('createdocument',[DocumentController::class,'ldmsCreate'])->name('document.create');
+    Route::get('document/updateprofile',[DocumentController::class,'ldmsUpdateProfile'])->name('document.updateprofile');
+
+
+
+    Route::get('language-switch/{locale}', [HomeController::class,'languageSwitch']);
+
+	Route::post('/document/import', [DocumentController::class,'import'])->name('document.import');
+
+	Route::get('/document/ldms_create', [DocumentController::class,'ldmsCreate'])->name('create.document');
+
+	Route::post('/document/ldms_store', [DocumentController::class,'ldmsStore']);
+	// Route::get('/document/ldms_edit/{id}', array("uses"=>'DocumentController@ldmsEdit'));
+	Route::get('/document/ldms_edit/{id}', [DocumentController::class,'ldmsEdit']);
+
+	Route::post('/document/ldms_edit/ldms_update/{id}', [DocumentController::class,'ldmsUpdate']);
+	Route::get('/document/ldms_delete/{id}/{fileName}', [DocumentController::class,'ldmsDelete']);
+	Route::get('/document/ldms_alarm_date/{id}', [DocumentController::class,'ldmsAlarmDate']);
+	Route::post('/document/ldms_alarm_date/ldms_alarm_add', [DocumentController::class,'ldmsAlarmAdd']);
+	Route::get('/document/ldms_alarm_date/ldms_alarm_delete/{alarm}/{id}/{alarmList}', [DocumentController::class,'ldmsAlarmDelete']);
+	Route::get('/document/ldms_updateProfile', [DocumentController::class,'ldmsUpdateProfile']);
+	Route::post('/document/ldms_manageProfileUpdate', [DocumentController::class,'ldmsManageProfileUpdate']);
+	Route::post('/document/ldms_changePassword', [DocumentController::class,'ldmsChangePassword']);
+	Route::get('/document/ldms_expired_documents', [DocumentController::class,'ldmsExpiredDocuments'])->name('expireddocument');
+	Route::get('/document/ldms_close_to_be_expired_documents', [DocumentController::class,'ldmsCloseToBeExpiredDocuments'])->name('closetobe');
+	Route::get('/document/ldms_search', [DocumentController::class,'ldmsSearch']);
+	Route::get('/document/ldms_email_send', [DocumentController::class,'ldmsEmailSend']);
+	Route::get('general-settings', [HomeController::class,'generalSetting'])->name('setting.general');
+	Route::post('general-settingStore', [HomeController::class,'generalSettingStore'])->name('setting.generalStore');
+	Route::get('mail-settings', [HomeController::class,'mailSetting'])->name('setting.mail');
+	Route::post('mail-settingStore', [HomeController::class,'mailSettingStore'])->name('setting.mailStore');
+	Route::get('sms-settings', [HomeController::class,'smsSetting'])->name('setting.sms');
+	Route::post('sms-settingStore', [HomeController::class,'smsSettingStore'])->name('setting.smsStore');
+});
+
+Route::group(['middleware' => ['auth',]], function(){
+
+	Route::get('/role/ldms_role_search', [RoleController::class,'ldmsRoleSearch']);
+	Route::get('/user/ldms_user_search', [UserController::class,'ldmsUserSearch']);
+	Route::resource('role',RoleController::class);
+	Route::get('/user/password', [UserController::class,'userPass']);
+	// Route::get('user/demo','UserController@demo');
+	// Route::get('user/demo',[UserController::class,'demo']);
+	Route::resource('user',UserController::class);
+
+    // Route::get('user/create',[UserController::class,'create'])->name('user.create');
+});
