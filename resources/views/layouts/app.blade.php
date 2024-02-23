@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <style>
         #aa a{
             display: none
@@ -563,6 +563,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <!-- end::bootstrap-sweet-alert -->
+    
 
 
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
@@ -683,6 +684,8 @@
     <script src="{{asset('sh_assets/js/morris.js')}}"></script>
     <!-- End custom js for this page-->
     <script src="{{ asset('sh_assets/js/data-table.js') }}"></script>
+
+    
 </body>
 
 </html>
