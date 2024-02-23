@@ -199,3 +199,10 @@ function enum_payment_types()
 
     return $option;
 }
+
+if (!function_exists('get_settings')) {
+    function get_settings()
+    {
+        return \Modules\Accounting\Models\Utility::settings();
+    }
+}

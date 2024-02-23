@@ -645,4 +645,12 @@ public function usersAPI(Request $request): JsonResponse
 
         return $this->sendResponse(UserResource::collection($users), 'User retrieved successfully');
     }
+    public function getrows(){
+        $data = DB::table('users')->get();
+        if ( $data ) {
+			$res['success'] = true;
+			$res['message']= $data;
+        }
+        return response( $res );
+    }
 }

@@ -248,8 +248,8 @@ class ReportController extends AppBaseController
             $data['currentYear'] = $year;
 
             //   -----------------------------------------PAYMENT EXPENSE ------------------------------------------------------------
-            $expenses = Payment::selectRaw('sum(payments.amount) as amount,MONTH(date) as month,YEAR(date) as year,category_id')->leftjoin('product_service_categories', 'payments.category_id', '=', 'product_service_categories.id')->where('product_service_categories.type', '=', 2);
-            $expenses->where('payments.created_by', '=', Auth::user()->creatorId());
+            $expenses = Payment::selectRaw('sum(all_payments.amount) as amount,MONTH(date) as month,YEAR(date) as year,category_id')->leftjoin('product_service_categories', 'all_payments.category_id', '=', 'product_service_categories.id')->where('product_service_categories.type', '=', 2);
+            $expenses->where('all_payments.created_by', '=', Auth::user()->creatorId());
             $expenses->whereRAW('YEAR(date) =?', [$year]);
 
             if(!empty($request->category))
@@ -285,8 +285,8 @@ class ReportController extends AppBaseController
                 }
                 $array[] = $tmp;
             }
-            $expensesData = Payment::selectRaw('sum(payments.amount) as amount,MONTH(date) as month,YEAR(date) as year');
-            $expensesData->where('payments.created_by', '=', Auth::user()->creatorId());
+            $expensesData = Payment::selectRaw('sum(all_payments.amount) as amount,MONTH(date) as month,YEAR(date) as year');
+            $expensesData->where('all_payments.created_by', '=', Auth::user()->creatorId());
             $expensesData->whereRAW('YEAR(date) =?', [$year]);
 
             if(!empty($request->category))
@@ -420,8 +420,8 @@ class ReportController extends AppBaseController
             $data['currentYear'] = $year;
 
             // ------------------------------TOTAL PAYMENT EXPENSE-----------------------------------------------------------
-            $expensesData = Payment::selectRaw('sum(payments.amount) as amount,MONTH(date) as month,YEAR(date) as year');
-            $expensesData->where('payments.created_by', '=', Auth::user()->creatorId());
+            $expensesData = Payment::selectRaw('sum(all_payments.amount) as amount,MONTH(date) as month,YEAR(date) as year');
+            $expensesData->where('all_payments.created_by', '=', Auth::user()->creatorId());
             $expensesData->whereRAW('YEAR(date) =?', [$year]);
 
             if(!empty($request->category))
@@ -1019,9 +1019,9 @@ class ReportController extends AppBaseController
 
             if($request->type == 'payment')
             {
-                $paymentAccounts = Payment::select('bank_accounts.id', 'bank_accounts.holder_name', 'bank_accounts.bank_name')->leftjoin('bank_accounts', 'payments.account_id', '=', 'bank_accounts.id')->groupBy('payments.account_id')->selectRaw('sum(amount) as total')->where('payments.created_by', '=', Auth::user()->creatorId());
+                $paymentAccounts = Payment::select('bank_accounts.id', 'bank_accounts.holder_name', 'bank_accounts.bank_name')->leftjoin('bank_accounts', 'all_payments.account_id', '=', 'bank_accounts.id')->groupBy('all_payments.account_id')->selectRaw('sum(amount) as total')->where('all_payments.created_by', '=', Auth::user()->creatorId());
 
-                $payments = Payment::where('payments.created_by', '=', Auth::user()->creatorId())->orderBy('id', 'desc');
+                $payments = Payment::where('all_payments.created_by', '=', Auth::user()->creatorId())->orderBy('id', 'desc');
             }
 
 
@@ -1065,7 +1065,7 @@ class ReportController extends AppBaseController
                     $paymentAccounts->Orwhere(
                         function ($query) use ($data){
                             $query->whereMonth('date', $data['month'])->whereYear('date', $data['year']);
-                            $query->where('payments.created_by', '=', Auth::user()->creatorId());
+                            $query->where('all_payments.created_by', '=', Auth::user()->creatorId());
                         }
                     );
                 }
@@ -1087,10 +1087,10 @@ class ReportController extends AppBaseController
                 if($request->type == 'payment')
                 {
                     $payments->where('account_id', $request->account);
-                    $payments->where('payments.created_by', '=', Auth::user()->creatorId());
+                    $payments->where('all_payments.created_by', '=', Auth::user()->creatorId());
 
                     $paymentAccounts->where('account_id', $request->account);
-                    $paymentAccounts->where('payments.created_by', '=', Auth::user()->creatorId());
+                    $paymentAccounts->where('all_payments.created_by', '=', Auth::user()->creatorId());
                 }
 
 
@@ -1116,7 +1116,7 @@ class ReportController extends AppBaseController
             {
                 $reportData['payments'] = $payments->get();
 
-                $paymentAccounts->where('payments.created_by', '=', Auth::user()->creatorId());
+                $paymentAccounts->where('all_payments.created_by', '=', Auth::user()->creatorId());
                 $reportData['paymentAccounts'] = $paymentAccounts->get();
                 $filter['type']                = __('Payment');
             }
@@ -2904,8 +2904,8 @@ class ReportController extends AppBaseController
 
 
             //   -----------------------------------------PAYMENT EXPENSE ------------------------------------------------------------
-            $expenses = Payment::selectRaw('sum(payments.amount) as amount,MONTH(date) as month,YEAR(date) as year,category_id')->leftjoin('product_service_categories', 'payments.category_id', '=', 'product_service_categories.id')->where('product_service_categories.type', '=', 2);
-            $expenses->where('payments.created_by', '=', Auth::user()->creatorId());
+            $expenses = Payment::selectRaw('sum(all_payments.amount) as amount,MONTH(date) as month,YEAR(date) as year,category_id')->leftjoin('product_service_categories', 'all_payments.category_id', '=', 'product_service_categories.id')->where('product_service_categories.type', '=', 2);
+            $expenses->where('all_payments.created_by', '=', Auth::user()->creatorId());
             $expenses->whereRAW('YEAR(date) =?', [$year]);
 
             if(!empty($request->category))
@@ -2941,8 +2941,8 @@ class ReportController extends AppBaseController
                 }
                 $array[] = $tmp;
             }
-            $expensesData = Payment::selectRaw('sum(payments.amount) as amount,MONTH(date) as month,YEAR(date) as year');
-            $expensesData->where('payments.created_by', '=', Auth::user()->creatorId());
+            $expensesData = Payment::selectRaw('sum(all_payments.amount) as amount,MONTH(date) as month,YEAR(date) as year');
+            $expensesData->where('all_payments.created_by', '=', Auth::user()->creatorId());
             $expensesData->whereRAW('YEAR(date) =?', [$year]);
 
             if(!empty($request->category))
@@ -3231,7 +3231,7 @@ class ReportController extends AppBaseController
 
             //---------------------------------PAYMENT EXPENSE-----------------------------------
 
-            $expenses = Payment::selectRaw('sum(payments.amount) as amount,MONTH(date) as month,YEAR(date) as year,category_id');
+            $expenses = Payment::selectRaw('sum(all_payments.amount) as amount,MONTH(date) as month,YEAR(date) as year,category_id');
             $expenses->where('created_by', '=', Auth::user()->creatorId());
             $expenses->whereRAW('YEAR(date) =?', [$year]);
             $expenses->groupBy('month', 'year', 'category_id');

@@ -160,6 +160,10 @@
             </ul>
         </li>
 
+        <!-- Start Of REport System Menu -->
+        @include('accounting::layouts.reportmenu')
+        <!-- End Of REport System Menu -->
+
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-tasks menu-icon"></i>
@@ -175,10 +179,13 @@
             <!-- Start Of Accounting Menu -->
             @include('accounting::layouts.menu')
             <!-- End Of Accounting Menu -->
-
-            <!-- Start Of REport System Menu -->
-            @include('accounting::layouts.reportmenu')
-            <!-- End Of REport System Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">
+                    <i class="fas fa-balance-scale menu-icon"></i>
+                    <span>Add/View Equipments</span>
+                </a>
+            </li>
+            
 
 
             </ul>
@@ -269,7 +276,53 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('support.index') }}">
+                <i class="fa fa-gear menu-icon"></i>
+                <span class="menu-title">Support System</span>
 
+            </a>
+        </li>
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas fa-check menu-icon"></i>
+                <span class="menu-title">Asset Manager</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'asset/home') }}"><?php echo trans('lang.dashboard');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'assetlist') }}"><?php echo trans('lang.assetmenu');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'componentlist') }}"><?php echo trans('lang.componentmenu');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'maintenancelist') }}"><?php echo trans('lang.maintenancemenu');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'assettypelist') }}"><?php echo trans('lang.assettypemenu');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'brandlist') }}"><?php echo trans('lang.brandmenu');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'supplierlist') }}"><?php echo trans('lang.suppliermenu');?></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'locationlist') }}"><?php echo trans('lang.locationmenu');?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to( 'reports/allreports') }}"><?php echo trans('lang.reportmenu');?></a>
+                </li>
+
+              
+            </ul>
+        </li>
         {{-- <li class="nav-item" id="myTask1">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>
