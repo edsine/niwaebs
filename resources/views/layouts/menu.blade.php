@@ -269,7 +269,13 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('support.index') }}">
+                <i class="fa fa-gear menu-icon"></i>
+                <span class="menu-title">Support System</span>
 
+            </a>
+        </li>
         {{-- <li class="nav-item" id="myTask1">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>
