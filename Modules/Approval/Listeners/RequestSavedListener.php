@@ -42,6 +42,7 @@ class RequestSavedListener
     {
         $request = $event->request;
 
+        
         //add a row to approval timeline for new request
         //else add a row to approval timeline based on current step/order
         $timeline = $request->timelines()->create([
@@ -54,8 +55,8 @@ class RequestSavedListener
         //if new approval request - CREATED
         if ($event->request && $event->request->action_id == 1) {
             //notify request creator
-            
-            $email = !empty($request->staff->user) ? $request->staff->user->email : 
+
+            $email = !empty($request->staff->user) ? $request->staff->user->email :
              Employer::find($request->staff_id)->company_email;
             /* Notification::route('mail', $email)
                 ->notify(new RequestSavedNotification($event->request)); */
@@ -93,7 +94,7 @@ class RequestSavedListener
                     if ($last_step == null) {
                         //if ($last_step->approval_order == $request->order) {
                         //send email to creator about completion
-                        $email = !empty($request->staff->user) ? $request->staff->user->email : 
+                        $email = !empty($request->staff->user) ? $request->staff->user->email :
              Employer::find($request->staff_id)->company_email;
                         /* Notification::route('mail', $email)
                             ->notify(new RequestApprovedNotification($event->request)); */
@@ -255,7 +256,7 @@ class RequestSavedListener
                     $request->saveQuietly();
 
                     //notify creator of declined status
-                    $email = !empty($request->staff->user) ? $request->staff->user->email : 
+                    $email = !empty($request->staff->user) ? $request->staff->user->email :
              Employer::find($request->staff_id)->company_email;
                     /* Notification::route('mail', $email)
                         ->notify(new RequestDeclinedNotification($event->request)); */

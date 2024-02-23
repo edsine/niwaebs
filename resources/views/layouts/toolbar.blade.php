@@ -10,30 +10,30 @@
             </h4>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+            {{-- <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1"> --}}
                 <!--begin::Item-->
-                <li class="breadcrumb-item">
+                {{-- <li class="breadcrumb-item">
                     <span class="text-primary text-hover-primary">{{auth()->user()->staff ?auth()->user()->staff->branch->branch_name:'nadcccccccccccc'}} </span>
-                </li>
+                </li> --}}
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-muted">
+                {{-- <li class="breadcrumb-item text-muted">
                     <a href="{{ route('home') }}"
                         class="text-primary text-hover-primary">{{ auth()->user()->staff ? auth()->user()->staff->department->name : 'no department' }}
                     </a>
-                </li>
+                </li> --}}
                 {{-- <li class="breadcrumb-item text-muted">
                     <a href="{{ route('home') }}"
                         class="text-primary text-hover-primary">{{ auth()->user()->staff ? auth()->user()->staff->branch->branch_name : 'no branch' }}
                     </a>
                 </li> --}}
 
-      
+
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-muted">@yield('page_title')</li>
+                {{-- <li class="breadcrumb-item text-muted">@yield('page_title')</li> --}}
                 <!--end::Item-->
-            </ul>
+            {{-- </ul> --}}
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->

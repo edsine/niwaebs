@@ -18,9 +18,10 @@
         crossorigin="anonymous" />
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <!-- Adding the apex chart -->
+    {{-- <script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery.dataTables.min.js" type="text/javascript"></script> --}}
+
+        <!-- Adding the apex chart -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.css"
         integrity="sha512-nnNXPeQKvNOEUd+TrFbofWwHT0ezcZiFU5E/Lv2+JlZCQwQ/ACM33FxPoQ6ZEFNnERrTho8lF0MCEH9DBZ/wWw=="
@@ -40,8 +41,21 @@
 
     <link rel="stylesheet" href="{{ asset('new_assets/assets/css/plugins/flatpickr.min.css') }}">
 
-    <!-- Custom Asset end -->
+{{-- for the document management system --}}
 
+{{-- for the document management system --}}
+
+
+    <!-- Custom Asset end -->
+{{-- all the assets --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js" integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js" integrity="sha512-cXLS4U14Rm+shV7jwsUiq97QCKtYB9tgsxDncZ5j2Emaye4wi/lYWrEK1472KFFykPdHug7L6NBNzGT8s7U1lA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js.map"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.js" integrity="sha512-nNkHPz+lD0Wf0eFGO0ZDxr+lWiFalFutgVeGkPdVgrG4eXDYUnhfEj9Zmg1QkrJFLC0tGs8ZExyU/1mjs4j93w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js" integrity="sha512-EFlschXPq/G5zunGPRSYqazR1CMKj0cQc8v6eMrQwybxgIbhsfoO5NAMQX3xFDQIbFlViv53o7Hy+yCWw6iZxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Italic.ttf"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Medium.ttf"></script> --}}
     @stack('third_party_stylesheets')
 
     @stack('page_css')

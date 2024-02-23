@@ -9,9 +9,7 @@
         {{-- </center> --}}
         <div class="row grid-margin">
             <div class="col-12">
-                @php
-                    $staff = DB::table('users')->count();
-                @endphp
+             
                 <div class="card card-statistics">
                     <div class="card-body">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">

@@ -111,8 +111,14 @@ class HomeController extends Controller
             $pendingclaims =ClaimsCompensation::where('regional_manager_status',0)->count();
 
 
+
+//i will add all the information here
+
+$staff=DB::table('staff')->count();
+
             return view('home', compact('registered_employers', 'pending_employers', 'registered_employees', 'pending_employees',
             'claims_death_count','deathclaims',
+            'staff',
             'staff_count','diseaseclaims', 'data','ictstaff',
             'totalemployers','pendingclaims','approvedclaims'));
         }
@@ -298,6 +304,7 @@ public function edadmin(){
 
     public function hradmin()
     {
+
 
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
