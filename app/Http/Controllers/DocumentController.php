@@ -201,7 +201,7 @@ class DocumentController extends Controller
     public function ldmsStore(Request $request)
     {
 
-       
+    //    dd($request->all());
 
         $request->validate([
             'title' => 'required',
@@ -209,15 +209,15 @@ class DocumentController extends Controller
             'ldms_experiedDate' => 'required|date|after:2 days',
             'ldms_email' => 'required|email',
             'mobile' => 'required',
-            // 'vendor' => 'required',
-            // 'description' => 'required',
+            'vendor' => 'required',
+            'description' => 'required',
 
         ]);
 
 
         $user = Auth::user();
         $role = $user->getRoleNames()->first();
-
+// dd($role);
         // Create document
         $document = new Document();
         $document->role_id = Role::where('name', $role)->first()->id;
@@ -230,8 +230,8 @@ class DocumentController extends Controller
 
         $document->email = $request->ldms_email;
         $document->mobile = $request->mobile;
-        // $document->vendor = $request->vendor;
-        // $document->ldms_documentdescriptiom = $request->ldms_documentdescriptiom;
+        $document->vendor = $request->vendor;
+        $document->description = $request->description;
 
         // Move uploaded file to storage
         $request->file('ldms_documentFile')->storeAs('public/document', $document->file_name);
