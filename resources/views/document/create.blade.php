@@ -46,12 +46,14 @@
                     <table id="document-table" class="table table-bordered table-striped">
                         <thead>
                             <th class="not-exported"></th>
-                            <th>{{ trans('file.SL No') }}</th>
-                            <th>{{ trans('file.Document Title') }}</th>
-                            <th>{{ trans('file.Expired Date') }}</th>
-                            <th>{{ trans('file.Notification Email') }}</th>
-                            <th>{{ trans('file.Notification Mobile') }}</th>
-                            <th class="text-center hidden-print not-exported">{{ trans('file.Option') }}</th>
+                            <th>{{ trans('SL No') }}</th>
+                            <th>{{ trans('Document Title') }}</th>
+                            <th>{{ trans('Vendor') }}</th>
+                            <th>{{ trans('Description') }}</th>
+                            <th>{{ trans('Expired Date') }}</th>
+                            <th>{{ trans('Notification Email') }}</th>
+                            <th>{{ trans('Notification Mobile') }}</th>
+                            <th class="text-center hidden-print not-exported">{{ trans('Option') }}</th>
                         </thead>
                         <tbody>
                             @foreach ($document_list as $key => $document)
@@ -70,6 +72,8 @@
                                     <td>{{ $key }}</td>
                                     <td><?php echo $key + 1; ?></td>
                                     <td>{!! $document->title !!}</td>
+                                    <td>{!! $document->vendor !!}</td>
+                                    <td>{!! $document->description !!}</td>
                                     <td>{!! date('d-m-Y', strtotime($document->expired_date)) !!}</td>
                                     <td>{!! $document->email !!}</td>
                                     <td>{!! $document->mobile !!}</td>
@@ -123,27 +127,45 @@
         </div>
         <div class="col-md-3">
             <div class="col-md-12 panel">
-                <h3>{{ trans('file.Upload New Document') }}</h3>
+                <h3>{{ trans('Upload New Document') }}</h3>
             @else
                 <div class="col-md-8 col-md-offset-2">
                     <div class="col-md-12 panel">
-                        <h3>{{ trans('file.Upload New Document') }}</h3>
+                        <h3>{{ trans('Upload New Document') }}</h3>
     @endif
     <!--Document Create Start-->
     <form method="post" action="document/ldms_store" files="true" enctype="multipart/form-data">
         <div class="col-md-12">
             {!! csrf_field() !!}
             <div class="form-group">
-                <label for="ldms_documentTitle">{{ trans('file.Document Title') }}</label>
+                <label for="ldms_documentTitle">{{ trans('Document Title') }}</label>
                 <div class="form-group-inner">
                     <div class="field-outer">
                         <input class="form-control" type="text" name="title" id="ldms_documentTitle"
-                            placeholder="{{ trans('file.Trade License') }}">
+                            placeholder="{{ trans('Trade License') }}">
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="ldms_experiedDate">{{ trans('file.Expired Date') }} *</label>
+                <label for="ldms_documentTitle">{{ trans('VENDOR') }}</label>
+                <div class="form-group-inner">
+                    <div class="field-outer">
+                        <input class="form-control" type="text" name="vendor" id="ldms_documentvendor"
+                            placeholder="{{ trans('Vendor') }}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ldms_documentTitle">{{ trans('Document Description') }}</label>
+                <div class="form-group-inner">
+                    <div class="field-outer">
+                        <input class="form-control" type="text" name="description" id="ldms_documentdescriptiom"
+                            placeholder="{{ trans('Description') }}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ldms_experiedDate">{{ trans('Expired Date') }} *</label>
                 <div class="form-group-inner">
                     <div class="field-outer">
                         <input id="ldms_experiedDate" name="ldms_experiedDate" class="form-control" type="text"
@@ -152,7 +174,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="ldms_email">{{ trans('file.Notification Email') }} *</label>
+                <label for="ldms_email">{{ trans('Notification Email') }} *</label>
                 <div class="form-group-inner">
                     <div class="field-outer">
                         <input class="form-control" type="email" name="ldms_email" id="ldms_email"
@@ -162,7 +184,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="ldms_email">{{ trans('file.Notification Mobile') }}</label>
+                <label for="ldms_email">{{ trans('Notification Mobile') }}</label>
                 <div class="form-group-inner">
                     <div class="field-outer">
                         <input class="form-control" type="text" name="mobile"
@@ -172,12 +194,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="ldms_documentFile">{{ trans('file.Document') }}</label>
+                <label for="ldms_documentFile">{{ trans('Document') }}</label>
                 <div class="form-group-inner">
                     <div class="field-outer">
                         <input type="file" name="ldms_documentFile" id="ldms_documentFile">
                         <label class="btn btn-default" for="ldms_documentFile"><i class="fa fa-upload"></i>
-                            {{ trans('file.Upload File') }}</label>
+                            {{ trans('Upload File') }}</label>
                         <span id="ldms_document_file_name"></span>
                     </div>
                 </div>
@@ -187,7 +209,7 @@
             <label for="submit"></label>
             <div class="form-group-inner">
                 <div class="field-outer">
-                    <input type="submit" name="submit" value="{{ trans('file.Submit') }}" class="btn btn-primary"
+                    <input type="submit" name="submit" value="{{ trans('Submit') }}" class="btn btn-primary"
                         id="createForm">
                 </div>
             </div>
@@ -246,7 +268,7 @@
     <script type="text/javascript" src="{{ asset('js/newjs/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/dataTables.bootstrap4.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/dataTables.buttons.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/newjs/buttons.bootstrap4.min.js') }}">  </script>
+    <script type="text/javascript" src="{{ asset('js/newjs/buttons.bootstrap4.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/buttons.print.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/pdfmake.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/vfs_fonts.js') }}"></script>
@@ -351,10 +373,16 @@
                 $('#ldms_email').focus();
                 return false;
             }
-            var ldms_documentFile = $.trim($('#ldms_documentFile').val());
-            if (ldms_documentFile == '') {
-                alert("Document File can't be empty.");
-                $('#ldms_documentFile').focus();
+            var ldms_documentvendor = $.trim($('#ldms_documentvendor').val());
+            if (ldms_documentvendor == '') {
+                alert("Name of Vendor can't be empty.");
+                $('#ldms_documentvendor').focus();
+                return false;
+            }
+            var ldms_documentdescriptiom = $.trim($('#ldms_documentdescriptiom').val());
+            if (ldms_documentdescriptiom == '') {
+                alert("Document Description can't be empty.");
+                $('#ldms_documentdescriptiom').focus();
                 return false;
             }
 
