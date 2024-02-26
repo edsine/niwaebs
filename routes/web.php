@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Start of asset manager
 
-Route::middleware(['auth'])->group(function () {  
+Route::middleware(['auth'])->group(function () {
 Route::get('/asset/home','App\Http\Controllers\Home@index');
 Route::get('/brandlist','App\Http\Controllers\Brand@index');
 Route::get('/departmentlist','App\Http\Controllers\Department@index');
@@ -186,7 +186,7 @@ Route::get('listcomponentactivityreport','App\Http\Controllers\Reports@getcompon
 Route::get('getdatabytypereport','App\Http\Controllers\Reports@getdatabytypereport');
 Route::get('getdatabystatusreport','App\Http\Controllers\Reports@getdatabystatusreport');
 Route::get('getdatabysupplierreport','App\Http\Controllers\Reports@getdatabysupplierreport');
-Route::get('getdatabylocationreport','App\Http\Controllers\Reports@getdatabylocationreport'); 
+Route::get('getdatabylocationreport','App\Http\Controllers\Reports@getdatabylocationreport');
 });
 // End asset manager
 
@@ -447,7 +447,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/document/ldms_create', [DocumentController::class,'ldmsCreate'])->name('create.document');
 
-	Route::post('/document/ldms_store', [DocumentController::class,'ldmsStore']);
+	Route::post('/document/ldms_store', [DocumentController::class,'ldmsStore'])->name('documents.store');
 	// Route::get('/document/ldms_edit/{id}', array("uses"=>'DocumentController@ldmsEdit'));
 	Route::get('/document/ldms_edit/{id}', [DocumentController::class,'ldmsEdit']);
 

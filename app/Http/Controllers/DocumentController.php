@@ -18,21 +18,24 @@ class DocumentController extends Controller
     public function ldmsCreate()
     {
         $user = auth()->user();
+
         $role = $user->roles->first();
 
-        if ($role->name == 'super-admin') {
-            $ldms_documents_all = Document::all();
-            $todayDate = now()->toDateString();
-            $ldms_expired_documents_all = Document::where('expired_date', '<', $todayDate)->get();
-            $interval = now()->addDays(30)->toDateString();
-            $ldms_close_expired_documents_all = Document::whereBetween('expired_date', [$todayDate, $interval])->get();
-        } else {
-            $ldms_documents_all = $user->documents;
-            $todayDate = now()->toDateString();
-            $ldms_expired_documents_all = $user->documents()->where('expired_date', '<', $todayDate)->get();
-            $interval = now()->addDays(30)->toDateString();
-            $ldms_close_expired_documents_all = $user->documents()->whereBetween('expired_date', [$todayDate, $interval])->get();
-        }
+        // if ($role->name == 'super-admin') {
+        $ldms_documents_all = Document::all();
+        $todayDate = now()->toDateString();
+        $ldms_expired_documents_all = Document::where('expired_date', '<', $todayDate)->get();
+        $interval = now()->addDays(30)->toDateString();
+        $ldms_close_expired_documents_all = Document::whereBetween('expired_date', [$todayDate, $interval])->get();
+
+        // } else {
+        //     $ldms_documents_all = $user->documents;
+        //     $todayDate = now()->toDateString();
+        //     $ldms_expired_documents_all = $user->documents()->where('expired_date', '<', $todayDate)->get();
+
+        //     $interval = now()->addDays(30)->toDateString();
+        //     $ldms_close_expired_documents_all = $user->documents()->whereBetween('expired_date', [$todayDate, $interval])->get();
+        // }
 
         $ldms_total_documents_number = $ldms_documents_all->count();
         $document_list = $ldms_documents_all;
@@ -198,22 +201,28 @@ class DocumentController extends Controller
     public function ldmsStore(Request $request)
     {
 
+       
+
         $request->validate([
             'title' => 'required',
             'ldms_documentFile' => 'required|file|max:10000|mimes:jpg,jpeg,png,pdf,doc,docx',
             'ldms_experiedDate' => 'required|date|after:2 days',
             'ldms_email' => 'required|email',
-            'mobile' => 'required'
+            'mobile' => 'required',
+            // 'vendor' => 'required',
+            // 'description' => 'required',
+
         ]);
 
+
         $user = Auth::user();
-        $role = $user->getRoleNames()->first(); // Assuming a user has only one role
+        $role = $user->getRoleNames()->first();
 
         // Create document
         $document = new Document();
         $document->role_id = Role::where('name', $role)->first()->id;
         $document->title = $request->title;
-        
+
         $document->file_name = strtotime(now()) . $request->file('ldms_documentFile')->getClientOriginalName();
 
         // $document->expired_date = $request->ldms_experiedDate;
@@ -221,6 +230,8 @@ class DocumentController extends Controller
 
         $document->email = $request->ldms_email;
         $document->mobile = $request->mobile;
+        // $document->vendor = $request->vendor;
+        // $document->ldms_documentdescriptiom = $request->ldms_documentdescriptiom;
 
         // Move uploaded file to storage
         $request->file('ldms_documentFile')->storeAs('public/document', $document->file_name);
@@ -228,6 +239,7 @@ class DocumentController extends Controller
         // Calculate alarm dates
         $totalRemainingDays = now()->diffInDays($request->ldms_experiedDate);
         $alarmDate = [];
+
 
         if ($totalRemainingDays > 30) {
             // Populate alarm dates accordingly
@@ -241,6 +253,7 @@ class DocumentController extends Controller
 
         $document->alarm = implode(",", $alarmDate);
 
+        $document->save();
         if ($document->save()) {
             return redirect("document/ldms_create")->with('message', 'Document Inserted Successfully');
         } else {
@@ -322,71 +335,71 @@ class DocumentController extends Controller
         return redirect()->back()->with('message', 'Documents imported successfully');
     }
 
- public function ldmsEdit($id)
-{
-    $user = Auth::user();
-    $role = $user->roles()->first();
+    public function ldmsEdit($id)
+    {
+        $user = Auth::user();
+        $role = $user->roles()->first();
 
-    $ldms_objDocumentModel = new Document();
-    $document = $ldms_objDocumentModel->find($id);
+        $ldms_objDocumentModel = new Document();
+        $document = $ldms_objDocumentModel->find($id);
 
-    $file_path = public_path('document/' . $document->file_name);
-    $file_exist = file_exists($file_path) ? 1 : 0;
+        $file_path = public_path('document/' . $document->file_name);
+        $file_exist = file_exists($file_path) ? 1 : 0;
 
-    $todayDate = now()->toDateString();
-    $interval = now()->addDays(30)->toDateString();
+        $todayDate = now()->toDateString();
+        $interval = now()->addDays(30)->toDateString();
 
-    if ($role->name == 'admin') {
-        $ldms_expired_documents_all = Document::where('expired_date', '<', $todayDate)->get('*');
-        $ldms_close_expired_documents_all = Document::where('expired_date', '>=', $todayDate)
-            ->where('expired_date', '<', $interval)
-            ->get('*');
-    } else {
-        $ldms_expired_documents_all = $user->documents()->where('expired_date', '<', $todayDate)->get('*');
-        $ldms_close_expired_documents_all = $user->documents()
-            ->where('expired_date', '>=', $todayDate)
-            ->where('expired_date', '<', $interval)
-            ->get('*');
+        if ($role->name == 'admin') {
+            $ldms_expired_documents_all = Document::where('expired_date', '<', $todayDate)->get('*');
+            $ldms_close_expired_documents_all = Document::where('expired_date', '>=', $todayDate)
+                ->where('expired_date', '<', $interval)
+                ->get('*');
+        } else {
+            $ldms_expired_documents_all = $user->documents()->where('expired_date', '<', $todayDate)->get('*');
+            $ldms_close_expired_documents_all = $user->documents()
+                ->where('expired_date', '>=', $todayDate)
+                ->where('expired_date', '<', $interval)
+                ->get('*');
+        }
+
+        return view('document.edit', compact('document', 'ldms_expired_documents_all', 'ldms_close_expired_documents_all', 'file_exist'));
     }
 
-    return view('document.edit', compact('document', 'ldms_expired_documents_all', 'ldms_close_expired_documents_all', 'file_exist'));
-}
 
+    public function ldmsUpdate(Request $request, $id)
+    {
+        $document = Document::findOrFail($id);
+        $role_id = $document->role_id;
 
-public function ldmsUpdate(Request $request, $id)
-{
-    $document = Document::findOrFail($id);
-    $role_id = $document->role_id;
+        if (!empty($request->file('ldms_documentFile'))) {
+            $request->validate([
+                'ldms_documentFile' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:10000',
+            ]);
 
-    if (!empty($request->file('ldms_documentFile'))) {
-        $request->validate([
-            'ldms_documentFile' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:10000',
-        ]);
+            $target_dir = "public/document/";
+            $uploadedFile = $request->file('ldms_documentFile');
+            $fileName = strtotime(now()) . $uploadedFile->getClientOriginalName();
+            $uploadedFile->move($target_dir, $fileName);
 
-        $target_dir = "public/document/";
-        $uploadedFile = $request->file('ldms_documentFile');
-        $fileName = strtotime(now()) . $uploadedFile->getClientOriginalName();
-        $uploadedFile->move($target_dir, $fileName);
+            // Delete previous file
+            unlink(public_path() . '/document/' . $document->file_name);
 
-        // Delete previous file
-        unlink(public_path() . '/document/' . $document->file_name);
+            $document->file_name = $fileName;
+        }
 
-        $document->file_name = $fileName;
+        $document->title = $request->input('ldms_documentTitle');
+        $document->expired_date = date('Y-m-d', strtotime($request->input('ldms_experiedDate')));
+        $document->email = $request->input('ldms_email');
+        $document->mobile = $request->input('mobile');
+
+        $status = $document->save();
+
+        if ($status) {
+            return redirect("document/ldms_create")->with('message', 'Document Updated Successfully');
+        } else {
+            return redirect("document/ldms_create")->with('message1', 'Failed to update, try again.');
+        }
     }
-
-    $document->title = $request->input('ldms_documentTitle');
-    $document->expired_date = date('Y-m-d', strtotime($request->input('ldms_experiedDate')));
-    $document->email = $request->input('ldms_email');
-    $document->mobile = $request->input('mobile');
-
-    $status = $document->save();
-
-    if ($status) {
-        return redirect("document/ldms_create")->with('message', 'Document Updated Successfully');
-    } else {
-        return redirect("document/ldms_create")->with('message1', 'Failed to update, try again.');
-    }
-}
 
 
 
@@ -404,32 +417,32 @@ public function ldmsUpdate(Request $request, $id)
     }
 
     public function ldmsAlarmDate($id)
-{
-    $ldms_objDocumentModel = new Document();
-    $alarmDateList = $ldms_objDocumentModel->find($id);
-
-    $todayDate = strtotime(date('Y-m-d'));
-    $expiredDate = strtotime($alarmDateList['expired_date']);
-
-    if ($expiredDate < $todayDate) {
-        $document = $ldms_objDocumentModel->find($id);
-        $document->alarm = "";
-        $document->save();
+    {
+        $ldms_objDocumentModel = new Document();
         $alarmDateList = $ldms_objDocumentModel->find($id);
+
+        $todayDate = strtotime(date('Y-m-d'));
+        $expiredDate = strtotime($alarmDateList['expired_date']);
+
+        if ($expiredDate < $todayDate) {
+            $document = $ldms_objDocumentModel->find($id);
+            $document->alarm = "";
+            $document->save();
+            $alarmDateList = $ldms_objDocumentModel->find($id);
+        }
+
+        $todayDate = date('Y-m-d');
+
+        $ldms_expired_documents_all = DB::table('documents')
+            ->where('expired_date', '<', $todayDate)
+            ->get();
+
+        $ldms_close_expired_documents_all = DB::table('documents')
+            ->whereRaw('expired_date > now() and expired_date < now() + INTERVAL 30 DAY')
+            ->get();
+
+        return view('document.alarm_date', compact('alarmDateList', 'ldms_expired_documents_all', 'ldms_close_expired_documents_all'));
     }
-
-    $todayDate = date('Y-m-d');
-
-    $ldms_expired_documents_all = DB::table('documents')
-        ->where('expired_date', '<', $todayDate)
-        ->get();
-
-    $ldms_close_expired_documents_all = DB::table('documents')
-        ->whereRaw('expired_date > now() and expired_date < now() + INTERVAL 30 DAY')
-        ->get();
-
-    return view('document.alarm_date', compact('alarmDateList', 'ldms_expired_documents_all', 'ldms_close_expired_documents_all'));
-}
 
 
     public function ldmsAlarmAdd()
@@ -511,7 +524,7 @@ public function ldmsUpdate(Request $request, $id)
         }
     }
 
-     public function ldmsChangePassword()
+    public function ldmsChangePassword()
     {
         if (!env('USER_VERIFIED'))
             return redirect()->back()->with('not_permitted', 'This feature is disable for demo!');
@@ -536,7 +549,7 @@ public function ldmsUpdate(Request $request, $id)
     }
 
 
-     public function ldmsEmailSend()
+    public function ldmsEmailSend()
     {
         $todayDate = date('Y-m-d');
         $ldms_alarm_sending_info = DB::table('documents')
@@ -582,5 +595,4 @@ public function ldmsUpdate(Request $request, $id)
             }
         }
     }
-
 }
