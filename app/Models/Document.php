@@ -15,7 +15,9 @@ public $table='documentas';
         'file_name',
         'expired_date',
         'mobile',
-        'alarm'
+        'alarm',
+        'vendor',
+        'description'
     ];
     public function role()
     {

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
             $table->string('alarm')->nullable();
+            $table->string('vendor')->nullable();
+            $table->string('description')->nullable();
 
             $table->timestamps();
         });

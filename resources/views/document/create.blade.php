@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Digital Asset Register</title>
-    <link rel="stylesheet" href="{{asset('css/newcss/bootstrap.min.css')}}" type="text/css">
-    <link rel="stylesheet" href="{{asset('css/newcss/bootstrap-datepicker.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/newcss/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/newcss/bootstrap-datepicker.min.css') }}" type="text/css">
     {{-- <link rel="stylesheet" href="{{asset('css/newcss/font-awesome.min.css')}}" type="text/css"> --}}
-    <link rel="stylesheet" href="{{asset('css/newcss/jquery-ui.min.css')}}" type="text/css">
-    <link rel="stylesheet" href="{{asset('css/newcss/main.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/newcss/jquery-ui.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/newcss/main.css') }}" type="text/css">
 </head>
 
 <body>
@@ -131,7 +130,7 @@
                         <h3>{{ trans('file.Upload New Document') }}</h3>
     @endif
     <!--Document Create Start-->
-    <form method="post" action="ldms_store" files="true" enctype="multipart/form-data">
+    <form method="post" action="document/ldms_store" files="true" enctype="multipart/form-data">
         <div class="col-md-12">
             {!! csrf_field() !!}
             <div class="form-group">
@@ -247,9 +246,7 @@
     <script type="text/javascript" src="{{ asset('js/newjs/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/dataTables.bootstrap4.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/dataTables.buttons.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/newjs/buttons.bootstrap4.min.js') }}">
-        ">
-    </script>
+    <script type="text/javascript" src="{{ asset('js/newjs/buttons.bootstrap4.min.js') }}">  </script>
     <script type="text/javascript" src="{{ asset('js/newjs/buttons.print.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/pdfmake.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/newjs/vfs_fonts.js') }}"></script>
