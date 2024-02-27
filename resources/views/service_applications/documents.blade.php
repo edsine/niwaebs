@@ -29,19 +29,21 @@
                         <td>
                             {!! Form::open(['route' => ['application.approve.document', $document->id], 'method' => 'post']) !!}
                             <div class='btn-group'>
-                                @if ($document->approval_status)
-                                    {!! Form::button('Decline', [
-                                        'type' => 'submit',
-                                        'class' => 'btn btn-danger btn-xs',
-                                        'onclick' => "return confirm('Are you sure?')",
-                                    ]) !!}
-                                @else
-                                    {!! Form::button('Approve', [
-                                        'type' => 'submit',
-                                        'class' => 'btn btn-success btn-xs',
-                                        'onclick' => "return confirm('Are you sure?')",
-                                    ]) !!}
-                                @endif
+
+                                <input type="hidden" name="selected_button" id="selected_button_input">
+
+                                {!! Form::button('Decline', [
+                                    'type' => 'submit',
+                                    'class' => 'btn btn-danger btn-xs',
+                                    'onclick' => "setSelectedStatus('decline')",
+                                ]) !!}
+
+                                {!! Form::button('Approve', [
+                                    'type' => 'submit',
+                                    'class' => 'btn btn-success btn-xs',
+                                    'onclick' => "setSelectedStatus('approve')",
+                                ]) !!}
+
                             </div>
                             {!! Form::close() !!}
                         </td>
@@ -57,3 +59,11 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function setSelectedStatus(value) {
+        document.getElementById('selected_button_input').value = value;
+        return confirm('Are you sure?');
+    }
+</script>
