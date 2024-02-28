@@ -5,14 +5,14 @@
             <div class=" card-body">
                 <div class="row">
                     <div class="col-4">
-                        <label for="">Requestion Type</label>
+                        <label class=" fw-bolder" for="">Requestion Type</label>
                         <div class="mx-3">
 
                             <span class=" bold">{{ $data->type }}</span>
                         </div>
                     </div>
                     <div class="col-4">
-                        <label for="">Staff Name</label>
+                        <label class="fw-bolder" for="">Staff Name</label>
                         <div class="mx-3">
 
                             <span
@@ -20,30 +20,30 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <label for="">Refrence ID</label>
+                        <label class="fw-bolder" for="">Refrence ID</label>
                         <div class="mx-3">
 
-                            <span class=" fw-bolder">{{ $data->reference_number }}</span>
+                            <span class=" fw-bolder text-success">{{ $data->reference_number }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-4">
-                        <label for="">Title</label>
+                        <label class="fw-bolder" for="">Title</label>
                         <div class="mx-3">
 
                             <span class=" bold">{{ $data->title }}</span>
                         </div>
                     </div>
                     <div class="col-4">
-                        <label for="">DATE ISSUED</label>
+                        <label class="fw-bolder" for="">DATE ISSUED</label>
                         <div class="mx-3">
 
                             <span class=" bold">{{ $data->issue_date }}</span>
                         </div>
                     </div>
                     <div class="col-4">
-                        <label for="">STATUS</label>
+                        <label class="fw-bolder" for="">STATUS</label>
                         <div class="mx-3">
 
                             <span class=" bold">
@@ -84,31 +84,32 @@
             </div>
             @php
 
-            $ap=DB::table('users')->where('unit_head_id',auth()->user()->id);
+                $ap = DB::table('users')->where('unit_head_id', auth()->user()->id);
             @endphp
-            <div class="card-footer">
-                <form action="" method="post">
+
+            @if ($data->status == 1)
+                <div class="card-footer">
+                    <form action="{{ route('unitp.save', [$data->id]) }}" method="post">
+                        @csrf
+
+                        {{-- @method('PUT') --}}
 
 
-
-                    {{-- @foreach ($theuser as $item) --}}
-                        {{-- @if (($theauthuser->department_id == $item->department_id) && $unithead) --}}
+                        <div class="row">
 
 
-                            <div class="row">
-
-
-                                <div class="form-group">
-                                    <label class=" form-label" for=""> ADD COMMENT AS THE SUPERVISOR</label>
-                                    <input type="text" name="unit_comment" class=" form-control form-input" id="">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" value="1" class="btn btn-success">Approve</button>
-                                    <button type="submit" value="0" class="btn btn-danger">Decline</button>
-                                </div>
+                            <div class="form-group">
+                                <label class=" form-label" for=""> ADD COMMENT AS THE SUPERVISOR</label>
+                                <input type="text" name="unit_comment" class=" form-control form-input" id="">
                             </div>
-                            {{-- @endif
-                        @endforeach --}}
+                            <div class="form-group">
+                                <button type="submit" onclick="return confirm('are you sure of declining this Request')"
+                                    value="0" name="status" class="btn btn-danger">Decline</button>
+                                <button type="submit" name="status" value="2" class="btn btn-success">Authorize</button>
+                            </div>
+                        </div>
+                    @endif
+
                 </form>
             </div>
         </div>

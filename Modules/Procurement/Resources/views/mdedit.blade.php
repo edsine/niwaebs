@@ -86,22 +86,30 @@
 
                 $ap = DB::table('users')->where('unit_head_id', auth()->user()->id);
             @endphp
-            @unless ($data->status == 5)
+            @unless ($data->status == 6)
                 <div class="card-footer">
-                    <form action="{{ route('legalp.update', [$data->id]) }}" method="post">
+                    <form action="{{ route('mded.save', [$data->id]) }}" method="post">
+                        
+
+
+
+
 
                         @csrf
                         <div class="row">
+
+
                             <div class="form-group">
-                                <label class=" form-label" for=""> ADD COMMENT AS THE HEAD LEGAL</label>
-                                <input type="text" name="legal_comment" class=" form-control form-input" id="">
+                                <label class=" form-label" for=""> ADD COMMENT AS THE MD</label>
+                                <input type="text" name="md_comment" class=" form-control form-input" id="">
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="status" value="0" class="btn btn-danger">Decline</button>
-                                <button type="submit" name="status" value="5" class="btn btn-success">Authorize</button>
+                                <button type="submit" name="status" value="0" class="btn btn-danger">REJECT </button>
+                                <button type="submit" name="status" value="6" class="btn btn-success">APPROVE</button>
                             </div>
                         </div>
-
+                        {{-- @endif
+                        @endforeach --}}
                     </form>
                 </div>
             @endunless

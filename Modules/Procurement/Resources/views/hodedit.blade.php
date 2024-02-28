@@ -84,33 +84,36 @@
             </div>
             @php
 
-            $ap=DB::table('users')->where('unit_head_id',auth()->user()->id);
+                $ap = DB::table('users')->where('unit_head_id', auth()->user()->id);
             @endphp
-            <div class="card-footer">
-                <form action="" method="post">
+            @if ($data->status == 2)
+                <div class="card-footer">
+                    <form action="{{ route('hodp.save', [$data->id]) }}" method="post">
+                       
 
 
-
-                    {{-- @foreach ($theuser as $item) --}}
-                        {{-- @if (($theauthuser->department_id == $item->department_id) && $unithead) --}}
-
-
-                            <div class="row">
+                        {{-- @foreach ($theuser as $item) --}}
+                        {{-- @if ($theauthuser->department_id == $item->department_id && $unithead) --}}
 
 
-                                <div class="form-group">
-                                    <label class=" form-label" for=""> ADD COMMENT AS THE HOD</label>
-                                    <input type="text" name="hod_comment" class=" form-control form-input" id="">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" value="2" class="btn btn-success">Approve</button>
-                                    <button type="submit" value="0" class="btn btn-danger">Decline</button>
-                                </div>
+                        @csrf
+                        <div class="row">
+
+
+                            <div class="form-group">
+                                <label class=" form-label" for=""> ADD COMMENT AS THE HOD</label>
+                                <input type="text" name="hod_comment" class=" form-control form-input" id="">
                             </div>
-                            {{-- @endif
+                            <div class="form-group">
+                                <button type="submit" name="status" value="0" class="btn btn-danger">Decline</button>
+                                <button type="submit" name="status" value="3" class="btn btn-success">Authorize</button>
+                            </div>
+                        </div>
+                        {{-- @endif
                         @endforeach --}}
-                </form>
-            </div>
+                    </form>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

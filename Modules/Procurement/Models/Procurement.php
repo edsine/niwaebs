@@ -19,6 +19,11 @@ class Procurement extends Model
         'title',
         'status',
         'document',
+        'audit_comment',
+        'hod_comment',
+        'finance_comment',
+        'md_comment',
+        'unit_comment'
 
     ];
     public static array $rules=[

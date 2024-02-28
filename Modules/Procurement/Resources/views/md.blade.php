@@ -28,12 +28,20 @@
                                 <span class=" fw-bolder text-danger">
                                     REJECTED
                                 </span>
-                            @elseif ($item->status = 1)
-                                <span class=" fw-bolder text-warning"> Awaiting Supervisor Approval</span>
-                            @elseif ($item->status = 2)
-                                <span class=" fw-bolder text-warning"> Awaiting HOD Approval</span>
+                            @elseif ($item->status == 1)
+                                <span class=" fw-bolder text-warning"> Awaiting Supervisor  Approval</span>
+
+
+                                {{-- @elseif ($item->status == 2)
+                                <span class=" fw-bolder text-warning"> Awaiting HOD Approval</span> --}}
+                                {{-- @elseif ($item->status == 3)
+                                <span class=" fw-bolder text-warning"> Awaiting HOD Approval</span> --}}
+                                @elseif ($item->status == 4)
+                                <span class=" fw-bolder text-warning"> Awaiting Audit/Legal Approval</span>
+                                @elseif ($item->status == 5)
+                                <span class=" fw-bolder text-warning"> Awaiting MD Approval</span>
                             @else
-                                <span class=" fw-bolder text-success"> Approved</span>
+                                <span class=" fw-bolder text-success"> Approved And Sent To Finance</span>
                             @endif
                         </td>
                         <td>
@@ -42,9 +50,15 @@
                                 {{-- <a href="{{ route('procurement.show', [$item->id]) }}" class='btn btn-default btn-xs'>
                                     View
                                 </a> --}}
-                                <a href="{{ route('unithead', [$item->id]) }}" class='btn btn-default btn-xs'>
+                                @if ($item->status>=4)
+
+                                <a href="{{ route('mded.proc', [$item->id]) }}" class='btn btn-default btn-xs'>
                                     View
                                 </a>
+                                @else
+
+                                {{'PENDING'}}
+                                @endif
 
                                 {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',

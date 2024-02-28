@@ -23,8 +23,12 @@ class CreateProcurementsTable extends Migration
             $table->integer('status')->default(0);
             $table->string('unit_comment')->nullable();
             $table->string('hod_comment')->nullable();
- 
-            $table->string('other_hod_comment')->nullable();
+            $table->string('audit_comment')->nullable();
+            $table->string('legal_comment')->nullable();
+            $table->string('finance_comment')->nullable();
+            $table->string('md_comment')->nullable();
+
+            $table->string('document')->nullable();
 
             $table->timestamps();
         });

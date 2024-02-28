@@ -33,10 +33,21 @@
                                 <span class=" fw-bolder text-danger">
                                     REJECTED
                                 </span>
-                            @elseif ($item->status = 1)
+                            @elseif ($item->status == 1)
                                 <span class=" fw-bolder text-warning"> Awaiting Supervisor Approval</span>
-                            @elseif ($item->status = 2)
+                            @elseif ($item->status == 2)
                                 <span class=" fw-bolder text-warning"> Awaiting HOD Approval</span>
+                            @elseif ($item->status == 3)
+                                <span class=" fw-bolder text-warning"> Awaiting Audit HOD Approval</span>
+                            @elseif ($item->status == 4)
+                                <span class=" fw-bolder text-warning"> Awaiting Legal HOD Approval</span>
+                            @elseif ($item->status == 5)
+                                <span class=" fw-bolder text-warning"> Awaiting MD Approval</span>
+                            @elseif ($item->status == 6)
+                                <span class=" fw-bolder text-warning"> Awaiting Fianance Payment</span>
+                            @elseif ($item->status == 7)
+                                <span class=" fw-bolder text-success"> PAYMENT SUCCESSFUL</span>
+
                             @else
                                 <span class=" fw-bolder text-success"> Approved</span>
                             @endif
@@ -272,7 +283,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit"  name="status" value="1" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="status" value="1" class="btn btn-primary">Submit</button>
                 </div>
                 </form>
                 {{-- <div class="modal-footer">
