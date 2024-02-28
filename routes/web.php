@@ -447,7 +447,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/document/ldms_create', [DocumentController::class,'ldmsCreate'])->name('create.document');
 
-	Route::post('/document/ldms_store', [DocumentController::class,'ldmsStore'])->name('documents.store');
+	Route::post('/document/ldms_store', [DocumentController::class,'ldmsStore'])->name('documents.stores');
 	// Route::get('/document/ldms_edit/{id}', array("uses"=>'DocumentController@ldmsEdit'));
 	Route::get('/document/ldms_edit/{id}', [DocumentController::class,'ldmsEdit']);
 
