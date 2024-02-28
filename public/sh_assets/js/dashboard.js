@@ -8,12 +8,12 @@
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
           datasets: [{
-              label: 'Delivered',
+              label: 'Registered',
               data: [260, 380, 230, 400, 780, 530, 340, 200, 400, 650, 780, 500],
               backgroundColor: '#392c70'
             },
             {
-              label: 'Estimated',
+              label: 'Active',
               data: [480, 600, 510, 600, 1000, 570, 500, 350, 450, 710, 820, 650],
               backgroundColor: '#d1cede'
             }
@@ -80,11 +80,11 @@
     if ($('#sales-chart').length) {
       var lineChartCanvas = $("#sales-chart").get(0).getContext("2d");
       var data = {
-        labels: ["2013", "2014", "2014", "2015", "2016", "2017", "2018"],
+        labels: ["Jan", "Feb", "March", "April", "May", "June", "July","August", "Sept", "Oct", "Nov", "Dec"],
         datasets: [
           {
-            label: 'Support',
-            data: [1500, 7030, 1050, 2300, 3510, 6800, 4500],
+            label: 'Debtors',
+            data: [1500, 4080, 1050, 2300, 3510, 5300, 2800, 650, 1300, 2510, 4300, 1800],
             borderColor: [
               '#392c70'
             ],
@@ -92,10 +92,19 @@
             fill: false
           },
           {
-            label: 'Product',
-            data: [5500, 4080, 3050, 5600, 4510, 5300, 2400],
+            label: 'Total Debt Amount',
+            data: [5500, 7030, 3050, 5600, 4510, 6800, 4500, 2050, 4600, 3510, 5800, 3500],
             borderColor: [
               '#d1cede'
+            ],
+            borderWidth: 3,
+            fill: false
+          },
+          {
+            label: 'Current (%)',
+            data: [0, 0, 0, 0, 0, 0, 1200, 0, 0, 0, 0, 600],
+            borderColor: [
+              '#1da1f2'
             ],
             borderWidth: 3,
             fill: false
@@ -109,7 +118,7 @@
               drawBorder: false
             },
             ticks: {
-              stepSize: 2000,
+              stepSize: 1000,
               fontColor: "#686868"
             }
           }],
@@ -159,10 +168,10 @@
       
           // These labels appear in the legend and in the tooltips when hovering different arcs
           labels: [
-            'Active users',
-            'Subscribers',
-            'New visitors',
-            'Others'
+            'Completed',
+            'In Progress',
+            'On Hold',
+            'Cancelled'
           ]
         },
         options: {
@@ -207,10 +216,10 @@
     
         // These labels appear in the legend and in the tooltips when hovering different arcs
         labels: [
-          'Mail order sales',
-          'Instore sales',
-          'Download sales',
-          'Sales return'
+          'SOPs',
+          'EIAs',
+          'Project Reports',
+          'Other Document Types'
         ]
       };
       var dailySalesChartOptions = {

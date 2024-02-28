@@ -727,6 +727,18 @@
     <script src="{{ asset('sh_assets/js/morris.js') }}"></script>
     <!-- End custom js for this page-->
     <script src="{{ asset('sh_assets/js/data-table.js') }}"></script>
+    <!-- Custom Mapeal js for this page-->
+    <script src="{{ asset('sh_assets/js/mapeal.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/mapeal_example_1.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/mapeal_example_2.js') }}"></script>
+    <!-- End custom Mapeal js for this page-->
+
+    <script src="{{ asset('jquery-mapael-nigeria/js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/js/raphael-2.2.7.min.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/js/jquery-mapael-2.1.0.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/nigeria.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/scripts/major-city-plots.js') }}"></script>
+
 
 
     <!-- for the form repeater  -->

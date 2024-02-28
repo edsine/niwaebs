@@ -48,145 +48,145 @@ Route::middleware(['auth'])->group(function () {
 // Start of asset manager
 
 Route::middleware(['auth'])->group(function () {
-Route::get('/asset/home','App\Http\Controllers\Home@index');
-Route::get('/brandlist','App\Http\Controllers\Brand@index');
-Route::get('/departmentlist','App\Http\Controllers\Department@index');
-Route::get('/assettypelist','App\Http\Controllers\AssetType@index');
-Route::get('/locationlist','App\Http\Controllers\Location@index');
-Route::get('/employeeslist','App\Http\Controllers\Employees@index');
-Route::get('/supplierlist','App\Http\Controllers\Supplier@index');
-Route::get('/userlist','App\Http\Controllers\User@index');
-Route::get('/settinglist','App\Http\Controllers\Settings@index');
-Route::get('/assetlist','App\Http\Controllers\Asset@index');
-Route::get('/assetlist/detail/{id}','App\Http\Controllers\Asset@detail');
-Route::get('/assetlist/generatelabel/{id}','App\Http\Controllers\Asset@generatelabel');
-Route::get('/componentlist','App\Http\Controllers\Component@index');
-Route::get('/componentlist/detail/{componentid}','App\Http\Controllers\Component@detail');
-Route::get('/maintenancelist','App\Http\Controllers\Maintenance@index');
+    Route::get('/asset/home', 'App\Http\Controllers\Home@index');
+    Route::get('/brandlist', 'App\Http\Controllers\Brand@index');
+    Route::get('/departmentlist', 'App\Http\Controllers\Department@index');
+    Route::get('/assettypelist', 'App\Http\Controllers\AssetType@index');
+    Route::get('/locationlist', 'App\Http\Controllers\Location@index');
+    Route::get('/employeeslist', 'App\Http\Controllers\Employees@index');
+    Route::get('/supplierlist', 'App\Http\Controllers\Supplier@index');
+    Route::get('/userlist', 'App\Http\Controllers\User@index');
+    Route::get('/settinglist', 'App\Http\Controllers\Settings@index');
+    Route::get('/assetlist', 'App\Http\Controllers\Asset@index');
+    Route::get('/assetlist/detail/{id}', 'App\Http\Controllers\Asset@detail');
+    Route::get('/assetlist/generatelabel/{id}', 'App\Http\Controllers\Asset@generatelabel');
+    Route::get('/componentlist', 'App\Http\Controllers\Component@index');
+    Route::get('/componentlist/detail/{componentid}', 'App\Http\Controllers\Component@detail');
+    Route::get('/maintenancelist', 'App\Http\Controllers\Maintenance@index');
 
 
-//report
-Route::get('/reports/assetactivity','App\Http\Controllers\Reports@assetactivity');
-Route::get('/reports/componentactivity','App\Http\Controllers\Reports@componentactivity');
-Route::get('/reports/maintenance','App\Http\Controllers\Reports@maintenance');
-Route::get('/reports/bytype','App\Http\Controllers\Reports@bytype');
-Route::get('/reports/bystatus','App\Http\Controllers\Reports@bystatus');
-Route::get('/reports/bylocation','App\Http\Controllers\Reports@bylocation');
-Route::get('/reports/bysupplier','App\Http\Controllers\Reports@bysupplier');
-Route::get('/reports/allreports','App\Http\Controllers\Reports@allreports');
+    //report
+    Route::get('/reports/assetactivity', 'App\Http\Controllers\Reports@assetactivity');
+    Route::get('/reports/componentactivity', 'App\Http\Controllers\Reports@componentactivity');
+    Route::get('/reports/maintenance', 'App\Http\Controllers\Reports@maintenance');
+    Route::get('/reports/bytype', 'App\Http\Controllers\Reports@bytype');
+    Route::get('/reports/bystatus', 'App\Http\Controllers\Reports@bystatus');
+    Route::get('/reports/bylocation', 'App\Http\Controllers\Reports@bylocation');
+    Route::get('/reports/bysupplier', 'App\Http\Controllers\Reports@bysupplier');
+    Route::get('/reports/allreports', 'App\Http\Controllers\Reports@allreports');
 
-//Home API
-Route::get('home/totalbalance','App\Http\Controllers\Home@totalbalance');
-Route::get('home/assetbytype','App\Http\Controllers\Home@assetbytype');
-Route::get('home/assetbystatus','App\Http\Controllers\Home@assetbystatus');
-Route::get('home/recentassetactivity','App\Http\Controllers\Home@recentassetactivity');
-Route::get('home/recentcomponentactivity','App\Http\Controllers\Home@recentcomponentactivity');
+    //Home API
+    Route::get('home/totalbalance', 'App\Http\Controllers\Home@totalbalance');
+    Route::get('home/assetbytype', 'App\Http\Controllers\Home@assetbytype');
+    Route::get('home/assetbystatus', 'App\Http\Controllers\Home@assetbystatus');
+    Route::get('home/recentassetactivity', 'App\Http\Controllers\Home@recentassetactivity');
+    Route::get('home/recentcomponentactivity', 'App\Http\Controllers\Home@recentcomponentactivity');
 
-//Brand API
-Route::get('brand','App\Http\Controllers\Brand@getdata');
-Route::get('listbrand','App\Http\Controllers\Brand@getrows');
-Route::post('savebrand','App\Http\Controllers\Brand@save');
-Route::post('updatebrand','App\Http\Controllers\Brand@update');
-Route::post('deletebrand','App\Http\Controllers\Brand@delete');
-Route::post('brandbyid','App\Http\Controllers\Brand@byid');
+    //Brand API
+    Route::get('brand', 'App\Http\Controllers\Brand@getdata');
+    Route::get('listbrand', 'App\Http\Controllers\Brand@getrows');
+    Route::post('savebrand', 'App\Http\Controllers\Brand@save');
+    Route::post('updatebrand', 'App\Http\Controllers\Brand@update');
+    Route::post('deletebrand', 'App\Http\Controllers\Brand@delete');
+    Route::post('brandbyid', 'App\Http\Controllers\Brand@byid');
 
-//Department API
-/* Route::get('department','App\Http\Controllers\Department@getdata');
+    //Department API
+    /* Route::get('department','App\Http\Controllers\Department@getdata');
 Route::get('listdepartment','App\Http\Controllers\Department@getrows');
 Route::post('savedepartment','App\Http\Controllers\Department@save');
 Route::post('updatedepartment','App\Http\Controllers\Department@update');
 Route::post('deletedepartment','App\Http\Controllers\Department@delete');
 Route::post('departmentbyid','App\Http\Controllers\Department@byid'); */
 
-//Asset Type API
-Route::get('assettype','App\Http\Controllers\AssetType@getdata');
-Route::get('listassettype','App\Http\Controllers\AssetType@getrows');
-Route::post('saveassettype','App\Http\Controllers\AssetType@save');
-Route::post('updateassettype','App\Http\Controllers\AssetType@update');
-Route::post('deleteassettype','App\Http\Controllers\AssetType@delete');
-Route::post('assettypebyid','App\Http\Controllers\AssetType@byid');
+    //Asset Type API
+    Route::get('assettype', 'App\Http\Controllers\AssetType@getdata');
+    Route::get('listassettype', 'App\Http\Controllers\AssetType@getrows');
+    Route::post('saveassettype', 'App\Http\Controllers\AssetType@save');
+    Route::post('updateassettype', 'App\Http\Controllers\AssetType@update');
+    Route::post('deleteassettype', 'App\Http\Controllers\AssetType@delete');
+    Route::post('assettypebyid', 'App\Http\Controllers\AssetType@byid');
 
-//Location API
-Route::get('location','App\Http\Controllers\Location@getdata');
-Route::get('listlocation','App\Http\Controllers\Location@getrows');
-Route::post('savelocation','App\Http\Controllers\Location@save');
-Route::post('updatelocation','App\Http\Controllers\Location@update');
-Route::post('deletelocation','App\Http\Controllers\Location@delete');
-Route::post('locationbyid','App\Http\Controllers\Location@byid');
+    //Location API
+    Route::get('location', 'App\Http\Controllers\Location@getdata');
+    Route::get('listlocation', 'App\Http\Controllers\Location@getrows');
+    Route::post('savelocation', 'App\Http\Controllers\Location@save');
+    Route::post('updatelocation', 'App\Http\Controllers\Location@update');
+    Route::post('deletelocation', 'App\Http\Controllers\Location@delete');
+    Route::post('locationbyid', 'App\Http\Controllers\Location@byid');
 
-//Employees API
-Route::get('listemployees','App\Http\Controllers\UserController@getrows');
-/* Route::get('employees','App\Http\Controllers\Employees@getdata');
+    //Employees API
+    Route::get('listemployees', 'App\Http\Controllers\UserController@getrows');
+    /* Route::get('employees','App\Http\Controllers\Employees@getdata');
 Route::get('listemployees','App\Http\Controllers\Employees@getrows');
 Route::post('saveemployees','App\Http\Controllers\Employees@save');
 Route::post('updateemployees','App\Http\Controllers\Employees@update');
 Route::post('deleteemployees','App\Http\Controllers\Employees@delete');
 Route::post('employeesbyid','App\Http\Controllers\Employees@byid'); */
 
-//Supplier API
-Route::get('supplier','App\Http\Controllers\Supplier@getdata');
-Route::get('listsupplier','App\Http\Controllers\Supplier@getrows');
-Route::post('savesupplier','App\Http\Controllers\Supplier@save');
-Route::post('updatesupplier','App\Http\Controllers\Supplier@update');
-Route::post('deletesupplier','App\Http\Controllers\Supplier@delete');
-Route::post('supplierbyid','App\Http\Controllers\Supplier@byid');
+    //Supplier API
+    Route::get('supplier', 'App\Http\Controllers\Supplier@getdata');
+    Route::get('listsupplier', 'App\Http\Controllers\Supplier@getrows');
+    Route::post('savesupplier', 'App\Http\Controllers\Supplier@save');
+    Route::post('updatesupplier', 'App\Http\Controllers\Supplier@update');
+    Route::post('deletesupplier', 'App\Http\Controllers\Supplier@delete');
+    Route::post('supplierbyid', 'App\Http\Controllers\Supplier@byid');
 
-//User API
-/* Route::get('user','App\Http\Controllers\User@getdata');
+    //User API
+    /* Route::get('user','App\Http\Controllers\User@getdata');
 Route::get('listuser','App\Http\Controllers\User@getrows');
 Route::post('saveuser','App\Http\Controllers\User@save');
 Route::post('updateuser','App\Http\Controllers\User@update');
 Route::post('deleteuser','App\Http\Controllers\User@delete');
 Route::post('userbyid','App\Http\Controllers\User@byid'); */
 
-//Settings API
-/* Route::get('settings','App\Http\Controllers\Settings@getdata');
+    //Settings API
+    /* Route::get('settings','App\Http\Controllers\Settings@getdata');
 Route::post('updatesettings','App\Http\Controllers\Settings@update');
  */
-//Asset API
-Route::get('asset/data','App\Http\Controllers\Asset@getdata');
-Route::get('listasset','App\Http\Controllers\Asset@getrows');
-Route::post('saveasset','App\Http\Controllers\Asset@save');
-Route::post('updateasset','App\Http\Controllers\Asset@update');
-Route::post('deleteasset','App\Http\Controllers\Asset@delete');
-Route::post('assetbyid','App\Http\Controllers\Asset@byid');
-Route::post('savecheckout','App\Http\Controllers\Asset@savecheckout');
-Route::post('savecheckin','App\Http\Controllers\Asset@savecheckin');
-Route::post('historyassetbyid','App\Http\Controllers\Asset@historyassetbyid');
-Route::get('asset/generateproductcode','App\Http\Controllers\Asset@generateproductcode');
+    //Asset API
+    Route::get('asset/data', 'App\Http\Controllers\Asset@getdata');
+    Route::get('listasset', 'App\Http\Controllers\Asset@getrows');
+    Route::post('saveasset', 'App\Http\Controllers\Asset@save');
+    Route::post('updateasset', 'App\Http\Controllers\Asset@update');
+    Route::post('deleteasset', 'App\Http\Controllers\Asset@delete');
+    Route::post('assetbyid', 'App\Http\Controllers\Asset@byid');
+    Route::post('savecheckout', 'App\Http\Controllers\Asset@savecheckout');
+    Route::post('savecheckin', 'App\Http\Controllers\Asset@savecheckin');
+    Route::post('historyassetbyid', 'App\Http\Controllers\Asset@historyassetbyid');
+    Route::get('asset/generateproductcode', 'App\Http\Controllers\Asset@generateproductcode');
 
 
-//Component API
-Route::get('component','App\Http\Controllers\Component@getdata');
-Route::get('listcomponent','App\Http\Controllers\Component@getrows');
-Route::post('savecomponent','App\Http\Controllers\Component@save');
-Route::post('updatecomponent','App\Http\Controllers\Component@update');
-Route::post('deletecomponent','App\Http\Controllers\Component@delete');
-Route::post('savecheckoutcomponent','App\Http\Controllers\Component@savecheckout');
-Route::post('savecheckincomponent','App\Http\Controllers\Component@savecheckin');
-Route::post('componentbyid','App\Http\Controllers\Component@byid');
-Route::post('singlehistorycomponentbyid','App\Http\Controllers\Component@singlehistorycomponentbyid');
-Route::get('component/generateproductcode','App\Http\Controllers\Component@generateproductcode');
-Route::post('componentassetbyid','App\Http\Controllers\Component@assetsbyid');
-Route::post('historycomponentbyid','App\Http\Controllers\Component@historycomponentbyid');
+    //Component API
+    Route::get('component', 'App\Http\Controllers\Component@getdata');
+    Route::get('listcomponent', 'App\Http\Controllers\Component@getrows');
+    Route::post('savecomponent', 'App\Http\Controllers\Component@save');
+    Route::post('updatecomponent', 'App\Http\Controllers\Component@update');
+    Route::post('deletecomponent', 'App\Http\Controllers\Component@delete');
+    Route::post('savecheckoutcomponent', 'App\Http\Controllers\Component@savecheckout');
+    Route::post('savecheckincomponent', 'App\Http\Controllers\Component@savecheckin');
+    Route::post('componentbyid', 'App\Http\Controllers\Component@byid');
+    Route::post('singlehistorycomponentbyid', 'App\Http\Controllers\Component@singlehistorycomponentbyid');
+    Route::get('component/generateproductcode', 'App\Http\Controllers\Component@generateproductcode');
+    Route::post('componentassetbyid', 'App\Http\Controllers\Component@assetsbyid');
+    Route::post('historycomponentbyid', 'App\Http\Controllers\Component@historycomponentbyid');
 
-//Maintenance API
-Route::get('maintenance','App\Http\Controllers\Maintenance@getdata');
-Route::get('listmaintenance','App\Http\Controllers\Maintenance@getrows');
-Route::post('savemaintenance','App\Http\Controllers\Maintenance@save');
-Route::post('updatemaintenance','App\Http\Controllers\Maintenance@update');
-Route::post('deletemaintenance','App\Http\Controllers\Maintenance@delete');
-Route::post('maintenancebyid','App\Http\Controllers\Maintenance@byid');
-Route::post('maintenanceassetsbyid','App\Http\Controllers\Maintenance@assetsbyid');
+    //Maintenance API
+    Route::get('maintenance', 'App\Http\Controllers\Maintenance@getdata');
+    Route::get('listmaintenance', 'App\Http\Controllers\Maintenance@getrows');
+    Route::post('savemaintenance', 'App\Http\Controllers\Maintenance@save');
+    Route::post('updatemaintenance', 'App\Http\Controllers\Maintenance@update');
+    Route::post('deletemaintenance', 'App\Http\Controllers\Maintenance@delete');
+    Route::post('maintenancebyid', 'App\Http\Controllers\Maintenance@byid');
+    Route::post('maintenanceassetsbyid', 'App\Http\Controllers\Maintenance@assetsbyid');
 
 
-//Report API
-Route::get('listassetactivityreport','App\Http\Controllers\Reports@getassetactivityreport');
-Route::get('listcomponentactivityreport','App\Http\Controllers\Reports@getcomponentactivityreport');
-Route::get('getdatabytypereport','App\Http\Controllers\Reports@getdatabytypereport');
-Route::get('getdatabystatusreport','App\Http\Controllers\Reports@getdatabystatusreport');
-Route::get('getdatabysupplierreport','App\Http\Controllers\Reports@getdatabysupplierreport');
-Route::get('getdatabylocationreport','App\Http\Controllers\Reports@getdatabylocationreport');
+    //Report API
+    Route::get('listassetactivityreport', 'App\Http\Controllers\Reports@getassetactivityreport');
+    Route::get('listcomponentactivityreport', 'App\Http\Controllers\Reports@getcomponentactivityreport');
+    Route::get('getdatabytypereport', 'App\Http\Controllers\Reports@getdatabytypereport');
+    Route::get('getdatabystatusreport', 'App\Http\Controllers\Reports@getdatabystatusreport');
+    Route::get('getdatabysupplierreport', 'App\Http\Controllers\Reports@getdatabysupplierreport');
+    Route::get('getdatabylocationreport', 'App\Http\Controllers\Reports@getdatabylocationreport');
 });
 // End asset manager
 
@@ -217,6 +217,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
     Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
+    Route::get('/aocadmin', [HomeController::class, 'aoc'])->name('aocadmin');
     Route::resource('services', App\Http\Controllers\ServiceController::class);
     Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
 });
@@ -305,8 +306,8 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::view('/md','md');
 // Route::view('am','am');
 
-Route::get('md_user',[HomeController::class,'md'])->name('md');
-Route::get('areamanager',[HomeController::class,'areamanager'])->name('am');
+Route::get('md_user', [HomeController::class, 'md'])->name('md');
+Route::get('areamanager', [HomeController::class, 'areamanager'])->name('am');
 //=================================== Zoom Meeting ======================================================================
 Route::get('zoom', function () {
     return view('zoom-meeting.index');
@@ -433,53 +434,53 @@ Route::get('/map/{id}', 'App\Http\Controllers\ServiceApplicationController@showM
 
 
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
 
 
-    Route::get('createdocument',[DocumentController::class,'ldmsCreate'])->name('document.create');
-    Route::get('document/updateprofile',[DocumentController::class,'ldmsUpdateProfile'])->name('document.updateprofile');
+    Route::get('createdocument', [DocumentController::class, 'ldmsCreate'])->name('document.create');
+    Route::get('document/updateprofile', [DocumentController::class, 'ldmsUpdateProfile'])->name('document.updateprofile');
 
 
 
-    Route::get('language-switch/{locale}', [HomeController::class,'languageSwitch']);
+    Route::get('language-switch/{locale}', [HomeController::class, 'languageSwitch']);
 
-	Route::post('/document/import', [DocumentController::class,'import'])->name('document.import');
+    Route::post('/document/import', [DocumentController::class, 'import'])->name('document.import');
 
-	Route::get('/document/ldms_create', [DocumentController::class,'ldmsCreate'])->name('create.document');
+    Route::get('/document/ldms_create', [DocumentController::class, 'ldmsCreate'])->name('create.document');
 
 	Route::post('/document/ldms_store', [DocumentController::class,'ldmsStore'])->name('documents.stores');
 	// Route::get('/document/ldms_edit/{id}', array("uses"=>'DocumentController@ldmsEdit'));
 	Route::get('/document/ldms_edit/{id}', [DocumentController::class,'ldmsEdit']);
 
-	Route::post('/document/ldms_edit/ldms_update/{id}', [DocumentController::class,'ldmsUpdate']);
-	Route::get('/document/ldms_delete/{id}/{fileName}', [DocumentController::class,'ldmsDelete']);
-	Route::get('/document/ldms_alarm_date/{id}', [DocumentController::class,'ldmsAlarmDate']);
-	Route::post('/document/ldms_alarm_date/ldms_alarm_add', [DocumentController::class,'ldmsAlarmAdd']);
-	Route::get('/document/ldms_alarm_date/ldms_alarm_delete/{alarm}/{id}/{alarmList}', [DocumentController::class,'ldmsAlarmDelete']);
-	Route::get('/document/ldms_updateProfile', [DocumentController::class,'ldmsUpdateProfile']);
-	Route::post('/document/ldms_manageProfileUpdate', [DocumentController::class,'ldmsManageProfileUpdate']);
-	Route::post('/document/ldms_changePassword', [DocumentController::class,'ldmsChangePassword']);
-	Route::get('/document/ldms_expired_documents', [DocumentController::class,'ldmsExpiredDocuments'])->name('expireddocument');
-	Route::get('/document/ldms_close_to_be_expired_documents', [DocumentController::class,'ldmsCloseToBeExpiredDocuments'])->name('closetobe');
-	Route::get('/document/ldms_search', [DocumentController::class,'ldmsSearch']);
-	Route::get('/document/ldms_email_send', [DocumentController::class,'ldmsEmailSend']);
-	Route::get('general-settings', [HomeController::class,'generalSetting'])->name('setting.general');
-	Route::post('general-settingStore', [HomeController::class,'generalSettingStore'])->name('setting.generalStore');
-	Route::get('mail-settings', [HomeController::class,'mailSetting'])->name('setting.mail');
-	Route::post('mail-settingStore', [HomeController::class,'mailSettingStore'])->name('setting.mailStore');
-	Route::get('sms-settings', [HomeController::class,'smsSetting'])->name('setting.sms');
-	Route::post('sms-settingStore', [HomeController::class,'smsSettingStore'])->name('setting.smsStore');
+    Route::post('/document/ldms_edit/ldms_update/{id}', [DocumentController::class, 'ldmsUpdate']);
+    Route::get('/document/ldms_delete/{id}/{fileName}', [DocumentController::class, 'ldmsDelete']);
+    Route::get('/document/ldms_alarm_date/{id}', [DocumentController::class, 'ldmsAlarmDate']);
+    Route::post('/document/ldms_alarm_date/ldms_alarm_add', [DocumentController::class, 'ldmsAlarmAdd']);
+    Route::get('/document/ldms_alarm_date/ldms_alarm_delete/{alarm}/{id}/{alarmList}', [DocumentController::class, 'ldmsAlarmDelete']);
+    Route::get('/document/ldms_updateProfile', [DocumentController::class, 'ldmsUpdateProfile']);
+    Route::post('/document/ldms_manageProfileUpdate', [DocumentController::class, 'ldmsManageProfileUpdate']);
+    Route::post('/document/ldms_changePassword', [DocumentController::class, 'ldmsChangePassword']);
+    Route::get('/document/ldms_expired_documents', [DocumentController::class, 'ldmsExpiredDocuments'])->name('expireddocument');
+    Route::get('/document/ldms_close_to_be_expired_documents', [DocumentController::class, 'ldmsCloseToBeExpiredDocuments'])->name('closetobe');
+    Route::get('/document/ldms_search', [DocumentController::class, 'ldmsSearch']);
+    Route::get('/document/ldms_email_send', [DocumentController::class, 'ldmsEmailSend']);
+    Route::get('general-settings', [HomeController::class, 'generalSetting'])->name('setting.general');
+    Route::post('general-settingStore', [HomeController::class, 'generalSettingStore'])->name('setting.generalStore');
+    Route::get('mail-settings', [HomeController::class, 'mailSetting'])->name('setting.mail');
+    Route::post('mail-settingStore', [HomeController::class, 'mailSettingStore'])->name('setting.mailStore');
+    Route::get('sms-settings', [HomeController::class, 'smsSetting'])->name('setting.sms');
+    Route::post('sms-settingStore', [HomeController::class, 'smsSettingStore'])->name('setting.smsStore');
 });
 
-Route::group(['middleware' => ['auth',]], function(){
+Route::group(['middleware' => ['auth',]], function () {
 
-	Route::get('/role/ldms_role_search', [RoleController::class,'ldmsRoleSearch']);
-	Route::get('/user/ldms_user_search', [UserController::class,'ldmsUserSearch']);
-	Route::resource('role',RoleController::class);
-	Route::get('/user/password', [UserController::class,'userPass']);
-	// Route::get('user/demo','UserController@demo');
-	// Route::get('user/demo',[UserController::class,'demo']);
-	Route::resource('user',UserController::class);
+    Route::get('/role/ldms_role_search', [RoleController::class, 'ldmsRoleSearch']);
+    Route::get('/user/ldms_user_search', [UserController::class, 'ldmsUserSearch']);
+    Route::resource('role', RoleController::class);
+    Route::get('/user/password', [UserController::class, 'userPass']);
+    // Route::get('user/demo','UserController@demo');
+    // Route::get('user/demo',[UserController::class,'demo']);
+    Route::resource('user', UserController::class);
 
     // Route::get('user/create',[UserController::class,'create'])->name('user.create');
 });
