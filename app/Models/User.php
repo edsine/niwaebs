@@ -32,6 +32,7 @@ use Modules\HumanResource\Models\Ranking;
 
 use Illuminate\Notifications\Notification;
 use Modules\HRMSystem\Models\OtherPayment;
+use Modules\Procurement\Models\Procurement;
 use Modules\EmployerManager\Models\Employer;
 use Modules\HRMSystem\Models\AllowanceOption;
 use Modules\HRMSystem\Models\DeductionOption;
@@ -71,7 +72,7 @@ class User extends Authenticatable implements Auditable
         'tax_payer_id',
         'salary',
         'salary_type' ,
-       
+
     ];
 
     /**
@@ -134,6 +135,9 @@ class User extends Authenticatable implements Auditable
         return $this->hasOne(Staff::class);
     }
 
+    public function procurement(){
+        return $this->hasMany(Procurement::class);
+    }
     public function unitHead()
     {
         return $this->hasOne(UnitHead::class);

@@ -11,6 +11,7 @@
             display: none
         }
     </style> --}}
+    @stack('dar_css')
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
@@ -46,23 +47,21 @@
     {{-- for the document management system --}}
 
 
+
     <!-- Custom Asset end -->
     {{-- all the assets --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js"
-        integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js" integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js" integrity="sha512-cXLS4U14Rm+shV7jwsUiq97QCKtYB9tgsxDncZ5j2Emaye4wi/lYWrEK1472KFFykPdHug7L6NBNzGT8s7U1lA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js.map"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js.map"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.js"
-        integrity="sha512-nNkHPz+lD0Wf0eFGO0ZDxr+lWiFalFutgVeGkPdVgrG4eXDYUnhfEj9Zmg1QkrJFLC0tGs8ZExyU/1mjs4j93w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js.map"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.js" integrity="sha512-nNkHPz+lD0Wf0eFGO0ZDxr+lWiFalFutgVeGkPdVgrG4eXDYUnhfEj9Zmg1QkrJFLC0tGs8ZExyU/1mjs4j93w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js" integrity="sha512-EFlschXPq/G5zunGPRSYqazR1CMKj0cQc8v6eMrQwybxgIbhsfoO5NAMQX3xFDQIbFlViv53o7Hy+yCWw6iZxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Italic.ttf"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Medium.ttf"></script> --}}
     @stack('third_party_stylesheets')
 
     @stack('page_css')
+    {{-- @stack('dar_css') --}}
     <style>
         #clockInCard,
         #announcementCard {
@@ -419,6 +418,10 @@
         }
     </style>
 
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script> --}}
+
+
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('sh_assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('sh_assets/vendors/css/vendor.bundle.base.css') }}">
@@ -429,14 +432,29 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('sh_assets/css/style.css') }}">
     <!-- endinject -->
+
+    <!-- for the css datatable -->
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">
+
+
 </head>
 
 <body data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true"
     data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true"
     data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
-    class="app-default"
-    data-kt-app-sidebar-minimize="{{ auth()->user()->hasRole('minister') || auth()->user()->hasRole('permsec') ? 'on' : 'off' }}">
+    class="app-default">
     <!--begin::Theme mode setup on page load-->
+    {{-- <body data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true"
+    data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true"
+    data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
+    class="app-default"
+    data-kt-app-sidebar-minimize="{{ auth()->user()->hasRole('minister') ||auth()->user()->hasRole('permsec')? 'on': 'off' }}">
+    <!--begin::Theme mode setup on page load--> --}}
+
+
+
+
+
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -460,6 +478,8 @@
     <!--begin::App-->
     <div class="container-scroller">
         <!--begin::Header-->
+        @if (auth()->check())
+
         @include('layouts.header')
         <!--end::Header-->
         <!--begin::Wrapper-->
@@ -479,6 +499,8 @@
                 @include('layouts.footer')
                 <!--end::Footer-->
             </div>
+           
+            @endif
             <!-- main-panel ends -->
             <!--end:::Main-->
         </div>
@@ -515,6 +537,8 @@
             }, 100); // Adjust the delay if needed
         }
     </script>
+
+    <script src="//cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
 
     <script>
         function clockIn() {
@@ -716,6 +740,11 @@
     <script src="{{ asset('jquery-mapael-nigeria/scripts/major-city-plots.js') }}"></script>
 
 
+
+    <!-- for the form repeater  -->
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js" integrity="sha512-foIijUdV0fR0Zew7vmw98E6mOWd9gkGWQBWaoA1EOFAx+pY+N8FmmtIYAVj64R98KeD2wzZh1aHK0JSpKmRH8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script> --}}
+    <!-- for the form repeater  -->
 </body>
 
 </html>

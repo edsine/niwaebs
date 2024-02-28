@@ -13,5 +13,6 @@
     "FormBuilder": true,
     "Accounting": true,
     "HRMSystem": true,
-    "EromInfo": true
+    "EromInfo": true,
+    "Procurement": true
 }
