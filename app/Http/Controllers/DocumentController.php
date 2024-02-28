@@ -40,7 +40,7 @@ class DocumentController extends Controller
         $ldms_total_documents_number = $ldms_documents_all->count();
         $document_list = $ldms_documents_all;
 
-        return view('document.create', compact('ldms_documents_all', 'ldms_expired_documents_all', 'ldms_close_expired_documents_all', 'ldms_total_documents_number', 'document_list'));
+        return view('document.newcreate', compact('ldms_documents_all', 'ldms_expired_documents_all', 'ldms_close_expired_documents_all', 'ldms_total_documents_number', 'document_list'));
     }
 
     public function ldmsExpiredDocuments()
@@ -201,7 +201,7 @@ class DocumentController extends Controller
     public function ldmsStore(Request $request)
     {
 
-    //    dd($request->all());
+       dd($request->all());
 
         $request->validate([
             'title' => 'required',

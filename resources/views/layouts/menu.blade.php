@@ -9,13 +9,13 @@
         padding-left: 20px;
     }
 
-    .nav-link span{
-        font-size: larger!important;
+    .nav-link span {
+        font-size: larger !important;
     }
+
     .nav-link {
         font-size: larger;
     }
-
 </style>
 
 <!-- partial:partials/_sidebar.html -->
@@ -36,7 +36,7 @@
                         {{ 'Welcome,' . ' ' . $user->first_name . ' ' . $user->last_name }}
                     </p>
                     <p class="designation">
-                        {{ auth()->user()->roles->isNotEmpty()? auth()->user()->roles->pluck('name')->first(): 'no role yet' }}
+                        {{ auth()->user()->roles->isNotEmpty() ? auth()->user()->roles->pluck('name')->first() : 'no role yet' }}
                     </p>
                 </div>
             </div>
@@ -66,6 +66,7 @@
             </ul>
 
         </li>
+
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="bi bi-tools menu-icon"></i>
@@ -77,7 +78,7 @@
             <ul class="nav flex-column sub-menu">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('users.index')}}">Users</a>
+                    <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                 </li>
 
 
@@ -107,7 +108,7 @@
             </a>
         </li> --}}
 
-       {{--  <li class="nav-item">
+        {{--  <li class="nav-item">
             <a class="nav-link" href="{{ route('niwa.payments') }}">
                 <i class="fa fa-list menu-icon"></i>
                 <span class="menu-title">Payments</span>
@@ -140,17 +141,17 @@
                     <a class="nav-link" href="{{ route('request.index') }}">Approval Request</a>
                 </li>
 
-               {{--  @if(Auth()->user()->hasRole('super-admin')) --}}
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('appraisal.index') }}">Appraisal</a>
-    </li>
-{{-- @endif --}}
+                {{--  @if (Auth()->user()->hasRole('super-admin')) --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('appraisal.index') }}">Appraisal</a>
+                </li>
+                {{-- @endif --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('type.index') }}">Types</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('niwa.payments') }}">
-                       Payments Approval
+                        Payments Approval
 
                     </a>
                 </li>
@@ -175,9 +176,19 @@
             </a>
             <ul class="nav flex-column sub-menu">
 
-            <!-- Start Of HRM System Menu -->
+                <!-- Start Of HRM System Menu -->
                 @include('hrmsystem::layouts.menu')
-            <!-- End Of HRM System Menu -->
+                <!-- End Of HRM System Menu -->
+
+                <!-- Start Of Accounting Menu -->
+                @include('accounting::layouts.menu')
+                <!-- End Of Accounting Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">
+                        <i class="fas fa-balance-scale menu-icon"></i>
+                        <span>Add/View Equipments</span>
+                    </a>
+                </li>
 
             <!-- Start Of Accounting Menu -->
             @include('accounting::layouts.menu')
@@ -188,8 +199,6 @@
                     <span>Add/View Equipments</span>
                 </a>
             </li>
-
-
 
             </ul>
         </li>
@@ -279,6 +288,41 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas fa-home menu-icon"></i>
+                <span class="menu-title">REQUISITION MANAGER</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('procurement.index')}}">MY REQUISITION</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('unit.proc')}}">SUPER.REQUISITION</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('hod.proc')}}">MY DEPARTMENTAL REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('audit.proc')}}">AUDIT. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('legal.proc')}}">LEGAL. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('md.proc')}}">MD. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('fin.proc')}}">FINANCE. REQUESITION.</a>
+                </li>
+
+
+
+            </ul>
+
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('support.index') }}">
                 <i class="fa fa-gear menu-icon"></i>
@@ -295,32 +339,32 @@
             <ul class="nav flex-column sub-menu">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'asset/home') }}"><?php echo trans('lang.dashboard');?></a>
+                    <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'assetlist') }}"><?php echo trans('lang.assetmenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'componentlist') }}"><?php echo trans('lang.componentmenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'maintenancelist') }}"><?php echo trans('lang.maintenancemenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'assettypelist') }}"><?php echo trans('lang.assettypemenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'brandlist') }}"><?php echo trans('lang.brandmenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'supplierlist') }}"><?php echo trans('lang.suppliermenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'locationlist') }}"><?php echo trans('lang.locationmenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to( 'reports/allreports') }}"><?php echo trans('lang.reportmenu');?></a>
+                    <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
                 </li>
 
 
