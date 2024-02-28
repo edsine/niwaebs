@@ -115,7 +115,7 @@ class ServiceApplicationController extends AppBaseController
         return redirect(route('serviceApplications.index'));
     }
 
-    public function approveOrDeclineDocument($id)
+    public function approveOrDeclineDocument(Request $request, $id)
     {
         $document = ServiceApplicationDocument::find($id);
 
@@ -125,14 +125,17 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
-        $approval_status = $document->approval_status;
-        if ($approval_status) {
+        $selected_button = $request->input('selected_button');
+
+
+        if ($selected_button == 'decline') {
             $document->approval_status = 0;
             Flash::success('Document has been declined');
-        } else {
+        } else if ($selected_button == 'approve') {
             $document->approval_status = 1;
             Flash::success('Document has been approved');
         }
+
 
         $document->save();
 
@@ -419,12 +422,12 @@ class ServiceApplicationController extends AppBaseController
     }
 
     public function showMap($id)
-{
-    $serviceApplication = ServiceApplication::find($id);
-    if (!$serviceApplication) {
-        return abort(404); // or handle the case where the service application is not found
-    }
+    {
+        $serviceApplication = ServiceApplication::find($id);
+        if (!$serviceApplication) {
+            return abort(404); // or handle the case where the service application is not found
+        }
 
-    return view('service_applications.map', compact('serviceApplication'));
-}
+        return view('service_applications.map', compact('serviceApplication'));
+    }
 }

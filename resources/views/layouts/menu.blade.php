@@ -82,6 +82,9 @@
                 </li>
 
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
+                </li>
 
             </ul>
 
@@ -187,7 +190,15 @@
                     </a>
                 </li>
 
-
+            <!-- Start Of Accounting Menu -->
+            @include('accounting::layouts.menu')
+            <!-- End Of Accounting Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">
+                    <i class="fas fa-balance-scale menu-icon"></i>
+                    <span>Add/View Equipments</span>
+                </a>
+            </li>
 
             </ul>
         </li>

@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'checkUserRole'=>\Module\HumanResource\App\Http\Middleware\CheckUserRole::class,
         // 'authuserbyrole'=>\App\Http\Middleware\CheckRole::class,
+        'twofactor' => \App\Http\Middleware\TwoFactorMiddleware::class,
     ];
 }
