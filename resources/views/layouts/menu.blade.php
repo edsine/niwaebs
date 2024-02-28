@@ -81,6 +81,9 @@
                 </li>
 
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
+                </li>
 
             </ul>
 
@@ -185,7 +188,7 @@
                     <span>Add/View Equipments</span>
                 </a>
             </li>
-            
+
 
 
             </ul>
@@ -320,7 +323,7 @@
                     <a class="nav-link" href="{{ URL::to( 'reports/allreports') }}"><?php echo trans('lang.reportmenu');?></a>
                 </li>
 
-              
+
             </ul>
         </li>
         {{-- <li class="nav-item" id="myTask1">

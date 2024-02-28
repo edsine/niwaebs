@@ -483,3 +483,9 @@ Route::group(['middleware' => ['auth',]], function(){
 
     // Route::get('user/create',[UserController::class,'create'])->name('user.create');
 });
+
+
+Route::middleware(['auth', 'twofactor'])->group(function () {
+    Route::get('verify/resend', [App\Http\Controllers\TwoFactorController::class, 'resend'])->name('verify.resend');
+    Route::resource('verify', App\Http\Controllers\TwoFactorController::class)->only(['index', 'store']);
+});

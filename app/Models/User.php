@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use App\Models\Vender;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Shared\Models\Branch;
@@ -28,8 +29,8 @@ use Modules\UnitManager\Models\UnitHead;
 use Modules\WorkflowEngine\Models\Staff;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\HRMSystem\Models\PayslipType;
-use Modules\HumanResource\Models\Ranking;
 
+use Modules\HumanResource\Models\Ranking;
 use Illuminate\Notifications\Notification;
 use Modules\HRMSystem\Models\OtherPayment;
 use Modules\EmployerManager\Models\Employer;
@@ -71,7 +72,7 @@ class User extends Authenticatable implements Auditable
         'tax_payer_id',
         'salary',
         'salary_type' ,
-       
+        'is_two_factor_enabled'
     ];
 
     /**
@@ -1039,5 +1040,21 @@ class User extends Authenticatable implements Auditable
         return $this->hasMany(AttendanceEmployee::class, 'employee_id');
     }
 
+
+    public function generateTwoFactorCode(): void
+    {
+        $this->timestamps = false;  // Prevent updating the 'updated_at' column
+        $this->two_factor_code = rand(100000, 999999);  // Generate a random code
+        $this->two_factor_expires_at = Carbon::now()->addMinutes(10);  // Set expiration time
+        $this->save();
+    }
+
+    public function resetTwoFactorCode(): void
+    {
+        $this->timestamps = false;
+        $this->two_factor_code = null;
+        $this->two_factor_expires_at = null;
+        $this->save();
+    }
 
 }
