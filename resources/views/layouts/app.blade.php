@@ -21,7 +21,7 @@
     {{-- <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/jquery.dataTables.min.js" type="text/javascript"></script> --}}
 
-        <!-- Adding the apex chart -->
+    <!-- Adding the apex chart -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.css"
         integrity="sha512-nnNXPeQKvNOEUd+TrFbofWwHT0ezcZiFU5E/Lv2+JlZCQwQ/ACM33FxPoQ6ZEFNnERrTho8lF0MCEH9DBZ/wWw=="
@@ -41,21 +41,25 @@
 
     <link rel="stylesheet" href="{{ asset('new_assets/assets/css/plugins/flatpickr.min.css') }}">
 
-{{-- for the document management system --}}
+    {{-- for the document management system --}}
 
-{{-- for the document management system --}}
+    {{-- for the document management system --}}
 
 
     <!-- Custom Asset end -->
-{{-- all the assets --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js" integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js" integrity="sha512-cXLS4U14Rm+shV7jwsUiq97QCKtYB9tgsxDncZ5j2Emaye4wi/lYWrEK1472KFFykPdHug7L6NBNzGT8s7U1lA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js.map"></script> --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js.map"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.js" integrity="sha512-nNkHPz+lD0Wf0eFGO0ZDxr+lWiFalFutgVeGkPdVgrG4eXDYUnhfEj9Zmg1QkrJFLC0tGs8ZExyU/1mjs4j93w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js" integrity="sha512-EFlschXPq/G5zunGPRSYqazR1CMKj0cQc8v6eMrQwybxgIbhsfoO5NAMQX3xFDQIbFlViv53o7Hy+yCWw6iZxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Italic.ttf"></script> --}}
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Medium.ttf"></script> --}}
+    {{-- all the assets --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js"
+        integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js" integrity="sha512-cXLS4U14Rm+shV7jwsUiq97QCKtYB9tgsxDncZ5j2Emaye4wi/lYWrEK1472KFFykPdHug7L6NBNzGT8s7U1lA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.js.map"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js.map"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.js"
+        integrity="sha512-nNkHPz+lD0Wf0eFGO0ZDxr+lWiFalFutgVeGkPdVgrG4eXDYUnhfEj9Zmg1QkrJFLC0tGs8ZExyU/1mjs4j93w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js" integrity="sha512-EFlschXPq/G5zunGPRSYqazR1CMKj0cQc8v6eMrQwybxgIbhsfoO5NAMQX3xFDQIbFlViv53o7Hy+yCWw6iZxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Italic.ttf"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/fonts/Roboto/Roboto-Medium.ttf"></script> --}}
     @stack('third_party_stylesheets')
 
     @stack('page_css')
@@ -409,7 +413,8 @@
         }
 
         p,
-        h6, a {
+        h6,
+        a {
             font-size: larger !important;
         }
     </style>
@@ -430,7 +435,7 @@
     data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true"
     data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
     class="app-default"
-    data-kt-app-sidebar-minimize="{{ auth()->user()->hasRole('minister') ||auth()->user()->hasRole('permsec')? 'on': 'off' }}">
+    data-kt-app-sidebar-minimize="{{ auth()->user()->hasRole('minister') || auth()->user()->hasRole('permsec') ? 'on' : 'off' }}">
     <!--begin::Theme mode setup on page load-->
     <script>
         var defaultThemeMode = "light";
@@ -577,7 +582,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <!-- end::bootstrap-sweet-alert -->
-    
+
 
 
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
@@ -693,13 +698,24 @@
     <!-- End custom js for this page-->
     <!-- Custom js for this page-->
     <script src="{{ asset('sh_assets/js/wizard.js') }}"></script>
-    <script src="{{asset('sh_assets/js/chart.js')}}"></script>
-    <script src="{{asset('sh_assets/js/flot-chart.js')}}"></script>
-    <script src="{{asset('sh_assets/js/morris.js')}}"></script>
+    <script src="{{ asset('sh_assets/js/chart.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/flot-chart.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/morris.js') }}"></script>
     <!-- End custom js for this page-->
     <script src="{{ asset('sh_assets/js/data-table.js') }}"></script>
+    <!-- Custom Mapeal js for this page-->
+    <script src="{{ asset('sh_assets/js/mapeal.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/mapeal_example_1.js') }}"></script>
+    <script src="{{ asset('sh_assets/js/mapeal_example_2.js') }}"></script>
+    <!-- End custom Mapeal js for this page-->
 
-    
+    <script src="{{ asset('jquery-mapael-nigeria/js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/js/raphael-2.2.7.min.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/js/jquery-mapael-2.1.0.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/nigeria.js') }}"></script>
+    <script src="{{ asset('jquery-mapael-nigeria/scripts/major-city-plots.js') }}"></script>
+
+
 </body>
 
 </html>
