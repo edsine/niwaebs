@@ -28,9 +28,11 @@
                                 <span class=" fw-bolder text-danger">
                                     REJECTED
                                 </span>
-                            @elseif ($item->status = 1)
-                                <span class=" fw-bolder text-warning"> Awaiting Supervisor Approval</span>
-                            @elseif ($item->status = 2)
+                            @elseif ($item->status == 1)
+                                <span class=" fw-bolder text-warning"> Awaiting Supervisor  Approval</span>
+
+
+                                @elseif ($item->status == 2)
                                 <span class=" fw-bolder text-warning"> Awaiting HOD Approval</span>
                             @else
                                 <span class=" fw-bolder text-success"> Approved</span>
@@ -42,8 +44,8 @@
                                 {{-- <a href="{{ route('procurement.show', [$item->id]) }}" class='btn btn-default btn-xs'>
                                     View
                                 </a> --}}
-                                <a href="{{ route('unithead', [$item->id]) }}" class='btn btn-default btn-xs'>
-                                    Modify
+                                <a href="{{ route('hod.edit', [$item->id]) }}" class='btn btn-default btn-xs'>
+                                    View
                                 </a>
 
                                 {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', [

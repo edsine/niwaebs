@@ -28,12 +28,12 @@
                                 <span class=" fw-bolder text-danger">
                                     REJECTED
                                 </span>
-                            @elseif ($item->status = 1)
+                            @elseif ($item->status == 1)
                                 <span class=" fw-bolder text-warning"> Awaiting Supervisor Approval</span>
-                            @elseif ($item->status = 2)
-                                <span class=" fw-bolder text-warning"> Awaiting HOD Approval</span>
+                            @elseif ($item->status == 6)
+                                <span class=" fw-bolder text-success "> Awaiting Payment</span>
                             @else
-                                <span class=" fw-bolder text-success"> Approved</span>
+                                <span class=" fw-bolder text-success"> PAID</span>
                             @endif
                         </td>
                         <td>
@@ -42,7 +42,7 @@
                                 {{-- <a href="{{ route('procurement.show', [$item->id]) }}" class='btn btn-default btn-xs'>
                                     View
                                 </a> --}}
-                                <a href="{{ route('unithead', [$item->id]) }}" class='btn btn-default btn-xs'>
+                                <a href="{{ route('fined.proc', [$item->id]) }}" class='btn btn-default btn-xs'>
                                     View
                                 </a>
 
@@ -64,6 +64,4 @@
             let table = new DataTable('#procurement')
         </script>
     </div>
-
-
 @endsection

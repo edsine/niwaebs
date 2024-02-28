@@ -289,13 +289,22 @@
                     <a class="nav-link" href="{{route('procurement.index')}}">MY REQUISITION</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('unit.proc')}}">SUPER.REQ</a>
+                    <a class="nav-link" href="{{route('unit.proc')}}">SUPER.REQUISITION</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('hod.proc')}}">MY DEPARTMENTAL REQUESITION.</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('audit.proc')}}">AUDIT. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('legal.proc')}}">LEGAL. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('md.proc')}}">MD. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('fin.proc')}}">FINANCE. REQUESITION.</a>
                 </li>
 
 

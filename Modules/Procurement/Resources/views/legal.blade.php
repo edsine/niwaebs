@@ -28,10 +28,16 @@
                                 <span class=" fw-bolder text-danger">
                                     REJECTED
                                 </span>
-                            @elseif ($item->status = 1)
+                            @elseif ($item->status == 1)
                                 <span class=" fw-bolder text-warning"> Awaiting Supervisor Approval</span>
-                            @elseif ($item->status = 2)
+                            @elseif ($item->status == 2)
                                 <span class=" fw-bolder text-warning"> Awaiting HOD Approval</span>
+                            @elseif ($item->status == 3)
+                                <span class=" fw-bolder text-warning"> Awaiting Audit HOD Approval</span>
+                            @elseif ($item->status == 4)
+                                <span class=" fw-bolder text-warning"> Awaiting Legal HOD Approval</span>
+                            @elseif ($item->status == 5)
+                                <span class=" fw-bolder text-warning"> Awaiting MD Approval</span>
                             @else
                                 <span class=" fw-bolder text-success"> Approved</span>
                             @endif
@@ -42,8 +48,8 @@
                                 {{-- <a href="{{ route('procurement.show', [$item->id]) }}" class='btn btn-default btn-xs'>
                                     View
                                 </a> --}}
-                                <a href="{{ route('unithead', [$item->id]) }}" class='btn btn-default btn-xs'>
-                                    Modify
+                                <a href="{{ route('legal.edit', [$item->id]) }}" class='btn btn-default btn-xs'>
+                                    View
                                 </a>
 
                                 {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', [
@@ -64,6 +70,4 @@
             let table = new DataTable('#procurement')
         </script>
     </div>
-
-
 @endsection

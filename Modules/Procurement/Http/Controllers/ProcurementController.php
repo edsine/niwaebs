@@ -31,7 +31,7 @@ class ProcurementController extends Controller
 
         ];
 
-        $procurement = Procurement::with(['requisition', 'user'])->get();
+        $procurement = Procurement::with(['requisition', 'user'])->orderBy('id', 'desc')->get();
         return view('procurement::index', compact('type', 'select', 'procurement'));
     }
 
@@ -120,14 +120,14 @@ class ProcurementController extends Controller
 
     public function supervisor()
     {
-//where the unit_head_id =auth_user_id
+        //where the unit_head_id =auth_user_id
 
         $procurement = Procurement::with(['requisition', 'user'])
 
             ->where('status', 1)
-
+            ->orderBy('id', 'desc')
             ->get();
-            
+
         return view('procurement::supervisor', compact('procurement'));
     }
 
@@ -136,8 +136,9 @@ class ProcurementController extends Controller
     public function hodprocurement()
     {
         $procurement = Procurement::with(['requisition', 'user'])
-        ->where('status',2)
-        ->get();
+            ->where('status', 2)
+            ->orderBy('id', 'desc')
+            ->get();
         return view('procurement::hodproc', compact('procurement'));
     }
 
@@ -150,13 +151,37 @@ class ProcurementController extends Controller
         return view('procurement::hodedit', compact('data', 'req'));
     }
 
+    public function audit()
+    {
+        $procurement = Procurement::with(['requisition', 'user'])
+            ->where('status', '>', 2)
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('procurement::audit', compact('procurement'));
+    }
+
+
+    public function auditedit($id)
+    {
+
+        $data = Procurement::findOrFail($id);
+
+        $req = Requisition::where('procurement_id', $data->id)->get();
+
+        return view('procurement::auditedit', compact('data', 'req'));
+    }
     public function legal()
     {
         $procurement = Procurement::with(['requisition', 'user'])
-        ->where('status',3)
+        ->where('status','>=', 4)
+        ->where('type', 'Contract Request')
+        ->orderBy('id', 'desc')
         ->get();
+
         return view('procurement::legal', compact('procurement'));
     }
+
+
 
     public function legaledit($id)
     {
@@ -169,46 +194,45 @@ class ProcurementController extends Controller
 
 
 
-    public function unitedit($id)
+    public function md()
+    {
+        $procurement = Procurement::with(['requisition', 'user'])
+            ->where('status','>=', 4)
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('procurement::md', compact('procurement'));
+    }
+    public function mdedit($id)
     {
         $data = Procurement::findOrFail($id);
 
         $req = Requisition::where('procurement_id', $data->id)->get();
 
+        return view('procurement::mdedit', compact('data', 'req'));
+    }
 
-        //   $theindividual_id = $data->user_id;
-        //   $theuser=DB::table('staff')->where('user_id',$theindividual_id)->get();
-        // //   dd($theuser);
-        //   $theauthuser =auth()->user()->staff;
+    public function fin()
+    {
+        $procurement = Procurement::with(['requisition', 'user'])
+            ->where('status','>=', 6)
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('procurement::finance', compact('procurement'));
+    }
+    public function fined($id)
+    {
+        $data = Procurement::findOrFail($id);
 
+        $req = Requisition::where('procurement_id', $data->id)->get();
 
+        return view('procurement::financeedit', compact('data', 'req'));
+    }
 
+    public function unitedit($id)
+    {
+        $data = Procurement::findOrFail($id);
 
-
-        // //   $ap=DB::table('users')->where('unit_head_id',auth()->user()->id);
-
-        // $us= User::with(['unitHead'])->get();
-        // foreach ($us as $key => $value) {
-        //     # code...
-        //     dd($value->unitHead);
-        //     // dd($us->unitHead);
-        // }
-
-
-        //   foreach ($theuser as $key => $value) {
-
-        //       if(($theauthuser->department_id == $value->department_id) ){
-        //         dd('yes');
-        //       } else {
-        //         dd('no');
-        //       }
-        //     # code...
-        //   }
-
-
-
-
-
+        $req = Requisition::where('procurement_id', $data->id)->get();
 
         return view('procurement::unitedit', compact('data', 'req'));
     }
@@ -219,12 +243,69 @@ class ProcurementController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function supervisorupdate(Request $request, $id)
     {
+
 
         $data = Procurement::findOrFail($id);
         $data->update($request->all());
-        return redirect()->back();
+        Flash::success('success');
+        return redirect()->route('unit.proc');
+    }
+    public function deptupdate(Request $request, $id)
+    {
+
+
+        $data = Procurement::findOrFail($id);
+        $data->update($request->all());
+        Flash::success('success');
+        return redirect()->route('hod.proc');
+    }
+    public function legalupdate(Request $request, $id)
+    {
+
+
+        $data = Procurement::findOrFail($id);
+        $data->update($request->all());
+        Flash::success('success');
+        return redirect()->route('legal.proc');
+    }
+    public function auditupdate(Request $request, $id)
+    {
+
+
+        $data = Procurement::findOrFail($id);
+        $data->update($request->all());
+        Flash::success('success');
+        return redirect()->route('audit.proc');
+    }
+    public function mdupdate(Request $request, $id)
+    {
+
+
+        $data = Procurement::findOrFail($id);
+        $data->update($request->all());
+        Flash::success('success');
+        return redirect()->route('md.proc');
+    }
+    public function finupdate(Request $request, $id)
+    {
+
+
+        $data = Procurement::findOrFail($id);
+        $data->update($request->all());
+        Flash::success('success');
+        return redirect()->route('fin.proc');
+    }
+
+
+    public function update(Request $request, $id)
+    {
+
+
+        $data = Procurement::findOrFail($id);
+        $data->update($request->all());
+        return redirect()->route('home');
     }
 
     /**
