@@ -2,8 +2,7 @@
 
 @push('page_css')
     <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-
-    @endpush
+@endpush
 
 @section('content')
     <section class="content-header">
@@ -23,8 +22,8 @@
                     <form method="get" action="" class="navbar-search mr-4 ">
                         <div class="input-group">
                             <input type="text" name="search" value="{{ \Request::get('search', '') }}"
-                                class="form-control bg-light border-0 small" placeholder="@lang('Search Users list..')" aria-label="Search"
-                                aria-describedby="basic-addon2">
+                                class="form-control bg-light border-0 small" placeholder="@lang('Search Users list..')"
+                                aria-label="Search" aria-describedby="basic-addon2">
 
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
