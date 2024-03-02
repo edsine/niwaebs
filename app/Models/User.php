@@ -73,7 +73,9 @@ class User extends Authenticatable implements Auditable
         'tax_payer_id',
         'salary',
         'salary_type' ,
-        'is_two_factor_enabled'
+        'is_two_factor_enabled',
+        'type',
+        'created_by'
     ];
 
     /**
