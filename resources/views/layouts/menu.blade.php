@@ -83,7 +83,7 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
+                    <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
                 </li>
 
             </ul>
@@ -190,15 +190,15 @@
                     </a>
                 </li>
 
-            <!-- Start Of Accounting Menu -->
-            @include('accounting::layouts.menu')
-            <!-- End Of Accounting Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">
-                    <i class="fas fa-balance-scale menu-icon"></i>
-                    <span>Add/View Equipments</span>
-                </a>
-            </li>
+                <!-- Start Of Accounting Menu -->
+                @include('accounting::layouts.menu')
+                <!-- End Of Accounting Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">
+                        <i class="fas fa-balance-scale menu-icon"></i>
+                        <span>Add/View Equipments</span>
+                    </a>
+                </li>
 
             </ul>
         </li>
@@ -288,34 +288,70 @@
                 </li>
             </ul>
         </li>
+
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-home menu-icon"></i>
-                <span class="menu-title">REQUISITION MANAGER</span>
+                <span class="menu-title">PROJECT MANAGER</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('procurement.index')}}">MY REQUISITION</a>
+                    <a class="nav-link" href="{{ route('clients.index') }}">Clients</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('unit.proc')}}">SUPER.REQUISITION</a>
+                    <a class="nav-link" href="{{ route('projects.index') }}">Manage Project </a>
+                </li>
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('hod.proc') }}">MY DEPARTMENTAL REQUESITION.</a>
+                </li> --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('audit.proc') }}">AUDIT. REQUESITION.</a>
+                </li> --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('legal.proc') }}">LEGAL. REQUESITION.</a>
+                </li> --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('md.proc') }}">MD. REQUESITION.</a>
+                </li> --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('fin.proc') }}">FINANCE. REQUESITION.</a>
+                </li> --}}
+
+
+
+            </ul>
+
+        </li>
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas fa-home menu-icon"></i>
+                <span class="menu-title">PROCUREMENT MANAGER</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('procurement.index') }}">MY REQUISITION</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('hod.proc')}}">MY DEPARTMENTAL REQUESITION.</a>
+                    <a class="nav-link" href="{{ route('unit.proc') }}">SUPER.REQUISITION</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('audit.proc')}}">AUDIT. REQUESITION.</a>
+                    <a class="nav-link" href="{{ route('hod.proc') }}">MY DEPARTMENTAL REQUESITION.</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('legal.proc')}}">LEGAL. REQUESITION.</a>
+                    <a class="nav-link" href="{{ route('audit.proc') }}">AUDIT. REQUESITION.</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('md.proc')}}">MD. REQUESITION.</a>
+                    <a class="nav-link" href="{{ route('legal.proc') }}">LEGAL. REQUESITION.</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('fin.proc')}}">FINANCE. REQUESITION.</a>
+                    <a class="nav-link" href="{{ route('md.proc') }}">MD. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('fin.proc') }}">FINANCE. REQUESITION.</a>
                 </li>
 
 

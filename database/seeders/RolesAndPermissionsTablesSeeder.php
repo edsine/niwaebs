@@ -31,6 +31,22 @@ class RolesAndPermissionsTablesSeeder extends Seeder
                     'read role',
                     'update role',
                     'delete role',
+                    
+                    'create client',
+                    'manage client',
+                    'edit client',
+                    'create project',
+                    'manage project',
+                    'view project',
+                    'edit project',
+                    'delete project',
+                    'create milestone',
+                    'edit milestone',
+                    'delete milestone',
+                    'view milestone',
+                    'edit bug report',
+                    'delete bug report',
+                    'move bug report'
                 ];
 
             $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {
