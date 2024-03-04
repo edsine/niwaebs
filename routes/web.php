@@ -15,12 +15,14 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DropdownController;
 use App\Http\Controllers\AllowanceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SetSalaryController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ESSPPaymentController;
 use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\EmployerDocumentController;
 use Modules\Accounting\Http\Controllers\ReportController;
+use Modules\Accounting\Http\Controllers\ExpenseController;
 
 
 /*
@@ -517,6 +519,9 @@ Route::get('projects/{id}/milestone', [ProjectController::class, 'milestone'])->
 //        ,
 //    ]
 //);
+Route::get('projects-view', [ProjectController::class, 'filterProjectView'])->name('filter.project.view')->middleware(['auth']);
+Route::get('/project/copy/{id}', [ProjectController::class, 'copyproject'])->name('project.copy')->middleware(['auth']);
+Route::post('/project/copy/store/{id}', [ProjectController::class, 'copyprojectstore'])->name('project.copy.store')->middleware(['auth']);
 
 Route::post('projects/{id}/milestone', [ProjectController::class, 'milestoneStore'])->name('project.milestone.store')->middleware(['auth', ]);
 Route::get('projects/milestone/{id}/edit', [ProjectController::class, 'milestoneEdit'])->name('project.milestone.edit')->middleware(['auth', ]);
@@ -607,16 +612,11 @@ Route::group(
     [
         'middleware' => [
             'auth',
-            'XSS',
-            'revalidate',
         ],
     ], function (){
     Route::resource('contractType', ContractTypeController::class);
 }
 );
-
-
-
 
 // Project Timesheet
 Route::get('append-timesheet-task-html', [TimesheetController::class, 'appendTimesheetTaskHTML'])->name('append.timesheet.task.html')->middleware(['auth', 'XSS']);
@@ -644,7 +644,7 @@ Route::group(
     ], function ()
 {
     Route::resource('projectstages', ProjectstagesController::class);
-    Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth', 'XSS']);
+    Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth']);
     Route::post('projects/bug/kanban/order', [ProjectController::class, 'bugKanbanOrder'])->name('bug.kanban.order');
     Route::get('projects/{id}/bug/kanban', [ProjectController::class, 'bugKanban'])->name('task.bug.kanban');
     Route::get('projects/{id}/bug', [ProjectController::class, 'bug'])->name('task.bug');
@@ -661,15 +661,64 @@ Route::group(
 
     Route::resource('bugstatus', BugStatusController::class);
     Route::post('/bugstatus/order', [BugStatusController::class, 'order'])->name('bugstatus.order');
-    Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth', 'XSS']);
+    Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth']);
+}
+);
+
+
+
+// Project Timesheet
+Route::get('append-timesheet-task-html', [TimesheetController::class, 'appendTimesheetTaskHTML'])->name('append.timesheet.task.html')->middleware(['auth']);
+Route::get('timesheet-table-view', [TimesheetController::class, 'filterTimesheetTableView'])->name('filter.timesheet.table.view')->middleware(['auth']);
+Route::get('timesheet-view', [TimesheetController::class, 'filterTimesheetView'])->name('filter.timesheet.view')->middleware(['auth']);
+Route::get('timesheet-list', [TimesheetController::class, 'timesheetList'])->name('timesheet.list')->middleware(['auth']);
+Route::get('timesheet-list-get', [TimesheetController::class, 'timesheetListGet'])->name('timesheet.list.get')->middleware(['auth']);
+Route::get('/project/{id}/timesheet', [TimesheetController::class, 'timesheetView'])->name('timesheet.index')->middleware(['auth']);
+Route::get('/project/{id}/timesheet/create', [TimesheetController::class, 'timesheetCreate'])->name('timesheet.create')->middleware(['auth']);
+Route::post('/project/timesheet', [TimesheetController::class, 'timesheetStore'])->name('timesheet.store')->middleware(['auth']);
+Route::get('/project/timesheet/{project_id}/edit/{timesheet_id}', [TimesheetController::class, 'timesheetEdit'])->name('timesheet.edit')->middleware(['auth']);
+Route::any('/project/timesheet/update/{timesheet_id}', [TimesheetController::class, 'timesheetUpdate'])->name('timesheet.update')->middleware(['auth']);
+
+Route::delete('/project/timesheet/{timesheet_id}', [TimesheetController::class, 'timesheetDestroy'])->name('timesheet.destroy')->middleware(['auth']);
+
+
+
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+
+        ],
+    ], function ()
+{
+    Route::resource('projectstages', ProjectstagesController::class);
+    Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth']);
+    Route::post('projects/bug/kanban/order', [ProjectController::class, 'bugKanbanOrder'])->name('bug.kanban.order');
+    Route::get('projects/{id}/bug/kanban', [ProjectController::class, 'bugKanban'])->name('task.bug.kanban');
+    Route::get('projects/{id}/bug', [ProjectController::class, 'bug'])->name('task.bug');
+    Route::get('projects/{id}/bug/create', [ProjectController::class, 'bugCreate'])->name('task.bug.create');
+    Route::post('projects/{id}/bug/store', [ProjectController::class, 'bugStore'])->name('task.bug.store');
+    Route::get('projects/{id}/bug/{bid}/edit', [ProjectController::class, 'bugEdit'])->name('task.bug.edit');
+    Route::post('projects/{id}/bug/{bid}/update', [ProjectController::class, 'bugUpdate'])->name('task.bug.update');
+    Route::delete('projects/{id}/bug/{bid}/destroy', [ProjectController::class, 'bugDestroy'])->name('task.bug.destroy');
+    Route::get('projects/{id}/bug/{bid}/show', [ProjectController::class, 'bugShow'])->name('task.bug.show');
+    Route::post('projects/{id}/bug/{bid}/comment', [ProjectController::class, 'bugCommentStore'])->name('bug.comment.store');
+    Route::post('projects/bug/{bid}/file', [ProjectController::class, 'bugCommentStoreFile'])->name('bug.comment.file.store');
+    Route::delete('projects/bug/comment/{id}', [ProjectController::class, 'bugCommentDestroy'])->name('bug.comment.destroy');
+    Route::delete('projects/bug/file/{id}', [ProjectController::class, 'bugCommentDestroyFile'])->name('bug.comment.file.destroy');
+
+    Route::resource('bugstatus', BugStatusController::class);
+    Route::post('/bugstatus/order', [BugStatusController::class, 'order'])->name('bugstatus.order');
+    Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth']);
 }
 );
 
 // User_Todo Module
 
-Route::post('/todo/create', [UserController::class, 'todo_store'])->name('todo.store')->middleware(['auth', 'XSS']);
-Route::post('/todo/{id}/update', [UserController::class, 'todo_update'])->name('todo.update')->middleware(['auth', 'XSS']);
-Route::delete('/todo/{id}', [UserController::class, 'todo_destroy'])->name('todo.destroy')->middleware(['auth', 'XSS']);
-Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode')->middleware(['auth', 'XSS']);
-Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('dashboard.view')->middleware(['auth', 'XSS']);
-Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth', 'XSS']);
+Route::post('/todo/create', [UserController::class, 'todo_store'])->name('todo.store')->middleware(['auth']);
+Route::post('/todo/{id}/update', [UserController::class, 'todo_update'])->name('todo.update')->middleware(['auth']);
+Route::delete('/todo/{id}', [UserController::class, 'todo_destroy'])->name('todo.destroy')->middleware(['auth']);
+Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode')->middleware(['auth']);
+Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('dashboard.view')->middleware(['auth']);
+Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth']);
