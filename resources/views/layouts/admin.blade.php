@@ -54,6 +54,7 @@
     <!-- Favicon icon -->
 {{--    <link rel="icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon"/>--}}
     <!-- Calendar-->
+    
     <link rel="stylesheet" href="{{ asset('atp/assets/css/plugins/main.css') }}">
 
     <link rel="stylesheet" href="{{ asset('atp/assets/css/plugins/style.css') }}">
@@ -256,6 +257,7 @@
     <div id="liveToast" class="toast text-white  fade" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body"> </div>
+
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>

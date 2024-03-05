@@ -16,6 +16,7 @@ class CreateProcurementsTable extends Migration
         Schema::create('procurements', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->foreignId('vendor_id')->constrained();
             $table->string('type')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->string('issue_date')->nullable();

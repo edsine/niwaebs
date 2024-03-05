@@ -3,16 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\r;
+use Carbon\Carbon;
 use App\Models\Bug;
 use App\Models\User;
+use App\Models\Vendor;
+use App\Models\BugFile;
 use App\Models\Project;
+use App\Models\TaskFile;
 use App\Models\BugStatus;
+use App\Models\Milestone;
 use App\Models\TaskStage;
+use App\Models\BugComment;
+use App\Models\ActivityLog;
+use App\Models\ProjectTask;
+
 use App\Models\ProjectUser;
+use App\Models\TaskComment;
 use App\Models\TimeTracker;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Modules\Accounting\Models\Utility;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class ProjectController extends Controller
 {
@@ -23,16 +35,7 @@ class ProjectController extends Controller
      */
     public function index($view = 'grid')
     {
-        // if(\Auth::user()->can('manage project'))
-        // {
-        //     return view('projects.index', compact('view'));
-        // }
-        // else
-        // {
-        //     return redirect()->back()->with('error', __('Permission Denied.'));
-        // }
 
-        // $users= User::where('created_by', '=', \Auth::user()->Id)->where('type', '!=', 'client')->get()->pluck('first_name', 'id');
         $users = User::where('type', '!=', 'client')->get()->pluck('first_name', 'id');
         // $clients = User::where('created_by', '=', \Auth::user()->Id)->where('type', '=', 'client')->get()->pluck('first_name', 'id');
         $clients = User::where('type', '=', 'client')->get()->pluck('first_name', 'id');
@@ -45,9 +48,11 @@ class ProjectController extends Controller
             'canceled' => 'canceled',
         ];
 
+
         $projects = Project::get();
 
-        return view('projects.index', compact('clients', 'users', 'status', 'projects', 'view'));
+
+        return view('projects.index', compact('clients', 'users', 'status', 'projects','view'));
     }
 
     /**
@@ -58,8 +63,6 @@ class ProjectController extends Controller
     public function create()
     {
 
-        // $users   = User::where('created_by', '=', \Auth::user()->Id)->where('type', '!=', 'client')->get()->pluck('name', 'id');
-        // $clients = User::where('created_by', '=', \Auth::user()->Id)->where('type', '=', 'client')->get()->pluck('name', 'id');
         $users = User::where('type', '!=', 'client')->get()->pluck('first_name', 'id');
         $clients = User::where('type', '=', 'client')->get()->pluck('first_name', 'id');
         $clients->prepend('Select Client', '');
@@ -78,7 +81,7 @@ class ProjectController extends Controller
 
 
 
-        $validator = \Validator::make(
+        $validator = Validator::make(
             $request->all(),
             [
                 'project_name' => 'required',
@@ -107,7 +110,7 @@ class ProjectController extends Controller
         $project['copylinksetting']   = '{"member":"on","milestone":"off","basic_details":"on","activity":"off","attachment":"on","bug_report":"on","task":"off","tracker_details":"off","timesheet":"off" ,"password_protected":"off"}';
 
         $project->save();
-        if (\Auth::user()->type == 'company') {
+        if (\Auth::user()->type=='company') {
 
             ProjectUser::create(
                 [
@@ -195,11 +198,13 @@ class ProjectController extends Controller
 
         if (\Auth::user()->can('view project')) {
 
-            $usr           = Auth::user();
+            $usr= \Auth::user();
+
             if (\Auth::user()->type == 'client') {
-                $user_projects = Project::where('client_id', \Auth::user()->id)->pluck('id', 'id')->toArray();;
+                $user_projects = Project::where('client_id', $usr->id)->pluck('id', 'id')->toArray();;
             } else {
-                $user_projects = $usr->projects->pluck('id')->toArray();
+
+                $user_projects = $usr->projects->pluck('id','id')->toArray();
             }
             if (in_array($project->id, $user_projects)) {
                 $project_data = [];
@@ -243,8 +248,8 @@ class ProjectController extends Controller
                 // end users assigned
 
                 // Day left
-                $total_day                = Carbon::parse($project->start_date)->diffInDays(Carbon::parse($project->end_date));
-                $remaining_day            = Carbon::parse($project->start_date)->diffInDays(now());
+                $total_day                =Carbon::parse($project->start_date)->diffInDays(Carbon::parse($project->end_date));
+                $remaining_day            =Carbon::parse($project->start_date)->diffInDays(now());
                 $project_data['day_left'] = [
                     'day' => number_format($remaining_day) . '/' . number_format($total_day),
                     'percentage' => Utility::getPercentage($remaining_day, $total_day),
@@ -252,7 +257,7 @@ class ProjectController extends Controller
                 // end Day left
 
                 // Open Task
-                $remaining_task = ProjectTask::where('project_id', '=', $project->id)->where('is_complete', '=', 0)->where('created_by', \Auth::user()->Id)->count();
+                $remaining_task = ProjectTask::where('project_id', '=', $project->id)->where('is_complete', '=', 0)->where('created_by', \Auth::user()->id)->count();
                 $total_task     = $project->tasks->count();
 
                 $project_data['open_task'] = [
@@ -341,13 +346,14 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         if (\Auth::user()->can('edit project')) {
-            $clients = User::where('created_by', '=', \Auth::user()->Id)->where('type', '=', 'client')->get()->pluck('name', 'id');
+            $clients = User::where('created_by', '=', \Auth::user()->id)->where('type', '=', 'client')->get()->pluck('name', 'id');
             $project = Project::findOrfail($project->id);
-            if ($project->created_by == \Auth::user()->Id) {
+            if ($project->created_by == \Auth::user()->id) {
+            // if ($project->created_by == \Auth::user()->creatorId()) {
 
                 return view('projects.edit', compact('project', 'clients'));
             } else {
-                return response()->json(['error' => __('Permission denied.')], 401);
+                return response()->json(['error' => __('Permission denied12.')], 401);
             }
             return view('projects.edit', compact('project'));
         } else {
@@ -417,21 +423,28 @@ class ProjectController extends Controller
     }
     public function inviteMemberView(Request $request, $project_id)
     {
-        $usr          = Auth::user();
+        $usr          = \Auth::user();
         $project      = Project::find($project_id);
 
+        // dd($project);
         $user_project = $project->users->pluck('id')->toArray();
 
         $user_contact = User::where('created_by', \Auth::user()->creatorId())->where('type', '!=', 'client')->whereNOTIn('id', $user_project)->pluck('id')->toArray();
         $arrUser      = array_unique($user_contact);
-        $users        = User::whereIn('id', $arrUser)->get();
+        // $users        = User::whereIn('id', $arrUser)->get();
+
+        $users=User::where('type','!=','client')->get();
+
+
+
+
 
         return view('projects.invite', compact('project_id', 'users'));
     }
 
     public function inviteProjectUserMember(Request $request)
     {
-        $authuser = Auth::user();
+        $authuser = \Auth::user();
 
         // Make entry in project_user tbl
         ProjectUser::create(
@@ -723,7 +736,7 @@ class ProjectController extends Controller
     {
 
 
-        $user = Auth::user();
+        $user = \Auth::user();
         if ($user->can('manage bug report')) {
             $project = Project::find($project_id);
 
@@ -918,7 +931,7 @@ class ProjectController extends Controller
 
     public function bugKanban($project_id)
     {
-        $user = Auth::user();
+        $user = \Auth::user();
         if ($user->can('move bug report')) {
 
             $project = Project::find($project_id);
@@ -1085,7 +1098,7 @@ class ProjectController extends Controller
 
     public function copyproject($id)
     {
-        if (Auth::user()->can('create project')) {
+        if (\Auth::user()->can('create project')) {
             $project = Project::find($id);
 
             return view('projects.copy', compact('project'));
@@ -1099,7 +1112,7 @@ class ProjectController extends Controller
     public function copyprojectstore(Request $request, $id)
     {
 
-        if (Auth::user()->can('create project')) {
+        if (\Auth::user()->can('create project')) {
             $project                          = Project::find($id);
             $duplicate                          = new Project();
             $duplicate['project_name']          = $project->project_name;
@@ -1125,7 +1138,7 @@ class ProjectController extends Controller
                     $users->save();
                 }
             } else {
-                $objUser = Auth::user();
+                $objUser = \Auth::user();
                 $users              = new ProjectUser();
                 $users['user_id']   = $objUser->id;
                 $users['project_id'] = $duplicate->id;
@@ -1332,7 +1345,7 @@ class ProjectController extends Controller
 
     public function copylink_setting_create($projectID)
     {
-        $objUser = Auth::user();
+        $objUser = \Auth::user();
         $project = Project::select('projects.*')->join('project_users', 'projects.id', '=', 'project_users.project_id')->where('project_users.user_id', '=', $objUser->id)->where('projects.id', '=', $projectID)->first();
         $result = json_decode($project->copylinksetting);
         return view('projects.copylink_setting', compact('project', 'projectID', 'result'));
@@ -1340,7 +1353,7 @@ class ProjectController extends Controller
 
     public function copylinksetting(Request $request, $id)
     {
-        $objUser = Auth::user();
+        $objUser = \Auth::user();
 
         $data = [];
         $data['basic_details']  = isset($request->basic_details) ? 'on' : 'off';
@@ -1399,8 +1412,8 @@ class ProjectController extends Controller
         $data['password_protected']  = isset($request->password_protected) ? 'on' : 'off';
 
 
-        if (Auth::user() != null) {
-            $usr         = Auth::user();
+        if (\Auth::user() != null) {
+            $usr         = \Auth::user();
         } else {
             $usr         = User::where('id', $project->created_by)->first();
         }

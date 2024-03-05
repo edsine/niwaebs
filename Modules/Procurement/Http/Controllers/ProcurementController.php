@@ -3,6 +3,7 @@
 namespace Modules\Procurement\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Vendor;
 use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -32,7 +33,9 @@ class ProcurementController extends Controller
         ];
 
         $procurement = Procurement::with(['requisition', 'user'])->orderBy('id', 'desc')->get();
-        return view('procurement::index', compact('type', 'select', 'procurement'));
+        $vendor= Vendor::all()->pluck('name','id');
+        $vendor->prepend('select the vendor','');
+        return view('procurement::index', compact('type', 'select','vendor', 'procurement'));
     }
 
     /**
@@ -62,6 +65,8 @@ class ProcurementController extends Controller
         $procurement->issue_date = $request->issue_date;
         $procurement->title = $request->title;
         $procurement->status = $request->status;
+        $procurement->vendor_id = $request->vendor_id;
+
 
 
         $referenceNumber = 'NIWA-' . date('Ymd') . '-' . str_pad(Procurement::count() + 1, 3, '0', STR_PAD_LEFT);

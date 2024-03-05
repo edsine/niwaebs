@@ -37,14 +37,15 @@ $userPayment = \App\Models\Payment::where('payment_type',4)->where('employer_id'
         </div><!-- .card-preview -->
     </div> <!-- nk-block -->
     <?php }else{
-        ?> 
-        <div class="form-group">
-            <label for="" class="">You can not upload documents till you make a new application fee & processing fee
-                payments for a service.</label>
-                <br/>
-                <a class="btn btn-primary me-n1" href="{{route('payment.index')}}">Make Application Fees Payments</a>
-        </div>
-        <?php
+        ?>
+    <div class="form-group">
+        <label for="" class="">You can not upload documents till you make a new application fee & processing
+            fee
+            payments for a service.</label>
+        <br />
+        <a class="btn btn-primary me-n1" href="{{ route('payment.index') }}">Make Application Fees Payments</a>
+    </div>
+    <?php
     } ?>
     {{-- </div><!-- .components-preview --> --}}
 
@@ -52,7 +53,7 @@ $userPayment = \App\Models\Payment::where('payment_type',4)->where('employer_id'
 
 
 @push('scripts')
-   {{--  <script>
+    {{--  <script>
         $(document).ready(function() {
             //FETCH LGAs FROM STATE ID
             const lUrl = "{{ route('employer.lgas') }}?state=";
