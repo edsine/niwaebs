@@ -326,11 +326,11 @@
                             <div class="d-block d-sm-flex align-items-center justify-content-between">
                                 <div class="row align-items-center">
                                     <span class="text-white text-sm">{{__('Start Date')}}</span>
-                                    <h5 class="text-white text-nowrap">{{ Utility::getDateFormated($project->start_date) }}</h5>
+                                    <h5 class="text-white text-nowrap">{{ Modules\Accounting\Models\Utility::getDateFormated($project->start_date) }}</h5>
                                 </div>
                                 <div class="row align-items-center">
                                     <span class="text-white text-sm">{{__('End Date')}}</span>
-                                    <h5 class="text-white text-nowrap">{{ Utility::getDateFormated($project->end_date) }}</h5>
+                                    <h5 class="text-white text-nowrap">{{ Modules\Accounting\Models\Utility::getDateFormated($project->end_date) }}</h5>
                                 </div>
 
                             </div>

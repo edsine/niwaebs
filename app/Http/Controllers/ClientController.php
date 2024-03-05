@@ -38,7 +38,7 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         if (\Auth::user()->can('create client')) {
             if ($request->ajax) {
@@ -108,7 +108,7 @@ class ClientController extends Controller
                 $client->password = $request->password;
 
                 $clientArr = [
-                    'client_name' => $client->name,
+                    'client_name' => $client->first_name,
                     'client_email' => $client->email,
                     'client_password' =>  $client->password,
                 ];
@@ -220,18 +220,19 @@ class ClientController extends Controller
      */
     public function update(User $client, Request $request)
     {
+        // dd($request->all());
         if (\Auth::user()->can('edit client')) {
             $user = \Auth::user();
             if ($client->created_by == $user->creatorId()) {
                 $validation = [
-                    'first_name' => 'required',
-                    'last_name' => 'required',
+                    'name' => 'required',
+
                     'email' => 'required|email|unique:users,email,' . $client->id,
                 ];
 
                 $post         = [];
-                $post['first_name'] = $request->first_name;
-                $post['last_name'] = $request->first_name;
+                $post['first_name'] = $request->name;
+                // $post['last_name'] = $request->first_name;
                 if (!empty($request->password)) {
                     $validation['password'] = 'required';
                     $post['password']       = Hash::make($request->password);

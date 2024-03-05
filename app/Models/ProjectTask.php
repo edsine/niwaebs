@@ -1,13 +1,23 @@
 <?php
 
-namespace Modules\Accounting\Models;
+namespace App\Models;
+
+
+
+
+
 
 use App\Models\User;
+use App\Models\Project;
+use App\Models\TaskFile;
+use App\Models\TaskStage;
+use App\Models\Timesheet;
+use App\Models\ActivityLog;
+
+
+use App\Models\TaskComment;
+use App\Models\TaskChecklist;
 use Modules\Accounting\Models\Utility;
-use Modules\Accounting\Models\TaskFile;
-use Modules\Accounting\Models\ActivityLog;
-use Modules\Accounting\Models\TaskComment;
-use Modules\Accounting\Models\TaskChecklist;
 use Illuminate\Database\Eloquent\Model;
 
 class ProjectTask extends Model
@@ -48,7 +58,7 @@ class ProjectTask extends Model
 
     public function milestone()
     {
-        return $this->hasOne('Modules\Accounting\Models\Milestone','id', 'milestone_id');
+        return $this->hasOne('App\Models\Milestone','id', 'milestone_id');
     }
 
     public function users()
@@ -58,12 +68,12 @@ class ProjectTask extends Model
 
     public function project()
     {
-        return $this->hasOne('Modules\Accounting\Models\Project', 'id', 'project_id');
+        return $this->hasOne(Project::class, 'id', 'project_id');
     }
 
     public function stage()
     {
-        return $this->hasOne('Modules\Accounting\Models\TaskStage', 'id', 'stage_id');
+        return $this->hasOne(TaskStage::class, 'id', 'stage_id');
     }
 
     public function taskProgress()
@@ -87,21 +97,21 @@ class ProjectTask extends Model
         ];
     }
     public function task_user(){
-        return $this->hasOne('App\Models\User','id','assign_to');
+        return $this->hasOne(User::class,'id','assign_to');
     }
     public function checklist()
     {
-        return $this->hasMany('Modules\Accounting\Models\TaskChecklist', 'task_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(TaskChecklist::class, 'task_id', 'id')->orderBy('id', 'DESC');
     }
 
     public function taskFiles()
     {
-        return $this->hasMany('Modules\Accounting\Models\TaskFile', 'task_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(TaskFile::class, 'task_id', 'id')->orderBy('id', 'DESC');
     }
 
     public function comments()
     {
-        return $this->hasMany('Modules\Accounting\Models\TaskComment', 'task_id', 'id')->orderBy('id', 'DESC');
+        return $this->hasMany(TaskComment::class, 'task_id', 'id')->orderBy('id', 'DESC');
     }
 
     public function countTaskChecklist()
@@ -182,7 +192,7 @@ class ProjectTask extends Model
 
                 foreach($tasks as $onekey => $onetask)
                 {
-                    $sectiontasks[$onekey]['taskinfo'] = json_decode(app('Modules\Accounting\Http\Controllers\ProjectTaskController')->getDefaultTaskInfo($request, $onetask['id']), true);
+                    $sectiontasks[$onekey]['taskinfo'] = json_decode(app('App\Http\Controllers\ProjectTaskController')->getDefaultTaskInfo($request, $onetask['id']), true);
                 }
 
                 $taskArray[$counter]['sections']      = $sectiontasks;
@@ -196,6 +206,6 @@ class ProjectTask extends Model
 
     public function timesheets()
     {
-        return $this->hasMany('Modules\Accounting\Models\Timesheet', 'task_id', 'id')->orderBy('id', 'desc');
+        return $this->hasMany(Timesheet::class, 'task_id', 'id')->orderBy('id', 'desc');
     }
 }

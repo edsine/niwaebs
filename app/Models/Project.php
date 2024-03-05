@@ -10,10 +10,14 @@ use Carbon\Carbon;
 // use Carbon\Carbon;
 // use App\Models\ProjectTask;
 use App\Models\User;
+use App\Models\Vendor;
+use App\Models\TaskStage;
+use App\Models\ProjectTask;
 use Illuminate\Support\Facades\Auth;
+use Modules\Accounting\Models\Expense;
 use Modules\Accounting\Models\Utility;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Accounting\Models\ProjectTask;
+
 
 class Project extends Model
 {
@@ -29,8 +33,13 @@ class Project extends Model
         'description',
         'status',
         'tags',
-        'created_by'
+        'created_by',
+
     ];
+
+    public function vendor(){
+        return $this->belongsTo(Vendor::class);
+    }
 
     public static $project_status=[
         'in_progress' => 'In Progress',
@@ -52,6 +61,8 @@ class Project extends Model
     }
 
     protected $appends = ['img_image'];
+
+
 
     // Make new attribute for directly get image
     public function getImgImageAttribute()
@@ -89,7 +100,8 @@ class Project extends Model
         $last_task      = TaskStage::orderBy('order', 'DESC')->where('created_by',\Auth::user()->creatorId())->first();
         $total_task     = $this->tasks->count();
         $completed_task = $this->tasks()->where('stage_id', '=', $last_task->id)->where('is_complete', '=', 1)->count();
-//dd($last_task,$total_task,$completed_task);
+        //dd($last_task,$total_task,$completed_task);
+        // dd( TaskStage::all() );
         if($total_task > 0)
         {
             $percentage = intval(($completed_task / $total_task) * 100);
@@ -130,7 +142,7 @@ class Project extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'project_users', 'project_id', 'user_id');
+        return $this->belongsToMany(User::class, 'project_users', 'project_id', 'user_id');
     }
     //for project-report
     public function client()
@@ -154,7 +166,7 @@ class Project extends Model
 
     public function expense()
     {
-        return $this->hasMany('App\Models\Expense', 'project_id', 'id')->orderBy('id', 'desc');
+        return $this->hasMany(Expense::class, 'project_id', 'id')->orderBy('id', 'desc');
     }
 
     // Return timesheet html in table format

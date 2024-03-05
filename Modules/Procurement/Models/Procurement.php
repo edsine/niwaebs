@@ -3,6 +3,7 @@
 namespace Modules\Procurement\Models;
 
 use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Procurement\Models\Requisition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,10 @@ class Procurement extends Model
         return $this->hasMany(Requisition::class);
     }
 
+
+    public function vendor(){
+        return $this->belongsTo(Vendor::class);
+    }
     // protected static function newFactory()
     // {
     //     return \Modules\Procurement\Database\factories\ProcurementFactory::new();

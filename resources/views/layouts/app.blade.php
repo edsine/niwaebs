@@ -499,7 +499,7 @@
                 @include('layouts.footer')
                 <!--end::Footer-->
             </div>
-           
+
             @endif
             <!-- main-panel ends -->
             <!--end:::Main-->

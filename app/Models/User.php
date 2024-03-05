@@ -671,6 +671,11 @@ class User extends Authenticatable implements Auditable
         return $this->type == 'client' ? 1 : 0;
     }
 
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project', 'project_users', 'user_id', 'project_id')->withTimestamps();
+    }
+
     public function checkProject($project_id)
     {
         $user_projects = $this->projects()->pluck('project_id')->toArray();
