@@ -192,7 +192,7 @@
              </li>
              <li class="nav-item nav-profile dropdown">
                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                     @if (auth()->user()->staff && auth()->user()->staff->profile_picture)
+                     @if (auth()->check() && auth()->user()->staff->profile_picture)
                          <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                              alt="{{ auth()->user()->staff->profile_picture }}">
                      @else
@@ -202,7 +202,7 @@
                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                      <a class="dropdown-item">
                          <div class="symbol symbol-50px me-5">
-                             @if (auth()->user()->staff && auth()->user()->staff->profile_picture)
+                             @if (auth()->check() && auth()->user()->staff->profile_picture)
                                  <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                                      alt="{{ auth()->user()->staff->profile_picture }}">
                              @else
@@ -214,11 +214,14 @@
                          <!--begin::Username-->
                          <div class="d-flex flex-column">
                              <div class="fw-bold d-flex align-items-center fs-5">
-                                 {{ $user->first_name . ' ' . $user->last_name }}
-                                 {{-- <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{auth()->user()->roles->pluck('name')[0]}}</span> --}}
-                                 <span
-                                     class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ auth()->user()->roles->isNotEmpty()? auth()->user()->roles->pluck('name')->first(): 'no role yet' }}</span>
-                             </div>
+                                @if (auth()->check())
+
+                                {{ $user->first_name . ' ' . $user->last_name }}
+                                {{-- <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{auth()->user()->roles->pluck('name')[0]}}</span> --}}
+                                <span
+                                class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ auth()->user()->roles->isNotEmpty()? auth()->user()->roles->pluck('name')->first(): 'no role yet' }}</span>
+                            </div>
+                            @endif
                              <!-- <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a> -->
                          </div>
                          <!--end::Username-->
