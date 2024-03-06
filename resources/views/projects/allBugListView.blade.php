@@ -1,4 +1,5 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 @section('page-title')
     {{__('Manage Bug Report')}}
 @endsection
@@ -34,6 +35,9 @@
 @endsection
 
 @section('content')
+<div class="container-fluid">
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -128,5 +132,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection

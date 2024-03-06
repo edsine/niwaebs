@@ -8,12 +8,13 @@
     <div class="footer-wrapper">
         <div class="py-1">
             <p class="mb-0 text-muted"> &copy;
-                {{ date('Y') }} {{ Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'ERPGo') }}
+                {{ date('Y') }} {{ \Modules\Accounting\Models\Utility::getValByName('footer_text') ? \Modules\Accounting\Models\Utility::getValByName('footer_text') : config('app.name', 'ERPGo') }}
             </p>
         </div>
 
     </div>
 </footer>
+
 
 <!-- Required Js -->
 <script src="{{ asset('atp/js/jquery.min.js') }}"></script>
@@ -47,13 +48,14 @@
     <script>
         show_toastr('success', '{!! $message !!}');
     </script>
-@endif
-@if($message = Session::get('error'))
+@endif 
+ @if($message = Session::get('error'))
     <script>
         show_toastr('error', '{!! $message !!}');
     </script>
 @endif
-{{-- @if($get_cookie['enable_cookie'] == 'on')
+ {{-- @if($get_cookie['enable_cookie'] == 'on')
+
     @include('layouts.cookie_consent')
 @endif --}}
 @stack('script-page')
@@ -105,7 +107,7 @@
     });
 
     var custdarklayout = document.querySelector("#cust-darklayout");
-    custdarklayout.addEventListener("click", function() {
+    // custdarklayout.addEventListener("click", function() {
         if (custdarklayout.checked) {
 
             document

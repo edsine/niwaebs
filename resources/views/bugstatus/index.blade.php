@@ -1,4 +1,5 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 @section('page-title')
     {{__('Manage Project Bug Status')}}
 @endsection
@@ -49,6 +50,9 @@
 @endsection
 
 @section('content')
+<div class="container-fluid">
+
+
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-10 col-xxl-8">
             <div class="card mt-5">
@@ -95,4 +99,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

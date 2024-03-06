@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Bug;
 use App\Models\Project;
+use App\Models\TaskFile;
 use App\Models\BugStatus;
 use App\Models\TaskStage;
 use App\Models\ActivityLog;
 use App\Models\ProjectTask;
+use App\Models\TaskComment;
 use Illuminate\Http\Request;
+use App\Models\TaskChecklist;
 use Modules\Accounting\Models\Utility;
 
 class ProjectTaskController extends Controller
@@ -99,7 +102,7 @@ class ProjectTaskController extends Controller
                 return redirect()->back()->with('error', Utility::errorFormat($validator->getMessageBag()));
             }
 
-            $usr        = Auth::user();
+            $usr        = \Auth::user();
             $project    = Project::find($project_id);
             $last_stage = $project->first()->id;
             $post               = $request->all();
@@ -134,7 +137,7 @@ class ProjectTaskController extends Controller
             $taskNotificationArr = [
                 'task_name' =>  $task->name,
                 'project_name' => $project->project_name,
-                'user_name' => \Auth::user()->name,
+                'user_name' => \Auth::user()->first_name,
             ];
             //Slack Notification
             if(isset($setting['task_notification']) && $setting['task_notification'] ==1)
@@ -193,7 +196,7 @@ class ProjectTaskController extends Controller
         }
         else
         {
-            $usr = Auth::user();
+            $usr = \Auth::user();
             if (\Auth::user()->type == 'client')
             {
                 $user_projects = Project::where('client_id', \Auth::user()->id)->pluck('id', 'id')->toArray();
@@ -232,7 +235,7 @@ class ProjectTaskController extends Controller
     public function taskboardView(Request $request)
     {
 
-        $usr = Auth::user();
+        $usr = \Auth::user();
         if (\Auth::user()->type == 'client') {
             $user_projects = Project::where('client_id', \Auth::user()->id)->pluck('id', 'id')->toArray();
         } elseif (\Auth::user()->type != 'client') {
@@ -712,7 +715,7 @@ class ProjectTaskController extends Controller
             $CommentNotificationArr = [
                 'task_name' =>  $commentOfTask->name,
                 'project_name' =>  $project->project_name,
-                'user_name' => \Auth::user()->name,
+                'user_name' => \Auth::user()->first_name,
             ];
             //Slack Notification
             if(isset($setting['taskcomment_notification']) && $setting['taskcomment_notification'] ==1)

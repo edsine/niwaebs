@@ -54,7 +54,7 @@
     <!-- Favicon icon -->
 {{--    <link rel="icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon"/>--}}
     <!-- Calendar-->
-    
+
     <link rel="stylesheet" href="{{ asset('atp/assets/css/plugins/main.css') }}">
 
     <link rel="stylesheet" href="{{ asset('atp/assets/css/plugins/style.css') }}">

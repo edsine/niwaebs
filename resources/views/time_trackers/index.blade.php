@@ -1,4 +1,6 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
+
 @section('page-title')
     {{__('Manage Tracker')}}
 @endsection
@@ -46,6 +48,9 @@
 
 
 @section('content')
+<div class="container-fluid">
+
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -106,7 +111,7 @@
           </div>
         </div>
     </div>
-
+</div>
 @endsection
 
 @push('script-page')

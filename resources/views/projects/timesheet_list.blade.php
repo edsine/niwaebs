@@ -1,15 +1,15 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('page-title')
-    {{__('Timesheet List')}}
+    {{ __('Timesheet List') }}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{__('Dashboard')}}</a></li>
-    <li class="breadcrumb-item">{{__('Timesheet')}}</li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
+    <li class="breadcrumb-item">{{ __('Timesheet') }}</li>
 @endsection
 
 @section('action-btn')
-
     <div class="row justify-content-end align-items-end text-end">
         <div class="col-xl-3 col-lg-4 col-md-3 col-sm-6 weekly-dates-div me-2">
             <a href="#" class="action-item previous"><i class="ti ti-arrow-left"></i></a>
@@ -21,19 +21,24 @@
         </div>
 
     </div>
-
 @endsection
 
 @section('content')
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card ">
-                <div class="card-wrapper project-timesheet overflow-auto"></div>
-                <div class="text-center notfound-timesheet">
-                    <div class="empty-project-text text-center p-3 min-h-300">
-                        <h5 class="pt-5">{{ __("We couldn't find any data") }}</h5>
-                        <p class="m-0">{{ __("Sorry we can't find any timesheet records on this week.") }}</p>
-                        <p class="m-0">{{ __("To add timesheet record go to ") }}<a href="{{route('projects.index')}}">{{__('projects')}}</a>.</p>
+    <div class="container-fluid">
+
+
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card ">
+                    <div class="card-wrapper project-timesheet overflow-auto"></div>
+                    <div class="text-center notfound-timesheet">
+                        <div class="empty-project-text text-center p-3 min-h-300">
+                            <h5 class="pt-5">{{ __("We couldn't find any data") }}</h5>
+                            <p class="m-0">{{ __("Sorry we can't find any timesheet records on this week.") }}</p>
+                            <p class="m-0">{{ __('To add timesheet record go to ') }}<a
+                                    href="{{ route('projects.index') }}">{{ __('projects') }}</a>.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,19 +61,23 @@
             $.ajax({
                 url: '{{ route('filter.timesheet.table.view') }}',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     $('.weekly-dates-div .weekly-dates').text(data.onewWeekDate);
                     $('.weekly-dates-div #selected_dates').val(data.selectedDate);
 
-                    $.each(data.sectiontasks, function (i, item) {
+                    $.each(data.sectiontasks, function(i, item) {
 
                         var optionhtml = '';
 
                         if (item.section_id != 0 && item.section_name != '' && item.tasks.length > 0) {
-                            optionhtml += `<a href="#" class="dropdown-item select-sub-heading" data-tasks-count="` + item.tasks.length + `">` + item.section_name + `</a>`;
+                            optionhtml +=
+                                `<a href="#" class="dropdown-item select-sub-heading" data-tasks-count="` +
+                                item.tasks.length + `">` + item.section_name + `</a>`;
                         }
-                        $.each(item.tasks, function (ji, jitem) {
-                            optionhtml += `<a href="#" class="dropdown-item select-task" data-task-id="` + jitem.task_id + `">` + jitem.task_name + `</a>`;
+                        $.each(item.tasks, function(ji, jitem) {
+                            optionhtml +=
+                                `<a href="#" class="dropdown-item select-task" data-task-id="` +
+                                jitem.task_id + `">` + jitem.task_name + `</a>`;
                         });
                     });
 
@@ -84,11 +93,11 @@
             });
         }
 
-        $(function () {
+        $(function() {
             ajaxFilterTimesheetTableView();
         });
 
-        $(document).on('click', '.weekly-dates-div .action-item', function () {
+        $(document).on('click', '.weekly-dates-div .action-item', function() {
             var weeknumber = parseInt($('#weeknumber').val());
             if ($(this).hasClass('previous')) {
                 weeknumber--;
@@ -101,7 +110,7 @@
         });
 
 
-        $(document).on('change', '#time_hour, #time_minute', function () {
+        $(document).on('change', '#time_hour, #time_minute', function() {
 
             var hour = $('#time_hour').children("option:selected").val();
             var minute = $('#time_minute').children("option:selected").val();
@@ -126,16 +135,17 @@
             hour = hour < 10 ? '0' + hour : hour;
             minute = minute < 10 ? '0' + minute : minute;
 
-            $('.display-total-time small').text('{{ __("Total Time worked on this task") }} : ' + hour + ' {{ __("Hours") }} ' + minute + ' {{ __("Minutes") }}');
+            $('.display-total-time small').text('{{ __('Total Time worked on this task') }} : ' + hour +
+                ' {{ __('Hours') }} ' + minute + ' {{ __('Minutes') }}');
         });
 
-        $(document).on('click', '.timesheet-owner .owner-timesheet-status', function (e) {
+        $(document).on('click', '.timesheet-owner .owner-timesheet-status', function(e) {
             ajaxFilterTimesheetTableView();
         });
 
 
 
-        $(document).on('click', '[data-ajax-timesheet-popup="true"]', function (e) {
+        $(document).on('click', '[data-ajax-timesheet-popup="true"]', function(e) {
             e.preventDefault();
 
             var data = {};
@@ -162,13 +172,14 @@
                 var title = 'Edit Timesheet';
             }
 
-            $("#commonModal .modal-title").html(title + ` <small>(` + moment(date).format("ddd, Do MMM YYYY") + `)</small>`);
+            $("#commonModal .modal-title").html(title + ` <small>(` + moment(date).format("ddd, Do MMM YYYY") +
+                `)</small>`);
 
             $.ajax({
                 url: url,
                 data: data,
                 dataType: 'html',
-                success: function (data) {
+                success: function(data) {
                     $('#commonModal .body').html(data);
                     // $('#commonModal .modal-body').html(data);
                     $("#commonModal").modal('show');

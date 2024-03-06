@@ -1,4 +1,5 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('page-title')
     {{__('Task Calendar')}}
@@ -17,6 +18,8 @@
 @endsection
 
 @section('content')
+<div class="container-fluid">
+
 
     <div class="row">
         <div class="col-lg-8">
@@ -74,7 +77,7 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection
 
 
