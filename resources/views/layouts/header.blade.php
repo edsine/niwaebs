@@ -49,7 +49,7 @@
                  <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                      data-toggle="dropdown">
                      <i class="fas fa-bell mx-0"></i>
-                     <span class="count">16</span>
+                     {{-- <span class="count">16</span> --}}
                  </a>
                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                      aria-labelledby="notificationDropdown">
@@ -106,7 +106,7 @@
                  <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
                      data-toggle="dropdown" aria-expanded="false">
                      <i class="fas fa-envelope mx-0"></i>
-                     <span class="count">25</span>
+                     {{-- <span class="count">25</span> --}}
                  </a>
 
                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"

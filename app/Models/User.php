@@ -73,7 +73,9 @@ class User extends Authenticatable implements Auditable
         'tax_payer_id',
         'salary',
         'salary_type' ,
-        'is_two_factor_enabled'
+        'is_two_factor_enabled',
+        'type',
+        'created_by'
     ];
 
     /**
@@ -667,6 +669,11 @@ class User extends Authenticatable implements Auditable
     public function isClient()
     {
         return $this->type == 'client' ? 1 : 0;
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project', 'project_users', 'user_id', 'project_id')->withTimestamps();
     }
 
     public function checkProject($project_id)

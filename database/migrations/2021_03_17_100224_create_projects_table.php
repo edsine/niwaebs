@@ -16,11 +16,12 @@ class CreateProjectsTable extends Migration
         if(!Schema::hasTable('projects')){
             Schema::create('projects', function (Blueprint $table) {
                 $table->id();
+
                 $table->string('project_name');
                 $table->date('start_date')->nullable();
                 $table->date('end_date')->nullable();
                 $table->string('project_image')->nullable();
-                $table->integer('budget')->nullable();
+                $table->unsignedBigInteger('budget')->nullable();
                 $table->integer('client_id');
                 $table->text('description')->nullable();
                 $table->string('status');

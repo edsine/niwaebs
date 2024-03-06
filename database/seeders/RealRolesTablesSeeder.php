@@ -54,6 +54,8 @@ class RealRolesTablesSeeder extends Seeder
 
                 'permsec',
                 'minister',
+                'client',
+                'company'
 
 
 

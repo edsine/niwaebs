@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ApprovalDatabaseSeeder::class);
         $this->call(ClaimsCompensationDatabaseSeeder::class);
         $this->call(ServicesSeeder::class);
+        $this->call(TaskStageTableSeeder::class);
 
     }
 }

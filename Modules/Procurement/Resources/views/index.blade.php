@@ -12,19 +12,22 @@
             <thead>
                 <tr>
                     <th scope="col">TRX ID</th>
-                    <th scope="col">STAFF NAME</th>
+                    <th scope="col">COMPANY NAME</th>
+                    <th scope="col">PHONE NUMBER</th>
                     <th scope="col">TITLE</th>
                     <th scope="col">PROC.TYPE</th>
                     <th scope="col">ISSUE DATE</th>
                     <th scope="col">STATUS</th>
-                    <th scope="col">ACTION</th>
+                    {{-- <th scope="col">ACTION</th> --}}
                 </tr>
             </thead>
             <tbody>
                 @foreach ($procurement as $item)
                     <tr>
                         <th>{{ $item->reference_number }}</th>
-                        <td>{{ $item->user->first_name . '' . $item->user->last_name }}</td>
+                        <th>{{ $item->vendor->name}}</th>
+                        <th>{{ $item->vendor->phone_number}}</th>
+                        {{-- <td>{{ $item->user->first_name . '' . $item->user->last_name }}</td> --}}
                         <td>{{ $item->title }}</td>
                         <td>{{ $item->type }}</td>
                         <td>{{ $item->issue_date }}</td>
@@ -96,16 +99,31 @@
                     <form class="form" method="POST" enctype="multipart/form-data"
                         action="{{ route('procurement.store') }}">
                         @csrf
-                        <div class=" row">
-                            <div class="form-group">
-                                <label for=""> Select The Type</label>
-                                <select class="form-control form-select" name="type" required id="">
-                                    @foreach ($type as $item)
-                                        <option value="{{ $item }}"> {{ $item }}</option>
-                                    @endforeach
-                                </select>
+                        <div class="row">
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label for=""> Select The Proc Type</label>
+                                    <select class="form-control form-select" name="type" required id="">
+                                        @foreach ($type as $item)
+                                            <option value="{{ $item }}"> {{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label for="ldms_documentTitle">{{ trans('Company') }}</label>
+                                    <div class="form-group-inner">
+                                        <div class="field-outer">
+                                            {!! Form::select('vendor_id', $vendor, null, ['class' => 'form-control form-select','required'=>'true']) !!}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -143,7 +161,7 @@
 
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Title:</label>
-                                    <input type="title" name="title" class="form-control" id="recipient-name">
+                                    <input type="title" name="title" required class="form-control" id="recipient-name">
                                 </div>
                             </div>
                         </div>
@@ -204,7 +222,7 @@
                                                     <div class="col-12 col-md-5">
                                                         <div class="form-group">
                                                             <label>ITEMS </label>
-                                                            <input class="form-control form-control-sm" name="item[]"
+                                                            <input required class="form-control form-control-sm" name="item[]"
                                                                 type="text" placeholder="">
                                                         </div>
                                                     </div>
@@ -213,7 +231,7 @@
                                                         <div class="form-group">
                                                             <label>QUANTITY </label>
                                                             <input class="form-control form-control-sm quantity"
-                                                                name="quantity[]" type="number" placeholder=" ">
+                                                                name="quantity[]" type="number" required placeholder=" ">
                                                         </div>
                                                     </div>
 
@@ -221,7 +239,7 @@
                                                     <div class="col-4 col-md-5">
                                                         <div class="form-group">
                                                             <label>RATE</label>
-                                                            <input class="form-control form-control-sm rate"
+                                                            <input  required class="form-control form-control-sm rate"
                                                                 name="rate[]" type="number" placeholder="">
                                                         </div>
                                                     </div>
@@ -314,7 +332,7 @@
 
 
 
-        <script>
+        {{-- <script>
             const inputgroup = document.querySelector('.atp');
             inputgroup.class = 'row';
 
@@ -352,7 +370,7 @@
                 div.appendChild(jobbox);
                 div.appendChild(krabox);
             }
-        </script>
+        </script> --}}
 
         <script>
             function validateForm() {

@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
             $user->first_name = 'Admin';
             $user->last_name = 'Admin';
             $user->email = 'admin@niwa.com';
+            $user->type='company';
             $user->password = bcrypt('12345678');
             $user->email_verified_at = now();
             $user->save();
