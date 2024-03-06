@@ -49,7 +49,6 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-
                 <li class="nav-item">
                     <a class="nav-link" href="">Marine Dashboard</a>
                 </li>
@@ -62,6 +61,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Audit Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Corporate Affairs Dashboard</a>
                 </li>
             </ul>
 

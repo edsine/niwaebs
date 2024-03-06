@@ -5,6 +5,12 @@
 <br>
 
 
+@can('delete user')
+
+
+@endcan
+
+
 <div class="row g-5 g-xl-8 pt-5">
 	<div class="col-xl-4">
 		<!--begin::Statistics Widget 5-->
