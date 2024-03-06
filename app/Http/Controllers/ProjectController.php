@@ -115,7 +115,7 @@ class ProjectController extends Controller
             ProjectUser::create(
                 [
                     'project_id' => $project->id,
-                    'user_id' => Auth::user()->id,
+                    'user_id' => \Auth::user()->id,
                 ]
             );
 
@@ -133,14 +133,14 @@ class ProjectController extends Controller
             ProjectUser::create(
                 [
                     'project_id' => $project->id,
-                    'user_id' => Auth::user()->id,
+                    'user_id' => \Auth::user()->id,
                 ]
             );
 
             ProjectUser::create(
                 [
                     'project_id' => $project->id,
-                    'user_id' => Auth::user()->id,
+                    'user_id' =>\Auth::user()->id,
                 ]
             );
 
