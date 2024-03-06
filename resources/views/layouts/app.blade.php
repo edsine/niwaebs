@@ -1,11 +1,32 @@
+@php
+    $logo=asset(Storage::url('uploads/logo/'));
+    $company_favicon=\Modules\Accounting\Models\Utility::getValByName('company_favicon');
+    $SITE_RTL = \Modules\Accounting\Models\Utility::getValByName('SITE_RTL');
+    $setting = \Modules\Accounting\Models\Utility::colorset();
+    $color = 'theme-3';
+    if (!empty($setting['color'])) {
+        $color = $setting['color'];
+    }
+    $mode_setting = \Modules\Accounting\Models\Utility::mode_layout();
+    $getseo= \Modules\Accounting\Models\Utility::getSeoSetting();
+    $metatitle =  isset($getseo['meta_title']) ? $getseo['meta_title'] :'';
+    $metsdesc= isset($getseo['meta_desc'])?$getseo['meta_desc']:'';
+    $meta_image = \Modules\Accounting\Models\Utility::get_file('uploads/meta/');
+    $meta_logo = isset($getseo['meta_image'])?$getseo['meta_image']:'';
+    $get_cookie = \Modules\Accounting\Models\Utility::getCookieSetting();
+
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <script src="{{ asset('atp/js/html5shiv.js') }}"></script>
+
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     {{-- <style>
         #aa a{
             display: none
@@ -745,6 +766,37 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js" integrity="sha512-foIijUdV0fR0Zew7vmw98E6mOWd9gkGWQBWaoA1EOFAx+pY+N8FmmtIYAVj64R98KeD2wzZh1aHK0JSpKmRH8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script> --}}
     <!-- for the form repeater  -->
+
+
+<div class="modal fade" id="commonModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="commonModalOver" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commonModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+@include('partials.admin.footer')
 </body>
 
 </html>

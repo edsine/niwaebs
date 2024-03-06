@@ -1,3 +1,4 @@
+{{-- @extends('layouts.admin') --}}
 @extends('layouts.admin')
 @section('page-title')
     {{ucwords($project->project_name).__("'s Tasks")}}

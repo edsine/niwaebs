@@ -1,4 +1,5 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('page-title')
     {{__('Tasks')}}
@@ -65,7 +66,10 @@
 @endsection
 
 @section('content')
+<div class=" container-fluid">
+
     <div class="row min-750" id="taskboard_view"></div>
+</div>
 @endsection
 
 @push('script-page')
