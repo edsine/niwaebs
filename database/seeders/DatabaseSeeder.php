@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClaimsCompensationDatabaseSeeder::class);
         $this->call(ServicesSeeder::class);
         $this->call(TaskStageTableSeeder::class);
-
+        
         $this->call(AddNewPermissionsSeeder::class);
         $this->call(ProcurementPermissionsSeeder::class);
         $this->call(ReportPermissionsSeeder::class);

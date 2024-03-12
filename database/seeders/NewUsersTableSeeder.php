@@ -18,44 +18,44 @@ class NewUsersTableSeeder extends Seeder
         //
         $users=[
             [
-                'first_name'=>'Human',
-                'last_name'=>'Resource',
+                'first_name'=>'A.A.',
+                'last_name'=>'DABAI',
                 'email'=>'hr@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'finance',
-                'last_name'=>'account',
+                'first_name'=>'UMAR YUSUF',
+                'last_name'=>'GIRE',
                 'email'=>'finance@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'marine',
-                'last_name'=>'department',
+                'first_name'=>'DAKOI',
+                'last_name'=>'HORSEFALL',
                 'email'=>'marine@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'engineering',
-                'last_name'=>'department',
+                'first_name'=>'EJIKE',
+                'last_name'=>'FIDELIS .E.',
                 'email'=>'engineer@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'survey',
-                'last_name'=>'department',
+                'first_name'=>'HENRY',
+                'last_name'=>'ADIMOHA',
                 'email'=>'survey@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'ports',
-                'last_name'=>'environment',
+                'first_name'=>'AGBANI',
+                'last_name'=>'FIDELIS',
                 'email'=>'port@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'audit',
-                'last_name'=>'internal coordination',
+                'first_name'=>'JAPHET',
+                'last_name'=>'.I. MAISAJE',
                 'email'=>'audit@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
@@ -72,20 +72,20 @@ class NewUsersTableSeeder extends Seeder
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'project management',
-                'last_name'=>'special duties',
+                'first_name'=>'MOHAMMED',
+                'last_name'=>'AMIN DANGANA',
                 'email'=>'project@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'procurement',
-                'last_name'=>'department',
+                'first_name'=>'IBRAHIM',
+                'last_name'=>'ISYAKU SADE',
                 'email'=>'procurement@niwa.com',
                 'password'=>bcrypt('12345678')
             ],
             [
-                'first_name'=>'legal',
-                'last_name'=>'department',
+                'first_name'=>'NAZIRU',
+                'last_name'=>'BIYANKARE',
                 'email'=>'legal@niwa.com',
                 'password'=>bcrypt('12345678')
             ],

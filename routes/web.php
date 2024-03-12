@@ -251,7 +251,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/roundcube-login', [HomeController::class, 'roundcubeLogin']);
 
-Route::get('auditadmin', [HomeController::class, 'auditadmin']);
+Route::get('fiadmin', [HomeController::class, 'auditadmin'])->name('auditadmin');
 Route::get('ictadmin', [HomeController::class, 'ictadmin'])->name('ict');
 // Route::get('/hradmin', [HomeController::class, 'hradmin'])->name('hradmin');
 Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
@@ -264,12 +264,13 @@ Route::get('/am', [HomeController::class, 'branch'])->name('am');
 Route::get('/region', [HomeController::class, 'regional'])->name('region');
 Route::get('/ed_md', [HomeController::class, 'edfinance'])->name('ed_md');
 Route::get('/ed_admin', [HomeController::class, 'edadmin'])->name('ed_admin');
+Route::get('/engineering', [HomeController::class, 'engineering'])->name('engineering');
 
 Route::get('/riskadmin', [HomeController::class, 'riskadmin']);
 
 Route::get('/aprd', [HomeController::class, 'aprd']);
 Route::get('/fre', [HomeController::class, 'fre']);
-Route::get('/copaffairs', [HomeController::class, 'copaffairs']);
+Route::get('/copaffairs', [HomeController::class, 'copaffairs'])->name('copaffairs');
 Route::get('legaladmin', [HomeController::class, 'legaladmin']);
 Route::get('procurementadmin', [HomeController::class, 'procurementadmin']);
 
