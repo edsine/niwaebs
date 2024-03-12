@@ -25,8 +25,8 @@
                 @foreach ($procurement as $item)
                     <tr>
                         <th>{{ $item->reference_number }}</th>
-                        <th>{{ $item->vendor->name}}</th>
-                        <th>{{ $item->vendor->phone_number}}</th>
+                        <th>{{ $item->vendor->name }}</th>
+                        <th>{{ $item->vendor->phone_number }}</th>
                         {{-- <td>{{ $item->user->first_name . '' . $item->user->last_name }}</td> --}}
                         <td>{{ $item->title }}</td>
                         <td>{{ $item->type }}</td>
@@ -50,7 +50,6 @@
                                 <span class=" fw-bolder text-warning"> Awaiting Fianance Payment</span>
                             @elseif ($item->status == 7)
                                 <span class=" fw-bolder text-success"> PAYMENT SUCCESSFUL</span>
-
                             @else
                                 <span class=" fw-bolder text-success"> Approved</span>
                             @endif
@@ -117,7 +116,7 @@
                                     <label for="ldms_documentTitle">{{ trans('Company') }}</label>
                                     <div class="form-group-inner">
                                         <div class="field-outer">
-                                            {!! Form::select('vendor_id', $vendor, null, ['class' => 'form-control form-select','required'=>'true']) !!}
+                                            {!! Form::select('vendor_id', $vendor, null, ['class' => 'form-control form-select', 'required' => 'true']) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -222,8 +221,8 @@
                                                     <div class="col-12 col-md-5">
                                                         <div class="form-group">
                                                             <label>ITEMS </label>
-                                                            <input required class="form-control form-control-sm" name="item[]"
-                                                                type="text" placeholder="">
+                                                            <input required class="form-control form-control-sm"
+                                                                name="item[]" type="text" placeholder="">
                                                         </div>
                                                     </div>
 
@@ -231,7 +230,8 @@
                                                         <div class="form-group">
                                                             <label>QUANTITY </label>
                                                             <input class="form-control form-control-sm quantity"
-                                                                name="quantity[]" type="number" required placeholder=" ">
+                                                                name="quantity[]" type="number" required
+                                                                placeholder=" ">
                                                         </div>
                                                     </div>
 
@@ -239,7 +239,7 @@
                                                     <div class="col-4 col-md-5">
                                                         <div class="form-group">
                                                             <label>RATE</label>
-                                                            <input  required class="form-control form-control-sm rate"
+                                                            <input required class="form-control form-control-sm rate"
                                                                 name="rate[]" type="number" placeholder="">
                                                         </div>
                                                     </div>
