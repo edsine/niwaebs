@@ -5,6 +5,48 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h1 class="text-center mb-5">AREA MANAGER DASHBOARD</h1>
+            <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-3">
+                            {!! Form::label('', 'Filter By', ['class'=>'form-label mt-2']) !!}
+                        </div>
+                        <div class="col-3">
+                           {!! Form::select('branch_id', $branch->pluck('branch_name','id'), null, ['class'=>' form-select']) !!}
+                        </div>
+
+                        <div class="col-3">
+                            <select class="form-select" id="monthSelect">
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" id="yearSelect">
+                                @php
+                                    $currentYear = date('Y');
+                                    $startYear = $currentYear - 10; // Adjust as needed
+                                    $endYear = $currentYear + 10; // Adjust as needed
+                                @endphp
+                                @for ($year = $startYear; $year <= $endYear; $year++)
+                                    <option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>
+                                        {{ $year }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row g-5 g-xl-8">
                 <div class="col-xl-3">
                     <!--begin::Statistics Widget 5-->
@@ -79,7 +121,7 @@
                             </span>
                             <!--end::Svg Icon-->
 
-                            <div class="text-white fw-bolder fs-2 mb-2 mt-5"> 5000,000,000 </div>
+                            <div class="text-white fw-bolder fs-2 mb-2 mt-5"> 30,000,000,000 </div>
                             <div class="fw-bold text-white">Total Revenue Generated</div>
                         </div>
                         <!--end::Body-->
@@ -365,7 +407,7 @@
 
                 <div class="col-xl-6 mb-10">
                     <!--begin::Chart widget 15-->
-                    <div class="card card-flush h-xl-100">
+                    <div class="card card-flush">
                         <!--begin::Header-->
                         <div class="card-header pt-7">
                             <!--begin::Title-->
@@ -377,11 +419,11 @@
                             <div class="card-toolbar">
                                 <div class="form-group">
 
-                                    {!! Form::date('date', now()->format('Y-m-d'), ['class' => 'date form-control']) !!}
+                                    {{-- {!! Form::date('date', now()->format('Y-m-d'), ['class' => 'date form-control']) !!} --}}
 
                                 </div>
                                 <!--begin::Menu-->
-                                {{-- <button type="button"
+                                <button type="button"
                                     class="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end"
                                     data-bs-toggle="modal" data-bs-target="#thestate">
                                     <span class="svg-icon svg-icon-1 svg-icon-gray-300 me-n1">
@@ -397,7 +439,7 @@
                                                 fill="currentColor" />
                                         </svg>
                                     </span>
-                                </button> --}}
+                                </button>
                                 <!--end::Menu-->
                             </div>
                             <!--end::Toolbar-->
@@ -406,7 +448,7 @@
                         <!--begin::Body-->
                         <div class="card-body pt-5">
                             <!--begin::Chart container-->
-                            <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div>
+                            {{-- <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div> --}}
                             <!--end::Chart container-->
                         </div>
                         <!--end::Body-->

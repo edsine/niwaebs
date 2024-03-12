@@ -74,6 +74,7 @@ class HomeController extends Controller
 
             $claims_table = 'death_claims';
             $claims_death_count = DB::table($claims_table)->count();
+            $branch = Branch::get()->prepend('all');
 
             $staffs = 'staff';
             $staff_count = DB::table($staffs)->count();
@@ -99,6 +100,7 @@ class HomeController extends Controller
             $staff = DB::table('staff')->count();
 
             return view('home', compact(
+                'branch',
                 'registered_employers',
                 'pending_employers',
                 'registered_employees',
@@ -302,7 +304,16 @@ class HomeController extends Controller
     }
     public function md()
     {
-        return view('md');
+
+        $branch = Branch::all();
+
+        return view('md', compact('branch'));
+    }
+
+    public function showareaoffice(Request $request)
+    {
+
+        dd($request->get('branch_id'));
     }
     public function edfinance()
     {

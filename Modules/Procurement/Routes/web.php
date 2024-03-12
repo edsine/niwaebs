@@ -42,3 +42,15 @@ Route::prefix('procurements')->group(function () {
     Route::get('/departmental/{id}','ProcurementController@hodedit')->name('hod.edit');
     Route::get('{id}', 'ProcurementController@unitedit')->name('unithead');
 });
+
+
+
+
+
+
+
+
+
+
+
+
