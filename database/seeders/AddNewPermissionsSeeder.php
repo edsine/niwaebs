@@ -3,10 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class add_new_permissions extends Seeder
+class AddNewPermissionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -53,5 +54,8 @@ class add_new_permissions extends Seeder
         });
 
         Permission::insert($permissions->toArray());
+
+        $super_admin_role = Role::find(1);
+        $super_admin_role->givePermissionTo(Permission::all());
     }
 }
