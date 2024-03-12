@@ -165,6 +165,53 @@ class HomeController extends Controller
         ));
     }
 
+    public function superdash()
+    {
+
+        $claims_table = 'death_claims';
+        $claims_death_count = DB::table($claims_table)->count();
+
+        $staffs = 'staff';
+        $staff_count = DB::table($staffs)->count();
+        $ictstaff = Staff::where('department_id', 3)->count();
+
+        $totalemployers = Employer::count();
+        $registered_employers = Employer::where('status', 1)->count();
+        $pending_employers = Employer::where('status', 2)->count();
+        $registered_employees = Employee::where('status', 1)->count();
+        $pending_employees = Employee::where('status', 2)->count();
+        $data = Employer::where('status', 1);
+        $data = $data->paginate(10);
+        $diseaseclaims = ClaimsCompensation::where('claimstype_id', 2)->count();
+        $deathclaims = ClaimsCompensation::where('claimstype_id', 3)->count();
+        // $diseaseclaims=ClaimsCompensation::where('id',1)->count();
+        $approvedclaims = ClaimsCompensation::where('regional_manager_status', 1)->count();
+        $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
+
+
+
+        //i will add all the information here
+
+        $staff = DB::table('staff')->count();
+
+        return view('superadmin', compact(
+            'registered_employers',
+            'pending_employers',
+            'registered_employees',
+            'pending_employees',
+            'claims_death_count',
+            'deathclaims',
+            'staff',
+            'staff_count',
+            'diseaseclaims',
+            'data',
+            'ictstaff',
+            'totalemployers',
+            'pendingclaims',
+            'approvedclaims'
+        ));
+    }
+
 
     // $allstaff=Staff::count();
     //     $totalregion = Region::count();
@@ -399,6 +446,19 @@ class HomeController extends Controller
         $data = Employer::where('status', 1);
         $data = $data->paginate(10);
         return view('aocadmin', compact('registered_employers', 'pending_employers', 'registered_employees', 'pending_employees', 'data'));
+    }
+
+    public function superadmin()
+    {
+
+
+        $registered_employers = Employer::where('status', 1)->count();
+        $pending_employers = Employer::where('status', 2)->count();
+        $registered_employees = Employee::where('status', 1)->count();
+        $pending_employees = Employee::where('status', 2)->count();
+        $data = Employer::where('status', 1);
+        $data = $data->paginate(10);
+        return view('superadmin', compact('registered_employers', 'pending_employers', 'registered_employees', 'pending_employees', 'data'));
     }
 
     public function aprd()
