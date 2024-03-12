@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mx-7">
+        <div class="row ">
             <div class="col-md-4 grid-margin">
                 <div class="card shadow">
                     <div class="card-body">
@@ -196,7 +196,7 @@
             </div>
         </div>
 
-        <div class="row mx-7 grid-margin">
+        <div class="row  grid-margin">
             <div class="col-12">
                 <div class="card card-statistics">
                     <div class="card-body">
@@ -241,7 +241,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mx-7">
+        <div class="row ">
             <div class="col-12 grid-margin">
                 <div class="card shadow">
                     <div class="card-body">

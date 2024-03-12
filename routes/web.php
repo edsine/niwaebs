@@ -229,6 +229,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
     Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
     Route::get('/aocadmin', [HomeController::class, 'aoc'])->name('aocadmin');
+    Route::get('/superadmin', [HomeController::class, 'superdash'])->name('superadmin');
     Route::resource('services', App\Http\Controllers\ServiceController::class);
     Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
 });
