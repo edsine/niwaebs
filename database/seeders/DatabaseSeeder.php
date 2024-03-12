@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ServiceApplication;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ServicesSeeder;
 use Database\Seeders\NewStaffTableSeeder;
@@ -49,6 +50,14 @@ class DatabaseSeeder extends Seeder
         $this->call(ClaimsCompensationDatabaseSeeder::class);
         $this->call(ServicesSeeder::class);
         $this->call(TaskStageTableSeeder::class);
+
+        $this->call(AddNewPermissionsSeeder::class);
+        $this->call(ProcurementPermissionsSeeder::class);
+        $this->call(ReportPermissionsSeeder::class);
+        $this->call(ApprovalEnginePermissionsSeeder::class);
+        $this->call(ServiceApplicationPermissionsSeeder::class);
+        $this->call(SupportSystemPermissionsSeeder::class);
+        $this->call(AssetManagerPermissionsSeeder::class);
 
     }
 }
