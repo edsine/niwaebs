@@ -40,8 +40,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        if (Auth::check() && Auth::user()->hasRole('minister')) {
+        if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+            return redirect()->route('superadmin');
+        }
+        else if (Auth::check() && Auth::user()->hasRole('minister')) {
             return redirect()->route('minister');
         } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
 
