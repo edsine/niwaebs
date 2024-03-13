@@ -5,6 +5,49 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h1 class="text-center mb-5">MANAGING DIRECTOR DASHBOARD</h1>
+
+            <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-3">
+                            {!! Form::label('', 'Filter By', ['class' => 'form-label mt-2']) !!}
+                        </div>
+                        <div class="col-3">
+                            {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, ['class' => ' form-select']) !!}
+                        </div>
+
+                        <div class="col-3">
+                            <select class="form-select" id="monthSelect">
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" id="yearSelect">
+                                @php
+                                    $currentYear = date('Y');
+                                    $startYear = $currentYear - 10; // Adjust as needed
+                                    $endYear = $currentYear + 10; // Adjust as needed
+                                @endphp
+                                @for ($year = $startYear; $year <= $endYear; $year++)
+                                    <option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>
+                                        {{ $year }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row g-5 g-xl-8">
                 <div class="col-xl-3">
                     <!--begin::Statistics Widget 5-->
@@ -23,7 +66,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">57</div>
+                            <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">0</div>
                             <div class="fw-bold"><b>Total No OF Application Forms</b></div>
                         </div>
                         <!--end::Body-->
@@ -79,7 +122,7 @@
                             </span>
                             <!--end::Svg Icon-->
 
-                            <div class="text-white fw-bolder fs-2 mb-2 mt-5"> 5000,000,000 </div>
+                            <div class="text-white fw-bolder fs-2 mb-2 mt-5"> 30,000,000 </div>
                             <div class="fw-bold text-white">Total Revenue Generated</div>
                         </div>
                         <!--end::Body-->
@@ -124,9 +167,10 @@
                         <div class="card-body">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
                             <span class="svg-icon svg-icon-primary svg-icon-3x ms-n1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none">
-                                    <rect x="8" y="9" width="3" height="10" rx="1.5" fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <rect x="8" y="9" width="3" height="10" rx="1.5"
+                                        fill="currentColor" />
                                     <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5"
                                         fill="currentColor" />
                                     <rect x="18" y="11" width="3" height="8" rx="1.5"
@@ -197,9 +241,13 @@
                     </a>
                     <!--end::Statistics Widget 5-->
                 </div>
+                @php
+                    $users = DB::table('users')->count();
+                @endphp
                 <div class="col-xl-3">
                     <!--begin::Statistics Widget 5-->
-                    <a href="#" class="card bg-success hoverable card-xl-stretch mb-xl-8">
+                    <a href="#thestate" data-bs-toggle="modal" data-bs-target="#staffbystate"
+                        class="card bg-success hoverable card-xl-stretch mb-xl-8">
                         <!--begin::Body-->
                         <div class="card-body">
                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm008.svg-->
@@ -218,7 +266,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">20</div>
+                            <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">{{ $users }}</div>
                             <div class="fw-bold text-gray-100">Total No of Staff In The Authority</div>
                         </div>
                         <!--end::Body-->
@@ -235,7 +283,7 @@
             <!--begin::Row-->
             <div class="row g-5 g-xl-10">
                 <!--begin::Col-->
-                <div class="col-xxl-6 mb-md-5 mb-xl-10">
+                <div class="col-md-6 mb-md-5 mb-xl-10">
                     <div class="row g-5 g-xl-10">
                         <div class="col-md-6 col-xl-6 mb-xxl-10">
                             <!--begin::Card widget 8-->
@@ -363,9 +411,12 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 mb-10">
+
+
+                <div class="col-md-6 mb-0">
                     <!--begin::Chart widget 15-->
-                    <div class="card card-flush h-xl-100">
+                    {{-- <div class="card  h-xl-100"> --}}
+                    <div class="card  h-xl-100">
                         <!--begin::Header-->
                         <div class="card-header pt-7">
                             <!--begin::Title-->
@@ -377,41 +428,40 @@
                             <div class="card-toolbar">
                                 <div class="form-group">
 
-                                    {!! Form::date('date', now()->format('Y-m-d'), ['class' => 'date form-control']) !!}
+                                    {{-- {!! Form::date('date', now()->format('Y-m-d'), ['class' => 'date form-control']) !!} --}}
+
+                                    <form id="branchForm" class="form" method="GET"
+                                        action="{{ route('showarea') }}">
+                                        @csrf
+                                        {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
+                                            'class' => 'form-control form-select',
+                                            'id' => 'branchSelect',
+                                        ]) !!}
+                                        {{-- <input type="hidden" name="branch_id" id="selectedBranchId"> --}}
+                                        <button type="submit" class="btn btn-success">View Details</button>
+                                    </form>
 
                                 </div>
                                 <!--begin::Menu-->
-                                {{-- <button type="button"
-                                    class="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end"
-                                    data-bs-toggle="modal" data-bs-target="#thestate">
-                                    <span class="svg-icon svg-icon-1 svg-icon-gray-300 me-n1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                rx="4" fill="currentColor" />
-                                            <rect x="11" y="11" width="2.6" height="2.6" rx="1.3"
-                                                fill="currentColor" />
-                                            <rect x="15" y="11" width="2.6" height="2.6" rx="1.3"
-                                                fill="currentColor" />
-                                            <rect x="7" y="11" width="2.6" height="2.6" rx="1.3"
-                                                fill="currentColor" />
-                                        </svg>
-                                    </span>
-                                </button> --}}
-                                <!--end::Menu-->
+
                             </div>
                             <!--end::Toolbar-->
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
-                        <div class="card-body pt-5">
+                        <div class="card-body d-flex justify-content-between flex-column px-0 pb-0 ">
                             <!--begin::Chart container-->
-                            <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div>
+                            {{-- <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div> --}}
                             <!--end::Chart container-->
+
+                            <canvas id="md"
+                                style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas>
+                            {{-- <canvas id="doughnutChart"></canvas> --}}
                         </div>
                         <!--end::Body-->
                     </div>
                     <!--end::Chart widget 15-->
+
                 </div>
 
                 <!-- Modal -->
@@ -538,4 +588,176 @@
                         </div>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="staffbystate" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="thestate" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fs-5" id="staticBackdropLabel">STAFF AREA OFFICES</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">LAGOS</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3 row align-items-center">
+                                    <div class="col-auto">
+                                        <a href="#" class="menu-link px-3">PORT HARCOURT</a>
+                                    </div>
+                                    <div class="col">
+                                        <span>20</span>
+                                    </div>
+                                </div>
+
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">WARRI</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">ONITSHA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">YENAGOA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">EKET</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">ABEOKUTA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">LOKOJA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">CALABAR</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">KADUNA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">JALINGO</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">HADEJIA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">MINNA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">SOKOTO</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">ABUJA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">MAIDUGURI</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">YOLA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">OGUTA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">IGBOKODA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">ONITSHA</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">YALEWA/YAURI</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3">BARO PORT</a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!-- Add all 36 states here -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const myChart = document.getElementById('md');
+
+                    const data = {
+                        labels: ['Actual', 'Target'],
+                        datasets: [{
+                            label: 'Performances',
+                            data: [300, 50],
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                // 'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    };
+
+                    const config = {
+                        type: 'doughnut',
+                        data: data,
+                    };
+
+                    new Chart(myChart, config);
+
+
+                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
+                    //     event.preventDefault();
+
+                    //     // Get the selected branch ID
+                    //     var selectedBranchId = document.getElementById('branchSelect').value;
+
+                    //     // Construct the URL with the selected branch ID
+                    //     var url = '{{ route('showarea', ':branchId') }}';
+                    //     // url = url.replace(':branchId', selectedBranchId);
+
+                    //     // Redirect the user to the constructed URL
+                    //     window.location.href = url;
+
+                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
+                    //     // Get the selected branch ID
+                    //     var selectedBranchId = document.getElementById('branchSelect').value;
+
+                    //     // Set the selected branch ID to the hidden input field
+                    //     document.getElementById('selectedBranchId').value = selectedBranchId;
+                    // });
+                </script>
             @endsection

@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class NewUsersTableSeeder extends Seeder
@@ -15,6 +17,7 @@ class NewUsersTableSeeder extends Seeder
      */
     public function run()
     {
+        Role::firstOrCreate(['name' => 'General Manager']);
         //
         $users=[
             [
@@ -104,5 +107,10 @@ class NewUsersTableSeeder extends Seeder
         ];
 
         DB::table('users')->insert($users);
+
+         foreach ($users as $userData) {
+            $user = User::where('email', $userData['email'])->first();
+            $user->assignRole('General Manager');
+        }
     }
 }

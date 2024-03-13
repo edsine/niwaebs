@@ -229,6 +229,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
     Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
     Route::get('/aocadmin', [HomeController::class, 'aoc'])->name('aocadmin');
+    Route::get('/superadmin', [HomeController::class, 'superdash'])->name('superadmin');
     Route::resource('services', App\Http\Controllers\ServiceController::class);
     Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
 });
@@ -319,6 +320,8 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::view('am','am');
 
 Route::get('md_user', [HomeController::class, 'md'])->name('md');
+
+
 Route::get('areamanager', [HomeController::class, 'areamanager'])->name('am');
 //=================================== Zoom Meeting ======================================================================
 Route::get('zoom', function () {
@@ -706,7 +709,7 @@ Route::any('/project/timesheet/update/{timesheet_id}', [TimesheetController::cla
 
 Route::delete('/project/timesheet/{timesheet_id}', [TimesheetController::class, 'timesheetDestroy'])->name('timesheet.destroy')->middleware(['auth']);
 
-
+Route::get('showarea',[HomeController::class,'showareaoffice'])->name('showarea');
 
 
 Route::group(
