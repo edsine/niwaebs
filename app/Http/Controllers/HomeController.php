@@ -350,7 +350,8 @@ $branch=Branch::all();
 
     public function areamanager()
     {
-        return view('am');
+        $branch =Branch::all();
+        return view('am',compact('branch'));
     }
     public function md()
     {
