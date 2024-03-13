@@ -159,39 +159,30 @@
             </a>
             <ul class="nav flex-column sub-menu">
 
-                @can('read approval request')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('request.index') }}">Approval Request</a>
-                    </li>
-                @endcan
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('request.index') }}">Approval Request</a>
+                </li>
+
                 {{--  @if (Auth()->user()->hasRole('super-admin')) --}}
-                @can('read approval appraisal')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('appraisal.index') }}">Appraisal</a>
-                    </li>
-                @endcan
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('appraisal.index') }}">Appraisal</a>
+                </li>
                 {{-- @endif --}}
-                @can('read approval types')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('type.index') }}">Types</a>
-                    </li>
-                @endcan
-                @can('read payments approval')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('niwa.payments') }}">
-                            Payments Approval
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('type.index') }}">Types</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('niwa.payments') }}">
+                        Payments Approval
 
-                        </a>
-                    </li>
-                @endcan
-                @can('read documents approval')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('document.index') }}">
-                            Documents Approval
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('document.index') }}">
+                        Documents Approval
 
-                        </a>
-                    </li>
-                @endcan
+                    </a>
+                </li>
             </ul>
         </li>
 
@@ -291,7 +282,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('folders.index') }}">Folders</a>
                         </li>
-                        <li class="nav-item">
+                        < li class="nav-item">
                             <a class="nav-link" href="{{ route('memos.index') }}">Memos</a>
                         </li>
                         {{-- <li class="nav-item">
@@ -334,11 +325,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('projects.index') }}">Manage Project </a>
                 </li>
-                @can('manage project task')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('taskBoard.view', 'list') }}">Tasks </a>
-                    </li>
-                @endcan
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('taskBoard.view', 'list') }}">Tasks </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link"  href="{{route('timesheet.list')}}">{{__('Timesheet')}}</a>
                 </li>
@@ -398,42 +387,31 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-                @can('read vendors')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('vendors.index') }}">Vendors</a>
-                    </li>
-                @endcan
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('vendors.index') }}">Vendors</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('procurement.index') }}">MY REQUISITION</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('unit.proc') }}">SUPER.REQUISITION</a>
                 </li>
-                @can('read departmental requistion')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('hod.proc') }}">MY DEPARTMENTAL REQUESITION.</a>
-                    </li>
-                @endcan
-                @can('read audit requisition')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('audit.proc') }}">AUDIT. REQUESITION.</a>
-                    </li>
-                @endcan
-                @can('read legal requisition')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('legal.proc') }}">LEGAL. REQUESITION.</a>
-                    </li>
-                @endcan
-                @can('read md requisition')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('md.proc') }}">MD. REQUESITION.</a>
-                    </li>
-                @endcan
-                @can('read finance requisition')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('fin.proc') }}">FINANCE. REQUESITION.</a>
-                    </li>
-                @endcan
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('hod.proc') }}">MY DEPARTMENTAL REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('audit.proc') }}">AUDIT. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('legal.proc') }}">LEGAL. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('md.proc') }}">MD. REQUESITION.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('fin.proc') }}">FINANCE. REQUESITION.</a>
+                </li>
 
 
 
@@ -454,51 +432,83 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-                @can('read asset manager dashboard')
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
+                </li>
+
+               {{--  @can('read asset manager dashboard') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
                     </li>
-                @endcan
-                @can('read assets')
+                {{-- @endcan
+                @can('read assets') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read components')
+                {{-- @endcan
+                @can('read components') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read maintenances')
+               {{--  @endcan
+                @can('read maintenances') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
                     </li>
-                @endcan
-                @can('read asset types')
+                {{-- @endcan
+                @can('read asset types') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
                     </li>
-                @endcan
-                @can('read brands')
+                {{-- @endcan
+                @can('read brands') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read suppliers')
+               {{--  @endcan
+                @can('read suppliers') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
                     </li>
-                @endcan
-                @can('read locations')
+               {{--  @endcan
+                @can('read locations') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read asset manager reports')
+               {{--  @endcan
+                @can('read asset manager reports') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
                     </li>
-                @endcan
+               {{--  @endcan --}}
+
 
 
             </ul>

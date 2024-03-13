@@ -4,7 +4,7 @@
         <div class="col-6" id="clockInCard">
             <div class="card" style="padding-top: 10px;">
                 <div class="card-header">
-                    <h3>Mark Attendance</h3>
+                    <h4 class="card-title">Mark Attendance</h4>
                 </div>
                 <div class="card-body dash-card-body">
                     <h5 class="text-muted pb-0-5">My Office Time: 08:00am to 05:00pm </h5>
@@ -27,13 +27,12 @@
         <div class="col-6" id="announcementCard">
             <div class="card list_card" style="padding-top: 10px;">
                 <div class="card-header">
-                    <h3>{{__('Announcement List')}}</h3>
+                    <h4 class="card-title">{{__('Announcement List')}}</h4>
                 </div>
                 <div class="card-body dash-card-body">
                     <div class="table-responsive">
                         <table class="table table-striped mb-0">
-                            <thead>
-                            
+                            <thead>                            
                                 <tr>
                                    <th><b style="font-size:15px">{{__('Title')}}</b></th></b>
                                     <th><b style="font-size:15px">{{__('Start Date')}}</b></th>
