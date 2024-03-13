@@ -28,7 +28,7 @@
                         <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                             alt="{{ auth()->user()->staff->profile_picture }}">
                     @else
-                        <img src="assets/media/avatars/300-1.jpg" alt="image" />
+                        <img src="assets/media/avatars/blank.png" alt="image" />
                     @endif
                 </div>
                 <div class="profile-name">
@@ -49,6 +49,16 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
+                {{-- @can('view md dashboard') --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('md') }}">MD Dashboard</a>
+                </li>
+                {{-- @endcan --}}
+                {{-- @can('view areamanager dashboard') --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('am') }}">Area Manager Dashboard</a>
+                </li>
+                {{-- @endcan --}}
                 @can('view marine dashboard')
                     <li class="nav-item">
                         <a class="nav-link" href="">Marine Dashboard</a>
@@ -56,7 +66,7 @@
                 @endcan
                 @can('view engineering dashboard')
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Engineering Dashboard</a>
+                        <a class="nav-link" href="{{ route('engineering') }}">Engineering Dashboard</a>
                     </li>
                 @endcan
                 @can('view finance and account dashboard')

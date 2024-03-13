@@ -56,6 +56,9 @@ class RolesAndPermissionsTablesSeeder extends Seeder
                     'manage project task stage',
                     'create project task stage',
                     'delete project task stage',
+                    'view areamanager dashboard',
+                    'view md dashboard',
+                    'view marine dashboard',
 
 
 

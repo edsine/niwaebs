@@ -1,5 +1,4 @@
-f<?php
-
+<?php
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
@@ -117,6 +116,13 @@ class HomeController extends Controller
         }
     }
 
+    public function engineering(){
+        return view('engineering');
+    }
+
+    public function marineadmin(){
+        return view('marineadmin');
+    }
 
     public function aoc()
     {
@@ -296,14 +302,6 @@ class HomeController extends Controller
         ));
     }
 
-    public function areamanager()
-    {
-        return view('am');
-    }
-    public function md()
-    {
-        return view('md');
-    }
     public function edfinance()
     {
         $branchtotal = Branch::count();
