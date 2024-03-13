@@ -192,13 +192,14 @@ class HomeController extends Controller
         $approvedclaims = ClaimsCompensation::where('regional_manager_status', 1)->count();
         $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
 
-
+$branch=Branch::all();
 
         //i will add all the information here
 
         $staff = DB::table('staff')->count();
 
         return view('superadmin', compact(
+            'branch',
             'registered_employers',
             'pending_employers',
             'registered_employees',
@@ -494,19 +495,24 @@ class HomeController extends Controller
         $registered_employees = Employee::where('status', 1)->count();
         $pending_employees = Employee::where('status', 2)->count();
         $data = Employer::where('status', 1);
+        $branch=Branch::all();
         $data = $data->paginate(10);
-        return view('fre', compact('registered_employers', 'pending_employers', 'registered_employees', 'pending_employees', 'data'));
+        return view('fre', compact('registered_employers',
+        'branch','pending_employers', 'registered_employees', 'pending_employees', 'data'));
     }
     public function copaffairs()
     {
 
+        $branch=Branch::all();
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
         $pending_employees = Employee::where('status', 2)->count();
         $data = Employer::where('status', 1);
         $data = $data->paginate(10);
-        return view('copaffairs', compact('registered_employers', 'pending_employers', 'registered_employees', 'pending_employees', 'data'));
+        return view('copaffairs', compact('registered_employers',
+'branch',
+        'pending_employers', 'registered_employees', 'pending_employees', 'data'));
     }
 
     public function financeadmin()
@@ -518,7 +524,9 @@ class HomeController extends Controller
         $pending_employees = Employee::where('status', 2)->count();
         $data = Employer::where('status', 1);
         $data = $data->paginate(10);
-        return view('financeadmin', compact('registered_employers', 'pending_employers', 'registered_employees', 'pending_employees', 'data'));
+        $branch=Branch::all();
+        return view('financeadmin', compact('registered_employers',
+        'branch', 'pending_employers', 'registered_employees', 'pending_employees', 'data'));
     }
 
 
