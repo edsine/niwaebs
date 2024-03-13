@@ -444,51 +444,51 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-                @can('read asset manager dashboard')
+               {{--  @can('read asset manager dashboard') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
                     </li>
-                @endcan
-                @can('read assets')
+                {{-- @endcan
+                @can('read assets') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read components')
+                {{-- @endcan
+                @can('read components') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read maintenances')
+               {{--  @endcan
+                @can('read maintenances') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
                     </li>
-                @endcan
-                @can('read asset types')
+                {{-- @endcan
+                @can('read asset types') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
                     </li>
-                @endcan
-                @can('read brands')
+                {{-- @endcan
+                @can('read brands') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read suppliers')
+               {{--  @endcan
+                @can('read suppliers') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
                     </li>
-                @endcan
-                @can('read locations')
+               {{--  @endcan
+                @can('read locations') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
                     </li>
-                @endcan
-                @can('read asset manager reports')
+               {{--  @endcan
+                @can('read asset manager reports') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
                     </li>
-                @endcan
+               {{--  @endcan --}}
 
 
             </ul>
