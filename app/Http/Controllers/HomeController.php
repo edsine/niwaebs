@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
@@ -120,6 +123,13 @@ class HomeController extends Controller
         }
     }
 
+    public function engineering(){
+        return view('engineering');
+    }
+
+    public function marineadmin(){
+        return view('marineadmin');
+    }
 
     public function aoc()
     {

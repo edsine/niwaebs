@@ -260,11 +260,12 @@ Route::get('/itmadmin', [HomeController::class, 'itmadmin'])->name('itmadmin');
 Route::get('/complianceadmin', [HomeController::class, 'complianceadmin'])->name('complianceadmin');
 Route::get('/hseadmin', [HomeController::class, 'hseadmin'])->name('hseadmin');
 Route::get('/permsec', [HomeController::class, 'pamsec'])->name('permsec');
-Route::get('/am', [HomeController::class, 'branch'])->name('am');
+Route::get('/am', [HomeController::class, 'branch'])->name('bm');
 Route::get('/region', [HomeController::class, 'regional'])->name('region');
 Route::get('/ed_md', [HomeController::class, 'edfinance'])->name('ed_md');
 Route::get('/ed_admin', [HomeController::class, 'edadmin'])->name('ed_admin');
 Route::get('/engineering', [HomeController::class, 'engineering'])->name('engineering');
+Route::get('/marineadmin', [HomeController::class, 'marineadmin'])->name('marineadmin');
 
 Route::get('/riskadmin', [HomeController::class, 'riskadmin']);
 

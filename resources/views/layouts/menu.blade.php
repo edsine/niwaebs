@@ -28,7 +28,7 @@
                         <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                             alt="{{ auth()->user()->staff->profile_picture }}">
                     @else
-                        <img src="assets/media/avatars/300-1.jpg" alt="image" />
+                        <img src="assets/media/avatars/blank.png" alt="image" />
                     @endif
                 </div>
                 <div class="profile-name">
@@ -49,20 +49,42 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-
+                {{-- @can('view md dashboard') --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="">Marine Dashboard</a>
+                    <a class="nav-link" href="{{ route('md') }}">MD Dashboard</a>
                 </li>
+                {{-- @endcan --}}
+                {{-- @can('view areamanager dashboard') --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Engineering Dashboard</a>
+                    <a class="nav-link" href="{{ route('am') }}">Area Manager Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">finance and account
-                        Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Audit Dashboard</a>
-                </li>
+                {{-- @endcan --}}
+                @can('view marine dashboard')
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Marine Dashboard</a>
+                    </li>
+                @endcan
+                @can('view engineering dashboard')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('engineering') }}">Engineering Dashboard</a>
+                    </li>
+                @endcan
+                @can('view finance and account dashboard')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('financeadmin')}}">finance and account
+                            Dashboard</a>
+                    </li>
+                @endcan
+                @can('view audit dashboard')
+                    <li class="nav-item">
+                        <a class="nav-link" href="auditadmin">Audit Dashboard</a>
+                    </li>
+                @endcan
+                @can('view corporate affairs dashboard')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('copaffairs') }}">Corporate Affairs Dashboard</a>
+                    </li>
+                @endcan
             </ul>
 
         </li>
@@ -260,7 +282,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('folders.index') }}">Folders</a>
                         </li>
-                        <li class="nav-item">
+                        < li class="nav-item">
                             <a class="nav-link" href="{{ route('memos.index') }}">Memos</a>
                         </li>
                         {{-- <li class="nav-item">
