@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
@@ -124,11 +120,23 @@ class HomeController extends Controller
     }
 
     public function engineering(){
-        return view('engineering');
+        $branch = Branch::all();
+        return view('engineering', compact('branch'));
     }
 
     public function marineadmin(){
-        return view('marineadmin');
+        $branch = Branch::all();
+        $diseaseclaims = ClaimsCompensation::where('claimstype_id', 2)->count();
+        $deathclaims = ClaimsCompensation::where('claimstype_id', 3)->count();
+        $registered_employees = Employee::where('status', 1)->count();
+        $pending_employees = Employee::where('status', 2)->count();
+        $pending_employers = Employer::where('status', 2)->count();
+        $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
+        $approvedclaims = ClaimsCompensation::where('regional_manager_status', 1)->count();
+
+        return view('marineadmin',compact(
+            'branch','diseaseclaims','deathclaims', 'registered_employees', 'pending_employees', 'pending_employers','pendingclaims', 'approvedclaims'
+        ));
     }
 
     public function aoc()

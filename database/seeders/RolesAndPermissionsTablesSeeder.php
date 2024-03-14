@@ -58,12 +58,6 @@ class RolesAndPermissionsTablesSeeder extends Seeder
                     'delete project task stage',
                     'view areamanager dashboard',
                     'view md dashboard',
-                    'view marine dashboard',
-
-
-
-
-
                 ];
 
             $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {
