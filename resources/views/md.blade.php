@@ -453,9 +453,11 @@
                             <!--begin::Chart container-->
                             {{-- <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div> --}}
                             <!--end::Chart container-->
-
+                            {{--
                             <canvas id="md"
-                                style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas>
+                                style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas> --}}
+
+                            <canvas id="md" ></canvas>
                             {{-- <canvas id="doughnutChart"></canvas> --}}
                         </div>
                         <!--end::Body-->
@@ -715,7 +717,7 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script>
-                    const myChart = document.getElementById('md');
+                    const myChart = document.getElementById('md').getContext('2d');
 
                     const data = {
                         labels: ['Actual', 'Target'],
@@ -731,33 +733,20 @@
                         }]
                     };
 
+                    var doughnutPieOptions = {
+                        responsive: true,
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
+                    };
+
                     const config = {
                         type: 'doughnut',
                         data: data,
+                        options: doughnutPieOptions
                     };
 
                     new Chart(myChart, config);
-
-
-                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
-                    //     event.preventDefault();
-
-                    //     // Get the selected branch ID
-                    //     var selectedBranchId = document.getElementById('branchSelect').value;
-
-                    //     // Construct the URL with the selected branch ID
-                    //     var url = '{{ route('showarea', ':branchId') }}';
-                    //     // url = url.replace(':branchId', selectedBranchId);
-
-                    //     // Redirect the user to the constructed URL
-                    //     window.location.href = url;
-
-                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
-                    //     // Get the selected branch ID
-                    //     var selectedBranchId = document.getElementById('branchSelect').value;
-
-                    //     // Set the selected branch ID to the hidden input field
-                    //     document.getElementById('selectedBranchId').value = selectedBranchId;
-                    // });
                 </script>
             @endsection

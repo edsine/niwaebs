@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
@@ -362,7 +358,7 @@ class HomeController extends Controller
         $branch = Branch::all();
         return view('am', compact('branch'));
     }
-    
+
     public function md()
     {
 
