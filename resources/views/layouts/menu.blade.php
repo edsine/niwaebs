@@ -198,8 +198,11 @@
             </a>
             <ul class="nav flex-column sub-menu">
 
+
+                @if (auth()->check() && auth()->user()->staff->department_id==1)
                 <!-- Start Of HRM System Menu -->
                 @include('hrmsystem::layouts.menu')
+                @endif
                 <!-- End Of HRM System Menu -->
 
                 <!-- Start Of Accounting Menu -->
@@ -279,12 +282,18 @@
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="#">File Type</a>
                         </li> --}}
+                        @if (auth()->check() && in_array(auth()->user()->staff->department_id,[1,7]))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('folders.index') }}">Folders</a>
                         </li>
-                        < li class="nav-item">
+                        @endif
+
+                        @if (auth()->check() && in_array(auth()->user()->staff->department_id,[1,4]))
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('memos.index') }}">Memos</a>
                         </li>
+                        @endif
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('documents.index') }}">Documents</a>
                         </li> --}}
@@ -311,6 +320,7 @@
             </ul>
         </li>
 
+        @if (auth()->check() && in_array(auth()->user()->staff->department_id,[1,10,5,4,7]))
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-home menu-icon"></i>
@@ -380,6 +390,9 @@
             </ul>
 
         </li>
+        @endif
+
+        @if (auth()->check() && auth()->user()->staff->department_id==11 )
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-home menu-icon"></i>
@@ -418,6 +431,7 @@
             </ul>
 
         </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" href="{{ route('support.index') }}">
                 <i class="fa fa-gear menu-icon"></i>
@@ -425,6 +439,7 @@
 
             </a>
         </li>
+        @if (auth()->check() && in_array(auth()->user()->staff->department_id,[4,3,6]))
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-check menu-icon"></i>
@@ -513,6 +528,7 @@
 
             </ul>
         </li>
+        @endif
         {{-- <li class="nav-item" id="myTask1">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>
