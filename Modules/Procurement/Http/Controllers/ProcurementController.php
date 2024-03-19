@@ -58,6 +58,7 @@ class ProcurementController extends Controller
     {
 
 
+
         $procurement = new Procurement;
 
         $procurement->type = $request->type;
@@ -67,6 +68,20 @@ class ProcurementController extends Controller
         $procurement->status = $request->status;
         $procurement->vendor_id = $request->vendor_id;
 
+
+        if ($request->hasFile('document')){
+            $file=$request->file('document');
+            $path = $file->store('public');
+            $filename=$file->hashName();
+            $procurement->document=$filename;
+
+        } else if( $request->document) {
+
+            $file = $request->document;
+            // $filename=$file->hashName();
+            // $path = $file->store('public');
+            $procurement->document=  $file;
+        }
 
 
         $referenceNumber = 'NIWA-' . date('Ymd') . '-' . str_pad(Procurement::count() + 1, 3, '0', STR_PAD_LEFT);
