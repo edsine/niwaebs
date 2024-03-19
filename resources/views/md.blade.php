@@ -457,7 +457,7 @@
                             <canvas id="md"
                                 style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas> --}}
 
-                            <canvas id="md" ></canvas>
+                            <canvas id="md" width="800" height="400"></canvas>
                             {{-- <canvas id="doughnutChart"></canvas> --}}
                         </div>
                         <!--end::Body-->
@@ -729,21 +729,27 @@
                                 'rgb(54, 162, 235)',
                                 // 'rgb(255, 205, 86)'
                             ],
+
                             hoverOffset: 4
                         }]
                     };
 
                     var doughnutPieOptions = {
-                        responsive: true,
-                        animation: {
-                            animateScale: true,
-                            animateRotate: true
-                        }
+                        // responsive: true,
+                        // animation: {
+                        //     animateScale: true,
+                        //     animateRotate: true
+                        // }
+                       
+                            responsive: true,
+                            maintainAspectRatio: false
+                       
                     };
 
                     const config = {
                         type: 'doughnut',
                         data: data,
+
                         options: doughnutPieOptions
                     };
 
