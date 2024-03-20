@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
@@ -119,12 +120,14 @@ class HomeController extends Controller
         }
     }
 
-    public function engineering(){
+    public function engineering()
+    {
         $branch = Branch::all();
         return view('engineering', compact('branch'));
     }
 
-    public function marineadmin(){
+    public function marineadmin()
+    {
         $branch = Branch::all();
         $diseaseclaims = ClaimsCompensation::where('claimstype_id', 2)->count();
         $deathclaims = ClaimsCompensation::where('claimstype_id', 3)->count();
@@ -134,8 +137,15 @@ class HomeController extends Controller
         $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
         $approvedclaims = ClaimsCompensation::where('regional_manager_status', 1)->count();
 
-        return view('marineadmin',compact(
-            'branch','diseaseclaims','deathclaims', 'registered_employees', 'pending_employees', 'pending_employers','pendingclaims', 'approvedclaims'
+        return view('marineadmin', compact(
+            'branch',
+            'diseaseclaims',
+            'deathclaims',
+            'registered_employees',
+            'pending_employees',
+            'pending_employers',
+            'pendingclaims',
+            'approvedclaims'
         ));
     }
 
@@ -163,12 +173,34 @@ class HomeController extends Controller
         $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
 
 
+        //my own side that i want to do;
+
+        $thestaffbranch_id = Auth::user()->staff->branch_id;
+
+        
+        $theareas = \DB::table('users')
+        ->join('staff', 'users.id', '=', 'staff.user_id')
+        ->where('staff.branch_id', '=', $thestaffbranch_id)
+        ->join('departments','staff.department_id','=','departments.id')
+        // ->join('leave_request as lr','staff.id','=','lr.staff_id')
+        ->get();
+        // dd(\DB::table('staff')->get());
+
+        // $leaverequest= \DB::table('leave_request');
+        // dd($theareas);
+        // dd($leaverequest);
+
+
+
+// dd(auth()->user()->staff->department->name);
+
 
         //i will add all the information here
 
         $staff = DB::table('staff')->count();
 
         return view('aocadmin', compact(
+            'theareas',
             'registered_employers',
             'pending_employers',
             'registered_employees',
