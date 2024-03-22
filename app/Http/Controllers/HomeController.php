@@ -42,8 +42,7 @@ class HomeController extends Controller
     {
         if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             return redirect()->route('superadmin');
-        }
-        else if (Auth::check() && Auth::user()->hasRole('minister')) {
+        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
             return redirect()->route('minister');
         } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
 
@@ -121,6 +120,34 @@ class HomeController extends Controller
         }
     }
 
+    public function engineering()
+    {
+        $branch = Branch::all();
+        return view('engineering', compact('branch'));
+    }
+
+    public function marineadmin()
+    {
+        $branch = Branch::all();
+        $diseaseclaims = ClaimsCompensation::where('claimstype_id', 2)->count();
+        $deathclaims = ClaimsCompensation::where('claimstype_id', 3)->count();
+        $registered_employees = Employee::where('status', 1)->count();
+        $pending_employees = Employee::where('status', 2)->count();
+        $pending_employers = Employer::where('status', 2)->count();
+        $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
+        $approvedclaims = ClaimsCompensation::where('regional_manager_status', 1)->count();
+
+        return view('marineadmin', compact(
+            'branch',
+            'diseaseclaims',
+            'deathclaims',
+            'registered_employees',
+            'pending_employees',
+            'pending_employers',
+            'pendingclaims',
+            'approvedclaims'
+        ));
+    }
 
     public function aoc()
     {
@@ -146,12 +173,34 @@ class HomeController extends Controller
         $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
 
 
+        //my own side that i want to do;
+
+        $thestaffbranch_id = Auth::user()->staff->branch_id;
+
+        
+        $theareas = \DB::table('users')
+        ->join('staff', 'users.id', '=', 'staff.user_id')
+        ->where('staff.branch_id', '=', $thestaffbranch_id)
+        ->join('departments','staff.department_id','=','departments.id')
+        // ->join('leave_request as lr','staff.id','=','lr.staff_id')
+        ->get();
+        // dd(\DB::table('staff')->get());
+
+        // $leaverequest= \DB::table('leave_request');
+        // dd($theareas);
+        // dd($leaverequest);
+
+
+
+// dd(auth()->user()->staff->department->name);
+
 
         //i will add all the information here
 
         $staff = DB::table('staff')->count();
 
         return view('aocadmin', compact(
+            'theareas',
             'registered_employers',
             'pending_employers',
             'registered_employees',
@@ -192,7 +241,7 @@ class HomeController extends Controller
         $approvedclaims = ClaimsCompensation::where('regional_manager_status', 1)->count();
         $pendingclaims = ClaimsCompensation::where('regional_manager_status', 0)->count();
 
-$branch=Branch::all();
+        $branch = Branch::all();
 
         //i will add all the information here
 
@@ -350,9 +399,10 @@ $branch=Branch::all();
 
     public function areamanager()
     {
-        $branch =Branch::all();
-        return view('am',compact('branch'));
+        $branch = Branch::all();
+        return view('am', compact('branch'));
     }
+
     public function md()
     {
 
@@ -496,24 +546,35 @@ $branch=Branch::all();
         $registered_employees = Employee::where('status', 1)->count();
         $pending_employees = Employee::where('status', 2)->count();
         $data = Employer::where('status', 1);
-        $branch=Branch::all();
+        $branch = Branch::all();
         $data = $data->paginate(10);
-        return view('fre', compact('registered_employers',
-        'branch','pending_employers', 'registered_employees', 'pending_employees', 'data'));
+        return view('fre', compact(
+            'registered_employers',
+            'branch',
+            'pending_employers',
+            'registered_employees',
+            'pending_employees',
+            'data'
+        ));
     }
     public function copaffairs()
     {
 
-        $branch=Branch::all();
+        $branch = Branch::all();
         $registered_employers = Employer::where('status', 1)->count();
         $pending_employers = Employer::where('status', 2)->count();
         $registered_employees = Employee::where('status', 1)->count();
         $pending_employees = Employee::where('status', 2)->count();
         $data = Employer::where('status', 1);
         $data = $data->paginate(10);
-        return view('copaffairs', compact('registered_employers',
-'branch',
-        'pending_employers', 'registered_employees', 'pending_employees', 'data'));
+        return view('copaffairs', compact(
+            'registered_employers',
+            'branch',
+            'pending_employers',
+            'registered_employees',
+            'pending_employees',
+            'data'
+        ));
     }
 
     public function financeadmin()
@@ -525,9 +586,15 @@ $branch=Branch::all();
         $pending_employees = Employee::where('status', 2)->count();
         $data = Employer::where('status', 1);
         $data = $data->paginate(10);
-        $branch=Branch::all();
-        return view('financeadmin', compact('registered_employers',
-        'branch', 'pending_employers', 'registered_employees', 'pending_employees', 'data'));
+        $branch = Branch::all();
+        return view('financeadmin', compact(
+            'registered_employers',
+            'branch',
+            'pending_employers',
+            'registered_employees',
+            'pending_employees',
+            'data'
+        ));
     }
 
 

@@ -405,9 +405,10 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 mb-10">
+                <div class="col-md-6 mb-0">
                     <!--begin::Chart widget 15-->
-                    <div class="card card-flush">
+                    {{-- <div class="card  h-xl-100"> --}}
+                    <div class="card  h-xl-100">
                         <!--begin::Header-->
                         <div class="card-header pt-7">
                             <!--begin::Title-->
@@ -421,39 +422,38 @@
 
                                     {{-- {!! Form::date('date', now()->format('Y-m-d'), ['class' => 'date form-control']) !!} --}}
 
+                                    <form id="branchForm" class="form" method="GET"
+                                        action="{{ route('showarea') }}">
+                                        @csrf
+                                        {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
+                                            'class' => 'form-control form-select',
+                                            'id' => 'branchSelect',
+                                        ]) !!}
+                                        {{-- <input type="hidden" name="branch_id" id="selectedBranchId"> --}}
+                                        <button type="submit" class="btn btn-success">View Details</button>
+                                    </form>
+
                                 </div>
                                 <!--begin::Menu-->
-                                <button type="button"
-                                    class="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end"
-                                    data-bs-toggle="modal" data-bs-target="#thestate">
-                                    <span class="svg-icon svg-icon-1 svg-icon-gray-300 me-n1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                rx="4" fill="currentColor" />
-                                            <rect x="11" y="11" width="2.6" height="2.6" rx="1.3"
-                                                fill="currentColor" />
-                                            <rect x="15" y="11" width="2.6" height="2.6" rx="1.3"
-                                                fill="currentColor" />
-                                            <rect x="7" y="11" width="2.6" height="2.6" rx="1.3"
-                                                fill="currentColor" />
-                                        </svg>
-                                    </span>
-                                </button>
-                                <!--end::Menu-->
+
                             </div>
                             <!--end::Toolbar-->
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
-                        <div class="card-body pt-5">
+                        <div class="card-body d-flex justify-content-between flex-column px-0 pb-0 ">
                             <!--begin::Chart container-->
                             {{-- <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div> --}}
                             <!--end::Chart container-->
+
+                            <canvas id="md"
+                                style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas>
+                            {{-- <canvas id="doughnutChart"></canvas> --}}
                         </div>
                         <!--end::Body-->
                     </div>
                     <!--end::Chart widget 15-->
+
                 </div>
 
                 <!-- Modal -->
@@ -580,4 +580,51 @@
                         </div>
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const myChart = document.getElementById('md');
+
+                    const data = {
+                        labels: ['Actual', 'Target'],
+                        datasets: [{
+                            label: 'Performances',
+                            data: [300, 50],
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                // 'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    };
+
+                    const config = {
+                        type: 'doughnut',
+                        data: data,
+                    };
+
+                    new Chart(myChart, config);
+
+
+                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
+                    //     event.preventDefault();
+
+                    //     // Get the selected branch ID
+                    //     var selectedBranchId = document.getElementById('branchSelect').value;
+
+                    //     // Construct the URL with the selected branch ID
+                    //     var url = '{{ route('showarea', ':branchId') }}';
+                    //     // url = url.replace(':branchId', selectedBranchId);
+
+                    //     // Redirect the user to the constructed URL
+                    //     window.location.href = url;
+
+                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
+                    //     // Get the selected branch ID
+                    //     var selectedBranchId = document.getElementById('branchSelect').value;
+
+                    //     // Set the selected branch ID to the hidden input field
+                    //     document.getElementById('selectedBranchId').value = selectedBranchId;
+                    // });
+                </script>
             @endsection

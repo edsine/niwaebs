@@ -25,7 +25,9 @@
     <!-- partial -->
     <div class="content-wrapper">
         {{-- <center> --}}
-        <h1 class="uppercase bold mb-5">Area Office Coordination (Headquaters)</h1>
+
+        <h1 class="uppercase bold mb-5">Area Office Coordination
+            ({{ auth()->check() ? auth()->user()->staff->branch->branch_name : 'NoTHING' }})</h1>
         {{-- </center> --}}
 
 
@@ -466,11 +468,15 @@
             </div>
         </div>
 
+        @php
+            $leave = DB::table('leave_request')->select('staff_id');
+        @endphp
         <div class="row mb-5">
             <div class="col-12 grid-margin">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h4 class="card-title">STAFF ON LEAVE</h4>
+                        <h4 class="card-title">Staff In
+                            {{ auth()->check() ? auth()->user()->staff->branch->branch_name : 'NoTHING' }}</h4>
 
                         <div class="row">
                             <div class="table-sorter-wrapper col-lg-12 table-responsive">
@@ -480,39 +486,30 @@
                                             <th class="sortStyle">Employee ID<i class="fa fa-angle-down"></i></th>
                                             <th class="sortStyle">First Name<i class="fa fa-angle-down"></i></th>
                                             <th class="sortStyle">Last Name<i class="fa fa-angle-down"></i></th>
-                                            <th class="sortStyle">Date of Departure<i class="fa fa-angle-down"></i></th>
-                                            <th class="sortStyle">Reason<i class="fa fa-angle-down"></i></th>
+                                            <th class="sortStyle">Department<i class="fa fa-angle-down"></i></th>
+                                            <th class="sortStyle">Leave Status<i class="fa fa-angle-down"></i></th>
+                                            {{-- <th class="sortStyle">Reason<i class="fa fa-angle-down"></i></th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Sulaiman</td>
-                                            <td>Ajishape</td>
-                                            <td>12/12/2023</td>
-                                            <td>Travel</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Thrent</td>
-                                            <td>David</td>
-                                            <td>01/12/2023</td>
-                                            <td>Child Birth</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Samuel</td>
-                                            <td>Andrew</td>
-                                            <td>29/09/2023</td>
-                                            <td>Education</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>James</td>
-                                            <td>Alex</td>
-                                            <td>24/12/2022</td>
-                                            <td>Travel</td>
-                                        </tr>
+                                        @foreach ($theareas as $item)
+                                            <tr>
+                                                <td>{{ $item->staff_id ? $item->staff_id : $item->id }}</td>
+                                                <td>{{ $item->first_name }}</td>
+                                                <td>{{ $item->last_name }}</td>
+                                                <td>{{ $item->name ? $item->name : 'No Department' }}</td>
+                                                <td>
+                                                    @if ($item->staff_id == $leave)
+                                                        <p>Yes</p>
+                                                        @else
+                                                        <p>Not on Leave</p>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+
+
                                     </tbody>
                                 </table>
                             </div>

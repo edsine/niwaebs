@@ -10,10 +10,10 @@
                 <div class="col-4">
                     <div class="row">
                         <div class="col-3">
-                            {!! Form::label('', 'Filter By', ['class'=>'form-label mt-2']) !!}
+                            {!! Form::label('', 'Filter By', ['class' => 'form-label mt-2']) !!}
                         </div>
                         <div class="col-3">
-                           {!! Form::select('branch_id', $branch->pluck('branch_name','id'), null, ['class'=>' form-select']) !!}
+                            {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, ['class' => ' form-select']) !!}
                         </div>
 
                         <div class="col-3">
@@ -167,9 +167,10 @@
                         <div class="card-body">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
                             <span class="svg-icon svg-icon-primary svg-icon-3x ms-n1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none">
-                                    <rect x="8" y="9" width="3" height="10" rx="1.5" fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <rect x="8" y="9" width="3" height="10" rx="1.5"
+                                        fill="currentColor" />
                                     <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5"
                                         fill="currentColor" />
                                     <rect x="18" y="11" width="3" height="8" rx="1.5"
@@ -432,7 +433,7 @@
                                     <form id="branchForm" class="form" method="GET"
                                         action="{{ route('showarea') }}">
                                         @csrf
-                                        {!! Form::select('branch_id', $branch->pluck('branch_name','id'), null, [
+                                        {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
                                             'class' => 'form-control form-select',
                                             'id' => 'branchSelect',
                                         ]) !!}
@@ -452,9 +453,11 @@
                             <!--begin::Chart container-->
                             {{-- <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div> --}}
                             <!--end::Chart container-->
-
+                            {{--
                             <canvas id="md"
-                                style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas>
+                                style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas> --}}
+
+                            <canvas id="md" width="800" height="400"></canvas>
                             {{-- <canvas id="doughnutChart"></canvas> --}}
                         </div>
                         <!--end::Body-->
@@ -714,7 +717,7 @@
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script>
-                    const myChart = document.getElementById('md');
+                    const myChart = document.getElementById('md').getContext('2d');
 
                     const data = {
                         labels: ['Actual', 'Target'],
@@ -726,37 +729,30 @@
                                 'rgb(54, 162, 235)',
                                 // 'rgb(255, 205, 86)'
                             ],
+
                             hoverOffset: 4
                         }]
+                    };
+
+                    var doughnutPieOptions = {
+                        // responsive: true,
+                        // animation: {
+                        //     animateScale: true,
+                        //     animateRotate: true
+                        // }
+                       
+                            responsive: true,
+                            maintainAspectRatio: false
+                       
                     };
 
                     const config = {
                         type: 'doughnut',
                         data: data,
+
+                        options: doughnutPieOptions
                     };
 
                     new Chart(myChart, config);
-
-
-                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
-                    //     event.preventDefault();
-
-                    //     // Get the selected branch ID
-                    //     var selectedBranchId = document.getElementById('branchSelect').value;
-
-                    //     // Construct the URL with the selected branch ID
-                    //     var url = '{{ route('showarea', ':branchId') }}';
-                    //     // url = url.replace(':branchId', selectedBranchId);
-
-                    //     // Redirect the user to the constructed URL
-                    //     window.location.href = url;
-
-                    // document.getElementById('branchForm').addEventListener('submit', function(event) {
-                    //     // Get the selected branch ID
-                    //     var selectedBranchId = document.getElementById('branchSelect').value;
-
-                    //     // Set the selected branch ID to the hidden input field
-                    //     document.getElementById('selectedBranchId').value = selectedBranchId;
-                    // });
                 </script>
             @endsection
