@@ -157,6 +157,8 @@ Route::post('employeesbyid','App\Http\Controllers\Employees@byid'); */
     Route::post('deletesupplier', 'App\Http\Controllers\Supplier@delete');
     Route::post('supplierbyid', 'App\Http\Controllers\Supplier@byid');
 
+
+    Route::view('dash','dms.dashboard');
     //User API
     /* Route::get('user','App\Http\Controllers\User@getdata');
 Route::get('listuser','App\Http\Controllers\User@getrows');
