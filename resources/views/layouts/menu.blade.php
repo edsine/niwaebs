@@ -493,6 +493,32 @@
 
             </ul>
         </li>
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas fa-check menu-icon"></i>
+                <span class="menu-title">Document Manager</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+               {{--  @can('read asset manager dashboard') --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('documents_manager.documentsByUsers')}}">Assigned Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('documents_manager.index')}}">All Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('documents_category.index')}}">Document Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('documents_manager.audits')}}">Document Audit Trail</a>
+                    </li>
+            </ul>
+        </li>
+       
         {{-- <li class="nav-item" id="myTask1">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>

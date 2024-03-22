@@ -1,79 +1,175 @@
 @extends('layouts.app')
 
-@section('title', 'Sub-Service')
+@section('content')
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1>
+                        Create Document
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content px-3">
+
+        @include('adminlte-templates::common.errors')
+
+        <div class="card">
+
+            {!! Form::open(['route' => 'documents_manager.store', 'enctype' => 'multipart/form-data']) !!}
+            @csrf
+
+            <div class="card-body">
+
+                <div class="row">
+                    @include('documents.fields')
+
+                
+                    <div class="col-sm-12 row mb-3">
+                        <!-- Roles and users Field -->
+
+<div class="form-group col-sm-6">
+    {!! Form::label('roles', 'Role(s):') !!}
+    {!! Form::select('roles[]', $roles, null, ['class' => 'form-control', 'id' => 'roleSelect', 'multiple' => 'multiple']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('users', 'User(s):') !!}
+    {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+</div>
 
 
-@push('styles')
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                {!! Form::submit('SUBMIT', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('documents_manager.index') }}" class="btn btn-default"> Cancel </a>
+            </div>
+
+            {!! Form::close() !!}
+
+        </div>
+    </div>
+@endsection
+@push('page_scripts')
+{{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
+<style>
+    textarea.select2-search__field{
+       width: 100%;
+       
+    }
+    .select2-container .select2-search--inline .select2-search__field {
+    box-sizing: border-box;
+    border: none;
+    font-size: 100%;
+    margin-top: 0px;
+    margin-left: 5px;
+    padding: 0;
+    max-width: 300px;
+    resize: none;
+    height: 25px;
+    vertical-align: top;
+    font-family: sans-serif;
+    overflow: hidden;
+    word-break: keep-all;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.form-control[multiple]').select2({
+            theme: 'bootstrap',
+            //placeholder: 'Select options',
+            allowClear: true
+        });
+    });
+</script>
+
+
 @endpush
 
-
-@section('content')
-
-    {{-- <div class="components-preview wide-md mx-auto"> --}}
-    <div class="nk-block-head nk-block-head-sm">
-        <div class="nk-block-between">
-            <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Documents Upload</h3>
-                <div class="nk-block-des text-soft">
-                    <p>Upload documents and make payments</p>
-                </div>
-            </div><!-- .nk-block-head-content -->
-            <!-- .nk-block-head-content -->
-        </div><!-- .nk-block-between -->
-    </div><!-- .nk-block-head -->
-    <?php
-                   $userId = \Auth::id(); // Get the authenticated user's ID
-$userPayment = \App\Models\Payment::where('payment_type',4)->where('employer_id', auth()->user()->id)->where('service_id','!=', null)->latest()->first();
-     if(!empty($userPayment) && $userPayment->document_uploads == 1){
-                   ?>
-    <div class="nk-block nk-block-lg">
-        <div class="card card-bordered card-preview">
-            <div class="card-inner">
-                <form action="{{ route('documents.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @include('documents.form')
-                </form>
-            </div>
-        </div><!-- .card-preview -->
-    </div> <!-- nk-block -->
-    <?php }else{
-        ?>
-    <div class="form-group">
-        <label for="" class="">You can not upload documents till you make a new application fee & processing
-            fee
-            payments for a service.</label>
-        <br />
-        <a class="btn btn-primary me-n1" href="{{ route('payment.index') }}">Make Application Fees Payments</a>
-    </div>
-    <?php
-    } ?>
-    {{-- </div><!-- .components-preview --> --}}
-
-@endsection
-
-
-@push('scripts')
-    {{--  <script>
+{{-- @push('page_scripts')
+    <script>
         $(document).ready(function() {
-            //FETCH LGAs FROM STATE ID
-            const lUrl = "{{ route('employer.lgas') }}?state=";
-            $('#state_of_origin').change(function() {
-                $.ajax({
-                    url: lUrl + $(this).val(),
-                    type: "GET",
-                    data: null,
+            $("#user_select").select2({
+                placeholder: "Search for user",
+                minimumInputLength: 2,
+                allowClear: true,
+                ajax: {
+                    url: "{{ url('api/users') }}",
                     dataType: 'json',
-                }).done(function(response) {
-                    $('#local_govt_area').empty();
-                    var lgas = '';
-                    $.each(response.data, function(a, b) {
-                        lgas += '<option value="' + b.id + '">' + b.name + '</option>';
-                    });
-                    $('#local_govt_area').html(lgas);
-                });
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            search: {
+                                email: params.term
+                            },
+                            limit: 10 // Number of users per page
+                        };
+                    },
+                    processResults: function(data, params) {
+                        var options = [];
+                        $.each(data.data, function(index, user) {
+                            options.push({
+                                id: user.id,
+                                text: user.email
+                            });
+                        });
+
+
+                        return {
+                            results: options,
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function(markup) {
+                    return markup;
+                }, // let our custom formatter work
             });
 
-            $('#state_of_origin').trigger('change');
-        });
-    </script> --}}
-@endpush
+            $("#department_select").select2({
+                placeholder: "Search for department",
+                minimumInputLength: 2,
+                allowClear: true,
+                ajax: {
+                    url: "{{ url('api/shared/departments') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            search: {
+                                department_unit: params.term
+                            },
+                            limit: 10 // Number of departments per page
+                        };
+                    },
+                    processResults: function(data, params) {
+
+                        var options = [];
+                        $.each(data.data, function(index, department) {
+                            options.push({
+                                id: department.id,
+                                text: department.department_unit
+                            });
+                        });
+
+                        return {
+                            results: options,
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function(markup) {
+                    return markup;
+                }, // let our custom formatter work
+            });
+        })
+    </script>
+@endpush --}}

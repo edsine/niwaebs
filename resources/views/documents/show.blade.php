@@ -5,12 +5,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Documents</h1>
+                    <h1>
+                        Memo Details
+                    </h1>
                 </div>
                 <div class="col-sm-6">
-                    <a class="btn btn-primary float-end"
-                       href="{{ route('documents_manager.create') }}">
-                        Add New
+                    <a class="btn btn-secondary float-end" href="{{ route('memos.index') }}">
+                        Back
                     </a>
                 </div>
             </div>
@@ -18,14 +19,12 @@
     </section>
 
     <div class="content px-3">
-
-       {{--  @include('flash::message') --}}
-
-        <div class="clearfix"></div>
-
         <div class="card">
-            @include('documents.table')
+            <div class="card-body">
+                <div class="row">
+                    @include('documentmanager::memos.show_fields')
+                </div>
+            </div>
         </div>
     </div>
-
 @endsection
