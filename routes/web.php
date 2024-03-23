@@ -15,6 +15,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\AllowanceController;
 use App\Http\Controllers\BugStatusController;
 use App\Http\Controllers\DashboardController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\TimeTrackerController;
 use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\EmployerDocumentController;
+use App\Http\Controllers\DocumentsCategoryController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use Modules\Accounting\Http\Controllers\ExpenseController;
 
@@ -158,7 +160,7 @@ Route::post('employeesbyid','App\Http\Controllers\Employees@byid'); */
     Route::post('supplierbyid', 'App\Http\Controllers\Supplier@byid');
 
 
-    Route::view('dash','dms.dashboard');
+
     //User API
     /* Route::get('user','App\Http\Controllers\User@getdata');
 Route::get('listuser','App\Http\Controllers\User@getrows');
@@ -207,7 +209,13 @@ Route::post('updatesettings','App\Http\Controllers\Settings@update');
     Route::post('maintenancebyid', 'App\Http\Controllers\Maintenance@byid');
     Route::post('maintenanceassetsbyid', 'App\Http\Controllers\Maintenance@assetsbyid');
 
+    // Route::view('reminder','dms.reminder');
+    // Route::view('createreminder','dms.createreminder');
 
+    Route::resource('reminder',ReminderController::class);
+    Route::view('dash','dms.dashboard');
+
+    Route::get('dash',[DocumentsCategoryController::class,' dashboard'])->name('dash');
     //Report API
     Route::get('listassetactivityreport', 'App\Http\Controllers\Reports@getassetactivityreport');
     Route::get('listcomponentactivityreport', 'App\Http\Controllers\Reports@getcomponentactivityreport');

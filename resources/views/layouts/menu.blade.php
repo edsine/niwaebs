@@ -547,7 +547,7 @@
             <ul class="nav flex-column sub-menu">
                {{--  @can('read asset manager dashboard') --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="">Dashboard</a>
+                        <a class="nav-link" href="{{route('dash')}}">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('documents_manager.documentsByUsers')}}">Assigned Documents</a>
