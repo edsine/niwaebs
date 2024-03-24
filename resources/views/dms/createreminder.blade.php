@@ -5,7 +5,7 @@
     </div>
     <div class="container">
         <div class="">
-            <form action="{{route('reminder.store')}}" method="post">
+            <form action="{{ route('reminder.store') }}" method="post">
                 @csrf
 
                 <div class="form-group">
@@ -25,7 +25,8 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group   justify-content-center align-items-center">
-                            <input name="repeatreminderbtn" class="form-check-input" type="checkbox" value="" id="reminderbtn">
+                            <input name="repeatreminderbtn" class="form-check-input" type="checkbox" value=""
+                                id="reminderbtn">
 
                             <label class=" form-check-label" for="reminderbtn">
                                 Repeate Reminder
@@ -40,7 +41,8 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label class="form-check-label" for="sendemail">
-                                <input  name="sendemailbtn" class="form-check-input" type="checkbox" value="" id="sendemail">
+                                <input name="sendemailbtn" class="form-check-input" type="checkbox" value=""
+                                    id="sendemail">
                                 Send Email
                             </label>
                         </div>
@@ -54,7 +56,11 @@
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
                             </select> --}}
-                            {!! Form::select('user_id[]', $users, null, ['class'=>'form-select usersSelect','id'=>'usersSelect', 'multiple'=>'true']) !!}
+                            {!! Form::select('user_id[]', $users, null, [
+                                'class' => 'form-select usersSelect',
+                                'id' => 'usersSelect',
+                                'multiple' => 'true',
+                            ]) !!}
                         </div>
                     </div>
                 </div>
@@ -152,7 +158,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="quartely[]" class=" form-select select form-select-solid" name="day" id="day">
+                                    <select name="quartely[]" class=" form-select select form-select-solid"
+                                        name="day" id="day">
                                         <option value="">Select Day</option>
                                         @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y')); $i++)
                                             <option value="{{ $i }}" {{ $i == date('j') ? 'selected' : '' }}>
@@ -173,7 +180,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="quartely[]" class=" form-select select form-select-solid" name="day" id="day">
+                                    <select name="quartely[]" class=" form-select select form-select-solid"
+                                        name="day" id="day">
                                         <option value="">Select Day</option>
                                         @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y')); $i++)
                                             <option value="{{ $i }}" {{ $i == date('j') ? 'selected' : '' }}>
@@ -194,7 +202,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="quartely[]" class=" form-select select form-select-solid" name="day" id="day">
+                                    <select name="quartely[]" class=" form-select select form-select-solid"
+                                        name="day" id="day">
                                         <option value="">Select Day</option>
                                         @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y')); $i++)
                                             <option value="{{ $i }}" {{ $i == date('j') ? 'selected' : '' }}>
@@ -216,7 +225,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="quartely[]" class="form-select select form-select-solid" name="day" id="day">
+                                    <select name="quartely[]" class="form-select select form-select-solid" name="day"
+                                        id="day">
                                         <option value="">Select Day</option>
                                         @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y')); $i++)
                                             <option value="{{ $i }}" {{ $i == date('j') ? 'selected' : '' }}>
@@ -256,7 +266,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="halfyear[]" class=" form-select select form-select-solid" name="day" id="day">
+                                    <select name="halfyear[]" class=" form-select select form-select-solid"
+                                        name="day" id="day">
                                         <option value="">Select Day</option>
                                         @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y')); $i++)
                                             <option value="{{ $i }}" {{ $i == date('j') ? 'selected' : '' }}>
@@ -283,7 +294,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select  name="halfyear[]" class=" form-select select form-select-solid" name="day" id="day">
+                                    <select name="halfyear[]" class=" form-select select form-select-solid"
+                                        name="day" id="day">
                                         <option value="">Select Day</option>
                                         @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, date('n'), date('Y')); $i++)
                                             <option value="{{ $i }}" {{ $i == date('j') ? 'selected' : '' }}>
@@ -300,9 +312,9 @@
                     </table>
                 </div>
 
-                <div class=" d-flex    mt-5">
+                <div class=" d-flex    mt-4">
                     <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-floppy">Save</i> </button>
-               <button type="button" class=" btn btn-sm btn-danger"><i class="bi bi-x"></i> Cancel</button>
+                    <button type="button" class=" btn btn-sm btn-danger"><i class="bi bi-x"></i> Cancel</button>
                 </div>
             </form>
         </div>

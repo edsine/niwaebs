@@ -15,6 +15,7 @@ class Reminder extends Model
         'message',
         'reminderstart_date',
         'reminderend_date',
+        'frequency',
     ];
 
     public function reminderuser(){

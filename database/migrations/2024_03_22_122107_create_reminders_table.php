@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('subject')->nullable();
             $table->string('message')->nullable();
+            $table->string('frequency')->nullable();
             $table->dateTime('reminderstart_date')->nullable();
             $table->dateTime('reminderend_date')->nullable();
 
