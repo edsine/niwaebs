@@ -13,6 +13,10 @@ class DocumentsCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function dashboard(){
+        return view('dms.dashboard');
+     }
     public function index()
     {
         $documents_categories = DocumentsCategory::paginate(10);
