@@ -213,9 +213,10 @@ Route::post('updatesettings','App\Http\Controllers\Settings@update');
     // Route::view('createreminder','dms.createreminder');
 
     Route::resource('reminder',ReminderController::class);
-    Route::view('dash','dms.dashboard');
+    // Route::view('dash','dms.dashboard');
+    Route::get('documentloginaudit',[ReminderController::class,'loginaudit'])->name('loginaudit');
 
-    Route::get('dash',[DocumentsCategoryController::class,' dashboard'])->name('dash');
+    Route::get('dash',[DocumentsCategoryController::class,'dashboard'])->name('dash');
     //Report API
     Route::get('listassetactivityreport', 'App\Http\Controllers\Reports@getassetactivityreport');
     Route::get('listcomponentactivityreport', 'App\Http\Controllers\Reports@getcomponentactivityreport');

@@ -73,10 +73,10 @@
         var searchfrequency = $('#searchfrequency');
         var seachsubject = $('#seachsubject');
         seachsubject.hide()
-        $(function() {
-            seachsubject.click(function(
-                alert('ddddddddddddddddddddd');
-            ))
-        })
+        // $(function() {
+        //     seachsubject.click(function(
+        //         alert('ddddddddddddddddddddd');
+        //     ))
+        // })
     </script>
 @endsection

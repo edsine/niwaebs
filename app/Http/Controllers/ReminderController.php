@@ -15,6 +15,10 @@ class ReminderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function loginaudit(){
+        return view('dms.loginaudit');
+     }
     public function index(Request $request)
     {
         $data= Reminder::get();
