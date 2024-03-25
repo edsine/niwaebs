@@ -4,7 +4,10 @@
         <span class="menu-title">HRM System</span>
         <i class="menu-arrow"></i>
     </a>
+
     <ul class="nav flex-column sub-sub-menu">
+        @if (auth()->check() &&
+        (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
         <li class="nav-item" id="myTaskLayouts">
             <a class="nav-link" href="#">
                 <i class="fas fa-wallet menu-icon"></i>
@@ -18,9 +21,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('payslip.index') }}">Payslip</a>
                 </li>
-                
+
             </ul>
         </li>
+        @endif
+
         <li class="nav-item" id="myTaskLayouts">
             <a class="nav-link" href="#">
                 <i class="fas fa-wallet menu-icon"></i>
@@ -34,7 +39,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('leave_request.index') }}">Leave Status</a>
                 </li>
-                
+
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('leave.index') }}">Manage Leave</a>
                 </li> --}}
@@ -51,12 +56,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('attendanceemployee.bulkattendance') }}">Bulk Attendance</a>
                         </li>
-                        
+
                     </ul>
                 </li>
-                
+
             </ul>
         </li>
+
+        @if (auth()->check() &&
+        (in_array(auth()->user()->staff->department_id, [1]) || auth()->user()->hasRole('super-admin')))
         <li class="nav-item" id="myTaskLayouts">
             <a class="nav-link" href="#">
                 <i class="fas fa-wallet menu-icon"></i>
@@ -73,9 +81,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('goaltracking.index') }}">Goal Tracking</a>
                 </li>
-                
+
             </ul>
         </li>
+        @endif
+        @if (auth()->check() &&
+        (in_array(auth()->user()->staff->department_id, [1]) || auth()->user()->hasRole('super-admin')))
         <li class="nav-item" id="myTaskLayouts">
             <a class="nav-link" href="#">
                 <i class="fas fa-wallet menu-icon"></i>
@@ -91,6 +102,9 @@
                 </li>
             </ul>
         </li>
+        @endif
+        @if (auth()->check() &&
+        (in_array(auth()->user()->staff->department_id, [1]) || auth()->user()->hasRole('super-admin')))
         <li class="nav-item" id="myTaskLayouts">
             <a class="nav-link" href="#">
                 <i class="fas fa-wallet menu-icon"></i>
@@ -124,6 +138,7 @@
                 </li> --}}
             </ul>
         </li>
-        
+        @endif
+
     </ul>
 </li>

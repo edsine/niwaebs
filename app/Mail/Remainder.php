@@ -11,6 +11,8 @@ use Illuminate\Queue\SerializesModels;
 
 class Remainder extends Mailable
 {
+
+    public $data;
     use Queueable, SerializesModels;
 
     /**
@@ -18,9 +20,11 @@ class Remainder extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+     
+        $this->data=$data;
+
     }
 
     /**
@@ -31,7 +35,7 @@ class Remainder extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Remainder',
+            subject: 'Remainder ',
         );
     }
 
@@ -43,7 +47,10 @@ class Remainder extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'dms.email',
+            with:[
+                'data'=>$this->data
+            ],
         );
     }
 

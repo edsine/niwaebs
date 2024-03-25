@@ -119,10 +119,13 @@ class ReminderController extends Controller
                 );
             }
         }
-        // if($request->sendemailbtn){
+        if ($request->sendemailbtn) {
+            $users = User::whereIn('id', $request->user_id)->get(); 
+            foreach ($users as $user) {
+                Mail::to($user->email)->send(new Remainder($data));
+            }
+        }
 
-        //     Mail::to($user)->send(new Remainder($data));
-        // }
 
         return redirect()->route('reminder.index')->with('success', 'Reminder Set Successfully');
     }

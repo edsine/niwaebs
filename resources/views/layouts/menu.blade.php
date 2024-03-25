@@ -93,69 +93,44 @@
             </ul>
 
         </li>
+        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
+            <li class="nav-item" id="myTask">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-tools menu-icon"></i>
 
-        <li class="nav-item" id="myTask">
-            <a class="nav-link" href="#">
-                <i class="bi bi-tools menu-icon"></i>
+                    <span class="menu-title">System Step</span>
+                    <i class="menu-arrow"></i>
 
-                <span class="menu-title">System Step</span>
-                <i class="menu-arrow"></i>
+                </a>
+                <ul class="nav flex-column sub-menu">
 
-            </a>
-            <ul class="nav flex-column sub-menu">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.index') }}">Users</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+                    </li>
 
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                    </li>
 
-            </ul>
+                </ul>
 
-        </li>
+            </li>
+        @endif
 
-        {{-- <li class="nav-item">
-            <a class="nav-link"data-toggle="collapse" href="#page-layouts" aria-expanded="false"
-                aria-controls="page-layouts" href="{{ route('home') }}">
-                <i class="fa fa-home menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
-                <div class="collapse" id="page-layouts">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item d-none d-lg-block"> <a class="nav-link"
-                                href="pages/layout/boxed-layout.html">HR Dashboard</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/layout/rtl-layout.html">Admin
-                                Dashboard</a></li>
-                        <li class="nav-item d-none d-lg-block"> <a class="nav-link"
-                                href="pages/layout/horizontal-menu.html">Project Dashboard</a></li>
-                    </ul>
-                </div>
-            </a>
-        </li> --}}
 
-        {{--  <li class="nav-item">
-            <a class="nav-link" href="{{ route('niwa.payments') }}">
-                <i class="fa fa-list menu-icon"></i>
-                <span class="menu-title">Payments</span>
 
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('document.index') }}">
-                <i class="fa fa-list menu-icon"></i>
-                <span class="menu-title">Client Documents</span>
+        @if (auth()->check() &&
+                (in_array(auth()->user()->staff->department_id, [1, 5, 4]) || auth()->user()->hasRole('super-admin')))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('serviceApplications.index') }}">
+                    <i class="fa fa-compass menu-icon"></i>
+                    <span class="menu-title">Service Applications</span>
 
-            </a>
-        </li> --}}
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('serviceApplications.index') }}">
-                <i class="fa fa-compass menu-icon"></i>
-                <span class="menu-title">Service Applications</span>
+                </a>
+            </li>
+        @endif
 
-            </a>
-        </li>
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-check menu-icon"></i>
@@ -190,10 +165,11 @@
                 </li>
             </ul>
         </li>
-
-        <!-- Start Of REport System Menu -->
-        @include('accounting::layouts.reportmenu')
-        <!-- End Of REport System Menu -->
+        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
+            <!-- Start Of REport System Menu -->
+            @include('accounting::layouts.reportmenu')
+            <!-- End Of REport System Menu -->
+        @endif
 
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
@@ -204,31 +180,34 @@
             <ul class="nav flex-column sub-menu">
 
 
-                @if (auth()->check() && (auth()->user()->staff->department_id == 1 || auth()->user()->hasRole('super-admin')))
+
                     <!-- Start Of HRM System Menu -->
                     @include('hrmsystem::layouts.menu')
-                @endif
+
                 <!-- End Of HRM System Menu -->
 
+                @if (auth()->check() &&
+                (in_array(auth()->user()->staff->department_id, [2, 7]) || auth()->user()->hasRole('super-admin')))
                 <!-- Start Of Accounting Menu -->
                 @include('accounting::layouts.menu')
+                @endif
+                @if (auth()->check() &&
+                (in_array(auth()->user()->staff->department_id, [4,5,3]) || auth()->user()->hasRole('super-admin')))
                 <!-- End Of Accounting Menu -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">
-                        <i class="fas fa-balance-scale menu-icon"></i>
+                        <i class="fas  fa-pen-square menu-icon"></i>
                         <span>Add/View Equipments</span>
                     </a>
                 </li>
+                @endif
+                @if (auth()->check() &&
+                (in_array(auth()->user()->staff->department_id, [2, 7]) || auth()->user()->hasRole('super-admin')))
+                <!-- Start Of Accounting Menu -->
+                @include('accounting::layouts.menu')
+                <!-- End Of Accounting Menu -->
+                @endif
 
-                <!-- Start Of Accounting Menu -->
-                @include('accounting::layouts.menu')
-                <!-- End Of Accounting Menu -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">
-                        <i class="fas fa-balance-scale menu-icon"></i>
-                        <span>Add/View Equipments</span>
-                    </a>
-                </li>
 
             </ul>
         </li>
@@ -247,6 +226,8 @@
                         <span>DAR</span>
                     </a>
                 </li>
+                @if (auth()->user()->hasRole('super-admin'))
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('units.create') }}">
                         <i class="fas fa-balance-scale menu-icon"></i>
@@ -259,6 +240,7 @@
                         <span>Unit List</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dtarequests.create') }}">
                         <i class="fas fa-code-pull-request menu-icon"></i>
@@ -287,24 +269,18 @@
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="#">File Type</a>
                         </li> --}}
-                        @if (auth()->check() &&
-                                (in_array(auth()->user()->staff->department_id, [1, 7]) || auth()->user()->hasRole('super-admin')))
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('folders.index') }}">Folders</a>
                             </li>
-                        @endif
 
-                        @if (auth()->check() && in_array(auth()->user()->staff->department_id, [1, 4]))
+
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('memos.index') }}">Memos</a>
                             </li>
-                        @endif
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('documents.index') }}">Documents</a>
-                        </li> --}}
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" href="#">Sidebar Fixed</a>
-                        </li> --}}
+
+
                     </ul>
                 </li>
                 <li class="nav-item" id="myTaskLayouts">
@@ -326,7 +302,7 @@
         </li>
 
         @if (auth()->check() &&
-                (in_array(auth()->user()->staff->department_id, [1, 10, 5, 4, 7]) || auth()->user()->hasRole('super-admin')))
+                (in_array(auth()->user()->staff->department_id, [11, 12, 10]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas  fa-file-word menu-icon"></i>
@@ -380,21 +356,6 @@
                             {{-- @endcan --}}
                         </ul>
                     </li>
-                    {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('hod.proc') }}">MY DEPARTMENTAL REQUESITION.</a>
-                </li> --}}
-                    {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('audit.proc') }}">AUDIT. REQUESITION.</a>
-                </li> --}}
-                    {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('legal.proc') }}">LEGAL. REQUESITION.</a>
-                </li> --}}
-                    {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('md.proc') }}">MD. REQUESITION.</a>
-                </li> --}}
-                    {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('fin.proc') }}">FINANCE. REQUESITION.</a>
-                </li> --}}
 
 
 
@@ -412,9 +373,12 @@
                 </a>
                 <ul class="nav flex-column sub-menu">
 
+                    @if (auth()->check() &&
+                    (in_array(auth()->user()->staff->department_id, [11,7, 12]) || auth()->user()->hasRole('super-admin')))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('vendors.index') }}">Vendors</a>
+                        <a class="nav-link" href="{{ route('vendors.index') }}">VENDORS</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('procurement.index') }}">MY REQUISITION</a>
                     </li>
@@ -424,25 +388,36 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('hod.proc') }}">MY DEPARTMENTAL REQUESITION.</a>
                     </li>
+                    @if (auth()->check() &&
+                    (in_array(auth()->user()->staff->department_id, [7]) || auth()->user()->hasRole('super-admin')))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('audit.proc') }}">AUDIT. REQUESITION.</a>
                     </li>
+                    @endif
+                    @if (auth()->check() &&
+                    (in_array(auth()->user()->staff->department_id, [12]) || auth()->user()->hasRole('super-admin')))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('legal.proc') }}">LEGAL. REQUESITION.</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('md.proc') }}">MD. REQUESITION.</a>
                     </li>
+                    @if (auth()->check() &&
+                    (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('fin.proc') }}">FINANCE. REQUESITION.</a>
                     </li>
 
+                    @endif
 
 
                 </ul>
 
             </li>
         @endif
+        @if (auth()->user() && auth()->user()->hasRole('super-admin'))
+
         <li class="nav-item">
             <a class="nav-link" href="{{ route('support.index') }}">
                 <i class="fa fa-gear menu-icon"></i>
@@ -450,7 +425,10 @@
 
             </a>
         </li>
-        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [4, 3, 6])  || auth()->user()->hasRole('super-admin')))
+        @endif
+
+        @if (auth()->check() &&
+                (in_array(auth()->user()->staff->department_id, [4, 5,3, 13]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas  fa-passport menu-icon"></i>
@@ -536,89 +514,55 @@
                     {{--  @endcan --}}
 
 
-            </ul>
-        </li>
-        <li class="nav-item" id="myTask">
-            <a class="nav-link" href="#">
-           <i class="fas fa-check menu-icon"></i>
-                <span class="menu-title">Documents</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <ul class="nav flex-column sub-menu">
-               {{--  @can('read asset manager dashboard') --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('dash')}}"><i class="fas  fa-dashboard "></i> Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('documents_manager.shareduser')}}">Assigned User Documents</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('documents_manager.sharedrole')}}">Assigned Role Documents</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('documents_manager.index')}}">All Documents</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('documents_category.index')}}">Document Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('documents_manager.audits')}}">Document Audit Trail</a>
-                    </li>
-                    <li class="nav-item">
-                     
-                        <a class="nav-link" href="{{route('reminder.index')}}">    <i class="bi bi-alarm "></i>Reminder</a>
-                    </li>
-                    <li class="nav-item">
-                     
-                        <a class="nav-link" href="{{route('loginaudit')}}">    <i class="fas fa-door-open "></i>Login Audit</a>
-                    </li>
-            </ul>
-        </li>
-
                 </ul>
             </li>
-        @endif
-        
-        {{-- <li class="nav-item" id="myTask1">
-            <a class="nav-link" href="#">
-                <i class="fas fa-columns menu-icon"></i>
-                <span class="menu-title">Internal Processes</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <ul class="nav flex-column sub-menu">
-                <li class="nav-item" id="myTaskLayouts1">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-columns menu-icon"></i>
-                        <span class="menu-title">My Task Layouts</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <ul class="nav flex-column sub-sub-menu">
-                        @if (in_array(Auth()->user()->staff->department_id, $departmentData['departmentIdsToCheck1']))
-                            @include('employermanager::layouts.menu')
-                        @endif
-                    </ul>
-                </li>
-            </ul>
-        </li> --}}
-
-
-        {{-- <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
-                aria-controls="page-layouts">
-                <i class="fab fa-trello menu-icon"></i>
-                <span class="menu-title">Approval</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="page-layouts">
+            <li class="nav-item" id="myTask">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-check menu-icon"></i>
+                    <span class="menu-title">Documents</span>
+                    <i class="menu-arrow"></i>
+                </a>
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link"
-                            href="pages/layout/boxed-layout.html">Approval Type</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/rtl-layout.html">Approval List</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link"
-                            href="pages/layout/horizontal-menu.html">Appraisal</a></li>
+                    {{--  @can('read asset manager dashboard') --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dash') }}"><i class="fas  fa-dashboard "></i>
+                            Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">Assigned User
+                            Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('documents_manager.sharedrole') }}">Assigned Role
+                            Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('documents_manager.index') }}">All Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('documents_category.index') }}">Document Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('documents_manager.audits') }}">Document Audit Trail</a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="{{ route('reminder.index') }}"> <i
+                                class="bi bi-alarm "></i>Reminder</a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="{{ route('loginaudit') }}"> <i class="fas fa-door-open "></i>Login
+                            Audit</a>
+                    </li>
                 </ul>
-            </div>
-        </li> --}}
+            </li>
+
+    </ul>
+    </li>
+    @endif
+
+   
 
     </ul>
 </nav>
