@@ -55,4 +55,7 @@ class Documents extends Model implements Auditable
     {
         return $this->hasMany(\Modules\DocumentManager\Models\MemoHasDepartment::class);
     }
+    public function reminder(){
+        return $this->hasMany(Reminder::class,'documents_manager_id');
+    }
 }
