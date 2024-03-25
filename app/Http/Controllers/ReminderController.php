@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Remainder;
+use App\Models\Documents;
 use App\Models\Reminder;
 
 use App\Models\Reminderuser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ReminderController extends Controller
 {
@@ -35,7 +38,7 @@ class ReminderController extends Controller
     }
     public function index(Request $request)
     {
-        $data = Reminder::get();
+        $data = Reminder::orderBy('id','desc')->get();
         // if($request->ajax()){
         //     dd('yes ajax');
         //   return response('the ajact call yess sss');
@@ -53,6 +56,7 @@ class ReminderController extends Controller
     {
         $users = User::get()->pluck('first_name', 'id');
 
+        $user= \Auth::user()->id;
         // dd($users);
         $freq = [
             '' => '--None--',
@@ -64,7 +68,9 @@ class ReminderController extends Controller
             'Yearly' => ' Yearly',
 
         ];
-        return view('dms.createreminder', compact('freq', 'users'));
+        $doc=Documents::where('created_by',$user)->get();
+
+        return view('dms.createreminder', compact('freq', 'users','doc'));
     }
 
     /**
@@ -75,12 +81,18 @@ class ReminderController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $data = new Reminder;
 
         $data->subject = $request->subject;
         $data->message = $request->message;
         $data->reminderstart_date = $request->reminderstart_date;
 
+        if ($request->documents_manager_id !== null) {
+
+            $data->documents_manager_id = $request->documents_manager_id;
+        }
         if ($request->reminderend_date !== null) {
 
             $data->reminderend_date = $request->reminderend_date;
@@ -107,6 +119,10 @@ class ReminderController extends Controller
                 );
             }
         }
+        // if($request->sendemailbtn){
+
+        //     Mail::to($user)->send(new Remainder($data));
+        // }
 
         return redirect()->route('reminder.index')->with('success', 'Reminder Set Successfully');
     }
