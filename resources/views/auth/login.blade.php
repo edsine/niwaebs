@@ -72,7 +72,9 @@
                     <div class="col-lg-6 d-flex align-items-center justify-content-center">
                         <div class="auth-form-transparent text-left p-3">
                             <div class="brand-logo">
-                                <img src="{{ asset('assets/media/logos/logo-light.png') }}" style="width:100px;">
+
+
+                                <img src="{{ asset('assets/media/logos/niwaebs.jpg') }}" style="width:100px; border-radius:50%">
                             </div>
                             <h3>National Inland WaterWays Authority Staff InterFace</h3>
                             {{-- <h4 class="card-title">Welcome back!</h4> --}}
