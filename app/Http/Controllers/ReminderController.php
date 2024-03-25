@@ -24,14 +24,14 @@ class ReminderController extends Controller
     {
         // return view('dms.dashboard');
         $result = \DB::select(\DB::raw('SELECT COUNT(name) AS num, name FROM documents_categories GROUP BY name'));
-       $data="";
-       foreach ($result as $values) {
-        $data .="['".$values->name."',  ".$values->num."],";
-        # code...
-       }
-        $alldata= $data;
+        $data = "";
+        foreach ($result as $values) {
+            $data .= "['" . $values->name . "',  " . $values->num . "],";
+            # code...
+        }
+        $alldata = $data;
         // dd($data);
-        return view('dms.dashboard2',compact('alldata'));
+        return view('dms.dashboard2', compact('alldata'));
     }
     public function index(Request $request)
     {

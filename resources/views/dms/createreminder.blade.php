@@ -3,9 +3,9 @@
     <div class=" container-fluid">
         <h2 class="text-muted">Manage Reminder</h2>
     </div>
-    <div class="container">
+    <div class="container mb-5">
         <div class="">
-            <form action="{{ route('reminder.store') }}" method="post">
+            <form class="form" action="{{ route('reminder.store') }}" method="post">
                 @csrf
 
                 <div class="form-group">
@@ -244,7 +244,7 @@
 
 
                 <div class="row" id="forhalfyear">
-                    <table>
+                    <table class=" table table-responsive">
                         <thead>
                             <tr>
                                 <th>Month</th>
@@ -312,7 +312,7 @@
                     </table>
                 </div>
 
-                <div class=" d-flex    mt-4">
+                <div class=" d-flex    my-4">
                     <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-floppy">Save</i> </button>
                     <button type="button" class=" btn btn-sm btn-danger"><i class="bi bi-x"></i> Cancel</button>
                 </div>

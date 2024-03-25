@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="float-left">Reminder</div>
             <a href="{{ route('reminder.create') }}" class="btn btn-sm btn-success"> <i class="bi bi-plus"></i> Add
-                Reminder</a>
+            Reminder</a>
         </div>
 
         <div class="card">
@@ -13,7 +13,7 @@
 
 
 
-                <table id="table" class="table datatable">
+                <table id="table" class="table table-responsive datatable">
                     <thead>
                         <tr>
                             <th scope="col">Start Date</th>
@@ -27,7 +27,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <th></th>
                             <td></td>
                             <td>
@@ -41,7 +41,7 @@
                                 'id' => 'searchfrequency',
                             ]) !!}</td>
                             <td></td>
-                        </tr>
+                        </tr> --}}
 
                         @foreach ($data as $item)
                             <tr>
