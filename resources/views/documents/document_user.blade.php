@@ -35,7 +35,7 @@
                                 <th>Document URL</th>
                                 <th>Document Category</th>
                                 <th>Created Date</th>
-                                <th>View Assignment</th>
+                                {{-- <th>View Assignment</th> --}}
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -53,12 +53,12 @@
                                     
                                     <td>{{ $document->category->name ?? 'NILL' }}</td>
                                     <td>{{ $document->created_at->format('d/m/Y') }}</td>
-                                    <td style="width: 120px;">
+                                    {{-- <td style="width: 120px;">
                                         <div class="btn-group" role="group">
                                             <a class="btn btn-primary" href="{{ route('documents.assignedRoles', [$document->id]) }}">Roles</a>
                                             <a class="btn btn-secondary" href="{{ route('documents.assignedUsers', [$document->id]) }}">Users</a>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                     <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

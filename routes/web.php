@@ -70,6 +70,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('documents_manager/assignedRoles/{id}', [App\Http\Controllers\DocumentsController::class, 'assignedDepartments'])->name('documents.assignedRoles');
     Route::delete('documents_manager/assignedUsers/delete/{user_id}/{document_id}', [App\Http\Controllers\DocumentsController::class, 'deleteAssignedUser'])->name('documents.assignedUsers.destroy');
     Route::delete('documents_manager/assignedRoles/delete/{role_id}/{document_id}', [App\Http\Controllers\DocumentsController::class, 'deleteAssignedRole'])->name('documents.assignedRoles.destroy');
+    Route::get('documents_manager/delete/{id}', [App\Http\Controllers\DocumentsController::class, 'delete'])->name('documents_manager.delete');
+    Route::post('documents_manager/add', [App\Http\Controllers\DocumentsController::class, 'add'])->name('documents_manager.add');
+    Route::get('/documents_manager/version/{id}', 'App\Http\Controllers\DocumentsController@documentsVersion')->name('documents_manager.version');
+    Route::get('/documents_manager/comment/{id}', 'App\Http\Controllers\DocumentsController@documentsComment')->name('documents_manager.comment');
+    Route::post('documents_manager/add_comment', [App\Http\Controllers\DocumentsController::class, 'addComment'])->name('documents_manager.add_comment');
+    Route::post('documents_manager/send_email', [App\Http\Controllers\DocumentsController::class, 'sendEmail'])->name('documents_manager.send_email');
+    Route::get('/documents_manager/share/{id}', 'App\Http\Controllers\DocumentsController@shareDocument')->name('documents_manager.share');
+    Route::post('documents_manager/shareuser', [App\Http\Controllers\DocumentsController::class, 'shareUser'])->name('documents_manager.shareuser');
+    Route::post('documents_manager/sharerole', [App\Http\Controllers\DocumentsController::class, 'shareRole'])->name('documents_manager.sharerole');
+    Route::get('/documents_manager/shared/user', 'App\Http\Controllers\DocumentsController@sharedUser')->name('documents_manager.shareduser');
+    Route::get('/documents_manager/shared/role', 'App\Http\Controllers\DocumentsController@sharedRole')->name('documents_manager.sharedrole');
+
 
 });
 
