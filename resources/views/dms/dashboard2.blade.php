@@ -17,9 +17,9 @@
 
                     var data = google.visualization.arrayToDataTable([
                         ['Category', 'Numbers'],
-                        
-                        <?php 
-echo $alldata;
+
+                        <?php
+                        echo $alldata;
                         ?>
                     ]);
 
