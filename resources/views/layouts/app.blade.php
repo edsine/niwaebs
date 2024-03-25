@@ -456,8 +456,6 @@
 
     <!-- for the css datatable -->
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">
-
-
 </head>
 
 <body data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true"
@@ -713,8 +711,8 @@
         };
     </script>
 
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-
+    {{-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+ --}}
 
 
 
@@ -760,7 +758,23 @@
     <script src="{{ asset('jquery-mapael-nigeria/nigeria.js') }}"></script>
     <script src="{{ asset('jquery-mapael-nigeria/scripts/major-city-plots.js') }}"></script>
 
-
+<script>
+ $('#historyModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#uploadsModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#commentModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#sendEmailModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#shareModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+</script>
 
     <!-- for the form repeater  -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js" integrity="sha512-foIijUdV0fR0Zew7vmw98E6mOWd9gkGWQBWaoA1EOFAx+pY+N8FmmtIYAVj64R98KeD2wzZh1aHK0JSpKmRH8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}

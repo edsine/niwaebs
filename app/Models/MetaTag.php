@@ -13,11 +13,12 @@ class MetaTag extends Model implements Auditable
     use SoftDeletes;
     use AuditingAuditable;
     use HasFactory;
-    public $table = 'meta_tags';
+    public $table = 'documents_has_meta_tags';
 
     public $fillable = [
         'name',
         'document_id',
+        'created_by'
     ];
 
 

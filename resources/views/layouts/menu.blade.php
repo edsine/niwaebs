@@ -541,7 +541,7 @@
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-check menu-icon"></i>
-                <span class="menu-title">Document Manager</span>
+                <span class="menu-title">Documents</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
@@ -550,7 +550,10 @@
                         <a class="nav-link" href="">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('documents_manager.documentsByUsers')}}">Assigned Documents</a>
+                        <a class="nav-link" href="{{route('documents_manager.shareduser')}}">Assigned User Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('documents_manager.sharedrole')}}">Assigned Role Documents</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('documents_manager.index')}}">All Documents</a>

@@ -31,7 +31,9 @@
     {!! Form::label('meta_tags', 'Meta Tag(s):', ['class' => 'col-form-label']) !!}
     <div class="col-sm-9">
         <div id="meta_tags_container">
-            <input type="text" name="meta_tags[]" class="form-control" placeholder="Enter Meta Tag">
+            @foreach($single_metas as $single_meta)
+            <input type="text" name="meta_tags[]" value="{{ $single_meta->name }}" class="form-control" placeholder="Enter Meta Tag">
+            @endforeach
         </div>
     </div>
     <div class="col-sm-3">
@@ -44,12 +46,12 @@
 
 <div class="form-group col-sm-6">
 {!! Form::label('roles', 'Role(s):') !!}
-{!! Form::select('roles[]', $roles, null, ['class' => 'form-control', 'id' => 'roleSelect', 'multiple' => 'multiple']) !!}
+{!! Form::select('roles[]', $roles, $single_role->pluck('role_id')->toArray(), ['class' => 'form-control', 'id' => 'roleSelect', 'multiple' => 'multiple']) !!}
 </div>
 
 <div class="form-group col-sm-6">
 {!! Form::label('users', 'User(s):') !!}
-{!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+{!! Form::select('users[]', $users, $single_doc->pluck('user_id')->toArray(), ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
 </div>
 
 

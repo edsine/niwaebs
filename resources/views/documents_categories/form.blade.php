@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-        <div class="row gy-4 p-5">
+        <div class="row gy-4 pl-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
                 <div class="form-control-wrap">

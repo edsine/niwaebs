@@ -28,26 +28,12 @@
                     @include('documents.fields')
 
                 
-                    <div class="col-sm-12 row mb-3">
-                        <!-- Roles and users Field -->
-
-<div class="form-group col-sm-6">
-    {!! Form::label('roles', 'Role(s):') !!}
-    {!! Form::select('roles[]', $roles, null, ['class' => 'form-control', 'id' => 'roleSelect', 'multiple' => 'multiple']) !!}
-</div>
-
-<div class="form-group col-sm-6">
-    {!! Form::label('users', 'User(s):') !!}
-    {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
-</div>
-
-
-                    </div>
+                   
                 </div>
 
             </div>
 
-            <div class="card-footer">
+            <div class="card-footer" style="margin-bottom: 30px;">
                 {!! Form::submit('SUBMIT', ['class' => 'btn btn-primary']) !!}
                 <a href="{{ route('documents_manager.index') }}" class="btn btn-default"> Cancel </a>
             </div>
