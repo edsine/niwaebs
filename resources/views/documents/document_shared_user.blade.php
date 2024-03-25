@@ -24,7 +24,7 @@
                     <table class="table" id="document-table">
                         <thead>
                             <tr>
-                                <th>S/N</th>
+                               {{--  <th>S/N</th> --}}
                                 <th>Document Name</th>
                                 <th>Full Name</th>
                                 <th>Document URL</th>
@@ -38,7 +38,7 @@
                             @foreach ($documents as $document)
                                 
                                 <tr>
-                                    <td>{{ $n++ }}</td>
+                                    {{-- <td>{{ $n++ }}</td> --}}
                                     <td>{{ $document->title }}</td>
                                     {{-- <td>{{ $document->description }}</td> --}}
                                     <td>{{ $document->first_name ? $document->first_name. ' '.$document->last_name : '' }}</td>
