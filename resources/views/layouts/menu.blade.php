@@ -329,7 +329,7 @@
                 (in_array(auth()->user()->staff->department_id, [1, 10, 5, 4, 7]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-home menu-icon"></i>
+                    <i class="fas  fa-file-word menu-icon"></i>
                     <span class="menu-title">Projects </span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -406,7 +406,7 @@
         @if (auth()->check() && (auth()->user()->staff->department_id == 11 || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-home menu-icon"></i>
+                    <i class="fas  fa-cart-flatbed menu-icon"></i>
                     <span class="menu-title">Procurement </span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -453,7 +453,7 @@
         @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [4, 3, 6])  || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-check menu-icon"></i>
+                    <i class="fas  fa-passport menu-icon"></i>
                     <span class="menu-title">Asset Manager</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -540,14 +540,14 @@
         </li>
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
-                <i class="fas fa-check menu-icon"></i>
+           <i class="fas fa-check menu-icon"></i>
                 <span class="menu-title">Documents</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
                {{--  @can('read asset manager dashboard') --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="">Dashboard</a>
+                        <a class="nav-link" href="{{route('dash')}}"><i class="fas  fa-dashboard "></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('documents_manager.shareduser')}}">Assigned User Documents</a>
@@ -563,6 +563,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('documents_manager.audits')}}">Document Audit Trail</a>
+                    </li>
+                    <li class="nav-item">
+                     
+                        <a class="nav-link" href="{{route('reminder.index')}}">    <i class="bi bi-alarm "></i>Reminder</a>
+                    </li>
+                    <li class="nav-item">
+                     
+                        <a class="nav-link" href="{{route('loginaudit')}}">    <i class="fas fa-door-open "></i>Login Audit</a>
                     </li>
             </ul>
         </li>
