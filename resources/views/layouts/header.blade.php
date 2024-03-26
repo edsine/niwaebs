@@ -166,7 +166,7 @@
                  <!--begin::Menu toggle-->
                  <a class="nav-link" href="#">
                      {{-- <i class="fas fa-ellipsis-h"></i> --}}
-                     <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
+                     {{-- <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div> --}}
                      <div id="theme-settings" class="settings-panel">
                          <i class="settings-close fa fa-times"></i>
                          <p class="settings-heading">SIDEBAR SKINS</p>
