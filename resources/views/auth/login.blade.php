@@ -74,7 +74,7 @@
                             <div class="brand-logo">
 
 
-                                <img src="{{ asset('assets/media/logos/niwaebs.jpg') }}" style="width:100px; border-radius:50%">
+                                <img src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" style="width:100px;">
                             </div>
                             <h3>National Inland WaterWays Authority Staff InterFace</h3>
                             {{-- <h4 class="card-title">Welcome back!</h4> --}}

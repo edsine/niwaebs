@@ -44,9 +44,14 @@ class HomeController extends Controller
             return redirect()->route('superadmin');
         } else if (Auth::check() && Auth::user()->hasRole('minister')) {
             return redirect()->route('minister');
-        } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
+        }
+         else if (Auth::check() && Auth::user()->hasRole('permsec')) {
 
             return redirect()->route('permsec');
+         }
+         else if (Auth::check() && Auth::user()->hasRole('USER')) {
+
+            return redirect()->route('dash');
         } else if (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
 
             return redirect()->route('region');
@@ -177,7 +182,7 @@ class HomeController extends Controller
 
         $thestaffbranch_id = Auth::user()->staff->branch_id;
 
-        
+
         $theareas = \DB::table('users')
         ->join('staff', 'users.id', '=', 'staff.user_id')
         ->where('staff.branch_id', '=', $thestaffbranch_id)
