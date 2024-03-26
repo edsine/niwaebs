@@ -45,8 +45,8 @@
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-home menu-icon"></i>
-                <span class="menu-title">OVERVIEW</span>
-                <span class="menu-title">OVERVIEW</span>
+                <span class="menu-title">Overview</span>
+
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
@@ -510,7 +510,7 @@
 
             </ul>
         </li>
-       
+
         @endif
 
 

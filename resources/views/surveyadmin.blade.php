@@ -29,11 +29,6 @@
                     <line x1="8" y1="12" x2="16" y2="12" />
                 </svg>
             </button>
-            <center>
-                <h1 class="text-black-50 text-center text-uppercase mb-4 pt-5"> SURVEY DEPARTMENT :<b
-                        style="color: #000">Overview</b></h1>
-            </center>
-            @include('clokin')
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
                 <div class="col-4">
                     <div class="row">
@@ -76,6 +71,12 @@
                     </div>
                 </div>
             </div>
+            <center>
+                <h1 class="text-black-50 text-center text-uppercase mb-4 pt-5"> SURVEY DEPARTMENT :<b
+                        style="color: #000">Overview</b></h1>
+            </center>
+            @include('clokin')
+
             <div class="row mx-7 gy-5 g-xl-10">
                 <!--begin::Col-->
                 <div class="col-sm-6 col-xl-4 mb-xl-10">
