@@ -34,7 +34,7 @@
                 <!--end::Calendar-->
             {{-- </div> --}}
             <!--end::Card body-->
-        {{-- </div> --}} 
+        {{-- </div> --}}
         <!--end::Calendar Widget 1-->
 
 
@@ -60,7 +60,7 @@
                         'Product Name'
                     ],
                     datasets: [{
-                        label: 'Document Category',
+                        label: 'Documents Category',
                         data: [300, 200, 400, 600],
                         backgroundColor: [
                             'rgba(255,99,132,0.7)',

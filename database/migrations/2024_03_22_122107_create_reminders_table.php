@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
+            $table->integer('documents_manager_id')->nullable();
             $table->string('subject')->nullable();
             $table->string('message')->nullable();
             $table->string('frequency')->nullable();

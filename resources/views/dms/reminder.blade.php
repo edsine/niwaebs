@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="float-left">Reminder</div>
             <a href="{{ route('reminder.create') }}" class="btn btn-sm btn-success"> <i class="bi bi-plus"></i> Add
-            Reminder</a>
+                Reminder</a>
         </div>
 
         <div class="card">
@@ -16,45 +16,47 @@
                 <table id="table" class="table table-responsive datatable">
                     <thead>
                         <tr>
+                            <th></th>
                             <th scope="col">Start Date</th>
                             <th scope="col">End Date</th>
                             <th scope="col">Subject</th>
                             <th scope="col">Message</th>
                             <th scope="col">Frequency</th>
                             <th scope="col">Document</th>
-                            <th scope="col">Action</th>
+
 
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- <tr>
-                            <th></th>
-                            <td></td>
-                            <td>
-                                <input type="text" name="seachsubject" id="seachsubject" class="form-control "
-                                    placeholder="Subject">
-                            </td>
-                            <td> <input type="text" name="searchmessage" id="searchmessage" class="form-control "
-                                    placeholder="Message"></td>
-                            <td>{!! Form::select('searchfrequency', ['number' => 'frequency'], null, [
-                                'class' => ' form-select form-control  select',
-                                'id' => 'searchfrequency',
-                            ]) !!}</td>
-                            <td></td>
-                        </tr> --}}
+
 
                         @foreach ($data as $item)
                             <tr>
+                                <td>
+                                    <div class="dropdown">
+
+                                        <i title="Action" data-toggle="dropdown" class=" btn bi bi-three-dots-vertical"
+                                            aria-haspopup="true" aria-expanded="false"></i>
+                                        <div class="dropdown-menu dropdown-menu-right" style="z-index: 9999;"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a target="_blank" href="" class='btn btn-default btn-xs dropdown-item'>
+                                                <i class="far fa-eye"></i> View
+                                            </a>
+
+                                            <a href="" class='btn btn-default btn-xs dropdown-item'>
+                                                <i class="far fa-edit"></i> Edit
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </td>
                                 <th>{{ $item->reminderstart_date }}</th>
                                 <td>{{ $item->reminderend_date ? $item->reminderend_date : $item->reminderstart_date }}</td>
                                 <td>{{ $item->subject }}</td>
                                 <td>{{ $item->message }}</td>
                                 <td>{{ $item->frequency ? $item->frequency : '' }}</td>
-                                <td>{{ '' }}</td>
-                                <td>
+                                <td>{{$item->documentmanager?$item->documentmanager->title: '' }}</td>
 
-                                    <i class=" bi bi-three-dots-vertical"></i>
-                                </td>
                             </tr>
                         @endforeach
 

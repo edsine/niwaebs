@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Documents;
 use App\Models\Reminderuser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Reminder extends Model
 {
@@ -16,9 +18,13 @@ class Reminder extends Model
         'reminderstart_date',
         'reminderend_date',
         'frequency',
+        'documents_manager_id'
     ];
 
     public function reminderuser(){
         return $this->hasMany(Reminderuser::class);
+    }
+    public function documentmanager(){
+        return $this->belongsTo(Documents::class,'documents_manager_id');
     }
 }
