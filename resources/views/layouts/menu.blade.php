@@ -507,9 +507,9 @@
                     </li>
                     {{--  @endcan --}}
 
-
-                </ul>
-            </li>
+            </ul>
+        </li>
+       
         @endif
 
 
