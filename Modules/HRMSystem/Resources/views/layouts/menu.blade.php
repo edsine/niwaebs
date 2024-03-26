@@ -1,11 +1,11 @@
 <li class="nav-item" id="myTaskLayouts">
-    <a class="nav-link" href="#">
+    {{-- <a class="nav-link" href="#">
         <i class="fas fa-users menu-icon"></i>
         <span class="menu-title">HRM System</span>
         <i class="menu-arrow"></i>
-    </a>
+    </a> --}}
 
-    <ul class="nav flex-column sub-sub-menu">
+    {{-- <ul class="nav flex-column sub-sub-menu"> --}}
         @if (auth()->check() &&
         (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
         <li class="nav-item" id="myTaskLayouts">
@@ -140,5 +140,5 @@
         </li>
         @endif
 
-    </ul>
+    {{-- </ul> --}}
 </li>
