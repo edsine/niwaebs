@@ -1,6 +1,7 @@
+
 <li class="nav-item" id="myTaskLayouts">
     <a class="nav-link" href="#">
-        <i class="fas fa-users menu-icon"></i>
+        <i class="fas  fa-square-poll-vertical menu-icon"></i>
         <span class="menu-title">Report</span>
         <i class="menu-arrow"></i>
     </a>
@@ -50,6 +51,6 @@
                 <a class="nav-link" href="{{ route('report.tax.summary') }}">Tax Summary</a>
             </li>
         @endcan
-        
+
     </ul>
 </li>

@@ -41,7 +41,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label class="form-check-label" for="sendemail">
-                                <input name="sendemailbtn" class="form-check-input" type="checkbox" value=""
+                                <input name="sendemailbtn" class="form-check-input" type="checkbox" value="1"
                                     id="sendemail">
                                 Send Email
                             </label>
@@ -85,7 +85,7 @@
                 </div>
 
 
-                <div class="row">
+                <div class="row-12 d-flex">
                     <div class="col-6">
 
                         <div class="form-group  freqrow" id="freqrow">
@@ -94,6 +94,16 @@
                             {!! Form::select('frequency', $freq, null, ['class' => 'form-select', 'id' => 'freqselect']) !!}
                         </div>
                     </div>
+                    <div class="col-6">
+
+                        <div class="form-group " id="">
+                            {!! Form::label('documents_manager_id', 'Document (s)', ['class' => 'form-label']) !!}
+
+                            {!! Form::select('documents_manager_id', $doc->pluck('title','id'), null, ['class' => 'form-select', 'id' => 'documentselect']) !!}
+                        </div>
+                    </div>
+
+
                 </div>
 
 
@@ -329,6 +339,7 @@
             var reminderbtn = $('#reminderbtn');
             var sendemailcheckbox = $('#sendemail');
             var userselect = $('#usersSelect');
+            var documentselect = $('#documentselect');
             var startdatelabel = $('#reminderstart_datelabel');
             var startdateinput = $('#reminderstart_dateinput');
             var enddatediv = $('#enddatecol');
@@ -351,7 +362,8 @@
 
 
             userselect.select2();
-
+            documentselect.select2();
+            // frequencyselectbtn.select2();
             $(document).ready(function() {
                 // $('.usersSelect').select2();
 
