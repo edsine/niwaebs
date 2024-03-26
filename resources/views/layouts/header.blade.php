@@ -17,8 +17,13 @@
  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
 
-         <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwaebs.jpg') }}" alt="logos"/></a>
-         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwaebs.jpg') }}" alt="logo" class="h-60px w-100px"/></a>
+         {{-- <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route('home') }}">
+public\assets\media\logos\
+            <img class=" border-50%"  width="250" height="150"  src="{{ asset('assets/media/logos/niwaebs.jpg') }}" alt="optima logo"/></a> --}}
+         <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route('home') }}">
+
+            <img class=" border-50%"  width="250" height="150"  src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" alt="optima logo"/></a>
+         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" alt="logo" class="h-60px w-100px"/></a>
      </div>
      {{-- <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
          <a href="#" class="navbar-brand brand-logo">

@@ -30,6 +30,7 @@ use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\EmployerDocumentController;
 use App\Http\Controllers\DocumentsCategoryController;
+use App\Http\Controllers\EventController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use Modules\Accounting\Http\Controllers\ExpenseController;
 
@@ -227,9 +228,11 @@ Route::post('updatesettings','App\Http\Controllers\Settings@update');
     Route::resource('reminder',ReminderController::class);
     // Route::view('dash','dms.dashboard');
     Route::get('documentloginaudit',[ReminderController::class,'loginaudit'])->name('loginaudit');
-   
+
 
     Route::get('dash',[ReminderController::class,'dashboard'])->name('dash');
+    Route::get('full-calender',[EventController::class,'index'])->name('get-calender');
+    Route::post('full-calender/action',[EventController::class,'action'])->name('save-caleder');
     //Report API
     Route::get('listassetactivityreport', 'App\Http\Controllers\Reports@getassetactivityreport');
     Route::get('listcomponentactivityreport', 'App\Http\Controllers\Reports@getcomponentactivityreport');
