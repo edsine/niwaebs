@@ -46,6 +46,7 @@
             <a class="nav-link" href="#">
                 <i class="fas fa-home menu-icon"></i>
                 <span class="menu-title">OVERVIEW</span>
+                <span class="menu-title">OVERVIEW</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
@@ -526,22 +527,24 @@
                         Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">Assigned User
+                    <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">My
                         Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('documents_manager.sharedrole') }}">Assigned Role
+                    <a class="nav-link" href="{{ route('documents_manager.sharedrole') }}">Official
                         Documents</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.index') }}">All Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('documents_category.index') }}">Document Categories</a>
+                    <a class="nav-link" href="{{ route('documents_category.index') }}">Folders</a>
                 </li>
+                @if(auth()->user()->hasRole('super-admin'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.audits') }}">Document Audit Trail</a>
                 </li>
+                @endif
                 <li class="nav-item">
 
                     <a class="nav-link" href="{{ route('reminder.index') }}"> <i

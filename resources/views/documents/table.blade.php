@@ -7,7 +7,7 @@
                     <th>Title</th>
                     <th>Created By</th>
                     <th>Document URL</th>
-                    <th>Document Category</th>
+                    <th>Folder Name</th>
                     <th>Created Date</th>
                     @if(Auth::user()->hasRole('super-admin'))
                     <th>Share User/Role</th>
