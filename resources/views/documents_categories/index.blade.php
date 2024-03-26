@@ -13,11 +13,11 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Document Categories</h3>
+                <h3 class="nk-block-title page-title">Folders</h3>
                 <div class="row">
                 <div class="col-md-12">
                     <a href="{{ route('documents_category.create') }}" class="btn btn-primary float-end" ><em
-                        class="fa fa-user-add"></em> <span>Add New Category</span></a>
+                        class="fa fa-user-add"></em> <span>Add New Folder</span></a>
                 </div>
                 </div>
             </div><!-- .nk-block-head-content -->
@@ -31,7 +31,7 @@
                     <thead>
                         <tr>
                             <th>S/N</th>
-                            <th>Document Name</th>
+                            <th>Folder Name</th>
                             <th>Manage</th>
                         </tr>
                     </thead>

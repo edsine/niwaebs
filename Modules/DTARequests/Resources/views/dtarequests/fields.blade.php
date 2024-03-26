@@ -41,7 +41,8 @@
 <div class="col-sm-4 my-5">
     <span class="text-danger">UPLOAD ALL NECESSARY SUPPORTING DOCUMENT INCLUDING RECIEPT AND INVOICE(SCAN ALL AS SINGLE DOC IN PDF FORMAT)</span>
     <div class="form-group">
-        {!! Form::file('uploaded_doc',null, ['class' =>'form-control','accept' => 'application/pdf']) !!}
+        {!! Form::file('uploaded_doc', ['class' =>'form-control','accept' => '.pdf',
+        'onchange' => 'validateFile(this)']) !!}
     </div>
     {!! Form::label('uploaded_doc', ' PDF FILE') !!}
 </div>

@@ -559,7 +559,7 @@
                         <a class="nav-link" href="{{route('documents_manager.index')}}">All Documents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('documents_category.index')}}">Document Categories</a>
+                        <a class="nav-link" href="{{route('documents_category.index')}}">Folders</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('documents_manager.audits')}}">Document Audit Trail</a>
