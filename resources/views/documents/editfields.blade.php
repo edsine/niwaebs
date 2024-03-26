@@ -22,7 +22,7 @@
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('category_id', 'Select category:') !!}
+    {!! Form::label('category_id', 'Select Folder:') !!}
     {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
 </div>
 

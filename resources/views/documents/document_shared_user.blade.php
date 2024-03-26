@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Assigned User Documents</h1>
+                    <h1>My Documents</h1>
                 </div>
                 
             </div>
@@ -28,7 +28,7 @@
                                 <th>Document Name</th>
                                 <th>Full Name</th>
                                 <th>Document URL</th>
-                                <th>Document Category</th>
+                                <th>Folder Name</th>
                                 <th>Start Date</th>
                                 <th>Expiry Date</th>
                             </tr>

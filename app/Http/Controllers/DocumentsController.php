@@ -19,7 +19,14 @@ use App\Repositories\DocumentHasUserRepository;
 use App\Repositories\DocumentHasRoleRepository;
 use App\Models\Documents;
 use App\Models\MetaTag;
+use App\Models\DocumentHistory;
+use App\Models\DocumentComment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
+use App\Models\User;
+use App\Models\DocumentHasUser;
+use App\Models\DocumentHasRole;
 
 class DocumentsController extends AppBaseController
 {
@@ -65,10 +72,54 @@ class DocumentsController extends AppBaseController
             return redirect()->back();
         } */
 
-        
-        $documents = $this->documentRepository->paginate(10);
 
-        return view('documents.index', compact('documents'));
+        $userId = Auth::user()->id;
+
+        $userIds = DocumentHasUser::get()->pluck('user_id');
+$loggedInUserId = auth()->id(); // Get the ID of the logged-in user
+
+$user_id = $userIds->contains($loggedInUserId);
+
+if (Auth::user()->hasRole('super-admin')) {
+    // The logged-in user ID exists in the $userIds array
+    //$documents = $this->documentRepository->paginate(10);
+    $documents = \App\Models\Documents::query()
+    ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select('documents_manager.*', 'documents_has_users.*', 'documents_categories.*')
+    ->latest('documents_manager.created_at')
+    ->with('createdBy') // Add this line to eager load the createdBy relation
+    ->paginate(10);
+//} else if ($userIds->contains($loggedInUserId)) {
+
+}else {
+    // The logged-in user ID does not exist in the $userIds array
+    $documents = \App\Models\Documents::query()
+    ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select('documents_manager.*', 'documents_has_users.*', 'documents_categories.*')
+    ->where('documents_has_users.user_id', $userId)
+    ->latest('documents_manager.created_at')
+    ->with('createdBy') // Add this line to eager load the createdBy relation
+    ->paginate(10);
+}
+    
+
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        // $roles->prepend('Select role', '');
+        // $departments->prepend('Select department', '');
+         $users1 = $this->userRepository->all();
+ 
+ $userData = $users1->map(function ($user) {
+     return [
+         'id' => $user->id,
+         'name' => $user->first_name . ' ' . $user->last_name,
+     ];
+ });
+ 
+         $users = $userData->pluck('name', 'id');
+
+        return view('documents.index', compact('documents','users','roles'));
     }
 
     public function documentsByAudits()
@@ -78,6 +129,7 @@ class DocumentsController extends AppBaseController
 
             return redirect()->back();
         } */
+
 
         
         $documents = DB::table('documents_manager')
@@ -92,6 +144,173 @@ class DocumentsController extends AppBaseController
         return view('documents.document_audits', compact('documents'));
     }
 
+    public function documentsVersion(Request $request, $id)
+{
+    $documentHistory = DB::table('documents_histories')
+        ->join('documents_manager', 'documents_histories.created_by', '=', 'documents_manager.id')
+        ->join('users', 'documents_histories.created_by', '=', 'users.id')
+        ->select('documents_histories.*', 'documents_histories.created_at as createdAt', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_manager.document_url as doc_url')
+        ->where('documents_histories.document_id', $id)
+        ->get();
+
+    return response()->json($documentHistory);
+}
+
+public function sharedUser()
+    {
+        /* /* if (!checkPermission('create document')) {
+            Flash::error('Permission denied');
+
+            return redirect()->back();
+        } */
+
+
+        $userId = Auth::user()->id;
+        
+
+        if (Auth::user()->hasRole('super-admin')) {
+        $documents = DB::table('documents_has_users')
+        ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+        ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+        ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+        ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
+        ->latest('documents_has_users.created_at')
+        ->paginate(10);
+        }else{
+            $documents = DB::table('documents_has_users')
+        ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+        ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+        ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+        ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
+        ->latest('documents_has_users.created_at')
+        ->where('documents_has_users.user_id', $userId)
+        ->paginate(10);
+        }
+
+        return view('documents.document_shared_user', compact('documents'));
+    }
+
+    public function sharedRole()
+    {
+        /* /* if (!checkPermission('create document')) {
+            Flash::error('Permission denied');
+
+            return redirect()->back();
+        } */
+ 
+
+        
+        // Get the currently authenticated user
+       $user = Auth::user();
+       // Get the role IDs of the user
+    $roleIds = $user->getRoleNames()->map(function ($roleName) {
+        return Role::where('name', $roleName)->first()->id;
+    });
+
+    // If the user has only one role, you can directly access it like this:
+    $roleId = $roleIds->first();
+
+       if (Auth::user()->hasRole('super-admin')) {
+        $documents = DB::table('documents_has_roles')
+    ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_roles.document_id')
+    ->join('roles', 'roles.id', '=', 'documents_has_roles.role_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select(
+        'documents_has_roles.start_date as start_date',
+        'documents_has_roles.end_date as end_date',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'roles.name as role_name',
+        'documents_categories.name as category_name'
+    )
+    ->latest('documents_manager.created_at')
+    ->paginate(10);
+}else{
+    $documents = DB::table('documents_has_roles')
+    ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_roles.document_id')
+    ->join('roles', 'roles.id', '=', 'documents_has_roles.role_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select(
+        'documents_has_roles.start_date as start_date',
+        'documents_has_roles.end_date as end_date',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'roles.name as role_name',
+        'documents_categories.name as category_name'
+    )
+    ->latest('documents_manager.created_at')
+    ->where('documents_has_roles.role_id', $roleId)
+    ->paginate(10);
+}
+
+    
+        return view('documents.document_shared_role', compact('documents'));
+    }
+
+public function shareDocument(Request $request, $id)
+{
+    $share_documents = DB::table('documents_manager')
+    //->join('documents_has_roles', 'documents_has_roles.role_id', '=', 'roles.id')
+    ->join('documents_has_users', 'documents_has_users.document_id', '=', 'documents_manager.id')
+    ->join('users', 'documents_has_users.user_id', '=', 'users.id') // Join with the 'users' table
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    //->join('roles', 'documents_has_roles.role_id', '=', 'roles.id')
+    ->select('documents_manager.*', 'documents_has_users.*', 'users.email as uemail', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.document_url as doc_url', 'documents_manager.description as doc_desc')
+    ->latest('documents_manager.created_at')
+    ->where('documents_manager.id', $id)
+    ->get();
+
+return response()->json($share_documents);
+/* try {
+    $share_documents = DB::table('documents_manager')
+        ->join('documents_has_users', 'documents_has_users.document_id', '=', 'documents_manager.id')
+        ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+        ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+        ->leftJoin('model_has_roles', function ($join) {
+            $join->on('model_has_roles.model_id', '=', 'users.id')
+                 ->where('model_has_roles.model_type', '=', 'App\User');
+        })
+        ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+        ->join('documents_has_roles', 'documents_has_roles.document_id', '=', 'documents_manager.id')
+        ->select('documents_manager.*', 'documents_has_users.*', 'users.email as uemail', 'users.first_name as firstName', 'users.last_name as lastName', 'roles.name as role_name', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.document_url as doc_url', 'documents_manager.description as doc_desc')
+        ->latest('documents_manager.created_at')
+        ->where('documents_manager.id', $id)
+        ->get();
+
+    return response()->json($share_documents);
+} catch (\Exception $e) {
+    return response()->json(['error' => $e->getMessage()], 500);
+} */
+}
+
+public function documentsComment(Request $request, $id)
+{
+    $documentHistory = DB::table('documents_comments')
+        ->join('users', 'documents_comments.created_by', '=', 'users.id')
+        ->join('documents_manager', 'documents_comments.document_id', '=', 'documents_manager.id')
+        ->select('documents_comments.*', 'documents_comments.created_at as createdAt', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_manager.document_url as doc_url')
+        ->where('documents_comments.document_id', $id)
+        ->get();
+
+    return response()->json($documentHistory);
+}
+
+public function sendEmail(Request $request)
+{
+    try {
+        $subject = $request->input('subject');
+        $body = $request->input('body');
+        $attachment = $request->input('attachment');
+
+        // Send the email using the SendEmail Mailable
+        Mail::to($request->input('to'))->send(new SendEmail($subject, $body, $attachment));
+
+        return redirect()->back()->with('success', 'Email sent successfully!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Failed to send email. Please try again later. ERROR:'.$e);
+    }
+}
+
     public function documentsByUsers()
     {
         /* if (!checkPermission('create document')) {
@@ -99,6 +318,7 @@ class DocumentsController extends AppBaseController
 
             return redirect()->back();
         } */
+
 
         
         $documents = $this->documentRepository->paginate(10);
@@ -113,6 +333,7 @@ class DocumentsController extends AppBaseController
 
             return redirect()->back();
         } */
+
 
         
         $documents = $this->documentHasRoleRepository->paginate(10);
@@ -143,6 +364,7 @@ class DocumentsController extends AppBaseController
             return redirect()->back();
         } */
 
+
         $categories = $this->documentsCategoryRepository->all()->pluck('name', 'id');
         //$roles = Role::pluck('name', 'id')->all();
         $roles = $this->roleRepository->all()->pluck('name', 'id');
@@ -162,6 +384,83 @@ $userData = $users1->map(function ($user) {
         return view('documents.create', compact(['categories','users','roles']));
     }
 
+    public function shareUser(Request $request)
+    {
+        $user = Auth::user();
+        $input = $request->all();
+
+        /* $document = DocumentHasUser::where('document_id', $request->shareuser_id)->first();
+        if($document){
+        $document->start_date = $request->start_date;
+        $document->end_date = $request->end_date;
+        $document->is_download = $request->is_download;
+        $document->save();
+        } */
+
+        //$document = DocumentHasUser::where('document_id', $request->shareuser_id)->first();
+        
+        // Assign to user(s)
+        $users = $input['users'];
+        if ($users != null) {
+            $logged_in_user = Auth::user();
+        foreach ($users as $key => $user_id) {
+            $input_fields['user_id'] = $user_id;
+            $input_fields['document_id'] = $request->shareuser_id;
+            $input_fields['assigned_by'] = $logged_in_user->id;
+            $input_fields['start_date'] = $request->start_date;
+            $input_fields['end_date'] = $request->end_date;
+            $input_fields['is_download'] = $request->is_download;
+
+        
+            $this->documentHasUserRepository->create($input_fields);
+
+            /* try {
+                $user->notify(new MemoAssignedToUser($memo));
+            } catch (\Throwable $th) {
+            } */
+        }
+            //$this->_assignToUsers($users, $document);
+        }
+
+        Flash::success('Document shared successfully.');
+
+        return redirect(route('documents_manager.shareduser'));
+
+    }
+
+    public function shareRole(Request $request)
+{
+    
+    $input = $request->all();
+
+    //$document = DocumentHasRole::where('document_id', $request->sharerole_id)->first();
+
+    $roles = $input['roles'];
+    if ($roles != null) {
+        $logged_in_user = Auth::user();
+        foreach ($roles as $key => $role_id) {
+            $role = Role::find($role_id); // Find the role by its ID
+                $input_fields['role_id'] = $role_id;
+                $input_fields['document_id'] = $request->sharerole_id;
+                $input_fields['assigned_by'] = $logged_in_user->id;
+                $input_fields['start_date'] = $request->start_date;
+                $input_fields['end_date'] = $request->end_date;
+                $input_fields['is_download'] = $request->is_download;
+
+                $this->documentHasRoleRepository->create($input_fields);
+
+                // Additional logic if needed
+            
+        }
+    }
+    
+        //$this->documentHasRoleRepository->create($input_fields);
+    Flash::success('Role permissions shared successfully.');
+
+        return redirect(route('documents_manager.sharedrole'));
+
+    }
+
     /**
      * Store a newly created Memo in storage.
      */
@@ -173,6 +472,7 @@ $userData = $users1->map(function ($user) {
 
             return redirect()->back();
         } */
+
 
         $user = Auth::user();
         $input = $request->all();
@@ -218,9 +518,15 @@ $userData = $users1->map(function ($user) {
         $document_input['document_url'] = $document_url;
         $document = $this->documentRepository->create($document_input);
 
+        DocumentHistory::create([
+            'created_by' => $user->id,
+            'document_id' => $document->id,
+            'document_url' => $document_url,
+        ]);
+
         // Save document version
 
-                // Assign to department(s)
+                // Assign to roles(s)
         $roles = $input['roles'];
         if ($roles != null) {
             $this->_assignToRoles($roles, $document);
@@ -238,6 +544,7 @@ $userData = $users1->map(function ($user) {
         MetaTag::create([
             'name' => $tag,
             'document_id' => $document->id,
+            'created_by' => $user->id,
         ]);
     }
 
@@ -246,6 +553,75 @@ $userData = $users1->map(function ($user) {
         return redirect(route('documents_manager.index'));
     }
 
+    public function add(Request $request)
+    {
+       
+        /* if (!checkPermission('create document')) {
+            Flash::error('Permission denied');
+
+            return redirect()->back();
+        } */
+
+
+        $user = Auth::user();
+        $input = $request->all();
+       // $input['created_by'] = $user->id;
+
+        // Get folder and its parents. Create if path does not exist
+        $path = "documents";
+        
+
+        // Prepare document input
+        $document_input = [];
+       
+        $doc = Documents::find($request->upload_id);
+
+        $path_folder = public_path($path);
+        // Save file
+        $file = $request->file('file');
+        $title = str_replace(' ', '', $doc->title);
+        $file_name = $title . '_' . 'v1' . '_' . rand() . '.' . $file->getClientOriginalExtension();
+        $file->move($path_folder, $file_name);
+        $document_url = $path . "/" . $file_name;
+        $document_input['document_url'] = $document_url;
+        $document = $this->documentRepository->update($document_input, $request->upload_id);
+
+        DocumentHistory::create([
+            'created_by' => $user->id,
+            'document_id' => $document->id,
+            'document_url' => $document_url,
+        ]);
+
+
+        Flash::success('New document version saved successfully.');
+
+        return redirect(route('documents_manager.index'));
+    }
+
+    public function addComment(Request $request)
+    {
+       
+        /* if (!checkPermission('create document')) {
+            Flash::error('Permission denied');
+
+            return redirect()->back();
+        } */
+
+
+        $user = Auth::user();
+        $input = $request->all();
+       
+        DocumentComment::create([
+            'created_by' => $user->id,
+            'document_id' => $request->comment_id,
+            'comment' => $request->comment,
+        ]);
+
+
+        Flash::success('New comment saved successfully.');
+
+        return redirect(route('documents_manager.index'));
+    }
     /**
      * Assign memo to users
      */
@@ -256,11 +632,11 @@ $userData = $users1->map(function ($user) {
         $memo_id = $input['memo_id'];
         $users = $input['users'];
 
-        if (!checkPermission('assign memo to user')) {
+        /* if (!checkPermission('assign memo to user')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
-        }
+        } */
         $memo = $this->documentRepository->find($memo_id);
 
         if (empty($memo)) {
@@ -286,11 +662,11 @@ $userData = $users1->map(function ($user) {
         $memo_id = $input['memo_id'];
         $departments = $input['departments'];
 
-        if (!checkPermission('assign memo to department')) {
+        /* if (!checkPermission('assign memo to department')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
-        }
+        } */
         $memo = $this->documentRepository->find($memo_id);
 
         if (empty($memo)) {
@@ -301,7 +677,7 @@ $userData = $users1->map(function ($user) {
 
         $this->_assignToRoles($departments, $memo);
 
-        Flash::success('Memo assigned successfully to department(s).');
+        Flash::success('Memo assigned successfully to roles(s).');
 
         return redirect(route('memos.index'));
     }
@@ -311,11 +687,11 @@ $userData = $users1->map(function ($user) {
      */
     public function assignedUsers(Request $request, $id)
     {
-        if (!checkPermission('read user-memo assignment')) {
+        /* if (!checkPermission('read user-memo assignment')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
-        }
+        } */
         $memo = $this->documentRepository->find($id);
 
         if (empty($memo)) {
@@ -335,7 +711,7 @@ $userData = $users1->map(function ($user) {
      */
     public function assignedDepartments(Request $request, $id)
     {
-        /* if (!checkPermission('read department-memo assignment')) {
+       /*  if (!checkPermission('read department-memo assignment')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -446,7 +822,7 @@ $userData = $users1->map(function ($user) {
      */
     public function show($id)
     {
-       /*  if (!checkPermission('read memo')) {
+        /* if (!checkPermission('read memo')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -479,8 +855,27 @@ $userData = $users1->map(function ($user) {
 
             return redirect(route('documents_manager.index'));
         }
+        $categories = $this->documentsCategoryRepository->all()->pluck('name', 'id');
+        //$roles = Role::pluck('name', 'id')->all();
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+       // $roles->prepend('Select role', '');
+       // $departments->prepend('Select department', '');
+        $users1 = $this->userRepository->all();
 
-        return view('documents.edit', compact('document'));
+$userData = $users1->map(function ($user) {
+    return [
+        'id' => $user->id,
+        'name' => $user->first_name . ' ' . $user->last_name,
+    ];
+});
+
+        $users = $userData->pluck('name', 'id');
+        $single_user = User::find($id);
+        $single_doc = DocumentHasUser::where('document_id', $id)->get();
+        $single_role = DocumentHasRole::where('document_id', $id)->get();
+        $single_metas = MetaTag::where('document_id', $id)->get();
+
+        return view('documents.edit', compact('document','categories','users','roles', 'single_role', 'single_doc', 'single_metas'));
     }
 
     /**
@@ -524,9 +919,55 @@ $userData = $users1->map(function ($user) {
         $document_input['title'] = $input['title'];
         $document_input['description'] = $input['description'];
         $document_input['category_id'] = $input['category_id'];
+
+        $user = Auth::user();
         
 
         $document = $this->documentRepository->update($document_input, $document_id);
+
+       $document_history = DocumentHistory::where('document_id', $document_id)->first();
+       if ($document_history) {
+       $document_history->created_by = $user->id;
+       if ($request->hasFile('file')) {
+       $document_history->document_url =  $document_url;
+       }
+       $document_history->save();
+       }
+
+
+       MetaTag::where('document_id', $document_id)->delete();
+        DocumentHasRole::where('document_id', $document_id)->delete();
+        DocumentHasUser::where('document_id', $document_id)->delete();
+
+                // Assign to roles(s)
+        $roles = $input['roles'];
+        if ($roles != null) {
+            $this->_assignToRoles($roles, $document);
+        }
+        // Assign to user(s)
+        $users = $input['users'];
+        if ($users != null) {
+            $this->_assignToUsers($users, $document);
+        }
+
+        // Retrieve meta tags from the request
+        $metaTags = $request->input('meta_tags');
+        // Iterate over each meta tag and save it to the database
+    foreach ($metaTags as $tag) {
+        MetaTag::create([
+            'name' => $tag,
+            'document_id' => $document->id,
+            'created_by' => $user->id,
+        ]);
+       /*  $meta_tag = MetaTag::where('document_id', $document_id)->first();
+       if ($meta_tag) {
+       $meta_tag->created_by = $user->id;
+       $meta_tag->name =  $tag;
+       $meta_tag->save();
+       } */
+        
+    }
+
 
 
         Flash::success('Document updated successfully.');
@@ -553,13 +994,21 @@ $userData = $users1->map(function ($user) {
 
             return redirect(route('documents_manager.index'));
         }
-
+        
         $this->documentRepository->delete($id);
+        $document_history = DocumentHistory::where('document_id', $id)->delete();
+        MetaTag::where('document_id', $id)->delete();
+        DocumentHasRole::where('document_id', $id)->delete();
+        DocumentHasUser::where('document_id', $id)->delete();
+        
 
         Flash::success('Document deleted successfully.');
 
         return redirect(route('documents_manager.index'));
     }
+
+   
+
 
 
     public function _assignToRoles($roles, $document)
@@ -588,9 +1037,57 @@ $userData = $users1->map(function ($user) {
             $input_fields['user_id'] = $user_id;
             $input_fields['document_id'] = $document->id;
             $input_fields['assigned_by'] = $logged_in_user->id;
+            
 
         
             $this->documentHasUserRepository->create($input_fields);
+
+            /* try {
+                $user->notify(new MemoAssignedToUser($memo));
+            } catch (\Throwable $th) {
+            } */
+        }
+    }
+
+    public function _assignedToRoles($roles, $document)
+    {
+        $logged_in_user = Auth::user();
+        foreach ($roles as $key => $role_id) {
+            $input_fields['role_id'] = $role_id;
+            $input_fields['document_id'] = $document->id;
+            $input_fields['assigned_by'] = $logged_in_user->id;
+
+            $document_has_role = DocumentHasRole::where('document_id', $document->id)->first();
+            if ($document_has_role) {
+            $document_has_role->assigned_by = $logged_in_user->id;
+            $document_has_role->role_id =  $role_id;
+            $document_has_role->save();
+            }
+            //$this->documentHasRoleRepository->create($input_fields);
+
+
+            /* try {
+                Notification::send($department->users, new MemoAssignedToDepartment($department, $memo));
+            } catch (\Throwable $th) {
+            } */
+        }
+    }
+
+    public function _assignedToUsers($users, $document)
+    {
+        $logged_in_user = Auth::user();
+        foreach ($users as $key => $user_id) {
+            $input_fields['user_id'] = $user_id;
+            $input_fields['document_id'] = $document->id;
+            $input_fields['assigned_by'] = $logged_in_user->id;
+
+            $document_has_user = DocumentHasUser::where('document_id', $document->id)->first();
+            if ($document_has_user) {
+            $document_has_user->assigned_by = $logged_in_user->id;
+            $document_has_user->user_id =  $user_id;
+            $document_has_user->save();
+            }
+            //$this->documentHasUserRepository->create($input_fields);
 
             /* try {
                 $user->notify(new MemoAssignedToUser($memo));
