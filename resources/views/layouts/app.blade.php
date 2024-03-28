@@ -32,6 +32,12 @@
             display: none
         }
     </style> --}}
+
+    {{-- adding the fullcalender css here, the js is inside the main file, e.g dash for documenr --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css"
+    integrity="sha512-Aa1748paT82yMtcPGgMq/zDsqZwwGFSYhKrWsO5nv74pShnz/Y4si5ip6GE/6ce/tePBlm2GwyomKp1NFyJgYA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     @stack('dar_css')
 
 

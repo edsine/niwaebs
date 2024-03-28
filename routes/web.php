@@ -1,13 +1,15 @@
 <?php
 
 use App\Models\User;
+use App\Http\Controllers\Brand;
 use App\Http\Controllers\Minister;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
 //use App\Http\Controllers\EmailController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProfileController;
@@ -30,7 +32,6 @@ use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\EmployerDocumentController;
 use App\Http\Controllers\DocumentsCategoryController;
-use App\Http\Controllers\EventController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use Modules\Accounting\Http\Controllers\ExpenseController;
 
@@ -90,7 +91,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/asset/home', 'App\Http\Controllers\Home@index');
-    Route::get('/brandlist', 'App\Http\Controllers\Brand@index');
+    Route::get('/brandlist', 'Brand@index');
     Route::get('/departmentlist', 'App\Http\Controllers\Department@index');
     Route::get('/assettypelist', 'App\Http\Controllers\AssetType@index');
     Route::get('/locationlist', 'App\Http\Controllers\Location@index');

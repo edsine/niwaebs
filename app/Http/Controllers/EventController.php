@@ -24,7 +24,7 @@ class EventController extends Controller
         $alldata = $data;
 
         if ($request->ajax()) {
-
+//do later for the user to see only his calendar
             $data = Event::whereDate('start', '>=', $request->start)
                 ->whereDate('end', '<=', $request->end)
                 ->get(['id', 'title', 'start', 'end']);
