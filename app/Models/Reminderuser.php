@@ -18,9 +18,9 @@ class Reminderuser extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
     public function reminder(){
-        return $this->belongsTo(Reminder::class);
+        return $this->belongsTo(Reminder::class,'reminder_id');
     }
 }

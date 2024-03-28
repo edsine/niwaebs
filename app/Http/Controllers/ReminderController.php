@@ -39,11 +39,7 @@ class ReminderController extends Controller
     public function index(Request $request)
     {
         $data = Reminder::orderBy('id','desc')->get();
-        // if($request->ajax()){
-        //     dd('yes ajax');
-        //   return response('the ajact call yess sss');
 
-        // }
         return view('dms.reminder', compact('data'));
     }
 
@@ -120,7 +116,7 @@ class ReminderController extends Controller
             }
         }
         if ($request->sendemailbtn) {
-            $users = User::whereIn('id', $request->user_id)->get(); 
+            $users = User::whereIn('id', $request->user_id)->get();
             foreach ($users as $user) {
                 Mail::to($user->email)->send(new Remainder($data));
             }
@@ -149,7 +145,25 @@ class ReminderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data= Reminder::findOrFail($id);
+
+        $users = User::get()->pluck('first_name', 'id');
+
+        $user= \Auth::user()->id;
+        // dd($users);
+        $freq = [
+            '' => '--None--',
+            'Daily' => 'Daily',
+            'Weekly' => 'Weekly',
+            'Monthly' => 'Monthly',
+            'Quartely' => 'Quartely',
+            'Half Yearly' => 'Half Yearly',
+            'Yearly' => ' Yearly',
+
+        ];
+        $doc=Documents::where('created_by',$user)->get();
+
+        return view('dms.editreminder',compact('data','users','user','freq','doc'));
     }
 
     /**
@@ -161,7 +175,8 @@ class ReminderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Reminder::findOrFail($id)->update($request->all());
+        return redirect()->route('reminder.index');
     }
 
     /**
@@ -172,6 +187,10 @@ class ReminderController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //   $data= Reminder::findOrFail($id);
+
+    //    $data->delete();
+
+       return redirect()->route('reminder.index');
     }
 }

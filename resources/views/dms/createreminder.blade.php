@@ -99,7 +99,10 @@
                         <div class="form-group " id="">
                             {!! Form::label('documents_manager_id', 'Document (s)', ['class' => 'form-label']) !!}
 
-                            {!! Form::select('documents_manager_id', $doc->pluck('title','id'), null, ['class' => 'form-select', 'id' => 'documentselect']) !!}
+                            {!! Form::select('documents_manager_id', $doc->pluck('title', 'id'), null, [
+                                'class' => 'form-select',
+                                'id' => 'documentselect',
+                            ]) !!}
                         </div>
                     </div>
 
