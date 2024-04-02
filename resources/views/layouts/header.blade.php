@@ -202,7 +202,8 @@ public\assets\media\logos\
                          <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                              alt="{{ auth()->user()->staff->profile_picture }}">
                      @else
-                         <img src="assets/media/avatars/300-1.jpg" alt="image" />
+
+                         <img src="assets/media/avatars/images.jpeg" alt="image" />
                      @endif
                  </a>
                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -212,7 +213,7 @@ public\assets\media\logos\
                                  <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                                      alt="{{ auth()->user()->staff->profile_picture }}">
                              @else
-                                 <img src="assets/media/avatars/300-1.jpg" alt="image" />
+                                 <img src="assets/media/avatars/images.jpeg" alt="image" />
                              @endif
                              {{-- <img alt="Logo" src="{{asset('assets/media/avatars/blank.png')}}" /> --}}
                          </div>
