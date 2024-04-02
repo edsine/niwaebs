@@ -36,6 +36,7 @@ class RealRolesTablesSeeder extends Seeder
                 'ED ADMIN',
                 'HR',
                 'Area Manager',
+                'Managing Director',
 
                 'permsec',
                 'minister',

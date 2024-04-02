@@ -42,7 +42,12 @@ class HomeController extends Controller
     {
         if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             return redirect()->route('superadmin');
-        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
+        }
+
+        else if (Auth::check() && Auth::user()->hasRole('Managing Director')) {
+            return redirect()->route('md');
+        }
+        else if (Auth::check() && Auth::user()->hasRole('minister')) {
             return redirect()->route('minister');
         }
          else if (Auth::check() && Auth::user()->hasRole('permsec')) {
@@ -70,10 +75,13 @@ class HomeController extends Controller
 
             return redirect()->route('ed_op');
             //atp take note, you have not yet done page for ed_op,no role as ed operation yet
-        } else if (Auth::check() && Auth::user()->hasRole('MD')) {
+        }
 
-            return redirect()->route('md');
-        } else if (Auth::check() && Auth::user()->staff->department_id == 2) {
+        // else if (Auth::check() && Auth::user()->hasRole('MD')) {
+
+        //     return redirect()->route('md');
+        // }
+        else if (Auth::check() && Auth::user()->staff->department_id == 2) {
             return redirect()->route('dashboard');
         } else {
 
