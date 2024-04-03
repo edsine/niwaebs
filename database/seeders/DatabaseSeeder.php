@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\ServiceApplication;
 use Illuminate\Database\Seeder;
+use App\Models\ServiceApplication;
 use Database\Seeders\ServicesSeeder;
+use Database\Seeders\OtherUsersTable;
 use Database\Seeders\NewStaffTableSeeder;
 use Database\Seeders\NewUsersTableSeeder;
 use Modules\Shared\Database\Seeders\SharedDatabaseSeeder;
@@ -58,6 +59,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceApplicationPermissionsSeeder::class);
         $this->call(SupportSystemPermissionsSeeder::class);
         $this->call(AssetManagerPermissionsSeeder::class);
+        $this->call(OtherUsersTable::class);
 
     }
 }

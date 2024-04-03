@@ -16,8 +16,14 @@
  <!-- partial:partials/_navbar.html -->
  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-         <a class="navbar-brand brand-logo" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo"/></a>
-         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/niwalogo.jpeg') }}" alt="logo" class="h-30px"/></a>
+
+         {{-- <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route('home') }}">
+public\assets\media\logos\
+            <img class=" border-50%"  width="250" height="150"  src="{{ asset('assets/media/logos/niwaebs.jpg') }}" alt="optima logo"/></a> --}}
+         <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route('home') }}">
+
+            <img class=" border-50%"  width="250" height="150"  src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" alt="optima logo"/></a>
+         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" alt="logo" class="h-60px w-100px"/></a>
      </div>
      {{-- <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
          <a href="#" class="navbar-brand brand-logo">
@@ -165,7 +171,7 @@
                  <!--begin::Menu toggle-->
                  <a class="nav-link" href="#">
                      {{-- <i class="fas fa-ellipsis-h"></i> --}}
-                     <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
+                     {{-- <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div> --}}
                      <div id="theme-settings" class="settings-panel">
                          <i class="settings-close fa fa-times"></i>
                          <p class="settings-heading">SIDEBAR SKINS</p>
@@ -196,7 +202,8 @@
                          <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                              alt="{{ auth()->user()->staff->profile_picture }}">
                      @else
-                         <img src="assets/media/avatars/300-1.jpg" alt="image" />
+
+                         <img src="assets/media/avatars/images.jpeg" alt="image" />
                      @endif
                  </a>
                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
@@ -206,7 +213,7 @@
                                  <img src="{{ asset('storage/' . auth()->user()->staff->profile_picture) }}"
                                      alt="{{ auth()->user()->staff->profile_picture }}">
                              @else
-                                 <img src="assets/media/avatars/300-1.jpg" alt="image" />
+                                 <img src="assets/media/avatars/images.jpeg" alt="image" />
                              @endif
                              {{-- <img alt="Logo" src="{{asset('assets/media/avatars/blank.png')}}" /> --}}
                          </div>

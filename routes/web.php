@@ -1,13 +1,15 @@
 <?php
 
 use App\Models\User;
+use App\Http\Controllers\Brand;
 use App\Http\Controllers\Minister;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
 //use App\Http\Controllers\EmailController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProfileController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\AllowanceController;
 use App\Http\Controllers\BugStatusController;
 use App\Http\Controllers\DashboardController;
@@ -28,6 +31,7 @@ use App\Http\Controllers\TimeTrackerController;
 use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\EmployerDocumentController;
+use App\Http\Controllers\DocumentsCategoryController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use Modules\Accounting\Http\Controllers\ExpenseController;
 
@@ -54,13 +58,43 @@ Route::middleware(['auth'])->group(function () {
         ->name('inspection.notice');
     Route::post('/inspection-send', [EmployerDocumentController::class, 'sendInspectionNotice'])
         ->name('inspection.send');
+
+    // Start Document Manager
+    Route::resource('documents_category', App\Http\Controllers\DocumentsCategoryController::class);
+    Route::resource('documents_manager', App\Http\Controllers\DocumentsController::class);
+    Route::get('documents_manager/assigned/to/users', [App\Http\Controllers\DocumentsController::class, 'documentsByUsers'])->name('documents_manager.documentsByUsers');
+    Route::get('documents_manager/documents/audits/', [App\Http\Controllers\DocumentsController::class, 'documentsByAudits'])->name('documents_manager.audits');
+    Route::get('documents_manager/documentVersions/{id}', [App\Http\Controllers\DocumentsController::class, 'documentVersions'])->name('documents.documentVersions.index');
+    //Route::get('documents_manager/assignedToUser/index', [App\Http\Controllers\DocumentsController::class, 'viewDocumentsAssignedToUser'])->name('documents.assignedToUser');
+    Route::post('documents_manager/assignToUsers', [App\Http\Controllers\DocumentsController::class, 'assignToUsers'])->name('documents.assignToUsers');
+    Route::post('documents_manager/assignToRoles', [App\Http\Controllers\DocumentsController::class, 'assignToDepartments'])->name('documents.assignToRoles');
+    Route::get('documents_manager/assignedUsers/{id}', [App\Http\Controllers\DocumentsController::class, 'assignedUsers'])->name('documents.assignedUsers');
+    Route::get('documents_manager/assignedRoles/{id}', [App\Http\Controllers\DocumentsController::class, 'assignedDepartments'])->name('documents.assignedRoles');
+    Route::delete('documents_manager/assignedUsers/delete/{user_id}/{document_id}', [App\Http\Controllers\DocumentsController::class, 'deleteAssignedUser'])->name('documents.assignedUsers.destroy');
+    Route::delete('documents_manager/assignedRoles/delete/{role_id}/{document_id}', [App\Http\Controllers\DocumentsController::class, 'deleteAssignedRole'])->name('documents.assignedRoles.destroy');
+    Route::get('documents_manager/delete/{id}', [App\Http\Controllers\DocumentsController::class, 'delete'])->name('documents_manager.delete');
+    Route::post('documents_manager/add', [App\Http\Controllers\DocumentsController::class, 'add'])->name('documents_manager.add');
+    Route::get('/documents_manager/version/{id}', 'App\Http\Controllers\DocumentsController@documentsVersion')->name('documents_manager.version');
+    Route::get('/documents_manager/comment/{id}', 'App\Http\Controllers\DocumentsController@documentsComment')->name('documents_manager.comment');
+    Route::post('documents_manager/add_comment', [App\Http\Controllers\DocumentsController::class, 'addComment'])->name('documents_manager.add_comment');
+    Route::post('documents_manager/send_email', [App\Http\Controllers\DocumentsController::class, 'sendEmail'])->name('documents_manager.send_email');
+    Route::get('/documents_manager/share/{id}', 'App\Http\Controllers\DocumentsController@shareDocument')->name('documents_manager.share');
+    Route::post('documents_manager/shareuser', [App\Http\Controllers\DocumentsController::class, 'shareUser'])->name('documents_manager.shareuser');
+    Route::post('documents_manager/sharerole', [App\Http\Controllers\DocumentsController::class, 'shareRole'])->name('documents_manager.sharerole');
+    Route::get('/documents_manager/shared/user', 'App\Http\Controllers\DocumentsController@sharedUser')->name('documents_manager.shareduser');
+    Route::get('/documents_manager/shared/role', 'App\Http\Controllers\DocumentsController@sharedRole')->name('documents_manager.sharedrole');
+
+
 });
 
 // Start of asset manager
 
+
+// Route::get('thedocumentuser/{deptid}/{branchid}','App\Http\Controllers\DocumentsController@getusersbydept');
+Route::get('thedocumentuser/','App\Http\Controllers\DocumentsController@getusersbydept');
 Route::middleware(['auth'])->group(function () {
     Route::get('/asset/home', 'App\Http\Controllers\Home@index');
-    Route::get('/brandlist', 'App\Http\Controllers\Brand@index');
+    Route::get('/brandlist', 'Brand@index');
     Route::get('/departmentlist', 'App\Http\Controllers\Department@index');
     Route::get('/assettypelist', 'App\Http\Controllers\AssetType@index');
     Route::get('/locationlist', 'App\Http\Controllers\Location@index');
@@ -142,6 +176,8 @@ Route::post('employeesbyid','App\Http\Controllers\Employees@byid'); */
     Route::post('deletesupplier', 'App\Http\Controllers\Supplier@delete');
     Route::post('supplierbyid', 'App\Http\Controllers\Supplier@byid');
 
+
+
     //User API
     /* Route::get('user','App\Http\Controllers\User@getdata');
 Route::get('listuser','App\Http\Controllers\User@getrows');
@@ -190,7 +226,17 @@ Route::post('updatesettings','App\Http\Controllers\Settings@update');
     Route::post('maintenancebyid', 'App\Http\Controllers\Maintenance@byid');
     Route::post('maintenanceassetsbyid', 'App\Http\Controllers\Maintenance@assetsbyid');
 
+    // Route::view('reminder','dms.reminder');
+    // Route::view('createreminder','dms.createreminder');
 
+    Route::resource('reminder',ReminderController::class);
+    // Route::view('dash','dms.dashboard');
+    Route::get('documentloginaudit',[ReminderController::class,'loginaudit'])->name('loginaudit');
+
+
+    Route::get('dash',[ReminderController::class,'dashboard'])->name('dash');
+    Route::get('full-calender',[EventController::class,'index'])->name('get-calender');
+    Route::post('full-calender/action',[EventController::class,'action'])->name('save-caleder');
     //Report API
     Route::get('listassetactivityreport', 'App\Http\Controllers\Reports@getassetactivityreport');
     Route::get('listcomponentactivityreport', 'App\Http\Controllers\Reports@getcomponentactivityreport');
@@ -229,6 +275,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
     Route::get('/claimsadmin', [HomeController::class, 'claimsadmin'])->name('claimsadmin');
     Route::get('/aocadmin', [HomeController::class, 'aoc'])->name('aocadmin');
+    Route::get('/superadmin', [HomeController::class, 'superdash'])->name('superadmin');
     Route::resource('services', App\Http\Controllers\ServiceController::class);
     Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
 });
@@ -250,7 +297,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/roundcube-login', [HomeController::class, 'roundcubeLogin']);
 
-Route::get('auditadmin', [HomeController::class, 'auditadmin']);
+Route::get('fiadmin', [HomeController::class, 'auditadmin'])->name('auditadmin');
 Route::get('ictadmin', [HomeController::class, 'ictadmin'])->name('ict');
 // Route::get('/hradmin', [HomeController::class, 'hradmin'])->name('hradmin');
 Route::get('/financeadmin', [HomeController::class, 'financeadmin'])->name('financeadmin');
@@ -259,16 +306,18 @@ Route::get('/itmadmin', [HomeController::class, 'itmadmin'])->name('itmadmin');
 Route::get('/complianceadmin', [HomeController::class, 'complianceadmin'])->name('complianceadmin');
 Route::get('/hseadmin', [HomeController::class, 'hseadmin'])->name('hseadmin');
 Route::get('/permsec', [HomeController::class, 'pamsec'])->name('permsec');
-Route::get('/am', [HomeController::class, 'branch'])->name('am');
+Route::get('/am', [HomeController::class, 'branch'])->name('bm');
 Route::get('/region', [HomeController::class, 'regional'])->name('region');
 Route::get('/ed_md', [HomeController::class, 'edfinance'])->name('ed_md');
 Route::get('/ed_admin', [HomeController::class, 'edadmin'])->name('ed_admin');
+Route::get('/engineering', [HomeController::class, 'engineering'])->name('engineering');
+Route::get('/marineadmin', [HomeController::class, 'marineadmin'])->name('marineadmin');
 
 Route::get('/riskadmin', [HomeController::class, 'riskadmin']);
 
 Route::get('/aprd', [HomeController::class, 'aprd']);
 Route::get('/fre', [HomeController::class, 'fre']);
-Route::get('/copaffairs', [HomeController::class, 'copaffairs']);
+Route::get('/copaffairs', [HomeController::class, 'copaffairs'])->name('copaffairs');
 Route::get('legaladmin', [HomeController::class, 'legaladmin']);
 Route::get('procurementadmin', [HomeController::class, 'procurementadmin']);
 
@@ -318,6 +367,8 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::view('am','am');
 
 Route::get('md_user', [HomeController::class, 'md'])->name('md');
+
+
 Route::get('areamanager', [HomeController::class, 'areamanager'])->name('am');
 //=================================== Zoom Meeting ======================================================================
 Route::get('zoom', function () {
@@ -705,7 +756,7 @@ Route::any('/project/timesheet/update/{timesheet_id}', [TimesheetController::cla
 
 Route::delete('/project/timesheet/{timesheet_id}', [TimesheetController::class, 'timesheetDestroy'])->name('timesheet.destroy')->middleware(['auth']);
 
-
+Route::get('showarea',[HomeController::class,'showareaoffice'])->name('showarea');
 
 
 Route::group(

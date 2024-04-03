@@ -145,6 +145,15 @@ class NewStaffTableSeeder extends Seeder
                 'dash_type'=> 1,
                 'statusz'=> 1,
             ],
+            [
+
+                'user_id'=> 16,
+                'department_id'=> 14,
+                'branch_id'=> 1,
+                'ranking_id'=> 1,
+                'dash_type'=> 1,
+                'statusz'=> 1,
+            ],
 
         ];
         DB::table('staff')->insert($staff);

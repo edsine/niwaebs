@@ -7,9 +7,51 @@
         {{-- <center> --}}
             <h1 class="uppercase  bold mb-3">Human Resources Department</h1>
         {{-- </center> --}}
+        <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-3">
+                        {!! Form::label('', 'Filter By', ['class'=>'form-label mt-2']) !!}
+                    </div>
+                    <div class="col-3">
+                       {!! Form::select('branch_id', $branch->pluck('branch_name','id'), null, ['class'=>' form-select']) !!}
+                    </div>
+
+                    <div class="col-3">
+                        <select class="form-select" id="monthSelect">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select" id="yearSelect">
+                            @php
+                                $currentYear = date('Y');
+                                $startYear = $currentYear - 10; // Adjust as needed
+                                $endYear = $currentYear + 10; // Adjust as needed
+                            @endphp
+                            @for ($year = $startYear; $year <= $endYear; $year++)
+                                <option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>
+                                    {{ $year }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row grid-margin">
             <div class="col-12">
-             
+
                 <div class="card card-statistics">
                     <div class="card-body">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
@@ -67,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mx-7">
+        <div class="row ">
             <div class="col-md-4 grid-margin">
                 <div class="card shadow">
                     <div class="card-body">
@@ -196,7 +238,7 @@
             </div>
         </div>
 
-        <div class="row mx-7 grid-margin">
+        <div class="row  grid-margin">
             <div class="col-12">
                 <div class="card card-statistics">
                     <div class="card-body">
@@ -241,7 +283,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mx-7">
+        <div class="row ">
             <div class="col-12 grid-margin">
                 <div class="card shadow">
                     <div class="card-body">

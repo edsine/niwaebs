@@ -45,14 +45,29 @@
                                             'id' => 'number_days',
                                         ]) !!}
                                     </div>
-
-                                    <div class="form-group ">
+                                    <div class="row">
+                                    <div class="form-group col-md-4">
                                         {!! Form::label('daystaken', 'Number of days to take:') !!}
                                         {!! Form::number('daystaken', null, [
                                             'class' => 'form-control form-control-solid border border-2 ',
                                             'placeholder' => 'input the number of days to take',
                                             'id' => 'days',
                                         ]) !!}
+                                    </div>
+                                        <div class="form-group col-md-4">
+                                            {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:', ['style' => 'font-size: 0.8125rem;']) !!}
+                                    
+                                            {!! Form::text('end_date', null, [
+                                                'class' => 'form-control form-control-solid border border-2 ',
+                                                'placeholder' => 'the date for you to resume',
+                                                'id' => 'end_date',
+                                                'readonly' => true,
+                                            ]) !!}
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            {!! Form::label('Update', 'EXPECTED DATE TO RESUME:', ['style' => 'font-size: 0.8125rem;color: white']) !!}
+                                            {!! Form::button('Update', ['class' => 'btn btn-info', 'id' => 'u', 'onclick' => 'resumeDate()']) !!}
+                                        </div>
                                     </div>
                                    {{--  <div class="form-group ">
                                         {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:') !!}
@@ -72,7 +87,7 @@
                                 <section>
                                     <h4 class="card-title">RESUME DATE, ADDRESS, LGA</h4>
                                     <div class="row">
-                                        {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:', ['style' => 'font-size: 0.8125rem;']) !!}
+                                        {{-- {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:', ['style' => 'font-size: 0.8125rem;']) !!}
                                         <div class="form-group col-md-10">
                                             
                                             {!! Form::text('end_date', null, [
@@ -83,9 +98,9 @@
                                             ]) !!}
                                         </div>
                                         <div class="form-group col-md-2">
-                                            {{-- {!! Form::label('', '') !!} --}}
+                                           
                                             {!! Form::button('Update', ['class' => 'btn btn-info', 'id' => 'u', 'onclick' => 'resumeDate()']) !!}
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="form-group ">
                                         {!! Form::label('home_address', 'LEAVE DESTINATION ADDRESS:') !!}
@@ -125,10 +140,11 @@
                                     <div class="col-sm-4 my-4">
                                         {!! Form::label('signature_path', 'UPLOAD SIGNATURE PDF ONLY') !!}
                                         <div class="form-group">
-                                            {!! Form::file('signature_path', null, [
-                                                'class' => 'form-control form-control-solid border border-2',
-                                                'accept' => 'image/*',
-                                            ]) !!}
+                                            {!! Form::file('signature_path', [
+    'class' => 'form-control form-control-solid border border-2',
+    'accept' => '.pdf',
+    'onchange' => 'validateFile(this)'
+]) !!}
                                         </div>
                                     </div>
                                     <div class="form-check">
@@ -145,7 +161,7 @@
             </div>
         </div>
     </div>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#leave_type').on('click', function() {
@@ -227,4 +243,18 @@
         };// });
    /*  }); */
 </script>
+<script>
+    function validateFile(input) {
+        if (input.files && input.files[0]) {
+            var fileSize = input.files[0].size; // Size in bytes
+            var maxSize = 1024 * 1024; // 1MB in bytes
+
+            if (fileSize > maxSize) {
+                alert('File size exceeds the maximum limit of 1MB.');
+                input.value = ''; // Clear the file input
+            }
+        }
+    }
+</script>
+
 @endsection

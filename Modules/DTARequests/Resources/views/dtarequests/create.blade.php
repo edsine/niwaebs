@@ -38,4 +38,17 @@
 
         </div>
     </div>
+    <script>
+        function validateFile(input) {
+            if (input.files && input.files[0]) {
+                var fileSize = input.files[0].size; // Size in bytes
+                var maxSize = 1024 * 1024; // 1MB in bytes
+    
+                if (fileSize > maxSize) {
+                    alert('File size exceeds the maximum limit of 1MB.');
+                    input.value = ''; // Clear the file input
+                }
+            }
+        }
+    </script>
 @endsection

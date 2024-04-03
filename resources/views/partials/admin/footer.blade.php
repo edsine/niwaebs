@@ -7,9 +7,9 @@
 <footer class="dash-footer">
     <div class="footer-wrapper">
         <div class="py-1">
-            <p class="mb-0 text-muted"> &copy;
+            {{-- <p class="mb-0 text-muted"> &copy;
                 {{ date('Y') }} {{ \Modules\Accounting\Models\Utility::getValByName('footer_text') ? \Modules\Accounting\Models\Utility::getValByName('footer_text') : config('app.name', 'ERPGo') }}
-            </p>
+            </p> --}}
         </div>
 
     </div>
@@ -48,7 +48,7 @@
     <script>
         show_toastr('success', '{!! $message !!}');
     </script>
-@endif 
+@endif
  @if($message = Session::get('error'))
     <script>
         show_toastr('error', '{!! $message !!}');

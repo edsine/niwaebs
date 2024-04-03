@@ -27,7 +27,7 @@
                             <th scope="col">Email</th>
                             <th scope="col"> Role</th>
                             <th scope="col"> Department</th>
-                            <th scope="col">Branch</th>
+                            <th scope="col">Area Office</th>
                             {{-- <th scope="col">Approval Status</th> --}}
                             <th scope="col">Actions</th>
                         </tr>

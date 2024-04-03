@@ -39,22 +39,7 @@
                                         <th><?php echo trans('lang.action');?></th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th><?php echo trans('lang.picture');?></th>
-                                        <th><?php echo trans('lang.assettag');?></th>
-                                        <th><?php echo trans('lang.serial');?></th>
-                                        <th><?php echo trans('lang.purchasedate');?></th>
-                                        <th><?php echo trans('lang.cost');?></th>
-                                        <th><?php echo trans('lang.description');?></th>
-                                        <th><?php echo trans('lang.name');?></th>
-                                        <th><?php echo trans('lang.type');?></th>
-                                        <th><?php echo trans('lang.brand');?></th>
-                                        <th><?php echo trans('lang.location');?></th>
-                                        <th><?php echo trans('lang.action');?></th>
-                                    </tr>
-                                </tfoot>
+                                
                                
                             </table>
                         </div>

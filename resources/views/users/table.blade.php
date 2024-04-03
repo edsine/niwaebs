@@ -10,7 +10,7 @@
 														</tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach ($users as $user)
                 <tr>
                     <td>{!! $user->first_name.' '.$user->middle_name.' '.$user->last_name !!}</td>
                     <td>{!! $user->email !!}</td>
@@ -26,22 +26,19 @@
                                 <i class="far fa-edit"></i>
                             </a>
                             {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
-                        </div>
-                        {!! Form::close() !!}
-                    </td>
-                															<th class="min-w-200px text-end rounded-end"></th>
-														</tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
+</div>
+{!! Form::close() !!}
+</td>
+<th class="min-w-200px text-end rounded-end"></th>
+</tr>
+@endforeach
+</tbody>
+</table>
+</div>
 
-    <div class="card-footer clearfix">
-        <div class="float-right">
-            @include('adminlte-templates::common.paginate', ['records' => $users])
-        </div>
+<div class="card-footer clearfix">
+    <div class="float-right">
+        @include('adminlte-templates::common.paginate', ['records' => $users])
     </div>
+</div>
 </div> --}}
-
-
-

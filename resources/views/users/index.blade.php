@@ -12,6 +12,8 @@
                     <h4 class="card-title">Users</h4>
                 </div>
                 <div class="col-sm-6">
+
+                    
                     <a class="btn btn-primary float-end" href="{{ route('users.create') }}">
                         Add User
                     </a>

@@ -25,8 +25,8 @@
                 @foreach ($procurement as $item)
                     <tr>
                         <th>{{ $item->reference_number }}</th>
-                        <th>{{ $item->vendor->name}}</th>
-                        <th>{{ $item->vendor->phone_number}}</th>
+                        <th>{{ $item->vendor->name }}</th>
+                        <th>{{ $item->vendor->phone_number }}</th>
                         {{-- <td>{{ $item->user->first_name . '' . $item->user->last_name }}</td> --}}
                         <td>{{ $item->title }}</td>
                         <td>{{ $item->type }}</td>
@@ -50,7 +50,6 @@
                                 <span class=" fw-bolder text-warning"> Awaiting Fianance Payment</span>
                             @elseif ($item->status == 7)
                                 <span class=" fw-bolder text-success"> PAYMENT SUCCESSFUL</span>
-
                             @else
                                 <span class=" fw-bolder text-success"> Approved</span>
                             @endif
@@ -117,7 +116,7 @@
                                     <label for="ldms_documentTitle">{{ trans('Company') }}</label>
                                     <div class="form-group-inner">
                                         <div class="field-outer">
-                                            {!! Form::select('vendor_id', $vendor, null, ['class' => 'form-control form-select','required'=>'true']) !!}
+                                            {!! Form::select('vendor_id', $vendor, null, ['class' => 'form-control form-select', 'required' => 'true']) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -222,8 +221,8 @@
                                                     <div class="col-12 col-md-5">
                                                         <div class="form-group">
                                                             <label>ITEMS </label>
-                                                            <input required class="form-control form-control-sm" name="item[]"
-                                                                type="text" placeholder="">
+                                                            <input required class="form-control form-control-sm"
+                                                                name="item[]" type="text" placeholder="">
                                                         </div>
                                                     </div>
 
@@ -231,7 +230,8 @@
                                                         <div class="form-group">
                                                             <label>QUANTITY </label>
                                                             <input class="form-control form-control-sm quantity"
-                                                                name="quantity[]" type="number" required placeholder=" ">
+                                                                name="quantity[]" type="number" required
+                                                                placeholder=" ">
                                                         </div>
                                                     </div>
 
@@ -239,7 +239,7 @@
                                                     <div class="col-4 col-md-5">
                                                         <div class="form-group">
                                                             <label>RATE</label>
-                                                            <input  required class="form-control form-control-sm rate"
+                                                            <input required class="form-control form-control-sm rate"
                                                                 name="rate[]" type="number" placeholder="">
                                                         </div>
                                                     </div>
@@ -277,37 +277,44 @@
                         </div>
 
 
+
                         <div class="row mt-3">
-                            <div class="col-6">
+                            <select class="form-select" required="true" name="" id="where">
+                                <option value="">Select Where To Upload From</option>
+                                <option value="1">Upload From System</option>
+                                <option value="2">Select From Memo</option>
+                                <option value="3">Select From DMS</option>
 
-                                <div class="form-group">
-                                    <input type="file" name="document" class="form-control" id="file">
-                                </div>
+                            </select>
+
+                            <div class="form-group">
+
+                                {!! Form::file('document', ['class' => 'file form-control ', 'id' => 'imagefile']) !!}
+                                <select class="form-select" name="document" id="dmsfile">
+
+                                    <option value="1">DMS1</option>
+                                    <option value="2">DMS 2</option>
+                                    <option value="3">DMS 3</option>
+                                </select>
+                                <select class="form-select" name="document" id="memofile">
+
+                                    <option value="1">Memo 1</option>
+                                    <option value="2"> Memo 2</option>
+                                    <option value="3">Memo 3</option>
+                                </select>
                             </div>
 
-                            <div class="col-6">
-
-                                <div class="form-group">
-                                    <select class=" form-control form-select" name="document" id="select">
-                                        @foreach ($select as $type)
-                                            <option value="{{ $type }}"> {{ $type }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                         </div>
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="status" value="1" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="status" id="submitbtn" value="1"
+                        class="btn btn-primary">Submit</button>
                 </div>
                 </form>
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div> --}}
+
             </div>
         </div>
 
@@ -327,50 +334,38 @@
                     $(this).closest('.entry').remove();
                     return false;
                 });
+
+
+                $('#dmsfile').hide();
+                $('#memofile').hide();
+                $('#imagefile').hide();
+                $('#where').change(function() {
+
+                    var thevalue = $(this).val();
+                    if (thevalue == 1) {
+                        $('#where').hide();
+                        $('#imagefile').show(1000);
+
+                    } else if (thevalue == 2) {
+                        $('#where').hide();
+                        $('#memofile').show(1000);
+                    } else if (thevalue == 3) {
+                        $('#where').hide();
+                        $('#dmsfile').show(1000);
+                    }
+
+
+                })
+
+
+
+
             });
         </script>
 
 
 
-        {{-- <script>
-            const inputgroup = document.querySelector('.atp');
-            inputgroup.class = 'row';
 
-            function addmore() {
-                const kpibox = document.createElement('input');
-                const krabox = document.createElement('input');
-                const jobbox = document.createElement('input');
-                const timebox = document.createElement('input');
-                kpibox.type = "text";
-                kpibox.name = 'key_performance_indicators';
-                kpibox.class = 'form-control';
-                kpibox.placeholder = 'yea';
-
-                krabox.type = "text";
-                krabox.name = 'key_result_area';
-                krabox.class = 'form-control';
-                krabox.placeholder = 'key result area';
-
-                jobbox.type = "text";
-                jobbox.name = 'job_objective';
-                jobbox.class = 'form-control';
-                jobbox.placeholder = 'job objective';
-
-                timebox.type = "text";
-                timebox.name = 'timeline';
-                timebox.class = 'form-control';
-                timebox.placeholder = 'timeline';
-
-                const div = document.createElement('div');
-                div.class = 'col-3';
-
-                inputgroup.appendChild(div);
-                div.appendChild(kpibox);
-                div.appendChild(timebox);
-                div.appendChild(jobbox);
-                div.appendChild(krabox);
-            }
-        </script> --}}
 
         <script>
             function validateForm() {

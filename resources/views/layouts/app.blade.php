@@ -32,6 +32,12 @@
             display: none
         }
     </style> --}}
+
+    {{-- adding the fullcalender css here, the js is inside the main file, e.g dash for documenr --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css"
+    integrity="sha512-Aa1748paT82yMtcPGgMq/zDsqZwwGFSYhKrWsO5nv74pShnz/Y4si5ip6GE/6ce/tePBlm2GwyomKp1NFyJgYA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     @stack('dar_css')
 
 
@@ -54,7 +60,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 
     <!-- Start::bootstrap-sweet-alert -->
@@ -68,7 +74,7 @@
     {{-- for the document management system --}}
 
 
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Custom Asset end -->
     {{-- all the assets --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js" integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
@@ -456,8 +462,6 @@
 
     <!-- for the css datatable -->
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">
-
-
 </head>
 
 <body data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true"
@@ -635,7 +639,7 @@
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script> --}}
     <script src="{{ asset('js/events.js') }}"></script>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -713,8 +717,8 @@
         };
     </script>
 
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-
+    {{-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+ --}}
 
 
 
@@ -760,7 +764,23 @@
     <script src="{{ asset('jquery-mapael-nigeria/nigeria.js') }}"></script>
     <script src="{{ asset('jquery-mapael-nigeria/scripts/major-city-plots.js') }}"></script>
 
-
+<script>
+ $('#historyModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#uploadsModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#commentModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#sendEmailModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+    $('#shareModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+</script>
 
     <!-- for the form repeater  -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js" integrity="sha512-foIijUdV0fR0Zew7vmw98E6mOWd9gkGWQBWaoA1EOFAx+pY+N8FmmtIYAVj64R98KeD2wzZh1aHK0JSpKmRH8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}

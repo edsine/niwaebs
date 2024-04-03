@@ -20,24 +20,9 @@ class RealRolesTablesSeeder extends Seeder
 
         $roleNames =
             [
-                // 'MD',
-                // 'INSPECTION',
-                // 'HOD',
-                // 'ED FINANCE & ACCOUNT',
 
-                // 'ADMINISTRATION',
-                // 'USER',
-                // 'SUPERVISOR',
-                // 'CERTIFICATE/COMPLIANCE',
-                // 'LEAVE PROCESSING OFFICER',
-                // 'REGISTRY OFFICER',
-                // 'ED ADMIN',
-                // 'HR',
-                // 'Branch Manager',
-                // 'Regional Manager',
-                // 'permsec',
-                // 'minister',
 
+                'General Manager',
                 'Desk Officer MSE',
                 'HOD MSE',
                 'Desk Officer Finance',
@@ -51,11 +36,13 @@ class RealRolesTablesSeeder extends Seeder
                 'ED ADMIN',
                 'HR',
                 'Area Manager',
+                'Managing Director',
 
                 'permsec',
                 'minister',
                 'client',
-                'company'
+                'company',
+
 
 
 
