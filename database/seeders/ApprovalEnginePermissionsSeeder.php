@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class ApprovalEnginePermissionsSeeder extends Seeder
+ class ApprovalEnginePermissionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
