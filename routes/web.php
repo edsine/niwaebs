@@ -89,6 +89,9 @@ Route::middleware(['auth'])->group(function () {
 
 // Start of asset manager
 
+
+// Route::get('thedocumentuser/{deptid}/{branchid}','App\Http\Controllers\DocumentsController@getusersbydept');
+Route::get('thedocumentuser/','App\Http\Controllers\DocumentsController@getusersbydept');
 Route::middleware(['auth'])->group(function () {
     Route::get('/asset/home', 'App\Http\Controllers\Home@index');
     Route::get('/brandlist', 'Brand@index');

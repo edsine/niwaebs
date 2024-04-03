@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                        Create Document
+                        Create Document...
                     </h1>
                 </div>
             </div>
@@ -27,8 +27,8 @@
                 <div class="row">
                     @include('documents.fields')
 
-                
-                   
+
+
                 </div>
 
             </div>
@@ -49,7 +49,7 @@
 <style>
     textarea.select2-search__field{
        width: 100%;
-       
+
     }
     .select2-container .select2-search--inline .select2-search__field {
     box-sizing: border-box;
