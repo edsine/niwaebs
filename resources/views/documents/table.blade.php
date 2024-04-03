@@ -9,9 +9,9 @@
                     <th>Document URL</th>
                     <th>Folder Name</th>
                     <th>Created Date</th>
-                    @if(Auth::user()->hasRole('super-admin'))
+                   {{--  @if(Auth::user()->hasRole('super-admin')) --}}
                     <th>Share User/Role</th>
-                    @endif
+                    {{-- @endif --}}
                     <th>Action</th>
                 </tr>
             </thead>
@@ -29,7 +29,7 @@
                         
                         <td>{{ $document->category->name ?? 'NILL' }}</td>
                         <td>{{ $document->created_at->format('d/m/Y') }}</td>
-                        @if(Auth::user()->hasRole('super-admin'))
+                        {{-- @if(Auth::user()->hasRole('super-admin')) --}}
                         <td style="width: 120px;">
                             
                             <div class="btn-group" role="group">
@@ -42,7 +42,7 @@ data-sharerole={{ $document->id }}>Role</a>
                             </div>
                             
                         </td>
-                        @endif
+                       {{--  @endif --}}
                         <td>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
