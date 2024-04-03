@@ -204,7 +204,7 @@ class DocumentsController extends AppBaseController
 
         $users = $userData->pluck('name', 'id');
 
-        return view('documents.document_shared_user', compact('documents','users','roles'));
+        return view('documents.document_shared_user', compact('documents', 'users', 'roles'));
     }
 
     public function sharedRole()
@@ -277,7 +277,7 @@ class DocumentsController extends AppBaseController
         $users = $userData->pluck('name', 'id');
 
 
-        return view('documents.document_shared_role', compact('documents','users','roles'));
+        return view('documents.document_shared_role', compact('documents', 'users', 'roles'));
     }
 
     public function shareDocument(Request $request, $id)
@@ -357,47 +357,44 @@ class DocumentsController extends AppBaseController
     // }
     public function getusersbydept(Request $request)
     {
-        $users = collect(); // Initialize an empty collection to store users
+        $users = collect();
         $deptids = $request->input('deptid');
         $branchids = $request->input('branchid');
 
-
         foreach ($deptids as $deptid) {
             foreach ($branchids as $branchid) {
-                // Retrieve users belonging to the selected department and branch
-
-
-
-                $users = $users->merge(
-                    Staff::where('department_id', $deptid)
-                        ->where('branch_id', $branchid)
-                        ->join('users','staff.user_id','users.id')
-                        ->get()
-                );
+                if ($deptid == '' && $branchid == '') {
+                    // Fetch all users
+                    $users = $users->merge(
+                        Staff::join('users', 'staff.user_id', 'users.id')->get()
+                    );
+                } elseif ($deptid == '') {
+                    // Fetch users based on branch
+                    $users = $users->merge(
+                        Staff::where('branch_id', $branchid)
+                            ->join('users', 'staff.user_id', 'users.id')->get()
+                    );
+                } elseif ($branchid == '') {
+                    // Fetch users based on department
+                    $users = $users->merge(
+                        Staff::where('department_id', $deptid)
+                            ->join('users', 'staff.user_id', 'users.id')->get()
+                    );
+                } else {
+                    // Fetch users based on both department and branch
+                    $users = $users->merge(
+                        Staff::where('department_id', $deptid)
+                            ->where('branch_id', $branchid)
+                            ->join('users', 'staff.user_id', 'users.id')->get()
+                    );
+                }
             }
         }
 
         return response()->json($users);
     }
 
-    // public function getusersbydept(Request $request)
-    // {
-    //     $branchid = $request->branchid;
 
-    //     $deptid = $request->deptid;
-
-    //     $users = collect(); // Initialize an empty collection
-
-    //     foreach ($deptid as $key => $value) {
-    //         $branchIds = (array) $branchid[$key]; // Ensure $branchid[$key] is always treated as an array
-    //         $users = $users->merge(Staff::where('department_id', $value)
-    //             ->join('users', 'users.id', 'staff.user_id')
-    //             ->where('staff.branch_id', $branchIds)
-    //             ->get());
-    //     }
-
-    //     return response()->json($users);
-    // }
 
 
 
@@ -561,7 +558,7 @@ class DocumentsController extends AppBaseController
     public function store(CreateDocumentsRequest $request)
     {
 
-        // dd($request->all());
+        dd($request->all());
         /* if (!checkPermission('create document')) {
             Flash::error('Permission denied');
 
@@ -599,7 +596,7 @@ class DocumentsController extends AppBaseController
         $document_input['title'] = $input['title'];
         $document_input['description'] = $input['description'];
 
-        if(isset( $input['category_id'])){
+        if (isset($input['category_id'])) {
 
             $document_input['category_id'] = $input['category_id'];
         }

@@ -73,7 +73,7 @@
         ]) !!}
     </div>
 
-    <div class="form-group col-sm-6">
+    <div id="userrow" class="form-group col-sm-6">
         {!! Form::label('users', 'User(s):') !!}
         {!! Form::select('users[]', [], null, [
             'class' => 'form-control',
@@ -94,12 +94,19 @@
     $therole = $('#therole');
     $department = $('#thedepartment');
     $office = $('#theareaoffice');
+    $usersrow=$('#userrow');
     $department.select2();
     $office.select2();
     $therole.select2();
     $theusers = $('#theuser');
     $theusers.select2();
 
+    // if($office.val()==''&& $department.val()=='' ){
+
+    //     $usersrow.hide();
+    // } else{
+    //     $usersrow.show();
+    // }
     $department.change(function() {
         var deptid = $(this).val();
 
