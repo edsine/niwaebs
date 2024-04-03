@@ -43,7 +43,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('area_offices', 'Area Office(s):') !!}
-        {!! Form::select('branch_id[]', $office->pluck('branch_name', 'id'), null, [
+        {!! Form::select('branch_id[]', $office->pluck('branch_name', 'id')->prepend('All', ''), null, [
             'class' => 'form-control',
 
             'multiple' => 'multiple',
@@ -52,7 +52,7 @@
     </div>
     <div class="form-group col-sm-6">
         {!! Form::label('department', 'Select Departments):') !!}
-        {!! Form::select('department_id[]', $dept->pluck('name', 'id'), null, [
+        {!! Form::select('department_id[]', $dept->pluck('name', 'id')->prepend('All', ''), null, [
             'class' => 'form-control',
 
             'multiple' => 'multiple',
