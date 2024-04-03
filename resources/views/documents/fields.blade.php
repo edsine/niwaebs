@@ -16,7 +16,7 @@
     {!! Form::label('file', 'Upload any file:') !!}
     <div class="input-group">
         <div class="custom-file">
-            {!! Form::file('file', ['class' => ' form-control']) !!}
+            {!! Form::file('file', ['class' => ' form-control', 'required']) !!}
         </div>
     </div>
 </div>
@@ -68,7 +68,6 @@
         {!! Form::label('roles', 'Role(s):') !!}
         {!! Form::select('roles[]', $roles, null, [
             'class' => 'form-control',
-            'id' => 'roleSelect',
             'multiple' => 'multiple',
             'id' => 'therole',
         ]) !!}

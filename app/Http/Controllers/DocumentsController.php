@@ -236,6 +236,7 @@ class DocumentsController extends AppBaseController
                     'documents_has_roles.start_date as start_date',
                     'documents_has_roles.end_date as end_date',
                     'documents_manager.title',
+                    'documents_manager.id as id',
                     'documents_manager.document_url',
                     'roles.name as role_name',
                     'documents_categories.name as category_name'
@@ -251,6 +252,7 @@ class DocumentsController extends AppBaseController
                     'documents_has_roles.start_date as start_date',
                     'documents_has_roles.end_date as end_date',
                     'documents_manager.title',
+                    'documents_manager.id as id',
                     'documents_manager.document_url',
                     'roles.name as role_name',
                     'documents_categories.name as category_name'

@@ -24,6 +24,23 @@ class CreateDocumentsRequest extends FormRequest
      */
     public function rules()
     {
-        return Documents::$rules;
+        return [
+            // Add validation for the roles field
+            'roles' => 'required|array|min:1', // At least one role must be selected
+            'users' => 'required|array|min:1', // At least one user must be selected
+        ];
+    }
+
+    /**
+     * Customize error messages for validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'roles.required' => 'Please select at least one role.',
+            'users.required' => 'Please select at least one user.',
+        ];
     }
 }
