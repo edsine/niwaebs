@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Approval;
+use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 use Modules\EmployerManager\Models\Employee;
 use Modules\EmployerManager\Models\Employer;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AccidentClaim extends Model
+class AccidentClaim extends Model implements Auditable
 {
     use HasFactory, SoftDeletes;
     use Approval;
+    use \OwenIt\Auditing\Auditable;
     public $table = 'accident_claims';
     public $primarykey='id';
     protected $fillable = [
