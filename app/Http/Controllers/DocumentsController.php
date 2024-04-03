@@ -442,9 +442,9 @@ class DocumentsController extends AppBaseController
 
         $users = $userData->pluck('name', 'id');
         //$users->prepend('Select user', '');
-        $dept = Department::all();
+        $dept = Department::get();
         // dd($dept);
-        $office = Branch::all();
+        $office = Branch::get();
 
 
         return view('documents.create', compact(['categories', 'users', 'roles', 'dept', 'office']));
