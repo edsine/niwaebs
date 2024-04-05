@@ -20,7 +20,7 @@ class EmployerDocumentController extends Controller
     public function index()
     {
         $employer_documents = EmployerDocuments::orderBy('id','desc')->paginate(10);
-        return view('documents.index', compact(['employer_documents']));
+        return view('documents1.index', compact(['employer_documents']));
     }
 
     public function approveDocument($id)
@@ -45,7 +45,7 @@ class EmployerDocumentController extends Controller
     public function inspectionNotice($id)
     {
         $employer = Employer::findOrFail($id);
-        return view('documents.inspection_notice', compact(['id','employer']));
+        return view('documents1.inspection_notice', compact(['id','employer']));
     }
     public function sendInspectionNotice(Request $request)
     {
@@ -83,7 +83,7 @@ class EmployerDocumentController extends Controller
     }
     public function create()
     {
-        //return view('documents.create');
+        //return view('documents1.create');
     }
 
     public function store(Request $request)
