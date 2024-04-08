@@ -285,7 +285,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('processing_type', App\Http\Controllers\ProcessingTypeController::class);
     Route::resource('processing_fee', App\Http\Controllers\ProcessingFeeController::class);
     Route::resource('inspection_fee', App\Http\Controllers\InspectionFeeController::class);
-    Route::get('/services/{service}/processing-types', 'App\Http\Controllers\ProcessingFeeController@getProcessingTypes');
+    Route::get('/services/{branch}/processing-types', 'App\Http\Controllers\ProcessingFeeController@getProcessingTypes');
     Route::get('/subservice/{subservice}/subservice-types', 'App\Http\Controllers\EquipmentAndFeeController@getSubServiceTypes');
     Route::resource('registration_fee', App\Http\Controllers\RegistrationFeeController::class);
 

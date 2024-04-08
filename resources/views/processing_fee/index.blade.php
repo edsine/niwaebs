@@ -23,7 +23,7 @@
     </div><!-- .nk-block-head -->
 <div class="row">
     <div class="col-md-12 text-right" style="padding-right: 30px;">
-        <a href="{{ route('processing_fee.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span>Add New Processing Type</span></a>
+        <a href="{{ route('processing_fee.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span>Add New Processing Fee</span></a>
     </div>
 </div>
     <div class="card-body p-5">

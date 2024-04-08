@@ -20,7 +20,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
+     //   if(Auth::user()->hasRole('super-admin')){
         $services = Service::paginate(10);
+        //}
 
         return view('services.index', compact('services'));
     }

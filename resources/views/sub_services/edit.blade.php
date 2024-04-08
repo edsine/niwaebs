@@ -38,7 +38,7 @@
 
 
 @push('scripts')
-    <script>
+ {{--    <script>
         $(document).ready(function() {
             function isInt(value) {
   return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
@@ -66,5 +66,5 @@
 
             $('#state_of_origin').trigger('change');
         });
-    </script>
+    </script> --}}
 @endpush
