@@ -809,3 +809,5 @@ Route::delete('/todo/{id}', [UserController::class, 'todo_destroy'])->name('todo
 Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode')->middleware(['auth']);
 Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('dashboard.view')->middleware(['auth']);
 Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth']);
+
+Route::resource('bookings', App\Http\Controllers\BookingController::class);
