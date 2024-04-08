@@ -126,12 +126,11 @@ class ServiceApplicationController extends AppBaseController
         }
 
         $selected_button = $request->input('selected_button');
-        $selected_button1 = $request->input('selected_button1');
 
 
-        if ($selected_button1 == 'decline') {
+        if ($selected_button == 'decline') {
             $document->approval_status = 0;
-            Flash::success('Document has been declined');
+            Flash::error('Document has been declined');
         } else if ($selected_button == 'approve') {
             $document->approval_status = 1;
             Flash::success('Document has been approved');
