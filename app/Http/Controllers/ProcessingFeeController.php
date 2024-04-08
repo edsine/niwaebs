@@ -34,8 +34,9 @@ class ProcessingFeeController extends Controller
         return view('processing_fee.create', compact(['services', 'processing_types', 'branches']));
     }
 
-    public function getProcessingTypes(Service $service)
+    public function getProcessingTypes(Service $service, $id)
 {
+    //$processingTypes = $service->processingTypes()->where('service_id', $id)->get();
     $processingTypes = $service->processingTypes()->get();
     return response()->json($processingTypes);
 }

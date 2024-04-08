@@ -1,4 +1,4 @@
-<div class="preview-block">
+<div class="preview-block ml-4">
     
    
     <div class="row gy-4">
@@ -17,22 +17,22 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4 col-sm-6">
-            <div class="form-group">
-                <div class="form-control-wrap">
-                    <div class="form-icon form-icon-right">
-                        <em class="icon ni ni-user"></em>
-                    </div>
-                    <label class="form-label-outlined" for="name">Name of Sub-Service</label>
-                    <input type="text" class="form-control form-control-xl form-control-outlined"
-                        id="name" name="name" value="{{old('name', $subservices->name ?? '')}}">
-                    
+    </div>
+<div class="row gy-4">
+    <div class="col-lg-4 col-sm-6">
+        <div class="form-group">
+            <div class="form-control-wrap">
+                <div class="form-icon form-icon-right">
+                    <em class="icon ni ni-user"></em>
                 </div>
+                <label class="form-label-outlined" for="name">Name of Sub-Service</label>
+                <input type="text" class="form-control form-control-xl form-control-outlined"
+                    id="name" name="name" value="{{old('name', $subservices->name ?? '')}}">
+                
             </div>
         </div>
     </div>
-
+</div>
     <hr class="preview-hr">
     <div class="row g-4">
         <div class="col-2">

@@ -15,12 +15,17 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Services & Sub-Services</h3>
                 <div class="nk-block-des text-soft">
-                    <p>List of registered services & sub-services.</p>
+                    
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
+    <div class="row">
+        <div class="col-md-12 text-right" style="padding-right: 30px;">
+            <a href="{{ route('sub-services.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span> Add New</span></a>
+        </div>
+    </div>
     <div class="nk-block nk-block-lg">
         <div class="card card-bordered card-preview">
             <div class="card-inner">
