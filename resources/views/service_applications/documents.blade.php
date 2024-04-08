@@ -27,23 +27,30 @@
                             </a>
                         </td>
                         <td>
-                            {!! Form::open(['route' => ['application.approve.document', $document->id], 'method' => 'post']) !!}
+                            {!! Form::open([
+                                'route' => ['application.approve.document', $document->id],
+                                'method' => 'post',
+                                'id' => 'document_approval_form',
+                            ]) !!}
                             <div class='btn-group'>
 
                                 <input type="hidden" name="selected_button" value="approve" id="selected_button_input">
-                                <input type="hidden" name="selected_button1" value="decline" id="selected_button_input1">
 
-                                {!! Form::button('Decline', [
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'onclick' => "setSelectedStatus('decline')",
-                                ]) !!}
+                                @if ($document->approval_status == 1)
+                                    {!! Form::button('Decline', [
+                                        'type' => 'button',
+                                        'class' => 'btn btn-danger btn-xs',
+                                        'onclick' => "setSelectedStatusSingleDocument('decline')",
+                                    ]) !!}
+                                @endif
 
-                                {!! Form::button('Approve', [
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-success btn-xs',
-                                    'onclick' => "setSelectedStatus('approve')",
-                                ]) !!}
+                                @if ($document->approval_status == 0)
+                                    {!! Form::button('Approve', [
+                                        'type' => 'button',
+                                        'class' => 'btn btn-success btn-xs',
+                                        'onclick' => "setSelectedStatusSingleDocument('approve')",
+                                    ]) !!}
+                                @endif
 
                             </div>
                             {!! Form::close() !!}
@@ -63,8 +70,11 @@
 
 
 <script>
-    function setSelectedStatus(value) {
-        //document.getElementById('selected_button_input').value = value;
-        return confirm('Are you sure?');
+    function setSelectedStatusSingleDocument(value) {
+        document.getElementById('selected_button_input').value = value;
+        let confirmation = confirm("Are you sure you want to proceed?");
+        if (confirmation) {
+            document.getElementById('document_approval_form').submit(); // Submit the form
+        }
     }
 </script>
