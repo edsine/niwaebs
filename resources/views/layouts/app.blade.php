@@ -90,6 +90,9 @@
     @stack('page_css')
     {{-- @stack('dar_css') --}}
     <style>
+        .nk-block-title{
+            margin-left: 30px;
+        }
         #clockInCard,
         #announcementCard {
             transition: opacity 3s;

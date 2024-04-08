@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Shared\Models\Branch;
 
 class Service extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'employer_id', 'name', 'status'
+        'employer_id', 'name', 'status', 'branch_id'
     ];
 
     public function employer()
@@ -28,4 +29,18 @@ class Service extends Model
     {
         return $this->hasMany(Payment::class, 'service_id', 'id');
     }
+
+    /**
+     * Get the processing types associated with the service.
+     */
+    public function processingTypes()
+{
+    return $this->hasMany(ProcessingType::class, 'service_id', 'id');
+}
+
+public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
 }

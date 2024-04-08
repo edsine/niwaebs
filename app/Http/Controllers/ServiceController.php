@@ -10,6 +10,7 @@ use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Shared\Models\Branch;
 use PhpOffice\PhpSpreadsheet\Calculation\Web\Service as WebService;
 
 class ServiceController extends Controller
@@ -30,7 +31,8 @@ class ServiceController extends Controller
     public function create()
     {
         $states = State::all();
-        return view('services.create', compact(['states']));
+        $branches = Branch::all();
+        return view('services.create', compact(['states','branches']));
     }
 
     
@@ -66,7 +68,8 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $states = State::all();
-        return view('services.edit', compact(['service', 'states']));
+        $branches = Branch::all();
+        return view('services.edit', compact(['service', 'states','branches']));
     }
 
     /**

@@ -278,6 +278,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/superadmin', [HomeController::class, 'superdash'])->name('superadmin');
     Route::resource('services', App\Http\Controllers\ServiceController::class);
     Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
+
+    //Express setup
+    Route::resource('application_form_fee', App\Http\Controllers\ApplicationFormFeeController::class);
+    Route::resource('document_upload', App\Http\Controllers\DocumentUploadController::class);
+    Route::resource('processing_type', App\Http\Controllers\ProcessingTypeController::class);
+    Route::resource('processing_fee', App\Http\Controllers\ProcessingFeeController::class);
+    Route::resource('inspection_fee', App\Http\Controllers\InspectionFeeController::class);
+    Route::get('/services/{service}/processing-types', 'App\Http\Controllers\ProcessingFeeController@getProcessingTypes');
+    Route::resource('registration_fee', App\Http\Controllers\RegistrationFeeController::class);
+
+
 });
 
 // Route::middleware(['auth', 'authuserbyrole'])->group(function(){

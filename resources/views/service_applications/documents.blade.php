@@ -30,7 +30,8 @@
                             {!! Form::open(['route' => ['application.approve.document', $document->id], 'method' => 'post']) !!}
                             <div class='btn-group'>
 
-                                <input type="hidden" name="selected_button" id="selected_button_input">
+                                <input type="hidden" name="selected_button" value="approve" id="selected_button_input">
+                                <input type="hidden" name="selected_button1" value="decline" id="selected_button_input1">
 
                                 {!! Form::button('Decline', [
                                     'type' => 'submit',
@@ -63,7 +64,7 @@
 
 <script>
     function setSelectedStatus(value) {
-        document.getElementById('selected_button_input').value = value;
+        //document.getElementById('selected_button_input').value = value;
         return confirm('Are you sure?');
     }
 </script>

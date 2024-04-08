@@ -24,6 +24,7 @@ class StoreServiceRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'branch_id' => 'required|integer',
         ];
     }
 }
