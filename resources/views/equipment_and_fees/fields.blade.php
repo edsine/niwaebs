@@ -10,6 +10,23 @@
     {!! Form::select('sub_service_id', [], null, ['class' => 'form-control custom-select', 'id' => 'sub_service_id']) !!}
 </div>
 
+        <div class="form-group col-sm-6">
+            <div class="form-control-wrap">
+                <div class="form-icon form-icon-right">
+                    <em class="icon ni ni-user"></em>
+                </div>
+                <label class="form-label-outlined" for="branch_id">Area Office</label>
+                <select class="form-control" name="branch_id" id="branch_id" required>
+                    <option value="">Select Area Office</option>
+                    @foreach($branches as $branch)
+                        <option value="{{ $branch->id }}" {{ old('branch_id', isset($service) && $service->branch_id == $branch->id ? 'selected' : '') }}>
+                            {{ $branch->branch_name }}
+                        </option>
+                    @endforeach
+                </select>
+                
+            </div>
+        </div>
 
 <!-- Name Field -->
 <div class="form-group col-sm-6">

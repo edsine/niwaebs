@@ -4,6 +4,7 @@
             <thead>
                 <tr class="fw-bold text-muted bg-light">
                     <th class="min-w-200px">Service</th>
+                    <th class="min-w-200px">Area Office</th>
                     <th class="min-w-200px">Name</th>
                     <th class="min-w-200px">Price</th>
                     <th class="min-w-200px">Metric</th>
@@ -16,6 +17,7 @@
                 @foreach ($equipmentAndFees as $equipmentAndFee)
                     <tr class="fw-bold text-muted bg-light">
                         <td>{{ $equipmentAndFee->service ? $equipmentAndFee->service->name : '' }}</td>
+                        <td>{{ $equipmentAndFee->branch->branch_name ?? 'NILL' }}</td>
                         <td>{{ $equipmentAndFee->name }}</td>
                         <td>{{ $equipmentAndFee->price }}</td>
                         <td>{{ enum_equipment_fees_metrics()[$equipmentAndFee->metric] }}</td>

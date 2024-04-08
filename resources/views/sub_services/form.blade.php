@@ -18,6 +18,27 @@
             </div>
         </div>
     </div>
+    <div class="row gy-4">
+        <div class="col-lg-4 col-sm-6">
+            <div class="form-group">
+                <div class="form-control-wrap">
+                    <div class="form-icon form-icon-right">
+                        <em class="icon ni ni-user"></em>
+                    </div>
+                    <label class="form-label-outlined" for="branch_id">Area Office</label>
+                    <select class="form-control" name="branch_id" id="branch_id">
+                        <option>Select Area Office</option>
+                        @foreach($branches as $branch)
+                            <option value="{{ $branch->id }}" {{ old('branch_id', isset($subservices) && $subservices->branch_id == $branch->id ? 'selected' : '') }}>
+                                {{ $branch->branch_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="row gy-4">
     <div class="col-lg-4 col-sm-6">
         <div class="form-group">
