@@ -87,6 +87,7 @@
     $(document).ready(function () {
     $('#service_id').change(function () {
         var serviceId = $(this).val();
+        alert(serviceId);
          if (serviceId) {
             $.ajax({
                 type: "GET",

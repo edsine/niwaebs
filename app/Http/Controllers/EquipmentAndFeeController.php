@@ -38,8 +38,15 @@ class EquipmentAndFeeController extends AppBaseController
     public function create()
     {
         $services = Service::pluck('name', 'id');
+        $services->prepend('Select Service','');
         $sub_services = SubService::pluck('name', 'id');
         return view('equipment_and_fees.create', compact('services', 'sub_services'));
+    }
+
+    public function getSubServiceTypes(SubService $subService, $id)
+    {
+        $subServices = $subService->where('service_id', $id)->get();
+        return response()->json($subServices);
     }
 
     /**

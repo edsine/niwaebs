@@ -179,6 +179,9 @@
                     <a class="nav-link" href="{{ route('services.index') }}">Service Type</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('sub-services.index') }}">Sub-Service Type</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('registration_fee.index') }}">Registration fee</a>
                 </li>
                 <li class="nav-item">
@@ -196,7 +199,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('inspection_fee.index') }}">Inspection Fee</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">Equipment And Fees</a>
+                </li>
                 
                 
             </ul>

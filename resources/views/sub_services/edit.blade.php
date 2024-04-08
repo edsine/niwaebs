@@ -15,7 +15,7 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Edit Sub-Service</h3>
                 <div class="nk-block-des text-soft">
-                    <p>Edit Sub-Service details</p>
+                   
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->
