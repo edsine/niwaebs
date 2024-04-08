@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateServiceRequest extends FormRequest
+class UpdateRegistrationFeeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class UpdateServiceRequest extends FormRequest
     {
         return [
            
-            'name' => 'required|string',
+            'service_id' => 'required|integer',
+            'amount' => 'required|string',
             'branch_id' => 'required|integer',
             
         ];

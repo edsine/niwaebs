@@ -167,6 +167,40 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas fa-check menu-icon"></i>
+                <span class="menu-title">Service Application Setup</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('services.index') }}">Service Type</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('registration_fee.index') }}">Registration fee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('application_form_fee.index') }}">Application Fee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('document_upload.index') }}">Document Upload Name</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('processing_type.index') }}">Processing Service Type</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('processing_fee.index') }}">Processing Fee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('inspection_fee.index') }}">Inspection Fee</a>
+                </li>
+
+                
+                
+            </ul>
+        </li>
         @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
             <!-- Start Of REport System Menu -->
             @include('accounting::layouts.reportmenu')
