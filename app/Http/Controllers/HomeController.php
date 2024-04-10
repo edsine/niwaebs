@@ -42,19 +42,14 @@ class HomeController extends Controller
     {
         if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             return redirect()->route('superadmin');
-        }
-
-        else if (Auth::check() && Auth::user()->hasRole('Managing Director')) {
+        } else if (Auth::check() && Auth::user()->hasRole('Managing Director')) {
             return redirect()->route('md');
-        }
-        else if (Auth::check() && Auth::user()->hasRole('minister')) {
+        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
             return redirect()->route('minister');
-        }
-         else if (Auth::check() && Auth::user()->hasRole('permsec')) {
+        } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
 
             return redirect()->route('permsec');
-         }
-         else if (Auth::check() && Auth::user()->hasRole('USER')) {
+        } else if (Auth::check() && Auth::user()->hasRole('USER')) {
 
             return redirect()->route('dash');
         } else if (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
@@ -192,11 +187,11 @@ class HomeController extends Controller
 
 
         $theareas = \DB::table('users')
-        ->join('staff', 'users.id', '=', 'staff.user_id')
-        ->where('staff.branch_id', '=', $thestaffbranch_id)
-        ->join('departments','staff.department_id','=','departments.id')
-        // ->join('leave_request as lr','staff.id','=','lr.staff_id')
-        ->get();
+            ->join('staff', 'users.id', '=', 'staff.user_id')
+            ->where('staff.branch_id', '=', $thestaffbranch_id)
+            ->join('departments', 'staff.department_id', '=', 'departments.id')
+            // ->join('leave_request as lr','staff.id','=','lr.staff_id')
+            ->get();
         // dd(\DB::table('staff')->get());
 
         // $leaverequest= \DB::table('leave_request');
@@ -205,7 +200,7 @@ class HomeController extends Controller
 
 
 
-// dd(auth()->user()->staff->department->name);
+        // dd(auth()->user()->staff->department->name);
 
 
         //i will add all the information here
@@ -419,9 +414,45 @@ class HomeController extends Controller
     public function md()
     {
 
+
+
+        $services=\DB::table('services')
+        ->count();
+
+        $revenue = \DB::table('revenues')
+
+        ->sum('amount');
+
+
+        $ta = \DB::table('service_applications as sp')
+            ->where('sp.application_form_payment_status', 1)
+            ->join('staff as s', 'sp.user_id', 's.id')
+            // ->where('s.branch_id',)
+            ->count();
+
+        // dd($totalapplicationform);
+
         $branch = Branch::all();
 
-        return view('md', compact('branch'));
+        $tc=\DB::table('employers')
+        ->count();
+        // $result = \DB::select(\DB::raw('SELECT COUNT(name) AS num, name FROM documents_categories GROUP BY name'));
+        // dd($result);
+        // $data=\DB::select(\DB::raw('SELECT COUNT(name) AS num ,name FROM documents_categories'));
+
+        $data = \DB::table('documents_categories')
+            ->selectRaw('COUNT(name) AS num, name')
+            ->groupBy('name')
+            ->get(['name', 'num']);
+
+
+
+        return view('md', compact('branch',
+        'tc',
+        'data','ta',
+        'revenue',
+    'services'
+    ));
     }
 
     public function showareaoffice(Request $request)
