@@ -97,7 +97,7 @@
                                     {{ isset($timeline->staff->user) ? $timeline->staff->user->first_name . ' ' . $timeline->staff->user->last_name : '' }}
                                     <br />
                                     <small>
-                                        {{ $timeline->staff->user->roles->pluck('name') }}
+                                        {{ isset($timeline->staff->user) ? $timeline->staff->user->roles->pluck('name') : '' }}
                                     </small>
                                 </td>
                                 <td>
