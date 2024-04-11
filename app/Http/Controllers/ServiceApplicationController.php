@@ -6,6 +6,7 @@ use Flash;
 use Illuminate\Http\Request;
 use App\Models\EquipmentAndFee;
 use App\Models\ServiceApplication;
+use Illuminate\Support\Facades\Auth;
 use App\Models\ServiceApplicationDocument;
 use App\Http\Controllers\AppBaseController;
 use Modules\EmployerManager\Models\Payment;
@@ -64,6 +65,8 @@ class ServiceApplicationController extends AppBaseController
      */
     public function show($id)
     {
+        $user = Auth::user();
+
         $serviceApplication = $this->serviceApplicationRepository->find($id);
 
         if (empty($serviceApplication)) {
@@ -74,7 +77,14 @@ class ServiceApplicationController extends AppBaseController
 
         $payments = Payment::where('service_application_id', $serviceApplication->id)->paginate(10);
         $documents = $serviceApplication->documents()->paginate(10);
-        $equipment_and_fees = EquipmentAndFee::pluck('name', 'price');
+
+        if ($user->hasRole('super-admin')) {
+            $equipment_and_fees = EquipmentAndFee::pluck('name', 'price');
+        } else {
+            $user_branch_id = isset($user->staff) ? $user->staff->branch_id : 0;
+            $equipment_and_fees = EquipmentAndFee::where('branch_id', $user_branch_id)->pluck('name', 'price');
+        }
+
 
         return view('service_applications.show', compact('payments', 'documents', 'equipment_and_fees'))->with('serviceApplication', $serviceApplication);
     }
