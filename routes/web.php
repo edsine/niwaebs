@@ -279,6 +279,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('services', App\Http\Controllers\ServiceController::class);
     Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
 
+    Route::get('thelist',[HomeController::class,'getbranch']);
+
     //Express setup
     Route::resource('application_form_fee', App\Http\Controllers\ApplicationFormFeeController::class);
     Route::resource('document_upload', App\Http\Controllers\DocumentUploadController::class);
@@ -305,6 +307,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('rejectPayment');
 });
 
+Route::get('totalrevenue',[HomeController::class,'totalrevenue']);
 
 
 Route::get('/roundcube-login', [HomeController::class, 'roundcubeLogin']);

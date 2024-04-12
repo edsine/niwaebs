@@ -29,10 +29,13 @@ class OtherUsersTable extends Seeder
 
         $user->createToken(Str::slug(config('app.name').'_auth_token', '_'))->plainTextToken;
 
-        // Assign Super Admin role
+
 
         $mdrole = Role::where('name', '=', 'Managing Director')->first();
 
         $user->assignRole($mdrole);
+
+
+        
     }
 }
