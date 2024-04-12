@@ -50,8 +50,21 @@ class RoleController extends AppBaseController
     public function create()
     {
         $permissions = $this->permissionRepository->all();
-        return view('roles.create')->with('permissions', $permissions);
+
+        $permissions->each(function ($permission) {
+            $permission->assigned = false;
+        });
+
+        $groupedPermissions = $permissions->groupBy(function ($permission) {
+            $words = explode(' ', strtolower($permission->name));
+            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
+            return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
+        });
+
+
+        return view('roles.create')->with('groupedPermissions', $groupedPermissions);
     }
+
 
     /**
      * Store a newly created Role in storage.
@@ -87,11 +100,19 @@ class RoleController extends AppBaseController
 
             return redirect(route('roles.index'));
         }
+
         $role_permissions = $role->permissions;
+
+        $groupedPermissions = $role_permissions->groupBy(function ($permission) {
+            $words = explode(' ', strtolower($permission->name));
+            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
+            return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
+        });
 
         return view('roles.show')->with([
             'role' => $role,
             'role_permissions' => $role_permissions,
+            'groupedPermissions' => $groupedPermissions
         ]);
     }
 
@@ -112,18 +133,23 @@ class RoleController extends AppBaseController
             return redirect(route('roles.index'));
         }
 
-        $permissions = $this->permissionRepository->all()
-            ->map(function ($permission) use ($role) {
-                $permission->assigned = $role->permissions
-                    ->pluck('id')
-                    ->contains($permission->id);
+        $permissions = $this->permissionRepository->all();
 
-                return $permission;
-            });
+        $permissions->each(function ($permission) use ($role) {
+            $permission->assigned = $role->permissions->pluck('id')->contains($permission->id);
+        });
+
+
+        $groupedPermissions = $permissions->groupBy(function ($permission) {
+            $words = explode(' ', strtolower($permission->name));
+            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
+            return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
+        });
 
         return view('roles.edit')->with([
             'role' => $role,
-            'permissions' => $permissions,
+            // 'permissions' => $permissions,
+            'groupedPermissions' => $groupedPermissions
         ]);
     }
 
