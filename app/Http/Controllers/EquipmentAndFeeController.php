@@ -11,6 +11,7 @@ use App\Http\Requests\CreateEquipmentAndFeeRequest;
 use App\Http\Requests\UpdateEquipmentAndFeeRequest;
 use App\Models\SubService;
 use Modules\Shared\Models\Branch;
+use App\Models\EquipmentAndFee;
 
 class EquipmentAndFeeController extends AppBaseController
 {
@@ -27,7 +28,11 @@ class EquipmentAndFeeController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $equipmentAndFees = $this->equipmentAndFeeRepository->paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $equipmentAndFees = $this->equipmentAndFeeRepository->all();
+    }else{
+        $equipmentAndFees = EquipmentAndFee::where('branch_id', Auth()->user()->staff->branch->id)->get();
+    }
 
         return view('equipment_and_fees.index')
             ->with('equipmentAndFees', $equipmentAndFees);
@@ -38,10 +43,18 @@ class EquipmentAndFeeController extends AppBaseController
      */
     public function create()
     {
-        $services = Service::pluck('name', 'id');
-        $services->prepend('Select Service','');
-        $sub_services = SubService::pluck('name', 'id');
-        $branches = Branch::all();
+
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::pluck('name', 'id');
+            $services->prepend('Select Service','');
+            $sub_services = SubService::pluck('name', 'id');
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            $services->prepend('Select Service','');
+            $sub_services = SubService::where('id', Auth()->user()->staff->branch->id)->pluck('name', 'id');
+        }
         return view('equipment_and_fees.create', compact('services', 'sub_services', 'branches'));
     }
 
@@ -57,6 +70,11 @@ class EquipmentAndFeeController extends AppBaseController
     public function store(CreateEquipmentAndFeeRequest $request)
     {
         $input = $request->all();
+
+        $check = EquipmentAndFee::where('name', $request->input('name'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('equipmentAndFees.create')->with('error', 'Equipment And Fee name already exist in this area office!');
+        }
 
         $equipmentAndFee = $this->equipmentAndFeeRepository->create($input);
 
@@ -94,9 +112,17 @@ class EquipmentAndFeeController extends AppBaseController
             return redirect(route('equipmentAndFees.index'));
         }
 
-        $services = Service::pluck('name', 'id');
-        $sub_services = SubService::pluck('name', 'id');
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::pluck('name', 'id');
+            //$services->prepend('Select Service','');
+            $sub_services = SubService::pluck('name', 'id');
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            //$services->prepend('Select Service','');
+            $sub_services = SubService::where('id', Auth()->user()->staff->branch->id)->pluck('name', 'id');
+        }
 
         return view('equipment_and_fees.edit', compact('services', 'sub_services', 'branches'))->with('equipmentAndFee', $equipmentAndFee);
     }

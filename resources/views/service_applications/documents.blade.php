@@ -35,12 +35,14 @@
                             <div class='btn-group'>
 
                                 <input type="hidden" name="selected_button" value="approve" id="selected_button_input">
+                                <input type="hidden" name="document_id" value="" id="document_id">
+
 
                                 @if ($document->approval_status == 1)
                                     {!! Form::button('Decline', [
                                         'type' => 'button',
                                         'class' => 'btn btn-danger btn-xs',
-                                        'onclick' => "setSelectedStatusSingleDocument('decline')",
+                                        'onclick' => "setSelectedStatusSingleDocument('decline', $document->id)",
                                     ]) !!}
                                 @endif
 
@@ -48,7 +50,7 @@
                                     {!! Form::button('Approve', [
                                         'type' => 'button',
                                         'class' => 'btn btn-success btn-xs',
-                                        'onclick' => "setSelectedStatusSingleDocument('approve')",
+                                        'onclick' => "setSelectedStatusSingleDocument('approve', $document->id)",
                                     ]) !!}
                                 @endif
 
@@ -66,12 +68,46 @@
             @include('adminlte-templates::common.paginate', ['records' => $documents])
         </div>
     </div>
+
+    @if ($serviceApplication->current_step == 5)
+    <div class="col-sm-12">
+        <!-- Documents Approval -->
+        <h3>Documents Approval</h3>
+        {!! Form::open([
+            'route' => ['application.final.documents.approval', $serviceApplication->id],
+            'method' => 'post',
+            'id' => 'approvalForm',
+        ]) !!}
+        <div class="form-group col-sm-6 mb-5">
+            {!! Form::label('mse_document_verification_comment', 'Comments:') !!}
+            {!! Form::textarea('mse_document_verification_comment', $serviceApplication->mse_document_verification_comment, [
+                'class' => 'form-control',
+                'id' => 'mse_document_verification_comment',
+            ]) !!}
+        </div>
+        <input type="hidden" name="selected_status" id="selected_status_input">
+        <div class='btn-group'>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
+        </div>
+        {!! Form::close() !!}
+    </div>
+@endif
 </div>
 
 
 <script>
-    function setSelectedStatusSingleDocument(value) {
+    function setSelectedStatusSingleDocument(value, id) {
         document.getElementById('selected_button_input').value = value;
+         document.getElementById('document_id').value = id;
         let confirmation = confirm("Are you sure you want to proceed?");
         if (confirmation) {
             document.getElementById('document_approval_form').submit(); // Submit the form

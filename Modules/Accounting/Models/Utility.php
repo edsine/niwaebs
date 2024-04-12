@@ -3759,7 +3759,7 @@ class Utility extends Model
         }else
         {
 
-            $user = User::where('type','company')->first();
+            $user = User::first();
             $setting = DB::table('settings')->where('created_by', $user->id)->pluck('value','name')->toArray();
         }
 

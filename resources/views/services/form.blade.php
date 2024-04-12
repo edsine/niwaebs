@@ -1,4 +1,4 @@
-<div class="preview-block">
+<div class="preview-block ml-4 mt-4">
     
     <div class="row gy-4">
         <div class="col-lg-4 col-sm-6">

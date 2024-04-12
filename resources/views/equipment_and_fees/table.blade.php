@@ -1,6 +1,6 @@
 <div class="card-body p-5">
     <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="equipment-and-fees-table">
+        <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr class="fw-bold text-muted bg-light">
                     <th class="min-w-200px">Service</th>
@@ -48,9 +48,5 @@
         </table>
     </div>
 
-    <div class="card-footer clearfix">
-        <div class="float-right">
-            @include('adminlte-templates::common.paginate', ['records' => $equipmentAndFees])
-        </div>
-    </div>
+    
 </div>

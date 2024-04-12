@@ -17,7 +17,11 @@ class ApplicationFormFeeController extends Controller
      */
     public function index()
     {
-        $application_form_fees = ApplicationFormFee::paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $application_form_fees = ApplicationFormFee::all();
+    }else{
+        $application_form_fees = ApplicationFormFee::where('branch_id', Auth()->user()->staff->branch->id)->get();
+    }
 
         return view('application_form_fee.index', compact('application_form_fees'));
     }
@@ -27,8 +31,13 @@ class ApplicationFormFeeController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('application_form_fee.create', compact(['services','branches']));
     }
 
@@ -40,6 +49,10 @@ class ApplicationFormFeeController extends Controller
     public function store(StoreApplicationFormFeeRequest $request)
     {
         $validated = $request->validated();
+        $check = ApplicationFormFee::where('amount', $request->input('amount'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('application_form_fee.create')->with('error', 'Application form fee already exist in this area office!');
+        }
         ApplicationFormFee::create($validated);
         return redirect()->route('application_form_fee.index')->with('success', 'Application form fee added successfully!');
     }
@@ -58,8 +71,13 @@ class ApplicationFormFeeController extends Controller
      */
     public function edit(ApplicationFormFee $application_form_fee)
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('application_form_fee.edit', compact(['application_form_fee', 'services', 'branches']));
     }
 

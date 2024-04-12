@@ -20,9 +20,11 @@ class ServiceController extends Controller
      */
     public function index()
     {
-     //   if(Auth::user()->hasRole('super-admin')){
-        $services = Service::paginate(10);
-        //}
+        if(Auth()->user()->hasRole('super-admin')){
+        $services = Service::all();
+        }else{
+        $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();  
+        }
 
         return view('services.index', compact('services'));
     }
@@ -33,7 +35,11 @@ class ServiceController extends Controller
     public function create()
     {
         $states = State::all();
+        if(Auth()->user()->hasRole('super-admin')){
         $branches = Branch::all();
+    }else{
+        $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+    }
         return view('services.create', compact(['states','branches']));
     }
 
@@ -42,11 +48,17 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(StoreServiceRequest $request)
     {
         $validated = $request->validated();
         $validated['status'] = 1;
+        $check = Service::where('name', $request->input('name'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('services.create')->with('error', 'Service type already exist in this area office!');
+        }
         $service = Service::create($validated);
+        
         return redirect()->route('services.index')->with('success', 'Service added successfully!');
     }
 
@@ -70,7 +82,11 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $states = State::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('services.edit', compact(['service', 'states','branches']));
     }
 

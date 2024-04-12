@@ -75,11 +75,11 @@
                 </table>
             </div>
 
-            <div class="card-footer clearfix">
+            {{-- <div class="card-footer clearfix">
                 <div class="float-right">
                     @include('adminlte-templates::common.paginate', ['records' => $services])
                 </div>
-            </div>
+            </div> --}}
         </div>
 
 @endsection
@@ -113,5 +113,5 @@
         });
     </script>
     <!-- JavaScript -->
-    <script src="./assets/js/libs/datatable-btns.js?ver=3.1.3"></script>
+   {{--  <script src="./assets/js/libs/datatable-btns.js?ver=3.1.3"></script> --}}
 @endpush

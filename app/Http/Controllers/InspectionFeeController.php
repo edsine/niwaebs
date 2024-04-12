@@ -18,7 +18,11 @@ class InspectionFeeController extends Controller
      */
     public function index()
     {
-        $inspection_fees = InspectionFee::paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $inspection_fees = InspectionFee::all();
+        }else{
+        $inspection_fees = InspectionFee::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
 
         return view('inspection_fee.index', compact('inspection_fees'));
     }
@@ -28,9 +32,15 @@ class InspectionFeeController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $processing_types = ProcessingType::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+            $processing_types = ProcessingType::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            $processing_types = ProcessingType::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('inspection_fee.create', compact(['services', 'processing_types', 'branches']));
     }
 
@@ -46,6 +56,10 @@ class InspectionFeeController extends Controller
     public function store(StoreInspectionFeeRequest $request)
     {
         $validated = $request->validated();
+        $check = InspectionFee::where('processing_type_id', $request->input('processing_type_id'))->where('amount', $request->input('amount'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('inspection_fee.create')->with('error', 'Inspection fee already exist in this area office and processing type!');
+        }
         InspectionFee::create($validated);
         return redirect()->route('inspection_fee.index')->with('success', 'Inspection fee added successfully!');
     }
@@ -64,9 +78,15 @@ class InspectionFeeController extends Controller
      */
     public function edit(InspectionFee $inspection_fee)
     {
-        $services = Service::all();
-        $processing_types = ProcessingType::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+            $processing_types = ProcessingType::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            $processing_types = ProcessingType::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('inspection_fee.edit', compact(['inspection_fee', 'services', 'processing_types', 'branches']));
     }
 

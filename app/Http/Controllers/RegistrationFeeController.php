@@ -17,7 +17,11 @@ class RegistrationFeeController extends Controller
      */
     public function index()
     {
-        $registration_fees = RegistrationFee::paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $registration_fees = RegistrationFee::all();
+        }else{
+        $registration_fees = RegistrationFee::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
 
         return view('registration_fee.index', compact('registration_fees'));
     }
@@ -27,8 +31,14 @@ class RegistrationFeeController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('registration_fee.create', compact(['services','branches']));
     }
 
@@ -40,6 +50,10 @@ class RegistrationFeeController extends Controller
     public function store(StoreRegistrationFeeRequest $request)
     {
         $validated = $request->validated();
+        $check = RegistrationFee::where('amount', $request->input('amount'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('registration_fee.create')->with('error', 'Registration fee already exist in this area office!');
+        }
         RegistrationFee::create($validated);
         return redirect()->route('registration_fee.index')->with('success', 'Registration fee added successfully!');
     }
@@ -58,8 +72,13 @@ class RegistrationFeeController extends Controller
      */
     public function edit(RegistrationFee $registration_fee)
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('registration_fee.edit', compact(['registration_fee', 'services', 'branches']));
     }
 
