@@ -157,8 +157,74 @@ class HomeController extends Controller
         ));
     }
 
+
+    public function getbranch(Request $request)
+    {
+
+
+        $branch_id = $request->thevalue;
+
+        if ($branch_id == null) {
+
+            $data = DB::table('users')
+                ->join('staff', 'staff.user_id', 'users.id')
+                // ->join('leave_request',' leave_request.user_id','users.id')
+                ->join('departments', 'staff.department_id', 'departments.id')
+
+                ->select(['users.id', 'first_name', 'last_name', 'name'])
+                ->get();
+                return response()->json($data);
+        } else {
+
+            $data = DB::table('users')
+                ->join('staff', 'staff.user_id', 'users.id')
+                ->where('staff.branch_id', $branch_id)
+                // ->join('leave_request',' leave_request.user_id','users.id')
+                ->join('departments', 'staff.department_id', 'departments.id')
+                ->select(['users.id', 'first_name', 'last_name', 'name'])
+                ->get();
+
+                return response()->json($data);
+
+        }
+    }
+
+
+    public function totalrevenue(Request $request){
+
+        $from = $request->from;
+        $to=$request->to;
+
+        if($to == null){
+
+            $data= DB::table('payments')
+            ->where('invoice_duration','>=',$from)
+            // ->where('invoice_duration','<=',$to)
+
+            ->sum('amount');
+            return response()->json($data);
+
+        } else if($from == null){
+            $data= DB::table('payments')
+            // ->where('invoice_duration','>=',$from)
+            ->where('invoice_duration','<=',$to)
+
+            ->sum('amount');
+            return response()->json($data);
+        }
+
+        $data= DB::table('payments')
+        ->where('invoice_duration','>=',$from)
+        ->where('invoice_duration','<=',$to)
+
+        ->sum('amount');
+        return response()->json($data);
+
+    }
     public function aoc()
     {
+
+
 
         $claims_table = 'death_claims';
         $claims_death_count = DB::table($claims_table)->count();
@@ -192,22 +258,72 @@ class HomeController extends Controller
             ->join('departments', 'staff.department_id', '=', 'departments.id')
             // ->join('leave_request as lr','staff.id','=','lr.staff_id')
             ->get();
-        // dd(\DB::table('staff')->get());
-
-        // $leaverequest= \DB::table('leave_request');
-        // dd($theareas);
-        // dd($leaverequest);
 
 
+
+        $active_project = DB::table('projects')->where('status', 'in_progress')
+            ->count();
+        $completed_project = DB::table('projects')->where('status', 'complete')
+            ->count();
 
         // dd(auth()->user()->staff->department->name);
 
 
+        $total_department = DB::table('departments')->count();
         //i will add all the information here
 
         $staff = DB::table('staff')->count();
+        $total_clients = DB::table('employers')->count();
+        $documents = \DB::table('documents_categories')
+            ->selectRaw('COUNT(name) AS num, name')
+            ->groupBy('name')
+            ->get(['name', 'num']);
+
+        $project_chart = DB::table('projects')
+            ->selectRaw('COUNT("status") as number,status')
+            ->groupBy('status')
+            ->get();
+
+
+        $totalfolders = DB::table('documents_categories')->count();
+
+        $thebranch = Branch::all()->pluck('branch_name', 'id')->prepend('ALL RECORD', '');
+
+        $staffonleave = DB::table('leave_request')->count();
+
+
+        $totalrevenue= DB::table('payments')
+        ->where('payment_status',1)
+        ->select('amount')
+        ->sum('amount');
+        // dd($totalrevenue);
+
+        // dd($totalrevenue);
+
+        // $revenuesources= DB::table('payments')
+        // ->get('')
+
+
+
+
 
         return view('aocadmin', compact(
+
+            'active_project',
+            'completed_project',
+            'staff',
+            'total_department',
+            'total_clients',
+            'documents',
+            'project_chart',
+            'totalfolders',
+            'staffonleave',
+            'thebranch',
+            'totalrevenue',
+
+
+
+
             'theareas',
             'registered_employers',
             'pending_employers',
@@ -215,7 +331,6 @@ class HomeController extends Controller
             'pending_employees',
             'claims_death_count',
             'deathclaims',
-            'staff',
             'staff_count',
             'diseaseclaims',
             'data',
@@ -275,28 +390,7 @@ class HomeController extends Controller
     }
 
 
-    // $allstaff=Staff::count();
-    //     $totalregion = Region::count();
-    //     $totaldept= Department::count();
-    //     $totalemployer=Employer::count();
-    //     $managementstaff =Staff::where('ranking_id','!==',1)->count();
 
-    // $userdepartment=auth()->user()->staff->department_id;
-    // $userbranch=auth()->user()->staff->branch_id;
-    // $allstaff=Staff::where('branch_id',$userbranch)->count() ;
-
-    // $totalregion = Region::count();
-    // // $totaldept= Department::count();
-    // $totaldept= DB::table('departments')
-    // ->join('staff','staff.department_id','=','departments.id')
-    // ->join('branches','staff.branch_id','=','branches.id')
-    // ->count();
-    // // dd($totaldept);
-
-
-
-    // // dd(auth()->user()->employer);
-    // $totalemployer=Employer::count();
     public function regional()
     {
 
@@ -416,29 +510,26 @@ class HomeController extends Controller
 
 
 
-        $services=\DB::table('services')
-        ->count();
+        $services = \DB::table('services')
+            ->count();
 
         $revenue = \DB::table('revenues')
 
-        ->sum('amount');
+            ->sum('amount');
 
 
         $ta = \DB::table('service_applications as sp')
             ->where('sp.application_form_payment_status', 1)
             ->join('staff as s', 'sp.user_id', 's.id')
-            // ->where('s.branch_id',)
             ->count();
 
         // dd($totalapplicationform);
 
         $branch = Branch::all();
 
-        $tc=\DB::table('employers')
-        ->count();
-        // $result = \DB::select(\DB::raw('SELECT COUNT(name) AS num, name FROM documents_categories GROUP BY name'));
-        // dd($result);
-        // $data=\DB::select(\DB::raw('SELECT COUNT(name) AS num ,name FROM documents_categories'));
+        $tc = \DB::table('employers')
+            ->count();
+
 
         $data = \DB::table('documents_categories')
             ->selectRaw('COUNT(name) AS num, name')
@@ -447,12 +538,14 @@ class HomeController extends Controller
 
 
 
-        return view('md', compact('branch',
-        'tc',
-        'data','ta',
-        'revenue',
-    'services'
-    ));
+        return view('md', compact(
+            'branch',
+            'tc',
+            'data',
+            'ta',
+            'revenue',
+            'services'
+        ));
     }
 
     public function showareaoffice(Request $request)
