@@ -3,7 +3,8 @@
     <div class="w-100">
         <div class="pb-10 pb-lg-15">
             <h2 class="fw-bold d-flex align-items-center text-dark">Update Personal Information
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Provide accurate personal details"></i>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                    title="Provide accurate personal details"></i>
             </h2>
             <div class="text-muted fw-semibold fs-6">For security reasons, your information is safe.
                 <a href="#" class="link-primary fw-bold">Privacy Policy</a>.
@@ -14,13 +15,18 @@
                 <!-- RANK -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row">
                     {!! Form::label('ranking_id', 'Rank') !!}
-                    {!! Form::select('ranking_id', $rank, null, ['class' => 'form-control form-control-solid border border-2 form-select']) !!}
+                    {!! Form::select('ranking_id', $rank, null, [
+                        'class' => 'form-control form-control-solid border border-2 form-select',
+                    ]) !!}
                 </div>
                 <!-- Role Field -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row">
                     {!! Form::label('roles', 'Roles') !!}
                     {{-- {!! Form::select('roles[]',$roles,$userrole ,['class' => 'form-control form-control-solid border border-2 form-select']) !!} --}}
-                    {!! Form::select('roles[]', $roles, $single_user->roles->pluck('id')->toArray(), ['class' => 'form-control form-control-solid border border-2 form-select', 'multiple']) !!}                   
+                    {!! Form::select('roles[]', $roles, $single_user->roles->pluck('id')->toArray(), [
+                        'class' => 'form-control form-control-solid border border-2 form-select',
+                        'multiple',
+                    ]) !!}
                 </div>
                 <!-- Email Field -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row">
@@ -53,7 +59,8 @@
     <div class="w-100">
         <div class="pb-10 pb-lg-15">
             <h2 class="fw-bold d-flex align-items-center text-dark">Setup Password
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Provide accurate personal details"></i>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                    title="Provide accurate personal details"></i>
             </h2>
             <div class="text-muted fw-semibold fs-6">For security reasons, your information is safe.
                 <a href="#" class="link-primary fw-bold">Privacy Policy</a>.
@@ -64,13 +71,27 @@
                 <!-- Password Field -->
                 <div class="form-group col-sm-6">
                     {!! Form::label('password', 'Password') !!}
-                    {!! Form::password('password', ['class' => 'form-control form-control-solid border border-2']) !!}
+                    <div class="input-group">
+                        {!! Form::password('password', ['class' => 'form-control form-control-solid border border-2']) !!}
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent border-left-0">
+                                <i class="fa fa-eye" id="togglePassword"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Confirmation Password Field -->
                 <div class="form-group col-sm-6">
                     {!! Form::label('password_confirmation', 'Password Confirmation') !!}
-                    {!! Form::password('password_confirmation', ['class' => 'form-control form-control-solid border border-2']) !!}
+                    <div class="input-group">
+                        {!! Form::password('password_confirmation', ['class' => 'form-control form-control-solid border border-2']) !!}
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent border-left-0">
+                                <i class="fa fa-eye" id="togglePassword"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Checkbox Field -->
@@ -78,7 +99,9 @@
                     <div class="form-check">
                         {!! Form::hidden('checkbox', 0, ['class' => 'form-check-input']) !!}
                         {!! Form::checkbox('checkbox', '1', 1, ['id' => 'newCheckbox', 'class' => 'form-check-input']) !!}
-                        {!! Form::label('checkbox', 'Check this box if you want to register this user as a staff', ['class' => 'form-check-label']) !!}
+                        {!! Form::label('checkbox', 'Check this box if you want to register this user as a staff', [
+                            'class' => 'form-check-label',
+                        ]) !!}
                     </div>
                 </div>
 
@@ -88,13 +111,19 @@
                         <!-- Department Field -->
                         <div class="d-flex flex-column col-md-6 mb-8 fv-row">
                             {!! Form::label('department_id', 'Department') !!}
-                            {!! Form::select('department_id',$department,null, ['class' => 'form-control form-control-solid border border-2','id' => 'departmentSelect']) !!}
-                           
+                            {!! Form::select('department_id', $department, null, [
+                                'class' => 'form-control form-control-solid border border-2',
+                                'id' => 'departmentSelect',
+                            ]) !!}
+
                         </div>
 
                         <div class="d-flex flex-column col-md-6 mb-8 fv-row">
                             {!! Form::label('unit_id', 'SELECT SECTION') !!}
-                            {!! Form::select('unit_id', [] ,null, ['class' => 'form-control form-control-solid border border-2','id' => 'unitSelect']) !!}
+                            {!! Form::select('unit_id', [], null, [
+                                'class' => 'form-control form-control-solid border border-2',
+                                'id' => 'unitSelect',
+                            ]) !!}
                         </div>
 
                     </div>
@@ -102,9 +131,9 @@
                     <!-- Branch Field -->
                     <div class="d-flex flex-column col-md-12 mb-8 fv-row">
                         {!! Form::label('branch_id', 'Area Office') !!}
-                        {!! Form::select('branch_id',$branch,null, ['class' => 'form-control form-control-solid border border-2']) !!}
+                        {!! Form::select('branch_id', $branch, null, ['class' => 'form-control form-control-solid border border-2']) !!}
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -116,8 +145,9 @@
     @csrf
     <div class="w-100">
         <div class="pb-10 pb-lg-15">
-            <h2 class="fw-bold d-flex align-items-center text-dark">Step 3 
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Provide accurate personal details"></i>
+            <h2 class="fw-bold d-flex align-items-center text-dark">Step 3
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                    title="Provide accurate personal details"></i>
             </h2>
             <div class="text-muted fw-semibold fs-6">
                 <a href="#" class="link-primary fw-bold"></a>.
@@ -136,12 +166,16 @@
                 <!-- StaffID Field -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row">
                     {!! Form::label('staff_id', 'Staff ID') !!}
-                    {!! Form::text('staff_id', auth()->user()->staff->staff_id, ['class' => 'form-control form-control-solid border border-2']) !!}
+                    {!! Form::text('staff_id', auth()->user()->staff->staff_id, [
+                        'class' => 'form-control form-control-solid border border-2',
+                    ]) !!}
                 </div>
                 <!-- About Me Field -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row">
                     {!! Form::label('about_me', 'About Me') !!}
-                    {!! Form::textarea('about_me', auth()->user()->staff->about_me, ['class' => 'form-control form-control-solid border border-2']) !!}
+                    {!! Form::textarea('about_me', auth()->user()->staff->about_me, [
+                        'class' => 'form-control form-control-solid border border-2',
+                    ]) !!}
                 </div>
                 {{-- do for only admins --}}
                 {{-- <div class="d-flex flex-column col-md-12 mb-8 fv-row">
@@ -164,9 +198,10 @@
     <div class="w-100">
         <div class="pb-10 pb-lg-15">
             <h2 class="fw-bold d-flex align-items-center text-dark">Step 4
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Provide accurate personal details"></i>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                    title="Provide accurate personal details"></i>
             </h2>
-            <div class="text-muted fw-semibold fs-6">your phonenumber is safe with us 
+            <div class="text-muted fw-semibold fs-6">your phonenumber is safe with us
                 <a href="#" class="link-primary fw-bold">Privacy Policy</a>.
             </div>
         </div>
@@ -193,7 +228,7 @@
                     {!! Form::label('status', 'Status') !!}
                     <div class="">
                         {!! Form::radio('statusz', 1, true) !!}&nbsp;Active&nbsp;
-                        {!! Form::radio('statusz', 0, false) !!}&nbsp;In-Active                        
+                        {!! Form::radio('statusz', 0, false) !!}&nbsp;In-Active
                     </div>
                 </div>
                 <!-- Add more skills and expertise fields as needed -->
@@ -209,7 +244,8 @@
     <div class="w-100">
         <div class="pb-10 pb-lg-15">
             <h2 class="fw-bold d-flex align-items-center text-dark">Step 5
-                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Provide accurate personal details"></i>
+                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                    title="Provide accurate personal details"></i>
             </h2>
             <div class="text-muted fw-semibold fs-6">Kindly supply an alternative mail.
                 {{-- <a href="#" class="link-primary fw-bold">Privacy Policy</a>. --}}
@@ -246,11 +282,11 @@
 
 
 
-<!--end::Actions--> 
- <div class="card-footer">
-     {!! Form::submit('UPDATE', ['class' => 'btn btn-primary']) !!}
+<!--end::Actions-->
+<div class="card-footer">
+    {!! Form::submit('UPDATE', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('users.index') }}" class="btn btn-default"> Cancel </a>
-</div> 
+</div>
 
 
 
@@ -289,11 +325,11 @@
             var idState = this.value;
             $("#local-dd").html('');
             $.ajax({
-                url: "{{url('api/fetch-locals')}}",
+                url: "{{ url('api/fetch-locals') }}",
                 type: "POST",
                 data: {
                     state_id: idState,
-                    _token: '{{csrf_token()}}'
+                    _token: '{{ csrf_token() }}'
                 },
                 dataType: 'json',
                 success: function(result) {
@@ -311,22 +347,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     // JavaScript to handle the department selection and update user dropdown
-    $('#departmentSelect').on('change', function () {
+    $('#departmentSelect').on('change', function() {
         const selectedDepartmentId = $(this).val();
         var homeUrl = window.location.origin;
         if (selectedDepartmentId) {
-           
 
-            $.get(`${homeUrl}/dept/${selectedDepartmentId}`, function (units) {
+
+            $.get(`${homeUrl}/dept/${selectedDepartmentId}`, function(units) {
                 $('#unitSelect').empty().append('<option value="">Select Unit </option>');
-                
+
                 var u = JSON.stringify(units);
-                  
-                $.each(units, function (index,unit) {
+
+                $.each(units, function(index, unit) {
                     // alert(unit)
-                    $('#unitSelect').append(`<option value="${unit.id}">${unit.unit_name}</option>`);
+                    $('#unitSelect').append(
+                        `<option value="${unit.id}">${unit.unit_name}</option>`);
                 });
-            
+
             });
         } else {
             $('#unitSelect').empty().append('<option value="">Select Unit </option>');

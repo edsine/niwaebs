@@ -12,7 +12,7 @@
 
                             @csrf
 
-                            <div>
+                            <div class="cmxform">
                                 <h3>PERSONAL INFORMATION</h3>
                                 <section>
                                     <h4 class="card-title">POSITION ATTAINED</h4>
