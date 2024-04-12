@@ -100,7 +100,7 @@
                 <a class="nav-link" href="#">
                     <i class="bi bi-tools menu-icon"></i>
 
-                    <span class="menu-title">System Step</span>
+                    <span class="menu-title">System Setup</span>
                     <i class="menu-arrow"></i>
 
                 </a>
@@ -202,8 +202,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">Equipment And Fees</a>
                 </li>
-                
-                
+
+
             </ul>
         </li>
         @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
