@@ -17,7 +17,11 @@ class ProcessingTypeController extends Controller
      */
     public function index()
     {
-        $processing_types = ProcessingType::paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $processing_types = ProcessingType::all();
+    }else{
+        $processing_types = ProcessingType::where('branch_id', Auth()->user()->staff->branch->id)->get();
+    }
 
         return view('processing_type.index', compact('processing_types'));
     }
@@ -27,8 +31,13 @@ class ProcessingTypeController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('processing_type.create', compact(['services', 'branches']));
     }
 
@@ -40,6 +49,10 @@ class ProcessingTypeController extends Controller
     public function store(StoreProcessingTypeRequest $request)
     {
         $validated = $request->validated();
+        $check = ProcessingType::where('name', $request->input('name'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('processing_type.create')->with('error', 'Processing type already exist in this area office!');
+        }
         ProcessingType::create($validated);
         return redirect()->route('processing_type.index')->with('success', 'Processing type added successfully!');
     }
@@ -58,8 +71,13 @@ class ProcessingTypeController extends Controller
      */
     public function edit(ProcessingType $processing_type)
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('processing_type.edit', compact(['processing_type', 'services', 'branches']));
     }
 

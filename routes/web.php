@@ -493,6 +493,7 @@ Route::resource('equipmentAndFees', App\Http\Controllers\EquipmentAndFeeControll
 Route::resource('serviceApplications', App\Http\Controllers\ServiceApplicationController::class);
 Route::post('approve-document/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveOrDeclineDocument'])->name('application.approve.document');
 Route::post('final-documents-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveDocuments'])->name('application.final.documents.approval');
+Route::post('application-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveApplicationFee'])->name('application.fee.approval');
 Route::post('processing-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveProcessingFee'])->name('application.processingfee.approval');
 Route::post('inspection-fee-payment-approval/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'approveInspectionFee'])->name('application.inspectionfee.approval');
 Route::post('set-inspection-status/{id}', [App\Http\Controllers\ServiceApplicationController::class, 'setInspectionStatus'])->name('application.inspection.status');

@@ -15,6 +15,7 @@ use Modules\WorkflowEngine\Database\Seeders\WorkflowEngineDatabaseSeeder;
 use Modules\DocumentManager\Database\Seeders\DocumentManagerDatabaseSeeder;
 use Modules\EmployerManager\Database\Seeders\EmployerManagerDatabaseSeeder;
 use Modules\ClaimsCompensation\Database\Seeders\ClaimsCompensationDatabaseSeeder;
+use Database\Seeders\LevelsTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -60,6 +61,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SupportSystemPermissionsSeeder::class);
         $this->call(AssetManagerPermissionsSeeder::class);
         $this->call(OtherUsersTable::class);
+        $this->call(LevelsTableSeeder::class);
 
     }
 }

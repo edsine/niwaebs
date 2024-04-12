@@ -12,15 +12,25 @@ class SubServiceController extends Controller
     //
     public function index()
     {
-        $services = SubService::paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $services = SubService::all();
+    }else{
+        $services = SubService::where('branch_id', Auth()->user()->staff->branch->id)->get();
+    }
 
         return view('sub_services.index', compact('services'));
     }
 
     public function create()
     {
-        $services = Service::all();
+        
+        if(Auth()->user()->hasRole('super-admin')){
         $branches = Branch::all();
+        $services = Service::all();
+    }else{
+        $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+        $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+    }
     return view('sub_services.create', compact('services', 'branches'));
     }
 
@@ -31,6 +41,11 @@ class SubServiceController extends Controller
         'name' => 'required|string|max:255',
         'branch_id' => 'required|exists:branches,id',
     ]);
+
+    $check = SubService::where('name', $request->input('name'))->where('branch_id', $request->input('branch_id'))->first();
+    if($check){
+        return redirect()->route('sub-services.create')->with('error', 'Sub-Service type already exist in this area office!');
+    }
 
     SubService::create([
         'service_id' => $request->input('service_id'),
@@ -45,13 +60,19 @@ class SubServiceController extends Controller
     public function edit($id)
     {
         $subservices = SubService::findOrFail($id);
-        $services = Service::all();
-        $branches = Branch::all();
+        
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('sub_services.edit', compact(['services', 'subservices', 'branches']));
     }
 
     public function update(Request $request, SubService $subService)
-{
+    {
     $request->validate([
         'service_id' => 'required|exists:services,id',
         'name' => 'required|string|max:255',
@@ -66,7 +87,7 @@ class SubServiceController extends Controller
     ]);
 
     return redirect()->route('sub-services.index')->with('success', 'Sub-Service updated successfully.');
-}
+    }
 
     public function destroy(SubService $subService)
     {

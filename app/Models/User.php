@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Carbon\Carbon;
 use App\Models\Vender;
+use App\Models\Level;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Shared\Models\Branch;
 use Illuminate\Support\Facades\DB;
@@ -75,7 +76,8 @@ class User extends Authenticatable implements Auditable
         'salary_type' ,
         'is_two_factor_enabled',
         'type',
-        'created_by'
+        'created_by',
+        'level_id',
     ];
 
     /**
@@ -154,6 +156,10 @@ class User extends Authenticatable implements Auditable
 
     public function unit(){
         return $this->belongsTo(Unit::class);
+    }
+
+    public function level(){
+        return $this->belongsTo(Level::class);
     }
 
     public function sendUnitHeadNotification()

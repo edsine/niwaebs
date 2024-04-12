@@ -30,7 +30,7 @@
 </div>
 
 
-@if ($serviceApplication->current_step == 5)
+{{-- @if ($serviceApplication->current_step == 5)
     <div class="col-sm-12">
         <!-- Documents Approval -->
         <h3>Documents Approval</h3>
@@ -61,8 +61,54 @@
         </div>
         {!! Form::close() !!}
     </div>
-@endif
+@endif --}}
+@php 
+$app_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 1)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+@endphp
+@if(!empty($app_fee))
+@if ($serviceApplication->current_step == 5)
+    <div class="col-sm-12">
+        <!-- Documents Approval -->
+        <h3>Application Fee Payment Approval</h3>
+        {!! Form::open([
+            'route' => ['application.fee.approval', $serviceApplication->id],
+            'method' => 'post',
+            'id' => 'approvalForm',
+        ]) !!}
+       
+        <p>Amount Paid: <b>{{ $app_fee->amount ?? '' }} </b></p>
+        <!-- Date Of Inspection Field -->
+        {{-- <div class="form-group col-sm-6">
+            {!! Form::label('date_of_inspection', 'Date Of Inspection:') !!}
+            {!! Form::date('date_of_inspection', null, ['class' => 'form-control', 'id' => 'date_of_inspection']) !!}
+        </div> --}}
 
+        @push('page_scripts')
+            <script type="text/javascript">
+                //$('#date_of_inspection').datepicker()
+            </script>
+        @endpush
+        <input type="hidden" name="selected_status" id="selected_status_input">
+        <div class='btn-group'>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {{-- {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!} --}}
+        </div>
+        {!! Form::close() !!}
+    </div>
+@endif
+@endif
+@php 
+$pro_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 2)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+@endphp
+@if(!empty($pro_fee))
 @if ($serviceApplication->current_step == 6)
     <div class="col-sm-12">
         <!-- Documents Approval -->
@@ -72,15 +118,17 @@
             'method' => 'post',
             'id' => 'approvalForm',
         ]) !!}
+       
+        <p>Amount Paid: <b>{{ $pro_fee->amount ?? '' }} </b></p>
         <!-- Date Of Inspection Field -->
-        <div class="form-group col-sm-6">
+        {{-- <div class="form-group col-sm-6">
             {!! Form::label('date_of_inspection', 'Date Of Inspection:') !!}
             {!! Form::date('date_of_inspection', null, ['class' => 'form-control', 'id' => 'date_of_inspection']) !!}
-        </div>
+        </div> --}}
 
         @push('page_scripts')
             <script type="text/javascript">
-                $('#date_of_inspection').datepicker()
+                //$('#date_of_inspection').datepicker()
             </script>
         @endpush
         <input type="hidden" name="selected_status" id="selected_status_input">
@@ -99,7 +147,12 @@
         {!! Form::close() !!}
     </div>
 @endif
+@endif
 
+@php 
+$insp_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 3)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+@endphp
+@if(!empty($insp_fee))
 @if ($serviceApplication->current_step == 8)
     <div class="col-sm-12">
         <!-- Documents Approval -->
@@ -109,7 +162,12 @@
             'method' => 'post',
             'id' => 'approvalForm',
         ]) !!}
-
+<p>Amount Paid: <b>{{ $insp_fee->amount ?? '' }} </b></p>
+        <!-- Date Of Inspection Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('date_of_inspection', 'Date Of Inspection:') !!}
+            {!! Form::date('date_of_inspection', null, ['class' => 'form-control', 'id' => 'date_of_inspection']) !!}
+        </div>
         @push('page_scripts')
             <script type="text/javascript">
                 $('#date_of_inspection').datepicker()
@@ -117,19 +175,20 @@
         @endpush
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            {!! Form::button('Approve', [
-                'type' => 'button',
+            {!! Form::button('SUBMIT', [
+                'type' => 'submit',
                 'class' => 'btn btn-success btn-xs',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
-            {!! Form::button('Decline', [
+            {{-- {!! Form::button('Decline', [
                 'type' => 'button',
                 'class' => 'btn btn-danger btn-xs',
                 'onclick' => "setSelectedStatus('decline')",
-            ]) !!}
+            ]) !!} --}}
         </div>
         {!! Form::close() !!}
     </div>
+@endif
 @endif
 
 @if ($serviceApplication->current_step == 9)
@@ -167,55 +226,62 @@
 
 
 @if ($serviceApplication->current_step == 10)
-    <div class="col-sm-12">
-        <h3>Equipment and Monitoring Fees</h3>
-        {!! Form::open([
-            'route' => ['application.equipmemt.invoice', $serviceApplication->id],
-            'method' => 'post',
-            'class' => 'repeater',
-            'id' => 'approvalForm',
-        ]) !!}
-        <input type="hidden" name="payment_type" id="payment_type" value="5">
-        <input type="hidden" name="service_application_id" value="{{ $serviceApplication->id }}">
-        <div class="row col-sm-12" data-repeater-list="equipment">
-            <div class="form-group row col-sm-12" data-repeater-item>
-                <div class="row col-sm-12">
-                    <div class="form-group col-sm-3">
-                        {!! Form::label('equipment', 'Equipment:') !!}
-                        {!! Form::select('price', ['' => '', ...$equipment_and_fees], null, ['class' => 'form-control', 'required']) !!}
-                    </div>
-                    <div class="form-group col-sm-3">
-                        {!! Form::label('qty', 'Qty/Days/Trip:') !!}
-                        {!! Form::number('qty', null, ['class' => 'form-control', 'required']) !!}
-                        <div>
-                            <p class="price">Price: </p>
-                            <input type="hidden" name="sub_price" class=".sub-price">
-                        </div>
-                    </div>
-                    <!-- Delete Button -->
-                    <div class="form-group col-sm-3">
-                        {!! Form::button('Delete', ['class' => 'btn btn-danger', 'data-repeater-delete']) !!}
-                    </div>
-                </div>
+<div class="col-sm-12">
+    <h3>Equipment and Monitoring Fees</h3>
+    {!! Form::open([
+        'route' => ['application.equipmemt.invoice', $serviceApplication->id],
+        'method' => 'post',
+        /* 'class' => 'repeater', */
+        'id' => 'approvalFormData',
+    ]) !!}
+    <input type="hidden" name="payment_type" id="payment_type" value="5">
+    <input type="hidden" name="service_application_id" value="{{ $serviceApplication->id }}">
+    <div class="row col-sm-12" id="equipment-list">
+        <!-- Existing equipment fields will be appended here -->
+    </div>
+
+    <!-- Add Button -->
+    <div class="form-group col-sm-3 mt-5">
+        <button type="button" class="btn btn-success" id="add-new-btn">Add New</button>
+    </div>
+
+    <div class="form-group col-sm-3 mt-5">
+        <span class="total-price"></span>
+        <input type="hidden" class="total-price-input" name="total_price">
+    </div>
+    <div id="equipments"></div>
+
+    <div class="card-footer">
+        <button type="submit" class="btn btn-success">Generate Invoice</button>
+    </div>
+    {!! Form::close() !!}
+</div>
+
+<div class="form-group row col-sm-12 equipment-item" id="equipment-template" style="display: none;">
+    <div class="row col-sm-12">
+        <div class="form-group col-sm-3">
+            {!! Form::label('equipment', 'Equipment:') !!}
+            {!! Form::select('price[]', ['' => '', ...$equipment_and_fees], null, ['class' => 'form-control price-select', 'required']) !!}
+        </div>
+        <div class="form-group col-sm-3">
+            {!! Form::label('qty', 'Qty/Days/Trip:') !!}
+            {!! Form::number('qty[]', null, ['class' => 'form-control qty-input', 'required']) !!}
+            <div>
+                <p class="price"><span class="sub-price"></span></p>
             </div>
         </div>
-
-
-        <!-- Add Button -->
-        <div class="form-group col-sm-3 mt-5">
-            {!! Form::button('Add New', ['class' => 'btn btn-success', 'data-repeater-create']) !!}
+        <!-- Delete Button -->
+        <div class="form-group col-sm-3">
+            <button type="button" class="btn btn-danger delete-btn">Delete</button>
         </div>
-        <div class="form-group col-sm-3 mt-5">
-            <span class="total-price"></span>
-            <input type="hidden" class="total-price-input" name="total_price">
-        </div>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-success btn-xs">Generate Invoice</button>
-        </div>
-        {!! Form::close() !!}
     </div>
+</div>
 @endif
 
+@php 
+$equip_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 5)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+@endphp
+@if(!empty($equip_fee))
 @if ($serviceApplication->current_step == 12)
     <div class="col-sm-12">
         <!-- Documents Approval -->
@@ -225,7 +291,7 @@
             'method' => 'post',
             'id' => 'approvalForm',
         ]) !!}
-
+           <p>Amount Paid: <b>{{ $equip_fee->amount ?? '' }} </b></p>
         @push('page_scripts')
             <script type="text/javascript">
                 $('#date_of_inspection').datepicker()
@@ -246,6 +312,9 @@
         </div>
         {!! Form::close() !!}
     </div>
+
+    
+@endif
 @endif
 
 @if ($serviceApplication->current_step == 13)
@@ -408,10 +477,12 @@
 
 
 @push('page_scripts')
-    <script src="{{ asset('js/jquery.repeater.min.js') }}"></script>
-    <script type="text/javascript">
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
+    {{-- <script src="{{ asset('js/jquery.repeater.min.js') }}"></script> --}}
+   {{--  <script type="text/javascript">
         $(document).ready(function() {
-            const repeater = $('.repeater').repeater({
+            const repeater = $('[data-repeater-list="equipment"]').repeater({
+            //const repeater = $('.repeater').repeater({
                 // (Optional)
                 // start with an empty list of repeaters. Set your first (and only)
                 // "data-repeater-item" with style="display:none;" and pass the
@@ -455,38 +526,96 @@
                 isFirstItemUndeletable: true
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
-            // Listen for changes in the select and number elements
-            $('[data-repeater-list="equipment"]').on('change', 'select, input[type="number"]', function() {
-                updatePrice($(this).closest('[data-repeater-list="equipment"]'));
+            // Function to update the price and quantity data
+        function updateEquipmentData() {
+            var equipmentData = [];
+
+            // Iterate through each equipment item
+            $('.equipment-item').each(function () {
+                var $equipmentItem = $(this);
+                var price = parseFloat($equipmentItem.find('.price-select').val()) || 0;
+                var qty = parseFloat($equipmentItem.find('.qty-input').val()) || 0;
+
+                // Push price and quantity values to the equipmentData array
+                equipmentData.push({ price: price, qty: qty });
             });
 
-            // Function to update the price for a specific repeater list
-            function updatePrice(repeaterList) {
-                var totalPrice = 0;
+            return equipmentData;
+        }
 
-                // Iterate through each repeater item
-                repeaterList.find('[data-repeater-item]').each(function() {
-                    var repeaterItem = $(this);
-                    var selectedValue = repeaterItem.find('select').val();
-                    var quantity = repeaterItem.find('input[type="number"]').val();
-                    var price = selectedValue * quantity;
+    $('#add-new-btn').click(function() {
+        // Clone the template and append it to the equipment list
+        $('#equipment-template').clone().appendTo('#equipment-list').removeAttr('id').show();
+    });
 
-                    // Update the corresponding p tag with the calculated price
-                    repeaterItem.find('.price').text('Price: ' + price);
-                    repeaterItem.find('.sub-price').val(price);
+    // Listen for changes in the select and number elements
+    $('#equipment-list').on('change', 'select, input[type="number"]', function() {
+        updatePrice();
 
-                    // Add the price to the total
-                    totalPrice += price;
-                });
+        // Remove all existing equipment-template elements
+        //$('#equipments').clear();
 
-                // Update the total price for the repeater list
-                $('.total-price').text('Total Price: ' + totalPrice);
-                $('.total-price-input').val(totalPrice);
-            }
-        });
+        var equipmentData = updateEquipmentData();
+
+            // Convert equipment data to JSON
+            var equipmentJson = JSON.stringify(equipmentData);
+
+            $('#equipments').empty();
+            // Add JSON data to a hidden input field
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'equipment',
+                value: equipmentJson
+            }).appendTo($('#equipments'));
+    });
+
+    // Form Submit Event
+    /* $('#approvalFormData').submit(function (event) {
+        event.preventDefault(); // Prevent default form submission
+            // Get equipment data
+            var equipmentData = updateEquipmentData();
+
+            // Convert equipment data to JSON
+            var equipmentJson = JSON.stringify(equipmentData);
+
+            // Add JSON data to a hidden input field
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'equipment',
+                value: equipmentJson
+            }).appendTo($(this));
+
+            // Manually submit the form
+        $(this).submit();
+        
+        }); */
+
+});
+
+function updatePrice() {
+    var totalPrice = 0;
+
+    // Iterate through each equipment item
+    $('#equipment-list .equipment-item').each(function() {
+        var price = $(this).find('.price-select').val() || 0;
+        var quantity = $(this).find('.qty-input').val() || 0;
+        var subPrice = price * quantity;
+
+        // Update the corresponding p tag with the calculated sub-price
+        $(this).find('.sub-price').text('Price: ' + subPrice);
+
+        // Add the sub-price to the total
+        totalPrice += subPrice;
+    });
+
+    // Update the total price
+    $('.total-price').text('Total Price: ' + totalPrice);
+    $('.total-price-input').val(totalPrice);
+}
+
     </script>
 @endpush

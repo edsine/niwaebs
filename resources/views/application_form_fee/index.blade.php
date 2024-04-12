@@ -71,11 +71,7 @@
                 </table>
             </div>
 
-            <div class="card-footer clearfix">
-                <div class="float-right">
-                    @include('adminlte-templates::common.paginate', ['records' => $application_form_fees])
-                </div>
-            </div>
+           
         </div>
 
 @endsection

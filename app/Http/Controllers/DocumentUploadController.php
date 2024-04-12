@@ -17,7 +17,11 @@ class DocumentUploadController extends Controller
      */
     public function index()
     {
-        $document_uploads = DocumentUpload::paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $document_uploads = DocumentUpload::all();
+    }else{
+        $document_uploads = DocumentUpload::where('branch_id', Auth()->user()->staff->branch->id)->get();
+    }
 
         return view('document_upload.index', compact('document_uploads'));
     }
@@ -27,8 +31,13 @@ class DocumentUploadController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('document_upload.create', compact(['services','branches']));
     }
 
@@ -40,6 +49,10 @@ class DocumentUploadController extends Controller
     public function store(StoreDocumentUploadRequest $request)
     {
         $validated = $request->validated();
+        $check = DocumentUpload::where('name', $request->input('name'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('document_upload.create')->with('error', 'Document upload already exist in this area office!');
+        }
         DocumentUpload::create($validated);
         return redirect()->route('document_upload.index')->with('success', 'Document upload added successfully!');
     }
@@ -58,8 +71,13 @@ class DocumentUploadController extends Controller
      */
     public function edit(DocumentUpload $document_upload)
     {
-        $services = Service::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('document_upload.edit', compact(['document_upload', 'services', 'branches']));
     }
 

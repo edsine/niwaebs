@@ -18,7 +18,11 @@ class ProcessingFeeController extends Controller
      */
     public function index()
     {
-        $processing_fees = ProcessingFee::paginate(10);
+        if(Auth()->user()->hasRole('super-admin')){
+        $processing_fees = ProcessingFee::all();
+    }else{
+        $processing_fees = ProcessingFee::where('branch_id', Auth()->user()->staff->branch->id)->get();
+    }
 
         return view('processing_fee.index', compact('processing_fees'));
     }
@@ -28,9 +32,16 @@ class ProcessingFeeController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $processing_types = ProcessingType::all();
-        $branches = Branch::all();
+        
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+            $processing_types = ProcessingType::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            $processing_types = ProcessingType::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('processing_fee.create', compact(['services', 'processing_types', 'branches']));
     }
 
@@ -47,6 +58,10 @@ class ProcessingFeeController extends Controller
     public function store(StoreProcessingFeeRequest $request)
     {
         $validated = $request->validated();
+        $check = ProcessingFee::where('processing_type_id', $request->input('processing_type_id'))->where('amount', $request->input('amount'))->where('branch_id', $request->input('branch_id'))->first();
+        if($check){
+            return redirect()->route('processing_fee.create')->with('error', 'Processing fee already exist in this area office and processing type!');
+        }
         ProcessingFee::create($validated);
         return redirect()->route('processing_fee.index')->with('success', 'Processing fee added successfully!');
     }
@@ -65,9 +80,15 @@ class ProcessingFeeController extends Controller
      */
     public function edit(ProcessingFee $processing_fee)
     {
-        $services = Service::all();
-        $processing_types = ProcessingType::all();
-        $branches = Branch::all();
+        if(Auth()->user()->hasRole('super-admin')){
+            $branches = Branch::all();
+            $services = Service::all();
+            $processing_types = ProcessingType::all();
+        }else{
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            $processing_types = ProcessingType::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        }
         return view('processing_fee.edit', compact(['processing_fee', 'services', 'processing_types', 'branches']));
     }
 

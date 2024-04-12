@@ -45,7 +45,7 @@
                     <label class="form-label-outlined" for="branch_id">Select Area Office</label>
                     <select class="form-control" name="branch_id">
                         @foreach($branches as $branch)
-                            <option value="{{ $branch->id }}" {{ old('branch_id', isset($service) && $service->branch_id == $branch->id ? 'selected' : '') }}>
+                            <option value="{{ $branch->id }}" {{ old('branch_id', isset($processing_type) && $processing_type->branch_id == $branch->id ? 'selected' : '') }}>
                                 {{ $branch->branch_name }}
                             </option>
                         @endforeach
