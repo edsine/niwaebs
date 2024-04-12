@@ -15,21 +15,25 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Services & Sub-Services</h3>
                 <div class="nk-block-des text-soft">
-                    <p>List of registered services & sub-services.</p>
+                    
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
-    <div class="nk-block nk-block-lg">
-        <div class="card card-bordered card-preview">
-            <div class="card-inner">
-                <table class="datatable-init-export nowrap table" data-export-title="Export">
+    <div class="row">
+        <div class="col-md-12 text-right" style="padding-right: 30px;">
+            <a href="{{ route('sub-services.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span> Add New</span></a>
+        </div>
+    </div>
+    <div class="card-body p-5">
+        <div class="table-responsive">
+            <table class="table align-middle gs-0 gy-4" id="order-listing">
                     <thead>
                         <tr>
-                            <th>S/N</th>
                             <th>Service Name</th>
                             <th>Sub-Service Name</th>
+                            <th>Area Office</th>
                             <th>Status</th>
                             <th>Manage</th>
                         </tr>
@@ -39,17 +43,16 @@
                     @endphp
                         @foreach ($services as $service)
                             <tr>
-                                <td>@php
-                                echo $no++;
-                                @endphp</td>
+                               
                                 <td>{{ $service->service->name }}</td>
                                 <td>{{ $service->name }}</td>
+                                <td>{{ $service->branch->branch_name ?? 'NILL' }}</td>
                                  <td><span
                                         class="tb-status text-{{ $service->status == 1 ? 'success' : 'danger' }}">{{ $service->status == 1 ? 'ACTIVE' : 'NOT ACTIVE' }}</span>
                                 </td>
                                 <td>
                                     <a style="padding-right: 10px;" href="{{ route('sub-services.edit', $service->id) }}" title="Edit Sub-Service"><span
-                                            class="nk-menu-icon text-info"><em class="icon ni ni-edit"></em></span></a>
+                                            class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span></a>
                                     {{-- <a data-id="{{ $service->id }}"><span class="nk-menu-icon text-danger eg-swal-av3"><em
                                                 class="icon ni ni-trash"></em></span>
                                             </a> --}}
@@ -58,7 +61,7 @@
                                         onclick="event.preventDefault();
                                     document.getElementById('delete-service-form').submit();"><span
                                             class="nk-menu-icon text-danger eg-swal-av3"><em
-                                                class="icon ni ni-user-remove"></em></span>
+                                                class="fa fa-trash"></em></span>
                                     </a>
                                     <form id="delete-service-form" action="{{ route('sub-services.destroy', $service->id) }}"
                                         method="POST" class="d-inline">
@@ -72,11 +75,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $services->links() }}
             </div>
-        </div><!-- .card-preview -->
-    </div> <!-- nk-block -->
-    {{-- </div><!-- .components-preview --> --}}
+
+            <div class="card-footer clearfix">
+                <div class="float-right">
+                    @include('adminlte-templates::common.paginate', ['records' => $services])
+                </div>
+            </div>
+        </div>
 
 @endsection
 

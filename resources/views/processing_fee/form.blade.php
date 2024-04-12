@@ -22,6 +22,27 @@
                 </div>
             </div>
         </div>
+        <div class="row gy-4">
+            <div class="col-lg-4 col-sm-6 ml-4">
+                <div class="form-group">
+                    <div class="form-control-wrap">
+                        <div class="form-icon form-icon-right">
+                            <em class="icon ni ni-user"></em>
+                        </div>
+                        <label class="form-label-outlined" for="branch_id">Area Office</label>
+                        <select class="form-control" name="branch_id" id="branch_id" required>
+                            <option value="">Select Area Office</option>
+                            @foreach($branches as $branch)
+                                <option value="{{ $branch->id }}" {{ old('branch_id', isset($processing_fee) && $processing_fee->branch_id == $branch->id ? 'selected' : '') }}>
+                                    {{ $branch->branch_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="col-lg-4 col-sm-6 ml-3">
                 <div class="form-group">
@@ -52,26 +73,7 @@
             </div>
         </div>
     </div>
-    <div class="row gy-4">
-        <div class="col-lg-4 col-sm-6 ml-4">
-            <div class="form-group">
-                <div class="form-control-wrap">
-                    <div class="form-icon form-icon-right">
-                        <em class="icon ni ni-user"></em>
-                    </div>
-                    <label class="form-label-outlined" for="branch_id">Select Area Office</label>
-                    <select class="form-control" name="branch_id">
-                        @foreach($branches as $branch)
-                            <option value="{{ $branch->id }}" {{ old('branch_id', isset($service) && $service->branch_id == $branch->id ? 'selected' : '') }}>
-                                {{ $branch->branch_name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="row g-4 ml-4">
         <div class="col-2">
             <div class="form-group">
@@ -85,12 +87,12 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function () {
-    $('#service_id').change(function () {
-        var serviceId = $(this).val();
-         if (serviceId) {
+    $('#branch_id').change(function () {
+        var branchId = $(this).val();
+         if (branchId) {
             $.ajax({
                 type: "GET",
-                url: "/services/" + serviceId + "/processing-types",
+                url: "/services/" + branchId + "/processing-types",
                 success: function (data) {
                     $('#processing_type_id').empty();
                     if (data.length > 0) {

@@ -10,6 +10,7 @@ use App\Repositories\EquipmentAndFeeRepository;
 use App\Http\Requests\CreateEquipmentAndFeeRequest;
 use App\Http\Requests\UpdateEquipmentAndFeeRequest;
 use App\Models\SubService;
+use Modules\Shared\Models\Branch;
 
 class EquipmentAndFeeController extends AppBaseController
 {
@@ -38,8 +39,16 @@ class EquipmentAndFeeController extends AppBaseController
     public function create()
     {
         $services = Service::pluck('name', 'id');
+        $services->prepend('Select Service','');
         $sub_services = SubService::pluck('name', 'id');
-        return view('equipment_and_fees.create', compact('services', 'sub_services'));
+        $branches = Branch::all();
+        return view('equipment_and_fees.create', compact('services', 'sub_services', 'branches'));
+    }
+
+    public function getSubServiceTypes(SubService $subService, $id)
+    {
+        $subServices = $subService->where('service_id', $id)->get();
+        return response()->json($subServices);
     }
 
     /**
@@ -87,8 +96,9 @@ class EquipmentAndFeeController extends AppBaseController
 
         $services = Service::pluck('name', 'id');
         $sub_services = SubService::pluck('name', 'id');
+        $branches = Branch::all();
 
-        return view('equipment_and_fees.edit', compact('services', 'sub_services'))->with('equipmentAndFee', $equipmentAndFee);
+        return view('equipment_and_fees.edit', compact('services', 'sub_services', 'branches'))->with('equipmentAndFee', $equipmentAndFee);
     }
 
     /**

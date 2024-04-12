@@ -15,7 +15,7 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Create New Sub-Service</h3>
                 <div class="nk-block-des text-soft">
-                    <p>Add new sub-service details.</p>
+                    
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->

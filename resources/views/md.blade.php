@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="col-3">
-                            <select class="form-select" id="monthSelect">
+                            <select name="month" class="form-select" id="monthSelect">
                                 <option value="1">January</option>
                                 <option value="2">February</option>
                                 <option value="3">March</option>
@@ -33,11 +33,11 @@
                             </select>
                         </div>
                         <div class="col-3">
-                            <select class="form-select" id="yearSelect">
+                            <select name="year" class="form-select" id="yearSelect">
                                 @php
                                     $currentYear = date('Y');
-                                    $startYear = $currentYear - 10; // Adjust as needed
-                                    $endYear = $currentYear + 10; // Adjust as needed
+                                    $startYear = $currentYear - 10;
+                                    $endYear = $currentYear + 10;
                                 @endphp
                                 @for ($year = $startYear; $year <= $endYear; $year++)
                                     <option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>
@@ -66,7 +66,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">0</div>
+                            <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{ $ta }}</div>
                             <div class="fw-bold"><b>Total No OF Application Forms</b></div>
                         </div>
                         <!--end::Body-->
@@ -94,7 +94,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">{{ 0 }}</div>
+                            <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">{{ $services}}</div>
                             <div class="fw-bold text-gray-100">Total Number Of Registered Services </div>
                         </div>
                         <!--end::Body-->
@@ -122,7 +122,7 @@
                             </span>
                             <!--end::Svg Icon-->
 
-                            <div class="text-white fw-bolder fs-2 mb-2 mt-5"> 30,000,000 </div>
+                            <div class="text-white fw-bolder fs-2 mb-2 mt-5"> {{$revenue}} </div>
                             <div class="fw-bold text-white">Total Revenue Generated</div>
                         </div>
                         <!--end::Body-->
@@ -329,7 +329,7 @@
                                         <div class="d-flex align-items-center">
                                             <!--begin::Amount-->
                                             <span
-                                                class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ 0 }}</span>
+                                                class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ $tc }}</span>
                                             <!--end::Amount-->
                                             <!--begin::Badge-->
 
@@ -393,7 +393,8 @@
                                     <div class="card-title d-flex flex-column">
 
                                         <!--begin::Amount-->
-                                        <span class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ 0 }}</span>
+                                        <span
+                                            class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ 0 }}</span>
                                         <!--end::Amount-->
                                         <!--begin::Subtitle-->
                                         <span class="text-gray-400 pt-1 fw-bold fs-6">
@@ -451,14 +452,10 @@
                         <!--begin::Body-->
                         <div class="card-body d-flex justify-content-between flex-column px-0 pb-0 ">
                             <!--begin::Chart container-->
-                            {{-- <div id="md_chat" class="min-h-auto ps-4 pe-6 mb-3 h-350px"></div> --}}
-                            <!--end::Chart container-->
-                            {{--
-                            <canvas id="md"
-                                style="max-width: 100%; height: auto; margin:1em; padding:2em"></canvas> --}}
 
-                            <canvas id="md" width="800" height="400"></canvas>
-                            {{-- <canvas id="doughnutChart"></canvas> --}}
+
+                            <div id="md"></div>
+                            {{-- <canvas id="md" width="800" height="400"></canvas> --}}
                         </div>
                         <!--end::Body-->
                     </div>
@@ -715,8 +712,51 @@
                     </div>
                 </div>
 
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+                    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
                 <script>
+                    // options = {
+                    //     series: [44, 55, 13, 33],
+                    //     labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
+                    // }
+
+                    var chart=new ApexCharts(document.querySelector('#md'),options);
+                    chart.render();
+                </script>
+                 <script>
+                    $(function() {
+                        var chartdata = @json($data);
+
+                        var names = chartdata.map(function(item) {
+                            return item.name;
+                        });
+                        var numbers = chartdata.map(function(item) {
+                            return item.num;
+                        });
+
+                        var options = {
+                            chart: {
+                                type: 'pie',
+                            },
+                            series: numbers,
+                            labels: names,
+                            setTitle: 'Hello.....................',
+                            plotOptions: {
+                                pie: {
+                                    size: 200
+                                }
+                            },
+                        };
+
+                        var thechart = new ApexCharts(document.querySelector('#md'), options);
+                        thechart.render();
+                    });
+                </script>
+                {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+                {{-- <script>
                     const myChart = document.getElementById('md').getContext('2d');
 
                     const data = {
@@ -732,18 +772,18 @@
 
                             hoverOffset: 4
                         }]
-                    };
+                    }; --}}
 
-                    var doughnutPieOptions = {
-                        // responsive: true,
-                        // animation: {
-                        //     animateScale: true,
-                        //     animateRotate: true
-                        // }
-                       
-                            responsive: true,
+                var doughnutPieOptions = {
+                // responsive: true,
+                // animation: {
+                // animateScale: true,
+                // animateRotate: true
+                // }
+
+                {{-- responsive: true,
                             maintainAspectRatio: false
-                       
+
                     };
 
                     const config = {
@@ -753,6 +793,6 @@
                         options: doughnutPieOptions
                     };
 
-                    new Chart(myChart, config);
-                </script>
+                    new Chart(myChart, config); --}}
+                {{-- </script> --}}
             @endsection

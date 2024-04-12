@@ -6,68 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Shared\Models\Branch;
 
-/**
- * @OA\Schema(
- *      schema="EquipmentAndFee",
- *      required={"service_id","name","price","metric"},
- *      @OA\Property(
- *          property="service_id",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="name",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="price",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="number",
- *          format="number"
- *      ),
- *      @OA\Property(
- *          property="metric",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="sub_service_id",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="created_at",
- *          description="",
- *          readOnly=true,
- *          nullable=true,
- *          type="string",
- *          format="date-time"
- *      ),
- *      @OA\Property(
- *          property="updated_at",
- *          description="",
- *          readOnly=true,
- *          nullable=true,
- *          type="string",
- *          format="date-time"
- *      )
- * )
- */ class EquipmentAndFee extends Model
+ class EquipmentAndFee extends Model
 {
     use HasFactory;
     public $table = 'equipment_and_fees';
@@ -77,7 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
         'name',
         'price',
         'metric',
-        'sub_service_id'
+        'sub_service_id',
+        'branch_id',
     ];
 
     protected $casts = [
@@ -85,14 +27,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
         'name' => 'string',
         'price' => 'decimal:2',
         'metric' => 'integer',
-        'sub_service_id' => 'integer'
+        'sub_service_id' => 'integer',
+        'branch_id' => 'integer',
     ];
 
     public static array $rules = [
         'service_id' => 'required',
         'name' => 'required',
         'price' => 'required',
-        'metric' => 'required'
+        'metric' => 'required',
+        'branch_id' => 'required',
     ];
 
     public function service() : BelongsTo {
@@ -101,5 +45,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
     public function subService() : BelongsTo {
         return $this->belongsTo(Service::class, 'sub_service_id', 'id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

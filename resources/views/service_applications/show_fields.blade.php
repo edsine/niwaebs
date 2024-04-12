@@ -37,6 +37,7 @@
         {!! Form::open([
             'route' => ['application.final.documents.approval', $serviceApplication->id],
             'method' => 'post',
+            'id' => 'approvalForm',
         ]) !!}
         <div class="form-group col-sm-6 mb-5">
             {!! Form::label('mse_document_verification_comment', 'Comments:') !!}
@@ -47,10 +48,16 @@
         </div>
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            <button type="submit" class="m-2 btn btn-success btn-xs"
-                onclick="setSelectedStatus('approve')">Approve</button>
-            <button type="submit" class="m-2 btn btn-danger btn-xs"
-                onclick="setSelectedStatus('decline')">Decline</button>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
         </div>
         {!! Form::close() !!}
     </div>
@@ -63,6 +70,7 @@
         {!! Form::open([
             'route' => ['application.processingfee.approval', $serviceApplication->id],
             'method' => 'post',
+            'id' => 'approvalForm',
         ]) !!}
         <!-- Date Of Inspection Field -->
         <div class="form-group col-sm-6">
@@ -77,10 +85,16 @@
         @endpush
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            <button type="submit" class="m-2 btn btn-success btn-xs"
-                onclick="setSelectedStatus('approve')">Approve</button>
-            <button type="submit" class="m-2 btn btn-danger btn-xs"
-                onclick="setSelectedStatus('decline')">Decline</button>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
         </div>
         {!! Form::close() !!}
     </div>
@@ -93,6 +107,7 @@
         {!! Form::open([
             'route' => ['application.inspectionfee.approval', $serviceApplication->id],
             'method' => 'post',
+            'id' => 'approvalForm',
         ]) !!}
 
         @push('page_scripts')
@@ -102,10 +117,16 @@
         @endpush
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            <button type="submit" class="m-2 btn btn-success btn-xs"
-                onclick="setSelectedStatus('approve')">Approve</button>
-            <button type="submit" class="m-2 btn btn-danger btn-xs"
-                onclick="setSelectedStatus('decline')">Decline</button>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
         </div>
         {!! Form::close() !!}
     </div>
@@ -118,6 +139,7 @@
         {!! Form::open([
             'route' => ['application.inspection.status', $serviceApplication->id],
             'method' => 'post',
+            'id' => 'approvalForm',
         ]) !!}
         <div class="form-group col-sm-6 mb-5">
             {!! Form::label('comments_on_inspection', 'Comments:') !!}
@@ -128,10 +150,16 @@
         </div>
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            <button type="submit" class="m-2 btn btn-success btn-xs"
-                onclick="setSelectedStatus('approve')">Approve</button>
-            <button type="submit" class="m-2 btn btn-danger btn-xs"
-                onclick="setSelectedStatus('decline')">Decline</button>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
         </div>
         {!! Form::close() !!}
     </div>
@@ -145,6 +173,7 @@
             'route' => ['application.equipmemt.invoice', $serviceApplication->id],
             'method' => 'post',
             'class' => 'repeater',
+            'id' => 'approvalForm',
         ]) !!}
         <input type="hidden" name="payment_type" id="payment_type" value="5">
         <input type="hidden" name="service_application_id" value="{{ $serviceApplication->id }}">
@@ -194,6 +223,7 @@
         {!! Form::open([
             'route' => ['application.equipmentfee.approval', $serviceApplication->id],
             'method' => 'post',
+            'id' => 'approvalForm',
         ]) !!}
 
         @push('page_scripts')
@@ -203,10 +233,16 @@
         @endpush
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            <button type="submit" class="m-2 btn btn-success btn-xs"
-                onclick="setSelectedStatus('approve')">Approve</button>
-            <button type="submit" class="m-2 btn btn-danger btn-xs"
-                onclick="setSelectedStatus('decline')">Decline</button>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
         </div>
         {!! Form::close() !!}
     </div>
@@ -219,6 +255,7 @@
         {!! Form::open([
             'route' => ['application.areaofficer.approval', $serviceApplication->id],
             'method' => 'post',
+            'id' => 'approvalForm',
         ]) !!}
 
         @push('page_scripts')
@@ -228,10 +265,16 @@
         @endpush
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            <button type="submit" class="m-2 btn btn-success btn-xs"
-                onclick="setSelectedStatus('approve')">Approve</button>
-            <button type="submit" class="m-2 btn btn-danger btn-xs"
-                onclick="setSelectedStatus('decline')">Decline</button>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
         </div>
         {!! Form::close() !!}
     </div>
@@ -244,6 +287,7 @@
         {!! Form::open([
             'route' => ['application.hodmarine.approval', $serviceApplication->id],
             'method' => 'post',
+            'id' => 'approvalForm',
         ]) !!}
 
         @push('page_scripts')
@@ -253,19 +297,28 @@
         @endpush
         <input type="hidden" name="selected_status" id="selected_status_input">
         <div class='btn-group'>
-            <button type="submit" class="m-2 btn btn-success btn-xs"
-                onclick="setSelectedStatus('approve')">Approve</button>
-            <button type="submit" class="m-2 btn btn-danger btn-xs"
-                onclick="setSelectedStatus('decline')">Decline</button>
+            {!! Form::button('Approve', [
+                'type' => 'button',
+                'class' => 'btn btn-success btn-xs',
+                'onclick' => "setSelectedStatus('approve')",
+            ]) !!}
+            {!! Form::button('Decline', [
+                'type' => 'button',
+                'class' => 'btn btn-danger btn-xs',
+                'onclick' => "setSelectedStatus('decline')",
+            ]) !!}
         </div>
         {!! Form::close() !!}
     </div>
 @endif
 
-<script>
-    function setSelectedStatus(value) {
-        document.getElementById('selected_status_input').value = value;
-        return confirm('Are you sure?');
+<script type="text/javascript">
+    function setSelectedStatus(status) {
+        document.getElementById('selected_status_input').value = status;
+        let confirmation = confirm("Are you sure you want to proceed?");
+        if (confirmation) {
+            document.getElementById('approvalForm').submit(); // Submit the form
+        }
     }
 </script>
 
