@@ -94,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('thedocumentuser/','App\Http\Controllers\DocumentsController@getusersbydept');
 Route::middleware(['auth'])->group(function () {
     Route::get('/asset/home', 'App\Http\Controllers\Home@index');
-    Route::get('/brandlist', 'Brand@index');
+    Route::get('/brandlist', 'App\Http\Controllers\Brand@index');
     Route::get('/departmentlist', 'App\Http\Controllers\Department@index');
     Route::get('/assettypelist', 'App\Http\Controllers\AssetType@index');
     Route::get('/locationlist', 'App\Http\Controllers\Location@index');
