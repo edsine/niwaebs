@@ -39,8 +39,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="px-2">{{ $request->staff->user->first_name }}
-                                {{ $request->staff->user->last_name }}</td>
+                            <td>{{ isset($request->staff->user) ? $request->staff->user->first_name . ' ' . $request->staff->user->last_name : '' }}
+                            </td>
                             <td>{{ $request->type->name }}</td>
                             <td>{{ $request->order }} of {{ $request->type->flows->count() }}</td>
                             <td>{{ Modules\Approval\Models\Action::find($request->action_id)->status }}</td>
@@ -53,10 +53,7 @@
                                 @php
                                     if (
                                         $request->order ==
-                                        $request->type
-                                            ->flows()
-                                            ->where('status', 1)
-                                            ->max('approval_order')
+                                        $request->type->flows()->where('status', 1)->max('approval_order')
                                     ) {
                                         if ($request->status == 5) {
                                             echo 'Declined';
@@ -97,11 +94,12 @@
                             <tr>
                                 <td class="px-2">Step {{ $timeline->flow->approval_order }}</td>
                                 <td>
-                                    {{ $timeline->staff->user->first_name }} {{ $timeline->staff->user->last_name }}
+                                    {{ isset($timeline->staff->user) ? $timeline->staff->user->first_name . ' ' . $timeline->staff->user->last_name : '' }}
                                     <br />
                                     <small>
-                                        {{ $timeline->staff->user->roles->pluck('name') }}
-                                    </small </td>
+                                        {{ isset($timeline->staff->user) ? $timeline->staff->user->roles->pluck('name') : '' }}
+                                    </small>
+                                </td>
                                 <td>
                                     <span
                                         class="badge bg-{{ $timeline->action->name == 'Approve' ? 'success' : ($timeline->action->name == 'Decline' ? 'danger' : ($timeline->action->name == 'Return' ? 'warning' : ($timeline->action->name == 'Modify' ? 'info' : 'primary'))) }}  text-white fs-6">{{ $timeline->action->status }}</span>

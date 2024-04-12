@@ -1,6 +1,6 @@
 @php
-    $logo=asset(Storage::url('uploads/logo/'));
-    $company_favicon=\Modules\Accounting\Models\Utility::getValByName('company_favicon');
+    $logo = asset(Storage::url('uploads/logo/'));
+    $company_favicon = \Modules\Accounting\Models\Utility::getValByName('company_favicon');
     $SITE_RTL = \Modules\Accounting\Models\Utility::getValByName('SITE_RTL');
     $setting = \Modules\Accounting\Models\Utility::colorset();
     $color = 'theme-3';
@@ -8,11 +8,11 @@
         $color = $setting['color'];
     }
     $mode_setting = \Modules\Accounting\Models\Utility::mode_layout();
-    $getseo= \Modules\Accounting\Models\Utility::getSeoSetting();
-    $metatitle =  isset($getseo['meta_title']) ? $getseo['meta_title'] :'';
-    $metsdesc= isset($getseo['meta_desc'])?$getseo['meta_desc']:'';
+    $getseo = \Modules\Accounting\Models\Utility::getSeoSetting();
+    $metatitle = isset($getseo['meta_title']) ? $getseo['meta_title'] : '';
+    $metsdesc = isset($getseo['meta_desc']) ? $getseo['meta_desc'] : '';
     $meta_image = \Modules\Accounting\Models\Utility::get_file('uploads/meta/');
-    $meta_logo = isset($getseo['meta_image'])?$getseo['meta_image']:'';
+    $meta_logo = isset($getseo['meta_image']) ? $getseo['meta_image'] : '';
     $get_cookie = \Modules\Accounting\Models\Utility::getCookieSetting();
 
 @endphp
@@ -35,8 +35,8 @@
 
     {{-- adding the fullcalender css here, the js is inside the main file, e.g dash for documenr --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css"
-    integrity="sha512-Aa1748paT82yMtcPGgMq/zDsqZwwGFSYhKrWsO5nv74pShnz/Y4si5ip6GE/6ce/tePBlm2GwyomKp1NFyJgYA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-Aa1748paT82yMtcPGgMq/zDsqZwwGFSYhKrWsO5nv74pShnz/Y4si5ip6GE/6ce/tePBlm2GwyomKp1NFyJgYA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @stack('dar_css')
 
@@ -90,9 +90,10 @@
     @stack('page_css')
     {{-- @stack('dar_css') --}}
     <style>
-        .nk-block-title{
+        .nk-block-title {
             margin-left: 30px;
         }
+
         #clockInCard,
         #announcementCard {
             transition: opacity 3s;
@@ -448,7 +449,7 @@
         }
     </style>
 
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script> --}}
 
 
@@ -507,34 +508,47 @@
     <div class="container-scroller">
         <!--begin::Header-->
         @if (auth()->check())
+            @include('layouts.header')
+            <!--end::Header-->
+            <!--begin::Wrapper-->
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:partials/_settings-panel.html -->
 
-        @include('layouts.header')
-        <!--end::Header-->
-        <!--begin::Wrapper-->
-        <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_settings-panel.html -->
-
-            <!--begin::Sidebar-->
-            @include('layouts.sidebar')
-            <!--end::Sidebar-->
-            <!--begin::Main-->
-            <!--begin::Content wrapper-->
-            <!-- main-panel starts -->
-            <div class="main-panel">
-                @include('layouts.content')
-                <!--end::Content wrapper-->
-                <!--begin::Footer-->
-                @include('layouts.footer')
-                <!--end::Footer-->
-            </div>
-
-            @endif
-            <!-- main-panel ends -->
-            <!--end:::Main-->
-        </div>
-        <!--end::Wrapper-->
+                <!--begin::Sidebar-->
+                @include('layouts.sidebar')
+                <!--end::Sidebar-->
+                <!--begin::Main-->
+                <!--begin::Content wrapper-->
+                <!-- main-panel starts -->
+                <div class="main-panel">
+                    @include('layouts.content')
+                    <!--end::Content wrapper-->
+                    <!--begin::Footer-->
+                    @include('layouts.footer')
+                    <!--end::Footer-->
+                </div>
+        @endif
+        <!-- main-panel ends -->
+        <!--end:::Main-->
+    </div>
+    <!--end::Wrapper-->
     </div>
     <!--end::App-->
+
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function(e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye icon
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+
     <script>
         function hideCards() {
             var clockInCard = document.getElementById("clockInCard");
@@ -767,23 +781,23 @@
     <script src="{{ asset('jquery-mapael-nigeria/nigeria.js') }}"></script>
     <script src="{{ asset('jquery-mapael-nigeria/scripts/major-city-plots.js') }}"></script>
 
-<script>
- $('#historyModal').on('hidden.bs.modal', function (e) {
-        $('.modal-backdrop').remove();
-    });
-    $('#uploadsModal').on('hidden.bs.modal', function (e) {
-        $('.modal-backdrop').remove();
-    });
-    $('#commentModal').on('hidden.bs.modal', function (e) {
-        $('.modal-backdrop').remove();
-    });
-    $('#sendEmailModal').on('hidden.bs.modal', function (e) {
-        $('.modal-backdrop').remove();
-    });
-    $('#shareModal').on('hidden.bs.modal', function (e) {
-        $('.modal-backdrop').remove();
-    });
-</script>
+    <script>
+        $('#historyModal').on('hidden.bs.modal', function(e) {
+            $('.modal-backdrop').remove();
+        });
+        $('#uploadsModal').on('hidden.bs.modal', function(e) {
+            $('.modal-backdrop').remove();
+        });
+        $('#commentModal').on('hidden.bs.modal', function(e) {
+            $('.modal-backdrop').remove();
+        });
+        $('#sendEmailModal').on('hidden.bs.modal', function(e) {
+            $('.modal-backdrop').remove();
+        });
+        $('#shareModal').on('hidden.bs.modal', function(e) {
+            $('.modal-backdrop').remove();
+        });
+    </script>
 
     <!-- for the form repeater  -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js" integrity="sha512-foIijUdV0fR0Zew7vmw98E6mOWd9gkGWQBWaoA1EOFAx+pY+N8FmmtIYAVj64R98KeD2wzZh1aHK0JSpKmRH8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
@@ -791,35 +805,35 @@
     <!-- for the form repeater  -->
 
 
-<div class="modal fade" id="commonModal" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="body">
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="commonModalOver" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="commonModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+    <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="body">
+                </div>
             </div>
         </div>
     </div>
-</div>
-@include('partials.admin.footer')
+
+
+    <div class="modal fade" id="commonModalOver" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="commonModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    @include('partials.admin.footer')
 </body>
 
 </html>

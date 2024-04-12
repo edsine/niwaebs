@@ -65,18 +65,31 @@
             <div class="row">
                 <!-- Password Field -->
                 <div class="form-group col-sm-6">
-                    {!! Form::label('password', 'Password (Password must be a minimum of 12 characters including atleast a number and symbol)') !!}
-                    {!! Form::password('password', ['id' => 'password','class' => 'form-control form-control-solid border border-2','autocomplete' => "off"]) !!}
-                    <div id="password-strength" class="form-text" style="color:brown;font-weight: bolder"></div>
+                    <div class="input-group">
+                        {!! Form::label('password', 'Password (Password must be a minimum of 12 characters including atleast a number and symbol)') !!}
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent border-left-0">
+                                <i class="fa fa-eye" id="togglePassword"></i>
+                            </span>
+                        </div>
+                        <div id="password-strength" class="form-text" style="color:brown;font-weight: bolder"></div>
+                    </div>
                 </div>
 
                 <!-- Confirmation Password Field -->
                 <div class="form-group col-sm-6">
                     {!! Form::label('password_confirmation', 'Password Confirmation') !!}
-                    {!! Form::password('password_confirmation', ['id' => 'passwordConfirmation', 'class' => 'form-control form-control-solid border border-2','autocomplete' => "off"]) !!}
-                    <div id="password-match" class="form-text"></div>
+                    <div class="input-group">
+                        {!! Form::password('password_confirmation', ['id' => 'passwordConfirmation', 'class' => 'form-control form-control-solid border border-2','autocomplete' => "off"]) !!}
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent border-left-0">
+                                <i class="fa fa-eye" id="togglePassword"></i>
+                            </span>
+                        </div>
+                        <div id="password-match" class="form-text"></div>
+                    </div>
                 </div>
-                
+
                 <!-- Checkbox Field -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row my-3">
                     <div class="form-check">
@@ -112,7 +125,7 @@
     @csrf
     <div class="w-100">
         <div class="pb-10 pb-lg-15">
-            <h2 class="fw-bold d-flex align-items-center text-dark">Step 3 
+            <h2 class="fw-bold d-flex align-items-center text-dark">Step 3
                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Provide accurate personal details"></i>
             </h2>
             <div class="text-muted fw-semibold fs-6">tell us more about your self
@@ -163,7 +176,7 @@
             <h2 class="fw-bold d-flex align-items-center text-dark">Step 4
                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Provide accurate personal details"></i>
             </h2>
-            <div class="text-muted fw-semibold fs-6">your phonenumber is safe with us 
+            <div class="text-muted fw-semibold fs-6">your phonenumber is safe with us
                 <a href="#" class="link-primary fw-bold">Privacy Policy</a>.
             </div>
         </div>
@@ -181,14 +194,14 @@
                     {!! Form::number('phone', null, ['class' => 'form-control form-control-solid border border-2']) !!}
                 </div>
                 <!-- Profile Picture Field -->
-                
+
 
                 <!-- Status Field -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row">
                     {!! Form::label('status', 'Status') !!}
                     <div class="">
                         {!! Form::radio('statusz', 1, true) !!}&nbsp;Active&nbsp;
-{!! Form::radio('statusz', 0, false) !!}&nbsp;In-Active
+                        {!! Form::radio('statusz', 0, false) !!}&nbsp;In-Active
 
                     </div>
                 </div>
@@ -245,8 +258,8 @@
 <div data-kt-stepper-element="content">
     <!--begin::Wrapper-->
     {{-- <div class="w-100"> --}}
-        <!--begin::Heading-->
-        {{-- <div class="pb-8 pb-lg-10">
+    <!--begin::Heading-->
+    {{-- <div class="pb-8 pb-lg-10">
             <!--begin::Title-->
             <h2 class="fw-bold text-dark">Congratulations, you've reached the final step!</h2>
             <!--end::Title-->
@@ -254,58 +267,58 @@
 
             <!--end::Notice-->
         </div> --}}
-        <!--end::Heading-->
-        <!--begin::Body-->
-        
-        {{-- <div class="mb-0"> --}}
-            <!--begin::Text-->
-            {{-- <div class="fs-6 text-gray-600 mb-5">Thank you for completing the form! Your Employer has been successfully
+    <!--end::Heading-->
+    <!--begin::Body-->
+
+    {{-- <div class="mb-0"> --}}
+    <!--begin::Text-->
+    {{-- <div class="fs-6 text-gray-600 mb-5">Thank you for completing the form! Your Employer has been successfully
                 Created</div> --}}
-            <!--end::Text-->
-            <!--begin::Alert-->
-            <!--begin::Notice-->
-            {{-- <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6"> --}}
-                <!--begin::Icon-->
-                <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
-                {{-- <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
+    <!--end::Text-->
+    <!--begin::Alert-->
+    <!--begin::Notice-->
+    {{-- <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6"> --}}
+    <!--begin::Icon-->
+    <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
+    {{-- <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
                     {{-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
                         <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
                         <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
                     </svg> --}}
-               <!-- </span> --}}
+    <!-- </span> --}}
                 <!--end::Svg Icon-->
-                <!--end::Icon-->
-                <!--begin::Wrapper-->
-                {{-- <div class="d-flex flex-stack flex-grow-1"> --}}
-                    <!--begin::Content-->
-                    {{-- <div class="fw-semibold"> --}}
-                        {{-- <h4 class="text-gray-900 fw-bold">🎉 Hooray! You've conquered the form wizard! 🎉</h4> --}}
-                       
-                        {{-- <div class="fs-6 text-gray-700">
+    <!--end::Icon-->
+    <!--begin::Wrapper-->
+    {{-- <div class="d-flex flex-stack flex-grow-1"> --}}
+    <!--begin::Content-->
+    {{-- <div class="fw-semibold"> --}}
+    {{-- <h4 class="text-gray-900 fw-bold">🎉 Hooray! You've conquered the form wizard! 🎉</h4> --}}
+
+    {{-- <div class="fs-6 text-gray-700">
                             {{-- <p>Thank you for completing our form in style.</p> --}}
-                            {{-- <p>If all information submitted is correct, kindly click the submit button below!</p> --}}
-                            {{-- <div class="float-end">
+    {{-- <p>If all information submitted is correct, kindly click the submit button below!</p> --}}
+    {{-- <div class="float-end">
                                 {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                             </div> --}}
-                       <!-- </div> --}}
+    <!-- </div> --}}
                     </div>
                     <!--end::Content-->
-                {{-- </div> --}}
-                <!--end::Wrapper-->
-            {{-- </div> --}}
-            <!--end::Notice-->
-            <!--end::Alert-->
-        {{-- </div> --}}
-        <!--end::Body-->
-       
+    {{-- </div> --}}
+    <!--end::Wrapper-->
+    {{-- </div> --}}
+    <!--end::Notice-->
+    <!--end::Alert-->
+    {{-- </div> --}}
+    <!--end::Body-->
+
     {{-- </div> --}}
     <!--end::Wrapper-->
     <div class="fs-6 text-gray-700">
-        <h4 class="card-title">REGISTRATION COMPLETED  </h4>
+        <h4 class="card-title">REGISTRATION COMPLETED </h4>
         <p> kindly click the submit button </p>
         <div class="float-end">
-            
+
             {!!Form::submit('Submit',['class'=>'btn btn-primary'])!!}
             <a href="{{route('users.index')}}" class="btn btn-default"> Abort</a>
         </div>
@@ -327,7 +340,7 @@
             </span>
             <!--end::Svg Icon-->Back
         </button>
-        
+
     </div>
     <!--end::Wrapper-->
     <!--begin::Wrapper-->
@@ -366,21 +379,21 @@
     const passwordConfirmationInput = document.getElementById('passwordConfirmation');
     const passwordStrength = document.getElementById('password-strength');
     const passwordMatch = document.getElementById('password-match');
-    
+
     passwordInput.addEventListener('input', function() {
         const password = this.value;
         const strength = checkPasswordStrength(password);
         displayPasswordStrength(strength);
     });
-    
+
     passwordConfirmationInput.addEventListener('input', function() {
         checkPasswordMatch();
     });
-    
+
     function checkPasswordMatch() {
         const password = passwordInput.value;
         const confirmPassword = passwordConfirmationInput.value;
-    
+
         if (password === confirmPassword) {
             passwordMatch.textContent = 'Passwords match.';
             passwordMatch.style.color = 'green';
@@ -389,67 +402,66 @@
             passwordMatch.style.color = 'red';
         }
     }
-    
+
     function checkPasswordStrength(password) {
-    // Define your password strength rules here
-    const minLength = 12;
-    const minUppercase = 1;
-    const minLowercase = 1;
-    const minNumbers = 1;
-    const minSpecialChars = 1;
+        // Define your password strength rules here
+        const minLength = 12;
+        const minUppercase = 1;
+        const minLowercase = 1;
+        const minNumbers = 1;
+        const minSpecialChars = 1;
 
-    // Check password length
-    if (password.length < minLength) {
-        return 0; // Weak
+        // Check password length
+        if (password.length < minLength) {
+            return 0; // Weak
+        }
+
+        // Check for uppercase letters
+        const uppercaseRegex = /[A-Z]/;
+        if (!uppercaseRegex.test(password)) {
+            return 0; // Weak
+        }
+
+        // Check for lowercase letters
+        const lowercaseRegex = /[a-z]/;
+        if (!lowercaseRegex.test(password)) {
+            return 0; // Weak
+        }
+
+        // Check for numbers
+        const numbersRegex = /[0-9]/;
+        if (!numbersRegex.test(password)) {
+            return 0; // Weak
+        }
+
+        // Check for special characters
+        const specialCharsRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+        if (!specialCharsRegex.test(password)) {
+            return 0; // Weak
+        }
+
+        // If all rules are satisfied, consider it strong
+        return 2; // Strong
     }
 
-    // Check for uppercase letters
-    const uppercaseRegex = /[A-Z]/;
-    if (!uppercaseRegex.test(password)) {
-        return 0; // Weak
-    }
 
-    // Check for lowercase letters
-    const lowercaseRegex = /[a-z]/;
-    if (!lowercaseRegex.test(password)) {
-        return 0; // Weak
-    }
-
-    // Check for numbers
-    const numbersRegex = /[0-9]/;
-    if (!numbersRegex.test(password)) {
-        return 0; // Weak
-    }
-
-    // Check for special characters
-    const specialCharsRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
-    if (!specialCharsRegex.test(password)) {
-        return 0; // Weak
-    }
-
-    // If all rules are satisfied, consider it strong
-    return 2; // Strong
-}
-
-    
     function displayPasswordStrength(strength) {
         const strengthLabels = ['Weak', 'Medium', 'Strong'];
         passwordStrength.textContent = `Password Strength: ${strengthLabels[strength]}`;
     }
 
     // Get the "Continue" button element
-const continueButton = document.querySelector('[data-kt-stepper-action="next"]');
+    const continueButton = document.querySelector('[data-kt-stepper-action="next"]');
 
-// Add an event listener to the password input
-passwordInput.addEventListener('input', function() {
-    const password = this.value;
-    const strength = checkPasswordStrength(password);
+    // Add an event listener to the password input
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        const strength = checkPasswordStrength(password);
 
-    // Disable the "Continue" button if password strength is weak or medium
-    continueButton.disabled = strength < 2;
-});
-
-    </script>
+        // Disable the "Continue" button if password strength is weak or medium
+        continueButton.disabled = strength < 2;
+    });
+</script>
 <script>
     // Get the checkbox element
     const checkbox = document.getElementById('newCheckbox');
@@ -496,5 +508,3 @@ passwordInput.addEventListener('input', function() {
         });
     });
 </script>
-
-

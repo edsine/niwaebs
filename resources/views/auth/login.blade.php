@@ -74,7 +74,8 @@
                             <div class="brand-logo">
 
 
-                                <img src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" style="width:100px;">
+                                <img src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}"
+                                    style="width:100px;">
                             </div>
                             <h3>National Inland WaterWays Authority Staff InterFace</h3>
                             {{-- <h4 class="card-title">Welcome back!</h4> --}}
@@ -108,8 +109,13 @@
                                         <input type="password" name="password" placeholder="Password"
                                             class="form-control password form-control-lg border-left-0"
                                             id="exampleInputPassword" placeholder="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-transparent border-left-0">
+                                                <i class="fa fa-eye" id="togglePassword"></i>
+                                            </span>
+                                        </div>
                                     </div>
-                                    @error('email')
+                                    @error('password')
                                         <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -125,19 +131,9 @@
                                 </div>
                                 <div class="my-3">
                                     <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                                        type="submit">LOGIN</button>
-                                </div>
-                                {{-- <div class="mb-2 d-flex">
-                                    <button type="button" class="btn btn-facebook auth-form-btn flex-grow mr-1">
-                                        <i class="fab fa-facebook-f mr-2"></i>Facebook
-                                    </button>
-                                    <button type="button" class="btn btn-google auth-form-btn flex-grow ml-1">
-                                        <i class="fab fa-google mr-2"></i>Google
+                                        type="submit">LOGIN
                                     </button>
                                 </div>
-                                <div class="text-center mt-4 font-weight-light">
-                                    Don't have an account? <a href="register-2.html" class="text-primary">Create</a>
-                                </div> --}}
                             </form>
                         </div>
                     </div>
@@ -153,6 +149,21 @@
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#exampleInputPassword');
+
+        togglePassword.addEventListener('click', function(e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye icon
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+
     <!-- plugins:js -->
     <script src="{{ asset('sh_assets/vendors/js/vendor.bundle.base.js') }}"></script>
     <script src="{{ asset('sh_assets/vendors/js/vendor.bundle.addons.js') }}"></script>
@@ -167,15 +178,15 @@
     <!-- endinject -->
     <script>
         /* document.querySelector('form').addEventListener('submit', function(e) {
-                    const emailInput = document.getElementById('email');
-                    const email = emailInput.value;
+                        const emailInput = document.getElementById('email');
+                        const email = emailInput.value;
 
-                    // Check if the email ends with "@niwa.com"
-                    if (!email.endsWith('@niwa.com')) {
-                        e.preventDefault(); // Prevent form submission
-                        alert('Only email addresses with @niwa.com domain are allowed.');
-                    }
-                }); */
+                        // Check if the email ends with "@niwa.com"
+                        if (!email.endsWith('@niwa.com')) {
+                            e.preventDefault(); // Prevent form submission
+                            alert('Only email addresses with @niwa.com domain are allowed.');
+                        }
+                    }); */
     </script>
 </body>
 
