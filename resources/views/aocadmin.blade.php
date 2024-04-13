@@ -87,7 +87,8 @@
 
                             </div>
                             <div class="d-inline-block">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#revenueModal">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#revenueModal">
                                     VIEW
                                 </button>
                                 {{-- <i class="fas fa-shopping-cart text-danger icon-lg"></i> --}}
@@ -398,46 +399,47 @@
 
 
     <!-- Revenue Modal -->
-<div class="modal fade" id="revenueModal" tabindex="-1" role="dialog" aria-labelledby="revenueModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="revenueModalLabel">Revenue Sources</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-6 grid-margin">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title mb-0">REVENUE SOURCES</h4>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-inline-block pt-3">
-                                    <div class="d-md-flex">
-                                        <h2 class="mb-0"></h2>
-                                        <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                            {{-- <i class="far fa-clock text-muted"></i> --}}
-                                            {{-- <small class="ml-1 mb-0">Updated: 05:42pm</small> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-inline-block">
-                                    <i class="fas fa-shopping-cart text-danger icon-lg"></i>
-                                    {{-- <span class="m-3 badge badge-outline-success badge-pill">0% increase</span> --}}
-                                </div>
+    <div class="modal fade" id="revenueModal" tabindex="-1" role="dialog" aria-labelledby="revenueModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="revenueModalLabel">Revenue Sources</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-6 grid-margin">
+                        <div class="">
+                            <div class="">
+                                <h4 class="card-title mb-0">REVENUE SOURCES</h4>
+                                <table class="table">
+                                    {{-- <thead>
+                                        <tr>BRANCH NAME</tr>
+                                        <tr>REVENUE GENERATED</tr>
+                                    </thead> --}}
+                                    <tbody>
+                                        @foreach ($paymentbybranch as $item)
+                                            <tr>
+
+                                                <td>{{ $item->branch_name }}</td>
+                                                <td>{{ $item->sum }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                {{-- Add other buttons or actions here --}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{-- Add other buttons or actions here --}}
+                </div>
             </div>
         </div>
     </div>
-</div>
     <!-- content-wrapper ends -->
     <!--end::Content wrapper-->
 @endsection
