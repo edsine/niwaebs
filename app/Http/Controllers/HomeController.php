@@ -296,6 +296,19 @@ class HomeController extends Controller
         ->where('payment_status',1)
         ->select('amount')
         ->sum('amount');
+
+
+
+        $paymentbybranch = DB::table('payments')
+        ->join('branches', 'payments.branch_id', 'branches.id')
+        ->where('payment_status',1)
+        ->selectRaw('branches.branch_name, SUM(payments.amount) as sum')
+        ->groupBy('branches.branch_name')
+        ->get();
+
+
+        // dd(DB::table('services')->get());
+        // dd(DB::table('payments')->get());
         // dd($totalrevenue);
 
         // dd($totalrevenue);
@@ -320,6 +333,7 @@ class HomeController extends Controller
             'staffonleave',
             'thebranch',
             'totalrevenue',
+            'paymentbybranch',
 
 
 
