@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateDocumentsCategoryRequest;
 use App\Models\DocumentsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Modules\Shared\Models\Department;
 
 class DocumentsCategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class DocumentsCategoryController extends Controller
     
     public function index()
     {
-        $documents_categories = DocumentsCategory::paginate(10);
+        $documents_categories = DocumentsCategory::all();
 
         return view('documents_categories.index', compact('documents_categories'));
     }
@@ -27,7 +28,12 @@ class DocumentsCategoryController extends Controller
      */
     public function create()
     {
-         return view('documents_categories.create');
+        if (Auth()->user()->hasRole('super-admin')) {
+            $departments = Department::get();
+        } else {
+            $departments = Department::where('id', Auth()->user()->staff->department->id)->get();
+        }
+         return view('documents_categories.create', compact('departments'));
     }
 
     
@@ -39,6 +45,11 @@ class DocumentsCategoryController extends Controller
 {
     try {
         $validated = $request->validated();
+        if (Auth()->user()->hasRole('super-admin')) {
+        $validated['department_id'] = $request->input('department_id');
+        } else {
+        $validated['department_id'] = Auth()->user()->staff->department->id ?? 0;
+        }
         $documents_category = DocumentsCategory::create($validated);
         return redirect()->route('documents_category.index')->with('success', 'Document category added successfully!');
     } catch (\Throwable $e) {
@@ -62,7 +73,12 @@ class DocumentsCategoryController extends Controller
      */
     public function edit(DocumentsCategory $documents_category)
     {
-        return view('documents_categories.edit', compact(['documents_category']));
+        if (Auth()->user()->hasRole('super-admin')) {
+            $departments = Department::get();
+        } else {
+            $departments = Department::where('id', Auth()->user()->staff->department->id)->get();
+        }
+        return view('documents_categories.edit', compact(['documents_category', 'departments']));
     }
 
     /**
@@ -71,6 +87,11 @@ class DocumentsCategoryController extends Controller
     public function update(UpdateDocumentsCategoryRequest $request, DocumentsCategory $documents_category)
     {
         $validated = $request->validated();
+        if (Auth()->user()->hasRole('super-admin')) {
+            $validated['department_id'] = $request->input('department_id');
+            } else {
+            $validated['department_id'] = Auth()->user()->staff->department->id ?? 0;
+            }
         $documents_category->update($validated);
         return redirect()->route('documents_category.index')->with('success', 'Document category udpated successfully!');
     }

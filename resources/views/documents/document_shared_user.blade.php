@@ -20,8 +20,8 @@
 
         <div class="card">
             <div class="card-body p-5">
-                <div class="table-responsive1">
-                    <table class="table" id="document-table">
+                <div class="table-responsive">
+                    <table class="table align-middle gs-0 gy-4" id="order-listing">
                         <thead>
                             <tr>
                                {{--  <th>S/N</th> --}}
@@ -37,16 +37,25 @@
                         <tbody>
                             @php $n =1; @endphp
                             @foreach ($documents as $document)
-                                
+                            @php
+                            $document->category = $categories[$document->category_id] ?? null;
+                        @endphp
                                 <tr>
                                     {{-- <td>{{ $n++ }}</td> --}}
                                     <td>{{ $document->title }}</td>
                                     {{-- <td>{{ $document->description }}</td> --}}
                                     <td>{{ $document->first_name ? $document->first_name. ' '.$document->last_name : '' }}</td>
                                     <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}</a>
-                                    
-                                    <td>{{ $document->category_name ?? 'NILL' }}</td>
-                                    <td>{{ $document->start_date }}</td>
+                                        <td>
+                                            @if ($document->category)
+                                                {{ $document->category->department->name ?? '' }}
+                                                /
+                                                {{ $document->category_name ?? 'NILL' }}
+                                            @else
+                                                NILL
+                                            @endif
+                                        </td>
+                                        <td>{{ $document->start_date }}</td>
                                     <td>{{ $document->end_date }}</td>
                                     <td>
                                         <div class="dropdown">
@@ -67,7 +76,7 @@
                                                 data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Share</a>
                                                 @if(Auth::user()->hasRole('super-admin'))
                                                 <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
-                                                 @elseif($document->is_download == 1)
+                                                 @elseif(!empty($document->is_download) && $document->is_download == 1)
                                                 <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
                                                  {{-- @else 
                                                  {{ $document->document_url }} --}}
@@ -108,11 +117,7 @@
                     </table>
                 </div>
             
-                <div class="card-footer clearfix">
-                    <div class="float-right">
-                        @include('adminlte-templates::common.paginate', ['records' => $documents])
-                    </div>
-                </div>
+                
             </div>
             
             

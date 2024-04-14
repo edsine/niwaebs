@@ -1,6 +1,7 @@
+<div class="card">
 <div class="card-body p-5">
-    <div class="table-responsive1">
-        <table class="table" id="document-table">
+    <div class="table-responsive">
+        <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr>
                     {{-- <th>S/N</th> --}}
@@ -27,7 +28,7 @@
                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
-                        <td>{{ $document->category->name ?? 'NILL' }}</td>
+                        <td>{{ $document->category->department->name ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
                         <td>{{ $document->created_at->format('d/m/Y') }}</td>
                         {{-- @if(Auth::user()->hasRole('super-admin')) --}}
                         <td style="width: 120px;">
@@ -62,7 +63,7 @@ data-sharerole={{ $document->id }}>Role</a>
                                         data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Share</a>
                                         @if(Auth::user()->hasRole('super-admin'))
                                         <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
-                                         @elseif($document->is_download == 1)
+                                         @elseif(!empty($document->is_download) && $document->is_download == 1)
                                         <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
                                          {{-- @else 
                                          {{ $document->document_url }} --}}
@@ -119,12 +120,8 @@ data-sharerole={{ $document->id }}>Role</a>
         </table>
     </div>
 
-    <div class="card-footer clearfix">
-        <div class="float-right">
-            @include('adminlte-templates::common.paginate', ['records' => $documents])
-        </div>
-    </div>
-</div>
+    
+</div></div>
 <!-- Modal -->
 <div class="modal fade" id="uploadsModal" tabindex="-1" role="dialog" aria-labelledby="uploadsModalModalLabel"
     aria-hidden="true" data-backdrop="false">

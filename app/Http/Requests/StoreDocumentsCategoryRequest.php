@@ -25,6 +25,7 @@ class StoreDocumentsCategoryRequest extends FormRequest
         return [
             'name' => 'required|unique:documents_categories,name',
             'description' => 'nullable|string',
+            'department_id' => 'nullable|integer',
         ];
     }
 }

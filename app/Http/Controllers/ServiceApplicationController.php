@@ -33,7 +33,7 @@ class ServiceApplicationController extends AppBaseController
     {
         // $serviceApplications = $this->serviceApplicationRepository->paginate(10);
 
-        $serviceApplications = ServiceApplication::where('current_step', '>', 4)->paginate(10);
+        $serviceApplications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '>', 3)->paginate(10);
 
         return view('service_applications.index')
             ->with('serviceApplications', $serviceApplications);
@@ -210,6 +210,7 @@ class ServiceApplicationController extends AppBaseController
                 return redirect()->back();
             }
             $serviceApplication->current_step = 6;
+            $serviceApplication->status_summary = 'Your documents have been approved';
             Flash::success('Documents have been approved');
         }
 
@@ -228,6 +229,8 @@ class ServiceApplicationController extends AppBaseController
         $pay->approval_status = 1;
         $pay->save();
         }
+        $serviceApplication->status_summary = 'Application form fee approved';
+        $serviceApplication->save();
          Flash::success('Payment has been approved');
 
 
