@@ -30,6 +30,7 @@ use App\Repositories\DocumentHasRoleRepository;
 use App\Repositories\DocumentHasUserRepository;
 use App\Repositories\DocumentsCategoryRepository;
 use Modules\WorkflowEngine\Models\Staff;
+use App\Models\DocumentsCategory;
 
 class DocumentsController extends AppBaseController
 {
@@ -92,7 +93,7 @@ class DocumentsController extends AppBaseController
                 ->select('documents_manager.*', 'documents_has_users.*', 'documents_categories.*')
                 ->latest('documents_manager.created_at')
                 ->with('createdBy') // Add this line to eager load the createdBy relation
-                ->paginate(10);
+                ->get();
             //} else if ($userIds->contains($loggedInUserId)) {
 
         } else {
@@ -104,7 +105,7 @@ class DocumentsController extends AppBaseController
                 ->where('documents_has_users.user_id', $userId)
                 ->latest('documents_manager.created_at')
                 ->with('createdBy') // Add this line to eager load the createdBy relation
-                ->paginate(10);
+                ->get();
         }
 
 
@@ -139,12 +140,15 @@ class DocumentsController extends AppBaseController
             ->join('audits', 'documents_manager.id', '=', 'audits.auditable_id')
             ->join('users', 'documents_manager.created_by', '=', 'users.id')
             ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-            ->select('documents_manager.*', 'audits.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
+            ->select('documents_manager.*', 'documents_manager.id as id', 'audits.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
             ->where('audits.auditable_type', "App\Models\Documents")
             ->latest('documents_manager.created_at')
-            ->paginate(10);
+            ->get();
+        // Now that you have the documents, you can load the category relationship
+$documentIds = $documents->pluck('id')->toArray();
+$categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
 
-        return view('documents.document_audits', compact('documents'));
+        return view('documents.document_audits', compact('documents','categories'));
     }
 
     public function documentsVersion(Request $request, $id)
@@ -178,7 +182,7 @@ class DocumentsController extends AppBaseController
                 ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
                 ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
                 ->latest('documents_has_users.created_at')
-                ->paginate(10);
+                ->get();
         } else {
             $documents = DB::table('documents_has_users')
                 ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
@@ -187,8 +191,13 @@ class DocumentsController extends AppBaseController
                 ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
                 ->latest('documents_has_users.created_at')
                 ->where('documents_has_users.user_id', $userId)
-                ->paginate(10);
+                ->get();
         }
+
+        // Now that you have the documents, you can load the category relationship
+$documentIds = $documents->pluck('document_id')->toArray();
+$categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+
 
         $roles = $this->roleRepository->all()->pluck('name', 'id');
         // $roles->prepend('Select role', '');
@@ -204,7 +213,7 @@ class DocumentsController extends AppBaseController
 
         $users = $userData->pluck('name', 'id');
 
-        return view('documents.document_shared_user', compact('documents', 'users', 'roles'));
+        return view('documents.document_shared_user', compact('documents', 'users', 'roles', 'categories'));
     }
 
     public function sharedRole()
@@ -239,10 +248,11 @@ class DocumentsController extends AppBaseController
                     'documents_manager.id as id',
                     'documents_manager.document_url',
                     'roles.name as role_name',
-                    'documents_categories.name as category_name'
+                    'documents_categories.name as category_name',
+                    'documents_manager.category_id as category_id',
                 )
                 ->latest('documents_manager.created_at')
-                ->paginate(10);
+                ->get();
         } else {
             $documents = DB::table('documents_has_roles')
                 ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_roles.document_id')
@@ -255,12 +265,17 @@ class DocumentsController extends AppBaseController
                     'documents_manager.id as id',
                     'documents_manager.document_url',
                     'roles.name as role_name',
-                    'documents_categories.name as category_name'
+                    'documents_categories.name as category_name',
+                    'documents_manager.category_id as category_id',
                 )
                 ->latest('documents_manager.created_at')
                 ->where('documents_has_roles.role_id', $roleId)
-                ->paginate(10);
+                ->get();
         }
+
+        // Now that you have the documents, you can load the category relationship
+$documentIds = $documents->pluck('document_id')->toArray();
+$categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
 
         $roles = $this->roleRepository->all()->pluck('name', 'id');
         // $roles->prepend('Select role', '');
@@ -277,7 +292,7 @@ class DocumentsController extends AppBaseController
         $users = $userData->pluck('name', 'id');
 
 
-        return view('documents.document_shared_role', compact('documents', 'users', 'roles'));
+        return view('documents.document_shared_role', compact('documents', 'users', 'roles', 'categories'));
     }
 
     public function shareDocument(Request $request, $id)

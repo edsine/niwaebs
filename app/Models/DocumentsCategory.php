@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\Shared\Models\Department;
 
 class DocumentsCategory extends Model implements Auditable
 {
@@ -18,7 +19,12 @@ class DocumentsCategory extends Model implements Auditable
     public $fillable = [
         'name',
         'description',
+        'department_id',
     ];
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
     
 }

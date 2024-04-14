@@ -24,13 +24,11 @@
            <!-- .nk-block-head-content -->
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
-    <div class="nk-block nk-block-lg">
-        <div class="card card-bordered card-preview">
-            <div class="card-inner p-5">
-                <table class="datatable-init-export nowrap table" data-export-title="Export">
+    <div class="card-body p-5">
+        <div class="table-responsive">
+            <table class="table align-middle gs-0 gy-4" id="order-listing">
                     <thead>
                         <tr>
-                            <th>S/N</th>
                             <th>Folder Name</th>
                             <th>Manage</th>
                         </tr>
@@ -40,10 +38,8 @@
                     @endphp
                         @foreach ($documents_categories as $documents_category)
                             <tr>
-                                <td>@php
-                                echo $no++;
-                                @endphp</td>
-                                <td>{{ $documents_category->name }}</td>
+                                
+                                <td>{{ $documents_category->department->name ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
                                  <td>
                                     <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category"><span
                                             class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span></a>
@@ -69,12 +65,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $documents_categories->links() }}
             </div>
         </div><!-- .card-preview -->
-    </div> <!-- nk-block -->
-    {{-- </div><!-- .components-preview --> --}}
-
+    
 @endsection
 
 @push('scripts')

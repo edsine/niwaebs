@@ -27,7 +27,7 @@
                         <td style="width: 120px">
                             <div class='btn-group'>
                                 <a href="{{ route('serviceApplications.show', [$serviceApplication->id]) }}"
-                                    class='btn btn-default btn-xs'>
+                                    class='btn btn-default btn-xs' title="View & Make Service Approvals">
                                     <i class="far fa-eye"></i>
                                 </a>
                             </div>

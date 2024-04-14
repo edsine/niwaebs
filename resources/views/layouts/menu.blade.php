@@ -159,12 +159,12 @@
 
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('document.index') }}">
                         Documents Approval
 
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
         <li class="nav-item" id="myTask">
