@@ -39,7 +39,7 @@
                         @foreach ($documents_categories as $documents_category)
                             <tr>
                                 
-                                <td>{{ $documents_category->department->name ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
+                                <td>{{ $documents_category->department ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
                                  <td>
                                     <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category"><span
                                             class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span></a>
