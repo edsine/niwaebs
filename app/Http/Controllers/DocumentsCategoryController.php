@@ -18,7 +18,11 @@ class DocumentsCategoryController extends Controller
     
     public function index()
     {
+        if (Auth()->user()->hasRole('super-admin')) {
         $documents_categories = DocumentsCategory::all();
+    } else {
+        $documents_categories = DocumentsCategory::where('department_id', Auth()->user()->staff->department->id)->get();
+    }
 
         return view('documents_categories.index', compact('documents_categories'));
     }
