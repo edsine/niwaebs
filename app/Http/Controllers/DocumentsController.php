@@ -134,7 +134,7 @@ class DocumentsController extends AppBaseController
             return redirect()->back();
         } */
 
-
+        if (Auth()->user()->hasRole('super-admin')) {
 
         $documents = DB::table('documents_manager')
             ->join('audits', 'documents_manager.id', '=', 'audits.auditable_id')
@@ -147,6 +147,10 @@ class DocumentsController extends AppBaseController
         // Now that you have the documents, you can load the category relationship
 $documentIds = $documents->pluck('id')->toArray();
 $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+        } else{
+            
+            return redirect()->back()->with('error', 'Permission denied for document audit trail access');
+        }
 
         return view('documents.document_audits', compact('documents','categories'));
     }

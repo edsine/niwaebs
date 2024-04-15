@@ -447,6 +447,22 @@
         a {
             font-size: larger !important;
         }
+
+        .loader-demo-box1 {
+  position: fixed; /* Change from absolute to fixed for full screen coverage */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width of the viewport */
+  height: 100%; /* Full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.8); /* Light background color */
+}
+
+
+
     </style>
 
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -461,7 +477,7 @@
     <!-- plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="{{ asset('sh_assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('sh_assets/css/style.css') }}?v=1">
     <!-- endinject -->
 
     <!-- for the css datatable -->
@@ -479,8 +495,6 @@
     class="app-default"
     data-kt-app-sidebar-minimize="{{ auth()->user()->hasRole('minister') ||auth()->user()->hasRole('permsec')? 'on': 'off' }}">
     <!--begin::Theme mode setup on page load--> --}}
-
-
 
 
 
@@ -503,9 +517,20 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
+     
+     {{-- <div class="col-md-4 col-sm-6 grid-margin stretch-card"> --}}
+    <div class="loader-demo-box1">
+        <div class="dot-opacity-loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    {{-- </div> --}}
     <!--end::Theme mode setup on page load-->
     <!--begin::App-->
     <div class="container-scroller">
+        
         <!--begin::Header-->
         @if (auth()->check())
             @include('layouts.header')
@@ -834,6 +859,21 @@
         </div>
     </div>
     @include('partials.admin.footer')
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+  // DOMContentLoaded event is fired when the initial HTML document has been completely loaded and parsed
+  
+  // Get references to the loader elements
+  var loaderBox = document.querySelector('.loader-demo-box1');
+  var dotLoader = document.querySelector('.dot-opacity-loader');
+  
+  // Hide the loader elements
+  loaderBox.style.display = 'none';
+  dotLoader.style.display = 'none';
+});
+
+  </script>
 </body>
 
 </html>
