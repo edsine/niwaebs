@@ -28,7 +28,7 @@
                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
-                        <td>{{ $document->category->department->name ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                        <td>{{ $document->category->department ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
                         <td>{{ $document->created_at->format('d/m/Y') }}</td>
                         {{-- @if(Auth::user()->hasRole('super-admin')) --}}
                         <td style="width: 120px;">
