@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<div class="row">
+{{-- <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('area_offices', 'Area Office(s):') !!}
         {!! Form::select('branch_id[]', $office->pluck('branch_name', 'id')->prepend('All', ''), null, [
@@ -59,9 +59,9 @@
             'id' => 'thedepartment',
         ]) !!}
     </div>
-</div>
+</div> --}}
 
-<div class="col-sm-12 row mb-3">
+{{-- <div class="col-sm-12 row mb-3">
     <!-- Roles and users Field -->
 
     <div class="form-group col-sm-6">
@@ -84,7 +84,7 @@
     </div>
 
 
-</div>
+</div> --}}
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

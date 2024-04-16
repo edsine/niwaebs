@@ -574,10 +574,10 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     /**
      * Store a newly created Memo in storage.
      */
-    public function store(CreateDocumentsRequest $request)
+    public function store(Request $request)
     {
 
-        dd($request->all());
+    
         /* if (!checkPermission('create document')) {
             Flash::error('Permission denied');
 
@@ -642,12 +642,15 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         // Save document version
 
         // Assign to roles(s)
-        $roles = $input['roles'];
+        $roleId = $user->roles->pluck('id')->all();
+        $userId = $user->id;
+        $roles = $roleId; //$input['roles'];
         if ($roles != null) {
             $this->_assignToRoles($roles, $document);
         }
         // Assign to user(s)
-        $users = $input['users'];
+        
+        $users = [$userId]; // Convert $userId to an array
         if ($users != null) {
             $this->_assignToUsers($users, $document);
         }
@@ -996,7 +999,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     /**
      * Update the specified Document in storage.
      */
-    public function update($id, UpdateDocumentsRequest $request)
+    public function update($id, Request $request)
     {
         /* if (!checkPermission('update document')) {
             Flash::error('Permission denied');
@@ -1055,12 +1058,15 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         DocumentHasUser::where('document_id', $document_id)->delete();
 
         // Assign to roles(s)
-        $roles = $input['roles'];
+        $roleId = $user->roles->pluck('id')->all();
+        $userId = $user->id;
+
+        $roles = $roleId;//$input['roles'];
         if ($roles != null) {
             $this->_assignToRoles($roles, $document);
         }
         // Assign to user(s)
-        $users = $input['users'];
+        $users = [$userId]; // Convert $userId to an array
         if ($users != null) {
             $this->_assignToUsers($users, $document);
         }

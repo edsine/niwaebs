@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h4 class="card-title">
-                    Create Equipment And Fees
+                    Create Demand Notice
                     </h4>
                 </div>
             </div>

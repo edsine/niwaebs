@@ -46,7 +46,7 @@
                     <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-semibold flex-nowrap">
                         <!--begin::Nav item-->
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary me-6 active" href="">Folders</a>
+                            <a class="nav-link text-active-primary me-6 active" href="">Files</a>
                         </li>
                         <!--end::Nav item-->
                     </ul>
@@ -71,7 +71,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <input type="text" data-kt-filemanager-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Folders" />
+                        <input type="text" data-kt-filemanager-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Files" />
                     </div>
                     <!--end::Search-->
                 </div>
@@ -122,7 +122,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <a href="#">Folders</a>
+                            <a href="#">Files</a>
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
                             <span class="svg-icon svg-icon-2 svg-icon-primary mx-1">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -13,11 +13,14 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Folders</h3>
+                <h3 class="nk-block-title page-title">File Indexing</h3>
                 <div class="row">
                 <div class="col-md-12">
+                    @can("create folder")
+                    
                     <a href="{{ route('documents_category.create') }}" class="btn btn-primary float-end" ><em
-                        class="fa fa-user-add"></em> <span>Add New Folder</span></a>
+                        class="fa fa-user-add"></em> <span>Add New File</span></a>
+                    @endcan
                 </div>
                 </div>
             </div><!-- .nk-block-head-content -->
@@ -27,45 +30,70 @@
     <div class="card-body p-5">
         <div class="table-responsive">
             <table class="table align-middle gs-0 gy-4" id="order-listing">
-                    <thead>
+                <thead>
+                    <tr>
+                        <th>Serial No.</th>
+                        <th>File No.</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    @foreach ($documents_categories as $index => $documents_category)
                         <tr>
-                            <th>Folder Name</th>
-                            <th>Manage</th>
+                            <td>{{ $index + 1 }}</td> <!-- Use $index + 1 as the serial number -->
+                            <td>{{ $documents_category->department ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
+                            <td>
+                                <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category">
+                                    <span class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span>
+                                </a>
+                                <a id="delete-documents-category" title="Terminate documents category" style="cursor: pointer;"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('delete-documents-category-form').submit();">
+                                    <span class="nk-menu-icon text-danger eg-swal-av3"><em class="icon ni ni-user-remove"></em></span>
+                                </a>
+                                <form id="delete-documents-category-form" action="{{ route('documents_category.destroy', $documents_category->id) }}"
+                                    method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    {{-- <button onclick="return false" id="delete-service" class="btn btn-danger">Delete</button> --}}
+                                </form>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody> @php
-                        $no = 1;
-                    @endphp
-                        @foreach ($documents_categories as $documents_category)
-                            <tr>
-                                
-                                <td>{{ $documents_category->department ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
-                                 <td>
-                                    <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category"><span
-                                            class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span></a>
-                                    {{-- <a data-id="{{ $documents_category->id }}"><span class="nk-menu-icon text-danger eg-swal-av3"><em
-                                                class="icon ni ni-trash"></em></span>
-                                            </a> --}}
-
-                                    <a id="delete-documents-category" title="Terminate documents category" style="cursor: pointer;"
-                                        onclick="event.preventDefault();
-                                    document.getElementById('delete-documents-category-form').submit();"><span
-                                            class="nk-menu-icon text-danger eg-swal-av3"><em
-                                                class="icon ni ni-user-remove"></em></span>
-                                    </a>
-                                    <form id="delete-documents-category-form" action="{{ route('documents_category.destroy', $documents_category->id) }}"
-                                        method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        {{-- <button onclick="return false" id="delete-service"
-                                            class="btn btn-danger">Delete</button> --}}
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
+            
+            <script>
+                (function($) {
+                    'use strict';
+                    $(function() {
+                        $('#order-listing').DataTable({
+                            "aLengthMenu": [
+                                [5, 10, 15, -1],
+                                [5, 10, 15, "All"]
+                            ],
+                            "iDisplayLength": 10,
+                            "language": {
+                                search: ""
+                            },
+                            "columnDefs": [ // Add this to specify column rendering
+                                { "orderable": false, "targets": 0 } // Disable sorting for the first column
+                            ]
+                        });
+                        $('#order-listing').each(function() {
+                            var datatable = $(this);
+                            // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                            var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                            search_input.attr('placeholder', 'Search');
+                            search_input.removeClass('form-control-sm');
+                            // LENGTH - Inline-Form control
+                            var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                            length_sel.removeClass('form-control-sm');
+                        });
+                    });
+                })(jQuery);
+            </script>
+                        </div>
         </div><!-- .card-preview -->
     
 @endsection

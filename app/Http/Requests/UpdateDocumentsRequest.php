@@ -30,9 +30,9 @@ class UpdateDocumentsRequest extends FormRequest
         return $rules; */
         return [
            
-            'title' => 'required|string',
+           /*  'title' => 'required|string',
             'description' => 'required|string',
-            'file' => 'nullable',
+            'file' => 'nullable', */
             
         ];
     }

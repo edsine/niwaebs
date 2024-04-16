@@ -30,7 +30,7 @@
                 <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title">Folders</span>
+                <span class="menu-title">Files</span>
             </a>
             <!--end:Menu link-->
         </div>

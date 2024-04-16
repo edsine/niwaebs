@@ -28,7 +28,7 @@
                                 <th>Document Name</th>
                                 <th>Role Name</th>
                                 <th>Document URL</th>
-                                <th>Folder Name</th>
+                                <th>File Name</th>
                                 <th>Start Date</th>
                                 <th>Expiry Date</th>
                                 <th>Action</th>
@@ -80,7 +80,7 @@
                                                 @endif
                                                 <a class="open-modal-share btn btn-default btn-xs dropdown-item"
                                                     href="#" data-toggle="modal" data-target="#shareModal"
-                                                    data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Share</a>
+                                                    data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Assign to</a>
                                                 @if (Auth::user()->hasRole('super-admin'))
                                                     <a class="btn btn-default btn-xs dropdown-item"
                                                         href="{{ asset($document->document_url) }}" download><i

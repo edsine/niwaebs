@@ -183,6 +183,8 @@ function enum_equipment_fees_metrics()
     $option[6] = 'Per Tonne';
     $option[7] = 'One-time';
     $option[8] = 'Per Trip';
+    $option[9] = 'Kilometer';
+    $option[10] = 'Meter';
 
 
     return $option;
