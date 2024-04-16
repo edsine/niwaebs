@@ -200,7 +200,7 @@
                     <a class="nav-link" href="{{ route('inspection_fee.index') }}">Inspection Fee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">Equipment And Fees</a>
+                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">Demand Notice</a>
                 </li>
 
 
@@ -317,7 +317,7 @@
                         </li> --}}
 
                         {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('folders.index') }}">Folders</a>
+                            <a class="nav-link" href="{{ route('folders.index') }}">Files</a>
                         </li> --}}
 
 
@@ -584,7 +584,7 @@
                     <a class="nav-link" href="{{ route('documents_manager.index') }}">All Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('documents_category.index') }}">Folders</a>
+                    <a class="nav-link" href="{{ route('documents_category.index') }}">Files</a>
                 </li>
                 @if(auth()->user()->hasRole('super-admin'))
                 <li class="nav-item">

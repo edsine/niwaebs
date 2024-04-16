@@ -24,11 +24,11 @@ class CreateDocumentsRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        //return [
             // Add validation for the roles field
-            'roles' => 'required|array|min:1', // At least one role must be selected
-            'users' => 'required|array|min:1', // At least one user must be selected
-        ];
+           // 'roles' => 'required|array|min:1', // At least one role must be selected
+           // 'users' => 'required|array|min:1', // At least one user must be selected
+        //];
     }
 
     /**
@@ -38,9 +38,9 @@ class CreateDocumentsRequest extends FormRequest
      */
     public function messages()
     {
-        return [
+       /*  return [
             'roles.required' => 'Please select at least one role.',
             'users.required' => 'Please select at least one user.',
-        ];
+        ]; */
     }
 }

@@ -675,7 +675,7 @@
             <div class="col-md-6 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-0">Total Folders</h4>
+                        <h4 class="card-title mb-0">Total Files</h4>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-inline-block pt-3">
                                 <div class="d-md-flex">

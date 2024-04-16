@@ -84,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/documents_manager/shared/user', 'App\Http\Controllers\DocumentsController@sharedUser')->name('documents_manager.shareduser');
     Route::get('/documents_manager/shared/role', 'App\Http\Controllers\DocumentsController@sharedRole')->name('documents_manager.sharedrole');
 
+    Route::post('/generate-file-no', 'App\Http\Controllers\DocumentsCategoryController@generateFileNo');
 
 });
 
