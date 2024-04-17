@@ -277,7 +277,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         'documents_manager.document_url as document_url',
         'documents_manager.id as d_m_id',
         'documents_manager.category_id as d_m_c_id',
-        
+
         DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
     )
     ->latest('documents_has_users.created_at')
@@ -305,14 +305,42 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         });
 
         } else {
-            $documents = DB::table('documents_has_users')
+           
+
+    //here
+    $documents = DB::table('documents_has_users')
     ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
     ->join('users', 'documents_has_users.user_id', '=', 'users.id')
     ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-    ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_has_users.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.category_id as d_m_c_id')
-    ->where('documents_has_users.user_id', '=', $userId) // Explicitly specifying the table name for user_id
+    ->select(
+        'documents_categories.id',
+        'documents_manager.title',
+        'documents_has_users.created_at as createdAt',
+        'documents_categories.name as category_name',
+        'documents_has_users.start_date',
+        'documents_has_users.end_date',
+        'documents_manager.document_url as document_url',
+        'documents_manager.id as d_m_id',
+        'documents_manager.category_id as d_m_c_id',
+
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+    )
     ->latest('documents_has_users.created_at')
+    ->groupBy(
+        'documents_categories.id',
+        'documents_has_users.start_date',
+        'documents_has_users.end_date',
+        'documents_manager.id',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'documents_has_users.id',
+        'documents_has_users.created_at',
+        'documents_categories.name'
+    )
+    ->where('documents_has_users.user_id', '=', $userId)
     ->get();
+
+    
     $users1 = DB::table('users')
     ->join('staff', 'staff.user_id', '=', 'users.id')
     ->join('departments', 'departments.id', '=', 'staff.department_id')
@@ -326,6 +354,8 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
                 'name' => $user->first_name . ' ' . $user->last_name,
             ];
         });
+
+        
         }
 
         // Now that you have the documents, you can load the category relationship
