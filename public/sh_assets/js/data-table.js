@@ -9,8 +9,11 @@
       "iDisplayLength": 10,
       "language": {
         search: ""
-      }
+      },
+      "order": [[0, "desc"]], // Sort by the first column (index 0) in descending order
+      
     });
+
     $('#order-listing').each(function() {
       var datatable = $(this);
       // SEARCH - Add the placeholder for Search and Turn this into in-line form control

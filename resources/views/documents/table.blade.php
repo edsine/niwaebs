@@ -24,21 +24,21 @@
                         {{-- <td>{{ $n++ }}</td> --}}
                         <td>{{ $document->title }}</td>
                         {{-- <td>{{ $document->description }}</td> --}}
-                        <td>{{ $document->createdBy ? $document->createdBy->first_name. ' '.$document->createdBy->last_name : '' }}</td>
+                        <td>{{ $document->created_by_name ?? 'NILL' }}</td>
                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
                         <td>{{ $document->category->department ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
-                        <td>{{ $document->created_at->format('d/m/Y') }}</td>
+                        <td>{{ $document->document_created_at }}</td>
                         {{-- @if(Auth::user()->hasRole('super-admin')) --}}
                         <td style="width: 120px;">
                             
                             <div class="btn-group" role="group">
                              <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
-data-shareuser={{ $document->id }}>User</a>
+data-shareuser={{ $document->d_id }}>User</a>
 
-<a class="open-modal-sharerole btn btn-danger" href="#" data-toggle="modal" data-target="#shareroleModal"
-data-sharerole={{ $document->id }}>Role</a>
+{{-- <a class="open-modal-sharerole btn btn-danger" href="#" data-toggle="modal" data-target="#shareroleModal"
+data-sharerole={{ $document->d_id }}>Role</a> --}}
 
                             </div>
                             
@@ -55,12 +55,12 @@ data-sharerole={{ $document->id }}>Role</a>
                                             <i class="far fa-eye"></i> View
                                         </a>
                                         @if(Auth::user()->hasRole('super-admin'))
-                                        <a href="{{ route('documents_manager.edit', [$document->id]) }}" class='btn btn-default btn-xs dropdown-item'>
+                                        <a href="{{ route('documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs dropdown-item'>
                                             <i class="far fa-edit"></i> Edit
                                         </a>
                                         @endif
                                         <a class="open-modal-share btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#shareModal"
-                                        data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Assign to</a>
+                                        data-share={{ $document->d_id }}><i class="fa fa-share-alt"></i> Assign to</a>
                                         @if(Auth::user()->hasRole('super-admin'))
                                         <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
                                          @elseif(!empty($document->is_download) && $document->is_download == 1)
@@ -69,20 +69,20 @@ data-sharerole={{ $document->id }}>Role</a>
                                          {{ $document->document_url }} --}}
                                          @endif
                                         <a class="open-modal-upload btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#uploadsModal"
-                                        data-upload={{ $document->id }}><i class="fa fa-download"></i> Upload New Version File</a>
+                                        data-upload={{ $document->d_id }}><i class="fa fa-download"></i> Upload New Version File</a>
                                         <a class="open-modal-history btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#historyModal"
-                                        data-history={{ $document->id }}><i class="fa fa-history"></i> Version History</a>
+                                        data-history={{ $document->d_id }}><i class="fa fa-history"></i> Version History</a>
                                         <a class="open-modal-comment btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#commentModal"
-                                        data-comment={{ $document->id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
+                                        data-comment={{ $document->d_id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
                                         <a class="btn btn-default btn-xs dropdown-item" href="#"><i class="fa fa-bell"></i> Add Reminder</a>
                                         <a class="open-modal-sendemail btn btn-default btn-xs dropdown-item" href="#"  data-toggle="modal" data-target="#sendEmailModal"
-                                        data-sendemail={{ $document->id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
+                                        data-sendemail={{ $document->d_id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
                                         @if(Auth::user()->hasRole('super-admin'))
                                         <a class="btn btn-default btn-xs dropdown-item" href="#" onclick="confirmDelete()">
                                             <i class="far fa-trash-alt"></i> Delete
                                         </a>
                                         @endif
-                                                                             {!! Form::open(['route' => ['documents_manager.destroy', $document->id], 'method' => 'delete']) !!}
+                                                                             {!! Form::open(['route' => ['documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
                             
                                         {!! Form::button('Delete button', [
                                             'type' => 'submit',
@@ -96,14 +96,14 @@ data-sharerole={{ $document->id }}>Role</a>
                                     </div>
                                 </div>
                             
-                           {{--  {!! Form::open(['route' => ['documents_manager.destroy', $document->id], 'method' => 'delete']) !!}
+                           {{--  {!! Form::open(['route' => ['documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                <a href="{{ route('documents_manager.show', [$document->id]) }}"
+                                <a href="{{ route('documents_manager.show', [$document->d_id]) }}"
                                     class='btn btn-default btn-xs'>
                                     <i class="far fa-eye"></i>
                                 </a>
                                 
-                                <a href="{{ route('documents_manager.edit', [$document->id]) }}" class='btn btn-default btn-xs'>
+                                <a href="{{ route('documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs'>
                                     <i class="far fa-edit"></i>
                                 </a>
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
@@ -598,13 +598,14 @@ aria-hidden="true" data-backdrop="false">
             response.forEach(function(history) {
     let row = $('<tr>');
     row.append($('<td>').text(history.firstName + ' ' + history.lastName));
-    if (history.document_url === history.doc_url) {
+    /* if (history.document_url == history.doc_url) {
         row.append($('<td>').html(history.document_url + ' <span class="btn-primary" style="background: green;">current version</span>'));
     } else {
         row.append($('<td>').text(history.document_url));
-    }
+    } */
+    row.append($('<td>').text(history.document_url));
     row.append($('<td>').text(history.createdAt));
-        $('#curr').html(history.doc_url + ' <span class="btn-primary" style="background: green;">current version</span>')
+        $('#curr').html(history.document_url + ' <span class="btn-primary" style="background: green;">current version</span>')
     $('#document-table-history tbody').append(row);
 });
 
@@ -669,7 +670,7 @@ $(document).on("click", ".open-modal-share", function() {
             response.forEach(function(history) {
     let row = $('<tr>');
         row.append($('<td>').text('User'));
-            if(history.is_download === 1){
+            if(history.is_download == 1){
         row.append($('<td>').text('Yes'));
         }else{
             row.append($('<td>').text('No'));

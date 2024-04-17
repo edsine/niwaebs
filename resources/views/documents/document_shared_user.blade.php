@@ -38,13 +38,13 @@
                             @php $n =1; @endphp
                             @foreach ($documents as $document)
                             @php
-                            $document->category = $categories[$document->category_id] ?? null;
+                            $document->category = $categories[$document->d_m_c_id] ?? null;
                         @endphp
                                 <tr>
                                     {{-- <td>{{ $n++ }}</td> --}}
                                     <td>{{ $document->title }}</td>
                                     {{-- <td>{{ $document->description }}</td> --}}
-                                    <td>{{ $document->first_name ? $document->first_name. ' '.$document->last_name : '' }}</td>
+                                    <td>{{ $document->created_by_name ?? 'NILL' }}</td>
                                     <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}</a>
                                         <td>
                                             @if ($document->category)
@@ -52,7 +52,7 @@
                                                 /
                                                 {{ $document->category_name ?? 'NILL' }}
                                             @else
-                                                NILL
+                                            {{ $document->category_name ?? 'NILL' }}
                                             @endif
                                         </td>
                                         <td>{{ $document->start_date }}</td>
@@ -68,12 +68,12 @@
                                                     <i class="far fa-eye"></i> View
                                                 </a>
                                                 @if(Auth::user()->hasRole('super-admin'))
-                                                <a href="{{ route('documents_manager.edit', [$document->id]) }}" class='btn btn-default btn-xs dropdown-item'>
+                                                <a href="{{ route('documents_manager.edit', [$document->d_m_id]) }}" class='btn btn-default btn-xs dropdown-item'>
                                                     <i class="far fa-edit"></i> Edit
                                                 </a>
                                                 @endif
                                                 <a class="open-modal-share btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#shareModal"
-                                                data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Assign to</a>
+                                                data-share={{ $document->d_m_id }}><i class="fa fa-share-alt"></i> Assign to</a>
                                                 @if(Auth::user()->hasRole('super-admin'))
                                                 <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
                                                  @elseif(!empty($document->is_download) && $document->is_download == 1)
@@ -82,20 +82,20 @@
                                                  {{ $document->document_url }} --}}
                                                  @endif
                                                 <a class="open-modal-upload btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#uploadsModal"
-                                                data-upload={{ $document->id }}><i class="fa fa-download"></i> Upload New Version File</a>
+                                                data-upload={{ $document->d_m_id }}><i class="fa fa-download"></i> Upload New Version File</a>
                                                 <a class="open-modal-history btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#historyModal"
-                                                data-history={{ $document->id }}><i class="fa fa-history"></i> Version History</a>
+                                                data-history={{ $document->d_m_id }}><i class="fa fa-history"></i> Version History</a>
                                                 <a class="open-modal-comment btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#commentModal"
-                                                data-comment={{ $document->id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
+                                                data-comment={{ $document->d_m_id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
                                                 <a class="btn btn-default btn-xs dropdown-item" href="#"><i class="fa fa-bell"></i> Add Reminder</a>
                                                 <a class="open-modal-sendemail btn btn-default btn-xs dropdown-item" href="#"  data-toggle="modal" data-target="#sendEmailModal"
-                                                data-sendemail={{ $document->id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
+                                                data-sendemail={{ $document->d_m_id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
                                                 @if(Auth::user()->hasRole('super-admin'))
                                                 <a class="btn btn-default btn-xs dropdown-item" href="#" onclick="confirmDelete()">
                                                     <i class="far fa-trash-alt"></i> Delete
                                                 </a>
                                                 @endif
-                                                                                     {!! Form::open(['route' => ['documents_manager.destroy', $document->id], 'method' => 'delete']) !!}
+                                                                                     {!! Form::open(['route' => ['documents_manager.destroy', $document->d_m_id], 'method' => 'delete']) !!}
                                     
                                                 {!! Form::button('Delete button', [
                                                     'type' => 'submit',

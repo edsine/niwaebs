@@ -51,7 +51,7 @@ class EquipmentAndFeeController extends AppBaseController
             $sub_services = SubService::pluck('name', 'id');
         }else{
             $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
-            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->pluck('name', 'id');
             $services->prepend('Select Service','');
             $sub_services = SubService::where('id', Auth()->user()->staff->branch->id)->pluck('name', 'id');
         }

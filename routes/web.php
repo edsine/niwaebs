@@ -47,7 +47,7 @@ use Modules\Accounting\Http\Controllers\ExpenseController;
 |
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [HomeController::class, 'clockIn'])->name('home');
     Route::post('/home/clock-in', [HomeController::class, 'clockIn'])->name('clock-in');
     Route::post('/home/clock-out', [HomeController::class, 'clockOut'])->name('clock-out');

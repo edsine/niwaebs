@@ -10,6 +10,7 @@ use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\EmployerManager\Models\Payment;
 use Modules\EmployerManager\Models\Employee;
+use Modules\Shared\Models\Branch;
 
 class Employer extends Model implements Auditable
 {
@@ -119,5 +120,11 @@ class Employer extends Model implements Auditable
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
 
 }
