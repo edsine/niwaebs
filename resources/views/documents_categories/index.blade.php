@@ -29,11 +29,12 @@
     </div><!-- .nk-block-head -->
     <div class="card-body p-5">
         <div class="table-responsive">
-            <table class="table align-middle gs-0 gy-4" id="order-listing">
+            <table class="table align-middle gs-0 gy-4" id="order-listing1">
                 <thead>
                     <tr>
                         <th>Serial No.</th>
                         <th>File No.</th>
+                        <th>Subject</th>
                         <th>Manage</th>
                     </tr>
                 </thead>
@@ -42,90 +43,76 @@
                         <tr>
                             <td>{{ $index + 1 }}</td> <!-- Use $index + 1 as the serial number -->
                             <td>{{ $documents_category->department ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
+                            <td>{{ $documents_category->description }}</td>
                             <td>
                                 <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category">
                                     <span class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span>
                                 </a>
-                                <a id="delete-documents-category" title="Terminate documents category" style="cursor: pointer;"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('delete-documents-category-form').submit();">
-                                    <span class="nk-menu-icon text-danger eg-swal-av3"><em class="icon ni ni-user-remove"></em></span>
-                                </a>
-                                <form id="delete-documents-category-form" action="{{ route('documents_category.destroy', $documents_category->id) }}"
-                                    method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    {{-- <button onclick="return false" id="delete-service" class="btn btn-danger">Delete</button> --}}
-                                </form>
+                               
+
+                              {{--   <a href="#" title="Terminate document category" style="cursor: pointer;"
+                                            onclick="confirmDelete('{{ route('documents_category.destroy', $documents_category->id) }}')">
+                                            <span class="nk-menu-icon text-danger eg-swal-av3">
+                                                <em class="fa fa-trash"></em>
+                                            </span>
+                                        </a> --}}
+                                        <form id="delete-documents-category-form-{{ $documents_category->id }}" action="{{ route('documents_category.destroy', $documents_category->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <input type="hidden" name="deleted" value="{{ $documents_category->id }}"/>
+                                            @method('DELETE')
+                                        </form>
+                                        
+                                        <a href="#" onclick="confirmDelete('{{ route('documents_category.destroy', $documents_category->id) }}')">Delete</a>
+                                        
+                                        <script>
+                                            function confirmDelete(deleteUrl) {
+                                                // Show confirmation dialog
+                                                if (confirm('Are you sure you want to delete this item?')) {
+                                                    // Redirect to the delete URL
+                                                    window.location.href = deleteUrl;
+                                                }
+                                            }
+                                        </script>
+                                        
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             
-            <script>
-                (function($) {
-                    'use strict';
-                    $(function() {
-                        $('#order-listing').DataTable({
-                            "aLengthMenu": [
-                                [5, 10, 15, -1],
-                                [5, 10, 15, "All"]
-                            ],
-                            "iDisplayLength": 10,
-                            "language": {
-                                search: ""
-                            },
-                            "columnDefs": [ // Add this to specify column rendering
-                                { "orderable": false, "targets": 0 } // Disable sorting for the first column
-                            ]
-                        });
-                        $('#order-listing').each(function() {
-                            var datatable = $(this);
-                            // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                            var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                            search_input.attr('placeholder', 'Search');
-                            search_input.removeClass('form-control-sm');
-                            // LENGTH - Inline-Form control
-                            var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                            length_sel.removeClass('form-control-sm');
-                        });
-                    });
-                })(jQuery);
-            </script>
+            
                         </div>
         </div><!-- .card-preview -->
-    
+         <script>
+            (function($) {
+                'use strict';
+                $(function() {
+                    $('#order-listing1').DataTable({
+                        "aLengthMenu": [
+                            [5, 10, 15, -1],
+                            [5, 10, 15, "All"]
+                        ],
+                        "iDisplayLength": 10,
+                        "language": {
+                            search: ""
+                        },
+                        "columnDefs": [ // Add this to specify column rendering
+                            { "orderable": false, "targets": 0 } // Disable sorting for the first column
+                        ]
+                    });
+                    $('#order-listing1').each(function() {
+                        var datatable = $(this);
+                        // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                        var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                        search_input.attr('placeholder', 'Search');
+                        search_input.removeClass('form-control-sm');
+                        // LENGTH - Inline-Form control
+                        var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                        length_sel.removeClass('form-control-sm');
+                    });
+                });
+            })(jQuery);
+        </script>
 @endsection
 
-@push('scripts')
-    <script>
-        $(document).ready(function() {
 
-            $('#delete-documents-category').on('click', function(e) {
-                e.preventDefault();
-                let id = $(this).data('id');
-                Swal.fire({
-                    title: 'Are you sure ?',
-                    text: "You won't be able to revert this !",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    //redirect to database
-                    if (result.isConfirmed) {
-                        $('#delete-documents-category-form').submit();
-                    }
-                    //handle through ajax
-                    /* if (result.value) {
-                        Swal.fire('Deleted!', 'Your selected item has been deleted.', 'success');
-                    } */
-                })
-            });
-        });
-    </script>
-    <!-- JavaScript -->
-    <script src="./assets/js/libs/datatable-btns.js?ver=3.1.3"></script>
-@endpush

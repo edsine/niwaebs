@@ -100,7 +100,7 @@
                 <a class="nav-link" href="#">
                     <i class="bi bi-tools menu-icon"></i>
 
-                    <span class="menu-title">System Setup</span>
+                    <span class="menu-title">User Management</span>
                     <i class="menu-arrow"></i>
 
                 </a>
@@ -113,6 +113,9 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('employers.index') }}">Clients</a>
                     </li>
 
                 </ul>
@@ -576,10 +579,10 @@
                     <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">My
                         Documents</a>
                 </li>
-                <li class="nav-item">
+               {{--  <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.sharedrole') }}">Official
                         Documents</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.index') }}">All Documents</a>
                 </li>

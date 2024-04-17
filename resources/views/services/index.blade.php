@@ -84,34 +84,29 @@
 
 @endsection
 
-@push('scripts')
+{{-- @push('scripts') --}}
     <script>
-        $(document).ready(function() {
-
-            $('#delete-service').on('click', function(e) {
-                e.preventDefault();
-                let id = $(this).data('id');
-                Swal.fire({
-                    title: 'Are you sure ?',
-                    text: "You won't be able to revert this !",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    //redirect to database
-                    if (result.isConfirmed) {
-                        $('#delete-service-form').submit();
-                    }
-                    //handle through ajax
-                    /* if (result.value) {
-                        Swal.fire('Deleted!', 'Your selected item has been deleted.', 'success');
-                    } */
-                })
-            });
+     $(document).ready(function() {
+    $('#delete-service').on('click', function(e) {
+        e.preventDefault();
+        let id = $(this).closest('form').attr('action').split('/').pop(); // Fetch the ID from the form's action attribute
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#delete-service-form').submit();
+            }
         });
+    });
+});
+  
     </script>
     <!-- JavaScript -->
    {{--  <script src="./assets/js/libs/datatable-btns.js?ver=3.1.3"></script> --}}
-@endpush
+{{-- @endpush --}}

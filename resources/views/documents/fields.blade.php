@@ -22,10 +22,9 @@
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('category_id', 'Select Folder:') !!}
+    {!! Form::label('category_id', 'Select File:') !!}
     {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
 </div>
-
 <!-- Meta Tag Field -->
 <div class="form-group row">
     {!! Form::label('meta_tags', 'Meta Tag(s):', ['class' => 'col-form-label']) !!}

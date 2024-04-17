@@ -19,9 +19,9 @@ class DocumentsCategoryController extends Controller
     public function index()
     {
         if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('REGISTRY OFFICER')) {
-        $documents_categories = DocumentsCategory::all();
+        $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->get();
     } else {
-        $documents_categories = DocumentsCategory::where('department_id', Auth()->user()->staff->department->id)->get();
+        $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->where('department_id', Auth()->user()->staff->department->id)->get();
     }
 
         return view('documents_categories.index', compact('documents_categories'));

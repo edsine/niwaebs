@@ -1,10 +1,10 @@
 <div class="card-body p-5">
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending Employer</a>
+        <a class="nav-link active" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending Client</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="approved-tab" data-bs-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved Employer</a>
+        <a class="nav-link" id="approved-tab" data-bs-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved Client</a>
     </li>
 </ul>
 
@@ -16,7 +16,8 @@
         <table class="table align-middle gs-0 gy-4" id="employers-table">
             <thead>
                 <tr class="fw-bold text-muted bg-light">
-                    <th class="min-w-200px">ECS Number</th>
+                    <th class="min-w-200px">Client Number</th>
+                    <th class="min-w-200px">Area Office</th>
                     <th class="min-w-200px">Company Name</th>
                     <th class="min-w-200px">Company Email</th>
                     <th class="min-w-200px">Address</th>
@@ -37,6 +38,7 @@
                 @foreach ($pendingstaff as $employer)
                     <tr>
                         <td>{{ $employer->ecs_number }}</td>
+                        <td>{{ $employer->branch ? $employer->branch->branch_name : 'NILL' }}</td>
                         <td>{{ $employer->company_name }}</td>
                         <td>{{ $employer->company_email }}</td>
                         <td>{{ $employer->company_address }}</td>
@@ -119,7 +121,8 @@
         <table class="table align-middle gs-0 gy-4" id="employers-table">
             <thead>
                 <tr class="fw-bold text-muted bg-light">
-                    <th class="min-w-200px">ECS Number</th>
+                    <th class="min-w-200px">Client Number</th>
+                    <th class="min-w-200px">Area Office</th>
                     <th class="min-w-200px">Company Name</th>
                     <th class="min-w-200px">Company Email</th>
                     <th class="min-w-200px">Address</th>
@@ -138,6 +141,7 @@
                 @foreach ($activestaff as $employer)
                     <tr>
                         <td>{{ $employer->ecs_number }}</td>
+                        <td>{{ $employer->branch ? $employer->branch->branch_name : 'NILL' }}</td>
                         <td>{{ $employer->company_name }}</td>
                         <td>{{ $employer->company_email }}</td>
                         <td>{{ $employer->company_address }}</td>
