@@ -22,7 +22,7 @@
                         </td>
                         <td>{{ $document->name }}</td>
                         <td>
-                            <a href="{{ 'storage/' . $document->path }}" target="_blank">
+                            <a href="{{ 'https://express.eniwa.com.ng/'.'storage/' . $document->path }}" target="_blank">
                                 View PDF
                             </a>
                         </td>
