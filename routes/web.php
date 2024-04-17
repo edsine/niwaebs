@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('inspection.send');
 
     // Start Document Manager
+    Route::delete('/documents-category/{id}', 'App\Http\Controllers\DocumentsCategoryController@ajaxDestroy')->name('documents_category.ajax_destroy');
     Route::resource('documents_category', App\Http\Controllers\DocumentsCategoryController::class);
     Route::resource('documents_manager', App\Http\Controllers\DocumentsController::class);
     Route::get('documents_manager/assigned/to/users', [App\Http\Controllers\DocumentsController::class, 'documentsByUsers'])->name('documents_manager.documentsByUsers');

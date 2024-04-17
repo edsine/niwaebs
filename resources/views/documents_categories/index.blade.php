@@ -50,29 +50,13 @@
                                 </a>
                                
 
-                              {{--   <a href="#" title="Terminate document category" style="cursor: pointer;"
-                                            onclick="confirmDelete('{{ route('documents_category.destroy', $documents_category->id) }}')">
+                                <a href="#" title="Terminate document category" style="cursor: pointer;"
+                                onclick="confirmDelete({{ $documents_category->id }})">
                                             <span class="nk-menu-icon text-danger eg-swal-av3">
                                                 <em class="fa fa-trash"></em>
                                             </span>
-                                        </a> --}}
-                                        <form id="delete-documents-category-form-{{ $documents_category->id }}" action="{{ route('documents_category.destroy', $documents_category->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            <input type="hidden" name="deleted" value="{{ $documents_category->id }}"/>
-                                            @method('DELETE')
-                                        </form>
+                                        </a>
                                         
-                                        <a href="#" onclick="confirmDelete('{{ route('documents_category.destroy', $documents_category->id) }}')">Delete</a>
-                                        
-                                        <script>
-                                            function confirmDelete(deleteUrl) {
-                                                // Show confirmation dialog
-                                                if (confirm('Are you sure you want to delete this item?')) {
-                                                    // Redirect to the delete URL
-                                                    window.location.href = deleteUrl;
-                                                }
-                                            }
-                                        </script>
                                         
                             </td>
                         </tr>
@@ -112,6 +96,30 @@
                     });
                 });
             })(jQuery);
+
+            function confirmDelete(id) {
+    // Show confirmation dialog
+    if (confirm('Are you sure you want to delete this item?')) {
+        // Send AJAX request
+        $.ajax({
+            url: '/documents-category/' + id,
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                // Handle success response
+                console.log(response);
+                // Reload the page or update UI as needed
+            },
+            error: function(xhr) {
+                // Handle error response
+                console.error(xhr.responseText);
+            }
+        });
+    }
+}
+
         </script>
 @endsection
 

@@ -3,7 +3,7 @@
         <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr>
-                    <th class="min-w-200px">Employer</th>
+                    <th class="min-w-200px">Client</th>
                     <th class="min-w-200px">Service</th>
                     <th class="min-w-200px">Application Form Payment Status</th>
                     <th class="min-w-200px">Date Of Inspection</th>
