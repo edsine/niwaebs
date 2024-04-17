@@ -133,5 +133,13 @@ class DocumentsCategoryController extends Controller
         return redirect()->back()->with('error', 'File could not be deleted!');
     }
 
+    public function ajaxDestroy($id)
+{
+    // Logic to delete the document category with the given ID
+    $documentCategory = DocumentsCategory::findOrFail($id);
+    $documentCategory->delete();
+    return response()->json(['success' => true]);
+}
+
     
 }
