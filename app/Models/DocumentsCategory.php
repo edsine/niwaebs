@@ -22,9 +22,20 @@ class DocumentsCategory extends Model implements Auditable
         'department_id',
     ];
 
+     /**
+     * Get the departments associated with the category.
+     */
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    /**
+     * Get the documents associated with the category.
+     */
+    public function documents()
+    {
+        return $this->hasMany(Documents::class, 'category_id', 'id');
     }
     
 }

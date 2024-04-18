@@ -24,10 +24,11 @@
                     <table class="table align-middle gs-0 gy-4" id="order-listing">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>Document Title</th>
                                 <th>By Whom</th>
+                                <th>Assigned To</th>
                                 <th>Document URL</th>
-                                <th>Document Folder</th>
+                                <th>Department Name / File No.</th>
                                 <th>Action Date</th>
                                 <th>Operation</th>
                             </tr>
@@ -42,7 +43,8 @@
                                     
                                     <td>{{ $document->title }}</td>
                                     {{-- <td>{{ $document->description }}</td> --}}
-                                    <td>{{ $document->first_name ? $document->first_name. ' '.$document->last_name : '' }}</td>
+                                    <td>{{ $document->created_by_first_name ? $document->created_by_first_name. ' '.$document->created_by_last_name : '' }}</td>
+                                    <td>{{ $document->assigned_to_first_name }} {{ $document->assigned_to_last_name }}</td>
                                     <td>{{ substr($document->document_url, 10) }}</td>
                                     <td>
                                         @if ($document->category)

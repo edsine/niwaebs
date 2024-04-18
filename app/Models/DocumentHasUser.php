@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'start_date',
         'end_date',
         'is_download',
+        'allow_share',
     ];
 
     protected $casts = [
