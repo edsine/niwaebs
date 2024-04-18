@@ -27,14 +27,16 @@
            <!-- .nk-block-head-content -->
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
+    <div class="card">
     <div class="card-body p-5">
         <div class="table-responsive">
-            <table class="table align-middle gs-0 gy-4" id="order-listing1">
+            <table class="table align-middle gs-0 gy-4" id="document-category">
                 <thead>
                     <tr>
                         <th>Serial No.</th>
                         <th>File No.</th>
                         <th>Subject</th>
+                        <th>Total Documents</th>
                         <th>Manage</th>
                     </tr>
                 </thead>
@@ -44,6 +46,7 @@
                             <td>{{ $index + 1 }}</td> <!-- Use $index + 1 as the serial number -->
                             <td>{{ $documents_category->department ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
                             <td>{{ $documents_category->description }}</td>
+                            <td>{{ $documents_category->documents()->count() ?? 'N/A' }}</td>
                             <td>
                                 <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category">
                                     <span class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span>
@@ -66,9 +69,11 @@
             
             
                         </div>
-        </div><!-- .card-preview -->
+        </div> </div><!-- .card-preview -->
+        <!-- JavaScript -->
+   {{--  <script src="./assets/js/libs/datatable-btns.js?ver=3.1.3"></script> --}}
          <script>
-            (function($) {
+            /* (function($) {
                 'use strict';
                 $(function() {
                     $('#order-listing1').DataTable({
@@ -95,7 +100,7 @@
                         length_sel.removeClass('form-control-sm');
                     });
                 });
-            })(jQuery);
+            })(jQuery); */
 
             function confirmDelete(id) {
     // Show confirmation dialog

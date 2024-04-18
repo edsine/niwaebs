@@ -8,8 +8,8 @@
                         <em class="icon ni ni-user"></em>
                     </div>
                     <label class="form-label-outlined" for="department_id">Select Department</label>
-                    <select class="form-control" name="department_id" id="department_id">
-                        <option>Select Department</option>
+                    <select class="form-control" name="department_id" id="department_id" required>
+                        <option value="">Select Department</option>
                         @foreach($departments as $department)
                           <option value="{{ $department->id }}" {{ old('department_id', isset($documents_category) && $documents_category->department_id == $department->id ? 'selected' : '') }}>
                                 {{ $department->name }}
@@ -45,7 +45,7 @@
                     </div>
                     <label class="form-label-outlined" for="description">Subject</label>
                     <input type="text" class="form-control form-control-xl form-control-outlined"
-                        id="description" name="description" value="{{old('description', $documents_category->description ?? '')}}">
+                        id="description" name="description" value="{{old('description', $documents_category->description ?? '')}}" required>
                     
                 </div>
             </div>

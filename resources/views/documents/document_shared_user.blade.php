@@ -20,15 +20,15 @@
 
         <div class="card">
             <div class="card-body p-5">
-                <div class="table-responsive">
+                <div class="table-responsive1">
                     <table class="table align-middle gs-0 gy-4" id="order-listing">
                         <thead>
                             <tr>
                                {{--  <th>S/N</th> --}}
-                                <th>Document Name</th>
+                                <th>Document Title</th>
                                 <th>Full Name</th>
                                 <th>Document URL</th>
-                                <th>File Name</th>
+                                <th>Department Name / File No.</th>
                                 <th>Start Date</th>
                                 <th>Expiry Date</th>
                                 <th>Action</th>
