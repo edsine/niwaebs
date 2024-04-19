@@ -13,12 +13,12 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">File Indexing</h3>
+                <h3 class="nk-block-title page-title">Incoming File Indexing</h3>
                 <div class="row">
                 <div class="col-md-12">
                     @can("create folder")
                     
-                    <a href="{{ route('documents_category.create') }}" class="btn btn-primary float-end" ><em
+                    <a href="{{ route('incoming_documents_category.create') }}" class="btn btn-primary float-end" ><em
                         class="fa fa-user-add"></em> <span>Add New File</span></a>
                     @endcan
                 </div>
@@ -41,20 +41,20 @@
                     </tr>
                 </thead>
                 <tbody> 
-                    @foreach ($documents_categories as $index => $documents_category)
+                    @foreach ($incoming_documents_categories as $index => $incoming_documents_category)
                         <tr>
                             <td>{{ $index + 1 }}</td> <!-- Use $index + 1 as the serial number -->
-                            <td>{{ $documents_category->department ? $documents_category->department->name.' / ' : '' }}{{ $documents_category->name }}</td>
-                            <td>{{ $documents_category->description }}</td>
-                            <td>{{ $documents_category->documents()->count() ?? 'N/A' }}</td>
+                            <td>{{ $incoming_documents_category->department ? $incoming_documents_category->department->name.' / ' : '' }}{{ $incoming_documents_category->name }}</td>
+                            <td>{{ $incoming_documents_category->description }}</td>
+                            <td>{{ $incoming_documents_category->documents()->count() ?? 'N/A' }}</td>
                             <td>
-                                <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category">
+                                <a style="padding-right:10px;" href="{{ route('incoming_documents_category.edit', $incoming_documents_category->id) }}" title="Edit Document Category">
                                     <span class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span>
                                 </a>
                                
 
                                 {{-- <a href="#" title="Terminate document category" style="cursor: pointer;"
-                                onclick="confirmDelete({{ $documents_category->id }})">
+                                onclick="confirmDelete({{ $incoming_documents_category->id }})">
                                             <span class="nk-menu-icon text-danger eg-swal-av3">
                                                 <em class="fa fa-trash"></em>
                                             </span>

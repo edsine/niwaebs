@@ -5,9 +5,9 @@
         <!--begin::Page title-->
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
             <!--begin::Title-->
-            <h4 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">NIWA STAFF
+            {{-- <h4 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">NIWA STAFF
                 INTERFACE
-            </h4>
+            </h4> --}}
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             {{-- <ul class="breadcrumb">
