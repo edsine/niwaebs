@@ -68,7 +68,7 @@
                                                     <i class="far fa-eye"></i> View
                                                 </a>
                                                 @if(Auth::user()->hasRole('super-admin'))
-                                                <a href="{{ route('documents_manager.edit', [$document->d_m_id]) }}" class='btn btn-default btn-xs dropdown-item'>
+                                                <a href="{{ route('incoming_documents_manager.edit', [$document->d_m_id]) }}" class='btn btn-default btn-xs dropdown-item'>
                                                     <i class="far fa-edit"></i> Edit
                                                 </a>
                                                 @endif
@@ -95,7 +95,7 @@
                                                     <i class="far fa-trash-alt"></i> Delete
                                                 </a>
                                                 @endif
-                                                                                    {{--  {!! Form::open(['route' => ['documents_manager.destroy', $document->d_m_id], 'method' => 'delete']) !!}
+                                                                                     {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_m_id], 'method' => 'delete']) !!}
                                     
                                                 {!! Form::button('Delete button', [
                                                     'type' => 'submit',
@@ -104,7 +104,7 @@
                                                     'onclick' => "return confirm('Do you want to delete this document?')",
                                                     'style' => 'display: none;', // Add inline CSS to hide the button
                                                 ]) !!}
-                                    {!! Form::close() !!} --}}
+                                    {!! Form::close() !!}
                                                 <!-- Add more options as needed -->
                                             </div>
                                         </div>
@@ -130,7 +130,7 @@
 <div class="modal fade" id="uploadsModal" tabindex="-1" role="dialog" aria-labelledby="uploadsModalModalLabel"
 aria-hidden="true" data-backdrop="false">
 <div class="modal-dialog" role="document">
-    {!! Form::open(['route' => 'documents_manager.add', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['route' => 'incoming_documents_manager.add', 'enctype' => 'multipart/form-data']) !!}
     @csrf
     <div class="modal-content">
         <div class="modal-header">
@@ -210,7 +210,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
 <div class="modal-dialog " role="document">
     <div class="modal-content">
-        {!! Form::open(['route' => 'documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'incoming_documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
     @csrf
         <div class="modal-header">
             <h5 class="modal-title" id="curr1"></h5>
@@ -263,7 +263,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
 <div class="modal-dialog " role="document">
     <div class="modal-content">
-        {!! Form::open(['route' => 'documents_manager.send_email', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'incoming_documents_manager.send_email', 'enctype' => 'multipart/form-data']) !!}
     @csrf
         <div class="modal-header">
             <h5 class="modal-title"> Send Email</h5>
@@ -389,7 +389,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
 <div class="modal-dialog " role="document">
     <div class="modal-content">
-        {!! Form::open(['route' => 'documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
     @csrf
         <div class="modal-header">
             <h5 class="modal-title">User Permission</h5>
@@ -435,7 +435,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
 <div class="modal-dialog " role="document">
     <div class="modal-content">
-        {!! Form::open(['route' => 'documents_manager.sharerole', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'incoming_documents_manager.sharerole', 'enctype' => 'multipart/form-data']) !!}
     @csrf
         <div class="modal-header">
             <h5 class="modal-title">Role Permission</h5>
@@ -481,7 +481,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
 <div class="modal-dialog " role="document">
     <div class="modal-content">
-        {!! Form::open(['route' => 'documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'incoming_documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
     @csrf
         <div class="modal-header">
             <h5 class="modal-title" id="curr1"></h5>
@@ -595,7 +595,7 @@ $('#document-table-history tbody').empty();
 
 // AJAX request to fetch document history
 $.ajax({
-    url: '/documents_manager/version/' + documentId,
+    url: '/incoming_documents_manager/version/' + documentId,
     type: 'GET',
     success: function(response) {
         // Populate table with fetched data
@@ -634,7 +634,7 @@ $('#document-table-comment tbody').empty();
 
 // AJAX request to fetch document comment
 $.ajax({
-    url: '/documents_manager/comment/' + documentId,
+    url: '/incoming_documents_manager/comment/' + documentId,
     type: 'GET',
     success: function(response) {
         // Populate table with fetched data
@@ -666,7 +666,7 @@ $('#document-table-share tbody').empty();
 
 // AJAX request to fetch document share
 $.ajax({
-    url: '/documents_manager/share/' + share,
+    url: '/incoming_documents_manager/share/' + share,
     type: 'GET',
     success: function(response) {
         // Populate table with fetched data

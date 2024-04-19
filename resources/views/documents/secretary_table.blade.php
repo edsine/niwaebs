@@ -11,13 +11,10 @@
                 <tr>
                     {{-- <th>S/N</th> --}}
                     <th>Document Title</th>
-                    <th>Assigned To</th>
                     <th>Document URL</th>
                     <th>Department Name / File No.</th>
                     <th>Subject</th>
                     <th>Created Date</th>
-                   {{--  @if(Auth::user()->hasRole('super-admin')) --}}
-                    <th>Share User</th>
                     {{-- @endif --}}
                     <th>Action</th>
                 </tr>
@@ -29,100 +26,17 @@
                     <tr>
                         {{-- <td>{{ $n++ }}</td> --}}
                         <td>{{ $document->title }}</td>
-                        {{-- <td>{{ $document->description }}</td> --}}
-                        <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
-                        <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
                         <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
                         <td>{{ $document->doc_description ?? 'NILL' }}</td>
                         <td>{{ $document->document_created_at }}</td>
-                        {{-- @if(Auth::user()->hasRole('super-admin')) --}}
-                        <td style="width: 120px;">
-                            
-                            <div class="btn-group" role="group">
-                                
-                                @if(($document->allow_share == 1 && $document->user_id == Auth()->user()->id) || $document->assigned_by == Auth()->user()->id)
-                                <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
-                                    data-shareuser={{ $document->d_id }}>User</a>
-                            @endif
-
-{{-- <a class="open-modal-sharerole btn btn-danger" href="#" data-toggle="modal" data-target="#shareroleModal"
-data-sharerole={{ $document->d_id }}>Role</a> --}}
-
-                            </div>
-                            
-                        </td>
+                        
                        {{--  @endif --}}
                         <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Click to view options
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right" style="z-index: 9999; margin-bottom: 30px;" aria-labelledby="dropdownMenuButton">
-                                        <a target="_blank" href="{{ asset($document->document_url) }}"
-                                            class='btn btn-default btn-xs dropdown-item'>
-                                            <i class="far fa-eye"></i> View
-                                        </a>
-                                        @if(Auth::user()->hasRole('super-admin'))
-                                        <a href="{{ route('incoming_documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs dropdown-item'>
-                                            <i class="far fa-edit"></i> Edit
-                                        </a>
-                                        @endif
-                                        <a class="open-modal-share btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#shareModal"
-                                        data-share={{ $document->d_id }}><i class="fa fa-share-alt"></i> Assign to</a>
-                                        @if(Auth::user()->hasRole('super-admin'))
-                                        <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
-                                         @elseif(!empty($document->is_download) && $document->is_download == 1)
-                                        <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
-                                         {{-- @else 
-                                         {{ $document->document_url }} --}}
-                                         @endif
-                                        <a class="open-modal-upload btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#uploadsModal"
-                                        data-upload={{ $document->d_id }}><i class="fa fa-download"></i> Upload New Version File</a>
-                                        <a class="open-modal-history btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#historyModal"
-                                        data-history={{ $document->d_id }}><i class="fa fa-history"></i> Version History</a>
-                                        <a class="open-modal-comment btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#commentModal"
-                                        data-comment={{ $document->d_id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
-                                        <a class="btn btn-default btn-xs dropdown-item" href="#"><i class="fa fa-bell"></i> Add Reminder</a>
-                                        <a class="open-modal-sendemail btn btn-default btn-xs dropdown-item" href="#"  data-toggle="modal" data-target="#sendEmailModal"
-                                        data-sendemail={{ $document->d_id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
-                                        @if(Auth::user()->hasRole('super-admin'))
-                                        <a class="btn btn-default btn-xs dropdown-item" href="#" onclick="confirmDelete()">
-                                            <i class="far fa-trash-alt"></i> Delete
-                                        </a>
-                                        @endif
-                                                                             {{-- {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
-                            
-                                        {!! Form::button('Delete button', [
-                                            'type' => 'submit',
-                                            'id' => 'delete-btn',
-                                            'class' => 'btn btn-danger btn-xs',
-                                            'onclick' => "return confirm('Do you want to delete this document?')",
-                                            'style' => 'display: none;', // Add inline CSS to hide the button
-                                        ]) !!}
-                            {!! Form::close() !!} --}}
-                                        <!-- Add more options as needed -->
-                                    </div>
-                                </div>
-                            
-                           {{--  {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
-                            <div class='btn-group'>
-                                <a href="{{ route('incoming_documents_manager.show', [$document->d_id]) }}"
-                                    class='btn btn-default btn-xs'>
-                                    <i class="far fa-eye"></i>
-                                </a>
-                                
-                                <a href="{{ route('incoming_documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs'>
-                                    <i class="far fa-edit"></i>
-                                </a>
-                                {!! Form::button('<i class="far fa-trash-alt"></i>', [
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'onclick' => "return confirm('Are you sure?')",
-                                ]) !!}
-                            </div>
-                            {!! Form::close() !!} --}}
+                            <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
+                                    data-shareuser={{ $document->d_id }}>Approve</a>
                         </td>
                     </tr>
                 @endforeach
@@ -398,7 +312,7 @@ aria-hidden="true" data-backdrop="false">
             {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
-                <h5 class="modal-title">User Permission</h5>
+                <h5 class="modal-title">Approve Document</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -410,9 +324,18 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
 
                     {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
-                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
+                    {!! Form::hidden('notify_id', 1, ['id' => 'notify_id']) !!}
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
+    {!! Form::label('approved_date_time', 'Approved Date/Time') !!}
+    {!! Form::datetime('approved_date_time', null, ['class' => 'form-control', 'id' => 'approved_date_time']) !!}
+</div> --}}
+<div class="form-group">
+    <label for="approved_date_time">Approved Date/Time:</label>
+    <input type="datetime-local" id="approved_date_time" name="approved_date_time" class="form-control">
+</div>
+
+                <div class="form-group" style="display: none;">
                     {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
                     {!! Form::label('specify_su', 'Specify the period') !!}
                 </div>
@@ -422,12 +345,12 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::label('end_date', 'End Date') !!}
                     {!! Form::date('end_date', null, ['class' => 'form-control','id' => 'end_date1']) !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     {!! Form::checkbox('is_download', 1, ['id' => 'is_download']) !!}
                     {!! Form::label('is_download', 'Allow Download') !!}
                 </div>
-                <div class="form-group">
-                    {!! Form::checkbox('allow_share', 1, null, ['id' => 'allow_share']) !!}
+                <div class="form-group" style="display: none;">
+                    {!! Form::checkbox('allow_share', 1, ['id' => 'allow_share']) !!}
                     {!! Form::label('allow_share', 'Allow Share') !!}
                 </div>
                 {!! Form::label('comment', 'Type your comment:') !!}

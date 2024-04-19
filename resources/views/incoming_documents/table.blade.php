@@ -92,7 +92,7 @@ data-sharerole={{ $document->d_id }}>Role</a> --}}
                                             <i class="far fa-trash-alt"></i> Delete
                                         </a>
                                         @endif
-                                                                             {{-- {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
+                                                                        {{--      {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
                             
                                         {!! Form::button('Delete button', [
                                             'type' => 'submit',
@@ -410,7 +410,6 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
 
                     {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
-                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
