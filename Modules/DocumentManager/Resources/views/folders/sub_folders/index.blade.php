@@ -1,7 +1,7 @@
 <div class="card-body p-5">
     <div class="row">
         <div class="col-sm-6">
-            <h3>Sub-Folders</h3>
+            <h3>Sub-Files</h3>
         </div>
         <div class="col-sm-6">
             <a class="btn btn-primary float-end" data-toggle="modal" data-target="#createFolderModal">

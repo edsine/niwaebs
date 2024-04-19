@@ -1,16 +1,23 @@
+<style>
+    .select2-container {
+        width: 100% !important;
+    }
+</style>
+
 <div class="card-body p-5">
     <div class="table-responsive1">
-        <table class="table" id="document-table">
+        <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr>
                     {{-- <th>S/N</th> --}}
-                    <th>Title</th>
-                    <th>Created By</th>
+                    <th>Document Title</th>
+                    <th>Assigned To</th>
                     <th>Document URL</th>
-                    <th>Folder Name</th>
+                    <th>Department Name / File No.</th>
+                    <th>Subject</th>
                     <th>Created Date</th>
                    {{--  @if(Auth::user()->hasRole('super-admin')) --}}
-                    <th>Share User/Role</th>
+                    <th>Share User</th>
                     {{-- @endif --}}
                     <th>Action</th>
                 </tr>
@@ -23,21 +30,25 @@
                         {{-- <td>{{ $n++ }}</td> --}}
                         <td>{{ $document->title }}</td>
                         {{-- <td>{{ $document->description }}</td> --}}
-                        <td>{{ $document->createdBy ? $document->createdBy->first_name. ' '.$document->createdBy->last_name : '' }}</td>
+                        <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
-                        <td>{{ $document->category->name ?? 'NILL' }}</td>
-                        <td>{{ $document->created_at->format('d/m/Y') }}</td>
+                        <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                        <td>{{ $document->doc_description ?? 'NILL' }}</td>
+                        <td>{{ $document->document_created_at }}</td>
                         {{-- @if(Auth::user()->hasRole('super-admin')) --}}
                         <td style="width: 120px;">
                             
                             <div class="btn-group" role="group">
-                             <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
-data-shareuser={{ $document->id }}>User</a>
+                                
+                                @if(($document->allow_share == 1 && $document->user_id == Auth()->user()->id) || $document->assigned_by == Auth()->user()->id)
+                                <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
+                                    data-shareuser={{ $document->d_id }}>User</a>
+                            @endif
 
-<a class="open-modal-sharerole btn btn-danger" href="#" data-toggle="modal" data-target="#shareroleModal"
-data-sharerole={{ $document->id }}>Role</a>
+{{-- <a class="open-modal-sharerole btn btn-danger" href="#" data-toggle="modal" data-target="#shareroleModal"
+data-sharerole={{ $document->d_id }}>Role</a> --}}
 
                             </div>
                             
@@ -48,40 +59,40 @@ data-sharerole={{ $document->id }}>Role</a>
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Click to view options
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-right" style="z-index: 9999;" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-menu dropdown-menu-right" style="z-index: 9999; margin-bottom: 30px;" aria-labelledby="dropdownMenuButton">
                                         <a target="_blank" href="{{ asset($document->document_url) }}"
                                             class='btn btn-default btn-xs dropdown-item'>
                                             <i class="far fa-eye"></i> View
                                         </a>
                                         @if(Auth::user()->hasRole('super-admin'))
-                                        <a href="{{ route('documents_manager.edit', [$document->id]) }}" class='btn btn-default btn-xs dropdown-item'>
+                                        <a href="{{ route('incoming_documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs dropdown-item'>
                                             <i class="far fa-edit"></i> Edit
                                         </a>
                                         @endif
                                         <a class="open-modal-share btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#shareModal"
-                                        data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Share</a>
+                                        data-share={{ $document->d_id }}><i class="fa fa-share-alt"></i> Assign to</a>
                                         @if(Auth::user()->hasRole('super-admin'))
                                         <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
-                                         @elseif($document->is_download == 1)
+                                         @elseif(!empty($document->is_download) && $document->is_download == 1)
                                         <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
                                          {{-- @else 
                                          {{ $document->document_url }} --}}
                                          @endif
                                         <a class="open-modal-upload btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#uploadsModal"
-                                        data-upload={{ $document->id }}><i class="fa fa-download"></i> Upload New Version File</a>
+                                        data-upload={{ $document->d_id }}><i class="fa fa-download"></i> Upload New Version File</a>
                                         <a class="open-modal-history btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#historyModal"
-                                        data-history={{ $document->id }}><i class="fa fa-history"></i> Version History</a>
+                                        data-history={{ $document->d_id }}><i class="fa fa-history"></i> Version History</a>
                                         <a class="open-modal-comment btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#commentModal"
-                                        data-comment={{ $document->id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
+                                        data-comment={{ $document->d_id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
                                         <a class="btn btn-default btn-xs dropdown-item" href="#"><i class="fa fa-bell"></i> Add Reminder</a>
                                         <a class="open-modal-sendemail btn btn-default btn-xs dropdown-item" href="#"  data-toggle="modal" data-target="#sendEmailModal"
-                                        data-sendemail={{ $document->id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
+                                        data-sendemail={{ $document->d_id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
                                         @if(Auth::user()->hasRole('super-admin'))
                                         <a class="btn btn-default btn-xs dropdown-item" href="#" onclick="confirmDelete()">
                                             <i class="far fa-trash-alt"></i> Delete
                                         </a>
                                         @endif
-                                                                             {!! Form::open(['route' => ['documents_manager.destroy', $document->id], 'method' => 'delete']) !!}
+                                                                             {{-- {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
                             
                                         {!! Form::button('Delete button', [
                                             'type' => 'submit',
@@ -90,19 +101,19 @@ data-sharerole={{ $document->id }}>Role</a>
                                             'onclick' => "return confirm('Do you want to delete this document?')",
                                             'style' => 'display: none;', // Add inline CSS to hide the button
                                         ]) !!}
-                            {!! Form::close() !!}
+                            {!! Form::close() !!} --}}
                                         <!-- Add more options as needed -->
                                     </div>
                                 </div>
                             
-                           {{--  {!! Form::open(['route' => ['documents_manager.destroy', $document->id], 'method' => 'delete']) !!}
+                           {{--  {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                <a href="{{ route('documents_manager.show', [$document->id]) }}"
+                                <a href="{{ route('incoming_documents_manager.show', [$document->d_id]) }}"
                                     class='btn btn-default btn-xs'>
                                     <i class="far fa-eye"></i>
                                 </a>
                                 
-                                <a href="{{ route('documents_manager.edit', [$document->id]) }}" class='btn btn-default btn-xs'>
+                                <a href="{{ route('incoming_documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs'>
                                     <i class="far fa-edit"></i>
                                 </a>
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
@@ -119,17 +130,13 @@ data-sharerole={{ $document->id }}>Role</a>
         </table>
     </div>
 
-    <div class="card-footer clearfix">
-        <div class="float-right">
-            @include('adminlte-templates::common.paginate', ['records' => $documents])
-        </div>
-    </div>
+    
 </div>
 <!-- Modal -->
 <div class="modal fade" id="uploadsModal" tabindex="-1" role="dialog" aria-labelledby="uploadsModalModalLabel"
     aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog" role="document">
-        {!! Form::open(['route' => 'documents_manager.add', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'incoming_documents_manager.add', 'enctype' => 'multipart/form-data']) !!}
         @csrf
         <div class="modal-content">
             <div class="modal-header">
@@ -209,7 +216,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'incoming_documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title" id="curr1"></h5>
@@ -237,7 +244,7 @@ aria-hidden="true" data-backdrop="false">
                     </tbody>
                     </table>
                     {!! Form::label('comment', 'Type your comment:') !!}
-                    <div class="input-group">
+                    <div class="form-group">
                         <div class="custom-comment">
                             {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
                         </div>
@@ -262,7 +269,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'documents_manager.send_email', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'incoming_documents_manager.send_email', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title"> Send Email</h5>
@@ -388,7 +395,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title">User Permission</h5>
@@ -401,8 +408,9 @@ aria-hidden="true" data-backdrop="false">
                 <div class="form-group">
                     {!! Form::label('users', 'Select User(s):') !!}
                     {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
-                    
+
                     {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
+                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
@@ -418,6 +426,16 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::checkbox('is_download', 1, ['id' => 'is_download']) !!}
                     {!! Form::label('is_download', 'Allow Download') !!}
                 </div>
+                <div class="form-group">
+                    {!! Form::checkbox('allow_share', 1, null, ['id' => 'allow_share']) !!}
+                    {!! Form::label('allow_share', 'Allow Share') !!}
+                </div>
+                {!! Form::label('comment', 'Type your comment:') !!}
+                    <div class="form-group">
+                        <div class="custom-comment">
+                            {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
 
             </div>
             <div class="modal-footer">
@@ -434,7 +452,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'documents_manager.sharerole', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'incoming_documents_manager.sharerole', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title">Role Permission</h5>
@@ -446,7 +464,7 @@ aria-hidden="true" data-backdrop="false">
 
                 <div class="form-group">
                     {!! Form::label('roles', 'Select Roles(s):') !!}
-                    {!! Form::select('roles[]', $roles, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+                    {!! Form::select('roles[]', $roles, null, ['class' => 'form-control', 'id' => 'roleSelect', 'multiple' => 'multiple']) !!}
                     
                     {!! Form::hidden('sharerole_id', null, ['id' => 'sharerole_id']) !!}
                 </div>
@@ -480,7 +498,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'incoming_documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title" id="curr1"></h5>
@@ -594,20 +612,21 @@ aria-hidden="true" data-backdrop="false">
 
     // AJAX request to fetch document history
     $.ajax({
-        url: '/documents_manager/version/' + documentId,
+        url: '/incoming_documents_manager/version/' + documentId,
         type: 'GET',
         success: function(response) {
             // Populate table with fetched data
             response.forEach(function(history) {
     let row = $('<tr>');
     row.append($('<td>').text(history.firstName + ' ' + history.lastName));
-    if (history.document_url === history.doc_url) {
+    /* if (history.document_url == history.doc_url) {
         row.append($('<td>').html(history.document_url + ' <span class="btn-primary" style="background: green;">current version</span>'));
     } else {
         row.append($('<td>').text(history.document_url));
-    }
+    } */
+    row.append($('<td>').text(history.document_url));
     row.append($('<td>').text(history.createdAt));
-        $('#curr').html(history.doc_url + ' <span class="btn-primary" style="background: green;">current version</span>')
+        $('#curr').html(history.document_url + ' <span class="btn-primary" style="background: green;">current version</span>')
     $('#document-table-history tbody').append(row);
 });
 
@@ -633,7 +652,7 @@ $(document).on("click", ".open-modal-comment", function() {
 
     // AJAX request to fetch document comment
     $.ajax({
-        url: '/documents_manager/comment/' + documentId,
+        url: '/incoming_documents_manager/comment/' + documentId,
         type: 'GET',
         success: function(response) {
             // Populate table with fetched data
@@ -665,14 +684,14 @@ $(document).on("click", ".open-modal-share", function() {
 
     // AJAX request to fetch document share
     $.ajax({
-        url: '/documents_manager/share/' + share,
+        url: '/incoming_documents_manager/share/' + share,
         type: 'GET',
         success: function(response) {
             // Populate table with fetched data
             response.forEach(function(history) {
     let row = $('<tr>');
         row.append($('<td>').text('User'));
-            if(history.is_download === 1){
+            if(history.is_download == 1){
         row.append($('<td>').text('Yes'));
         }else{
             row.append($('<td>').text('No'));
@@ -698,6 +717,18 @@ $(document).on("click", ".open-modal-share", function() {
         }
     });
 });
-
     </script>
+    
 @endpush
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    
+    <script>
+       jQuery(document).ready(function($) {
+    console.log("Select2 initialization script started.");
+    $('#userSelect').select2();
+    console.log("Select2 initialization script executed.");
+});
+    </script>

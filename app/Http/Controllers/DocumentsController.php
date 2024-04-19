@@ -30,6 +30,7 @@ use App\Repositories\DocumentHasRoleRepository;
 use App\Repositories\DocumentHasUserRepository;
 use App\Repositories\DocumentsCategoryRepository;
 use Modules\WorkflowEngine\Models\Staff;
+use App\Models\DocumentsCategory;
 
 class DocumentsController extends AppBaseController
 {
@@ -83,35 +84,32 @@ class DocumentsController extends AppBaseController
 
         $user_id = $userIds->contains($loggedInUserId);
 
-        if (Auth::user()->hasRole('super-admin')) {
+        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
             // The logged-in user ID exists in the $userIds array
             //$documents = $this->documentRepository->paginate(10);
             $documents = \App\Models\Documents::query()
-                ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
-                ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-                ->select('documents_manager.*', 'documents_has_users.*', 'documents_categories.*')
-                ->latest('documents_manager.created_at')
-                ->with('createdBy') // Add this line to eager load the createdBy relation
-                ->paginate(10);
-            //} else if ($userIds->contains($loggedInUserId)) {
+    ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select(
+        'documents_categories.id as category_id',
+        'documents_categories.name as category_name',
+        'documents_manager.created_at as document_created_at',
+        'documents_manager.id as d_id',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'documents_categories.description as doc_description',
+        'documents_has_users.is_download',
+        'documents_has_users.allow_share',
+        'documents_has_users.user_id',
+        'documents_has_users.assigned_by',
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name')
+    )
+    ->latest('documents_manager.created_at')
+    ->groupBy('documents_has_users.assigned_by','documents_has_users.user_id','documents_has_users.is_download','documents_has_users.allow_share','documents_has_users.user_id','documents_categories.description','documents_manager.document_url','documents_manager.title','documents_categories.id', 'documents_categories.name', 'documents_manager.created_at', 'documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+    ->with('createdBy')
+    ->get();
 
-        } else {
-            // The logged-in user ID does not exist in the $userIds array
-            $documents = \App\Models\Documents::query()
-                ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
-                ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-                ->select('documents_manager.*', 'documents_has_users.*', 'documents_categories.*')
-                ->where('documents_has_users.user_id', $userId)
-                ->latest('documents_manager.created_at')
-                ->with('createdBy') // Add this line to eager load the createdBy relation
-                ->paginate(10);
-        }
-
-
-        $roles = $this->roleRepository->all()->pluck('name', 'id');
-        // $roles->prepend('Select role', '');
-        // $departments->prepend('Select department', '');
-        $users1 = $this->userRepository->all();
+    $users1 = $this->userRepository->all();
 
         $userData = $users1->map(function ($user) {
             return [
@@ -119,7 +117,77 @@ class DocumentsController extends AppBaseController
                 'name' => $user->first_name . ' ' . $user->last_name,
             ];
         });
+   /*  $documents = \App\Models\Documents::query()
+    ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select(
+        'documents_categories.id as category_id',
+        'documents_categories.name as category_name',
+        'documents_manager.created_at as document_created_at', // Include the nonaggregated column
+        'documents_manager.id as d_id',
+        'documents_manager.title','documents_manager.document_url',
+    )
+    ->latest('documents_manager.created_at')
+    ->groupBy('documents_manager.document_url','documents_manager.title','documents_categories.id', 'documents_categories.name', 'documents_manager.created_at', 'documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+    ->with('createdBy') // Add this line to eager load the createdBy relation
+    ->get(); */
+        
 
+            //} else if ($userIds->contains($loggedInUserId)) {
+
+        } else {
+            // The logged-in user ID does not exist in the $userIds array
+                $documents = \App\Models\Documents::query()
+                ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+                ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+                ->select(
+                    'documents_categories.id as category_id',
+                    'documents_categories.name as category_name',
+                    'documents_manager.created_at as document_created_at',
+                    'documents_manager.id as d_id',
+                    'documents_manager.title',
+                    'documents_manager.document_url',
+                    'documents_categories.description as doc_description',
+                    'documents_has_users.is_download',
+                    'documents_has_users.allow_share',
+                    'documents_has_users.user_id',
+                    'documents_has_users.assigned_by',
+                    DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name')
+                    )
+                ->where('documents_has_users.user_id', $userId)
+                ->latest('documents_manager.created_at')
+                ->groupBy('documents_has_users.assigned_by','documents_has_users.user_id','documents_has_users.is_download','documents_has_users.allow_share','documents_has_users.user_id','documents_categories.description','documents_manager.document_url','documents_manager.title','documents_categories.id', 'documents_categories.name', 'documents_manager.created_at', 'documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+                ->with('createdBy')
+                ->get();
+
+                $users1 = DB::table('users')
+    ->join('staff', 'staff.user_id', '=', 'users.id')
+    ->join('departments', 'departments.id', '=', 'staff.department_id')
+    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
+    ->where('staff.department_id', '=', Auth::user()->staff->department_id) // Explicitly specifying the table name for user_id
+    ->get();
+
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+        }
+
+
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        // $roles->prepend('Select role', '');
+        // $departments->prepend('Select department', '');
+        /* $users1 = $this->userRepository->all();
+
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+ */
         $users = $userData->pluck('name', 'id');
 
         return view('documents.index', compact('documents', 'users', 'roles'));
@@ -133,28 +201,64 @@ class DocumentsController extends AppBaseController
             return redirect()->back();
         } */
 
+        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
 
-
-        $documents = DB::table('documents_manager')
+        /* $documents = DB::table('documents_manager')
             ->join('audits', 'documents_manager.id', '=', 'audits.auditable_id')
             ->join('users', 'documents_manager.created_by', '=', 'users.id')
             ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-            ->select('documents_manager.*', 'audits.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
+            ->select('documents_manager.*', 'documents_manager.id as id', 'audits.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
             ->where('audits.auditable_type', "App\Models\Documents")
             ->latest('documents_manager.created_at')
-            ->paginate(10);
+            ->get(); */
+            $documents = DB::table('documents_manager')
+            ->join('audits', 'documents_manager.id', '=', 'audits.auditable_id')
+            ->join('users as created_by_user', 'documents_manager.created_by', '=', 'created_by_user.id')
+            ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+            ->join('users as assigned_to_user', 'documents_has_users.user_id', '=', 'assigned_to_user.id')
+            ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            ->select('documents_categories.id as d_c_id','documents_manager.*', 'documents_manager.id as id', 'audits.*', 'created_by_user.first_name as created_by_first_name', 'created_by_user.last_name as created_by_last_name', 'assigned_to_user.first_name as assigned_to_first_name', 'assigned_to_user.last_name as assigned_to_last_name', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
+            ->where('audits.auditable_type', "App\Models\Documents")
+            ->latest('documents_manager.created_at')
+            ->distinct() // Ensure distinct results
+            ->get();        
 
-        return view('documents.document_audits', compact('documents'));
+        // Now that you have the documents, you can load the category relationship
+$documentIds = $documents->pluck('d_c_id')->toArray();
+$categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+        } else{
+            
+            return redirect()->back()->with('error', 'Permission denied for document audit trail access');
+        }
+
+        return view('documents.document_audits', compact('documents','categories'));
     }
 
     public function documentsVersion(Request $request, $id)
     {
+        //if (Auth()->user()->hasRole('super-admin')) {
+
         $documentHistory = DB::table('documents_histories')
-            ->join('documents_manager', 'documents_histories.created_by', '=', 'documents_manager.id')
+           // ->join('documents_manager', 'documents_histories.created_by', '=', 'documents_manager.id')
             ->join('users', 'documents_histories.created_by', '=', 'users.id')
-            ->select('documents_histories.*', 'documents_histories.created_at as createdAt', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_manager.document_url as doc_url')
+            ->select('documents_histories.*', 'documents_histories.created_at as createdAt', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_histories.document_url as doc_url')
             ->where('documents_histories.document_id', $id)
+            //->latest('documents_histories.id')
             ->get();
+
+        /* }else{
+
+            $userId = Auth::user()->id;
+        $documentHistory = DB::table('documents_histories')
+           // ->join('documents_manager', 'documents_histories.created_by', '=', 'documents_manager.id')
+            ->join('users', 'documents_histories.created_by', '=', 'users.id')
+            ->select('documents_histories.*', 'documents_histories.created_at as createdAt', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_histories.document_url as doc_url')
+            ->where('documents_histories.document_id', $id)
+            ->where('documents_histories.created_by', '=', $userId)
+            //->latest('documents_histories.id')
+            ->get();
+
+        } */
 
         return response()->json($documentHistory);
     }
@@ -171,29 +275,51 @@ class DocumentsController extends AppBaseController
         $userId = Auth::user()->id;
 
 
-        if (Auth::user()->hasRole('super-admin')) {
-            $documents = DB::table('documents_has_users')
-                ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
-                ->join('users', 'documents_has_users.user_id', '=', 'users.id')
-                ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-                ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
-                ->latest('documents_has_users.created_at')
-                ->paginate(10);
-        } else {
-            $documents = DB::table('documents_has_users')
-                ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
-                ->join('users', 'documents_has_users.user_id', '=', 'users.id')
-                ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-                ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name')
-                ->latest('documents_has_users.created_at')
-                ->where('documents_has_users.user_id', $userId)
-                ->paginate(10);
-        }
+        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
 
-        $roles = $this->roleRepository->all()->pluck('name', 'id');
-        // $roles->prepend('Select role', '');
-        // $departments->prepend('Select department', '');
-        $users1 = $this->userRepository->all();
+            /* $documents = DB::table('documents_has_users')
+    ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select('documents_has_users.*', 'documents_manager.*', 'users.*', 'documents_has_users.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.category_id as d_m_c_id')
+    ->latest('documents_has_users.created_at')
+    ->groupBy('documents_manager.document_url','documents_manager.category_id','documents_has_users.id','documents_has_users.created_at', 'documents_categories.name', 'documents_manager.category_id')
+    ->get(); */
+    $documents = DB::table('documents_has_users')
+    ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select(
+        'documents_manager.category_id',
+        'documents_categories.id',
+        'documents_manager.title',
+        'documents_has_users.created_at as createdAt',
+        'documents_categories.name as category_name',
+        'documents_has_users.start_date',
+        'documents_has_users.end_date',
+        'documents_manager.document_url as document_url',
+        'documents_manager.id as d_m_id',
+        'documents_categories.id as d_m_c_id',
+
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+    )
+    ->latest('documents_has_users.created_at')
+    ->groupBy(
+        'documents_manager.category_id',
+        'documents_categories.id',
+        'documents_has_users.start_date',
+        'documents_has_users.end_date',
+        'documents_manager.id',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'documents_has_users.id',
+        'documents_has_users.created_at',
+        'documents_categories.name'
+    )
+    ->get();
+
+    
+    $users1 = $this->userRepository->all();
 
         $userData = $users1->map(function ($user) {
             return [
@@ -202,9 +328,80 @@ class DocumentsController extends AppBaseController
             ];
         });
 
+        } else {
+           
+
+    //here
+    $documents = DB::table('documents_has_users')
+    ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select(
+        'documents_categories.id',
+        'documents_manager.title',
+        'documents_has_users.created_at as createdAt',
+        'documents_categories.name as category_name',
+        'documents_has_users.start_date',
+        'documents_has_users.end_date',
+        'documents_manager.document_url as document_url',
+        'documents_manager.id as d_m_id',
+        'documents_categories.id as d_m_c_id',
+
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+    )
+    ->latest('documents_has_users.created_at')
+    ->groupBy(
+        'documents_categories.id',
+        'documents_has_users.start_date',
+        'documents_has_users.end_date',
+        'documents_manager.id',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'documents_has_users.id',
+        'documents_has_users.created_at',
+        'documents_categories.name'
+    )
+    ->where('documents_has_users.user_id', '=', $userId)
+    ->get();
+
+    
+    $users1 = DB::table('users')
+    ->join('staff', 'staff.user_id', '=', 'users.id')
+    ->join('departments', 'departments.id', '=', 'staff.department_id')
+    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
+    ->where('staff.department_id', '=', Auth::user()->staff->department_id) // Explicitly specifying the table name for user_id
+    ->get();
+
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+
+        
+        }
+
+        // Now that you have the documents, you can load the category relationship
+$documentIds = $documents->pluck('d_m_c_id')->toArray();
+$categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+
+
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        // $roles->prepend('Select role', '');
+        // $departments->prepend('Select department', '');
+       /*  $users1 = $this->userRepository->all();
+
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        }); */
+
         $users = $userData->pluck('name', 'id');
 
-        return view('documents.document_shared_user', compact('documents', 'users', 'roles'));
+        return view('documents.document_shared_user', compact('documents', 'users', 'roles', 'categories'));
     }
 
     public function sharedRole()
@@ -227,7 +424,7 @@ class DocumentsController extends AppBaseController
         // If the user has only one role, you can directly access it like this:
         $roleId = $roleIds->first();
 
-        if (Auth::user()->hasRole('super-admin')) {
+        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
             $documents = DB::table('documents_has_roles')
                 ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_roles.document_id')
                 ->join('roles', 'roles.id', '=', 'documents_has_roles.role_id')
@@ -239,10 +436,11 @@ class DocumentsController extends AppBaseController
                     'documents_manager.id as id',
                     'documents_manager.document_url',
                     'roles.name as role_name',
-                    'documents_categories.name as category_name'
+                    'documents_categories.name as category_name',
+                    'documents_manager.category_id as category_id',
                 )
                 ->latest('documents_manager.created_at')
-                ->paginate(10);
+                ->get();
         } else {
             $documents = DB::table('documents_has_roles')
                 ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_roles.document_id')
@@ -255,12 +453,17 @@ class DocumentsController extends AppBaseController
                     'documents_manager.id as id',
                     'documents_manager.document_url',
                     'roles.name as role_name',
-                    'documents_categories.name as category_name'
+                    'documents_categories.name as category_name',
+                    'documents_manager.category_id as category_id',
                 )
                 ->latest('documents_manager.created_at')
                 ->where('documents_has_roles.role_id', $roleId)
-                ->paginate(10);
+                ->get();
         }
+
+        // Now that you have the documents, you can load the category relationship
+$documentIds = $documents->pluck('document_id')->toArray();
+$categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
 
         $roles = $this->roleRepository->all()->pluck('name', 'id');
         // $roles->prepend('Select role', '');
@@ -277,21 +480,35 @@ class DocumentsController extends AppBaseController
         $users = $userData->pluck('name', 'id');
 
 
-        return view('documents.document_shared_role', compact('documents', 'users', 'roles'));
+        return view('documents.document_shared_role', compact('documents', 'users', 'roles', 'categories'));
     }
 
     public function shareDocument(Request $request, $id)
     {
+        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
         $share_documents = DB::table('documents_manager')
             //->join('documents_has_roles', 'documents_has_roles.role_id', '=', 'roles.id')
             ->join('documents_has_users', 'documents_has_users.document_id', '=', 'documents_manager.id')
             ->join('users', 'documents_has_users.user_id', '=', 'users.id') // Join with the 'users' table
             ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
             //->join('roles', 'documents_has_roles.role_id', '=', 'roles.id')
-            ->select('documents_manager.*', 'documents_has_users.*', 'users.email as uemail', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.document_url as doc_url', 'documents_manager.description as doc_desc')
+            ->select('documents_manager.*', 'documents_has_users.*', 'users.email as uemail', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.document_url as doc_url', 'documents_manager.description as doc_desc', 'documents_has_users.is_download')
             ->latest('documents_manager.created_at')
             ->where('documents_manager.id', $id)
             ->get();
+        }else{
+            $share_documents = DB::table('documents_manager')
+            //->join('documents_has_roles', 'documents_has_roles.role_id', '=', 'roles.id')
+            ->join('documents_has_users', 'documents_has_users.document_id', '=', 'documents_manager.id')
+            ->join('users', 'documents_has_users.user_id', '=', 'users.id') // Join with the 'users' table
+            ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            //->join('roles', 'documents_has_roles.role_id', '=', 'roles.id')
+            ->select('documents_manager.*', 'documents_has_users.*', 'users.email as uemail', 'users.first_name as firstName', 'users.last_name as lastName', 'documents_manager.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.document_url as doc_url', 'documents_manager.description as doc_desc', 'documents_has_users.is_download')
+            ->latest('documents_manager.created_at')
+            ->where('documents_has_users.user_id', Auth()->user()->id)
+            ->where('documents_manager.id', $id)
+            ->get();
+        }
 
         return response()->json($share_documents);
         /* try {
@@ -452,8 +669,36 @@ class DocumentsController extends AppBaseController
             return redirect()->back();
         } */
 
-
-        $categories = $this->documentsCategoryRepository->all()->pluck('name', 'id');
+       
+        //$categories = $this->documentsCategoryRepository->all()->pluck('name', 'id');
+        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        $categories1 = DB::table('documents_categories')
+            ->join('departments', 'departments.id', '=', 'documents_categories.department_id')
+            //->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            ->select('documents_categories.description as subject', 'departments.name as department_name', 'documents_categories.id as documents_category_id', 'documents_categories.name as category_name', 'documents_categories.description as documents_category_description')
+            //->latest('documents_categories.created_at')
+            ->get();
+            $categories = $categories1->map(function ($category) {
+                return [
+                    'id' => $category->documents_category_id,
+                    'name' => $category->department_name . ' / ' .  $category->category_name . ' / ' .  $category->subject,
+                ];
+            })->pluck('name', 'id')->toArray();
+        }else{
+            $categories1 = DB::table('documents_categories')
+            ->join('departments', 'departments.id', '=', 'documents_categories.department_id')
+            //->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            ->select('documents_categories.description as subject', 'departments.name as department_name', 'documents_categories.id as documents_category_id', 'documents_categories.name as category_name', 'documents_categories.description as documents_category_description')
+            ->where('departments.id', Auth()->user()->staff->department_id)
+            ->get();
+            $categories = $categories1->map(function ($category) {
+                return [
+                    'id' => $category->documents_category_id,
+                    'name' => $category->department_name . ' / ' .  $category->category_name . ' / ' .  $category->subject,
+                ];
+            })->pluck('name', 'id')->toArray();
+        }
+            
         //$roles = Role::pluck('name', 'id')->all();
         $roles = $this->roleRepository->all()->pluck('name', 'id');
         // $roles->prepend('Select role', '');
@@ -503,15 +748,21 @@ class DocumentsController extends AppBaseController
                 $input_fields['start_date'] = $request->start_date;
                 $input_fields['end_date'] = $request->end_date;
                 $input_fields['is_download'] = $request->is_download;
+                $input_fields['allow_share'] = $request->allow_share;
 
 
                 $this->documentHasUserRepository->create($input_fields);
 
                 /* try {
                 $user->notify(new MemoAssignedToUser($memo));
-            } catch (\Throwable $th) {
+            } catch (\Throwable $th) { 
             } */
             }
+            DocumentComment::create([
+                'created_by' => $user->id,
+                'document_id' => $request->shareuser_id,
+                'comment' => $request->comment,
+            ]);
             //$this->_assignToUsers($users, $document);
         }
 
@@ -555,10 +806,10 @@ class DocumentsController extends AppBaseController
     /**
      * Store a newly created Memo in storage.
      */
-    public function store(CreateDocumentsRequest $request)
+    public function store(Request $request)
     {
 
-        dd($request->all());
+    
         /* if (!checkPermission('create document')) {
             Flash::error('Permission denied');
 
@@ -582,11 +833,11 @@ class DocumentsController extends AppBaseController
         // Check if a document with the given title already exists
         $existingDocument = Documents::where('title', $title)->first();
 
-        if ($existingDocument !== null) {
+       /*  if ($existingDocument !== null) {
             // Document with the same title already exists
             Flash::error('Document with the same name already exists');
             return redirect()->back();
-        }
+        } */
 
 
         // Prepare document input
@@ -623,12 +874,15 @@ class DocumentsController extends AppBaseController
         // Save document version
 
         // Assign to roles(s)
-        $roles = $input['roles'];
+        $roleId = $user->roles->pluck('id')->all();
+        $userId = $user->id;
+        $roles = $roleId; //$input['roles'];
         if ($roles != null) {
             $this->_assignToRoles($roles, $document);
         }
         // Assign to user(s)
-        $users = $input['users'];
+        
+        $users = [$userId]; // Convert $userId to an array
         if ($users != null) {
             $this->_assignToUsers($users, $document);
         }
@@ -977,7 +1231,7 @@ class DocumentsController extends AppBaseController
     /**
      * Update the specified Document in storage.
      */
-    public function update($id, UpdateDocumentsRequest $request)
+    public function update($id, Request $request)
     {
         /* if (!checkPermission('update document')) {
             Flash::error('Permission denied');
@@ -1036,12 +1290,15 @@ class DocumentsController extends AppBaseController
         DocumentHasUser::where('document_id', $document_id)->delete();
 
         // Assign to roles(s)
-        $roles = $input['roles'];
+        $roleId = $user->roles->pluck('id')->all();
+        $userId = $user->id;
+
+        $roles = $roleId;//$input['roles'];
         if ($roles != null) {
             $this->_assignToRoles($roles, $document);
         }
         // Assign to user(s)
-        $users = $input['users'];
+        $users = [$userId]; // Convert $userId to an array
         if ($users != null) {
             $this->_assignToUsers($users, $document);
         }

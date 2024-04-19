@@ -51,19 +51,26 @@
                                             class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span></a>
                                     
 
-                                    <a id="delete-service" title="Terminate Service" style="cursor: pointer;"
-                                        onclick="event.preventDefault();
-                                    document.getElementById('delete-service-form').submit();"><span
-                                            class="nk-menu-icon text-danger eg-swal-av3"><em
-                                                class="fa fa-trash"></em></span>
-                                    </a>
-                                    <form id="delete-service-form" action="{{ route('registration_fee.destroy', $registration_fee->id) }}"
-                                        method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        {{-- <button onclick="return false" id="delete-service"
-                                            class="btn btn-danger">Delete</button> --}}
-                                    </form>
+                                            <a href="#" title="Terminate registration fee" style="cursor: pointer;"
+                                            onclick="confirmDelete('{{ route('registration_fee.destroy', $registration_fee->id) }}')">
+                                            <span class="nk-menu-icon text-danger eg-swal-av3">
+                                                <em class="fa fa-trash"></em>
+                                            </span>
+                                        </a>
+                                        <form id="delete-registration_fee-form-{{ $registration_fee->id }}" action="{{ route('registration_fee.destroy', $registration_fee->id) }}"
+                                            method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                        <script>
+                                            function confirmDelete(deleteUrl) {
+                                         // Show confirmation dialog
+                                         if (confirm('Are you sure you want to delete this item?')) {
+                                             // Submit the form
+                                             document.getElementById('delete-registration_fee-form-{{ $registration_fee->id }}').submit();
+                                         }
+                                     }
+                                         </script>
                                 </td>
                             </tr>
                         @endforeach
@@ -76,33 +83,4 @@
 
 @endsection
 
-@push('scripts')
-    <script>
-        $(document).ready(function() {
 
-            $('#delete-service').on('click', function(e) {
-                e.preventDefault();
-                let id = $(this).data('id');
-                Swal.fire({
-                    title: 'Are you sure ?',
-                    text: "You won't be able to revert this !",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    //redirect to database
-                    if (result.isConfirmed) {
-                        $('#delete-service-form').submit();
-                    }
-                    //handle through ajax
-                    /* if (result.value) {
-                        Swal.fire('Deleted!', 'Your selected item has been deleted.', 'success');
-                    } */
-                })
-            });
-        });
-    </script>
-   
-@endpush

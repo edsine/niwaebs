@@ -34,7 +34,11 @@ class DepartmentsTableSeeder extends Seeder
             ['name'=>'Legal'],
             ['name'=>'Research Planning and ICT'],
             ['name'=>'Business Development'],
+
             ['name'=>'Coporate Services'],
+
+            ['name'=>'Incoming File'],
+
 
 
         ];

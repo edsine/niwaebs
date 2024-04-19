@@ -18,7 +18,7 @@ class DocumentComment extends Model implements Auditable
     public $fillable = [
         'created_by',
         'document_id',
-        'comment'
+        'comment',
     ];
 
     

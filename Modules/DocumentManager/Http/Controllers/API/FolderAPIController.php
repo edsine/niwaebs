@@ -30,7 +30,7 @@ class FolderAPIController extends AppBaseController
      *      path="/folders",
      *      summary="getFolderList",
      *      tags={"Folder"},
-     *      description="Get all Folders",
+     *      description="Get all Files",
      *      @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -61,7 +61,7 @@ class FolderAPIController extends AppBaseController
             $request->get('limit')
         );
 
-        return $this->sendResponse(FolderResource::collection($folders), 'Folders retrieved successfully');
+        return $this->sendResponse(FolderResource::collection($folders), 'Files retrieved successfully');
     }
 
     /**

@@ -59,4 +59,12 @@ class Documents extends Model implements Auditable
     public function reminder(){
         return $this->hasMany(Reminder::class,'documents_manager_id');
     }
+
+    /**
+     * Get the categories that owns the document.
+     */
+    public function categories()
+    {
+        return $this->belongsTo(DocumentsCategory::class, 'category_id');
+    }
 }

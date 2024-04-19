@@ -21,14 +21,14 @@
         <div class="card">
             <div class="card-body p-5">
                 <div class="table-responsive1">
-                    <table class="table" id="document-table">
+                    <table class="table align-middle gs-0 gy-4" id="order-listing">
                         <thead>
                             <tr>
                                {{--  <th>S/N</th> --}}
-                                <th>Document Name</th>
+                                <th>Document Title</th>
                                 <th>Full Name</th>
                                 <th>Document URL</th>
-                                <th>Folder Name</th>
+                                <th>Department Name / File No.</th>
                                 <th>Start Date</th>
                                 <th>Expiry Date</th>
                                 <th>Action</th>
@@ -37,16 +37,25 @@
                         <tbody>
                             @php $n =1; @endphp
                             @foreach ($documents as $document)
-                                
+                            @php
+                            $document->category = $categories[$document->d_m_c_id] ?? null;
+                        @endphp
                                 <tr>
                                     {{-- <td>{{ $n++ }}</td> --}}
                                     <td>{{ $document->title }}</td>
                                     {{-- <td>{{ $document->description }}</td> --}}
-                                    <td>{{ $document->first_name ? $document->first_name. ' '.$document->last_name : '' }}</td>
+                                    <td>{{ $document->created_by_name ?? 'NILL' }}</td>
                                     <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}</a>
-                                    
-                                    <td>{{ $document->category_name ?? 'NILL' }}</td>
-                                    <td>{{ $document->start_date }}</td>
+                                        <td>
+                                            @if ($document->category)
+                                                {{ $document->category->department->name ?? '' }}
+                                                /
+                                                {{ $document->category_name ?? 'NILL' }}
+                                            @else
+                                            {{ $document->category_name ?? 'NILL' }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $document->start_date }}</td>
                                     <td>{{ $document->end_date }}</td>
                                     <td>
                                         <div class="dropdown">
@@ -59,34 +68,34 @@
                                                     <i class="far fa-eye"></i> View
                                                 </a>
                                                 @if(Auth::user()->hasRole('super-admin'))
-                                                <a href="{{ route('documents_manager.edit', [$document->id]) }}" class='btn btn-default btn-xs dropdown-item'>
+                                                <a href="{{ route('documents_manager.edit', [$document->d_m_id]) }}" class='btn btn-default btn-xs dropdown-item'>
                                                     <i class="far fa-edit"></i> Edit
                                                 </a>
                                                 @endif
                                                 <a class="open-modal-share btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#shareModal"
-                                                data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Share</a>
+                                                data-share={{ $document->d_m_id }}><i class="fa fa-share-alt"></i> Assign to</a>
                                                 @if(Auth::user()->hasRole('super-admin'))
                                                 <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
-                                                 @elseif($document->is_download == 1)
+                                                 @elseif(!empty($document->is_download) && $document->is_download == 1)
                                                 <a class="btn btn-default btn-xs dropdown-item" href="{{ asset($document->document_url) }}" download><i class="fa fa-download"></i> Download</a>
                                                  {{-- @else 
                                                  {{ $document->document_url }} --}}
                                                  @endif
                                                 <a class="open-modal-upload btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#uploadsModal"
-                                                data-upload={{ $document->id }}><i class="fa fa-download"></i> Upload New Version File</a>
+                                                data-upload={{ $document->d_m_id }}><i class="fa fa-download"></i> Upload New Version File</a>
                                                 <a class="open-modal-history btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#historyModal"
-                                                data-history={{ $document->id }}><i class="fa fa-history"></i> Version History</a>
+                                                data-history={{ $document->d_m_id }}><i class="fa fa-history"></i> Version History</a>
                                                 <a class="open-modal-comment btn btn-default btn-xs dropdown-item" href="#" data-toggle="modal" data-target="#commentModal"
-                                                data-comment={{ $document->id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
+                                                data-comment={{ $document->d_m_id }} data-commenter={{ $document->document_url }}><i class="fa fa-message"></i> Comment</a>
                                                 <a class="btn btn-default btn-xs dropdown-item" href="#"><i class="fa fa-bell"></i> Add Reminder</a>
                                                 <a class="open-modal-sendemail btn btn-default btn-xs dropdown-item" href="#"  data-toggle="modal" data-target="#sendEmailModal"
-                                                data-sendemail={{ $document->id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
+                                                data-sendemail={{ $document->d_m_id }} data-sendemailer={{ $document->document_url }}><i class="far fa-envelope"></i> Send Email</a>
                                                 @if(Auth::user()->hasRole('super-admin'))
                                                 <a class="btn btn-default btn-xs dropdown-item" href="#" onclick="confirmDelete()">
                                                     <i class="far fa-trash-alt"></i> Delete
                                                 </a>
                                                 @endif
-                                                                                     {!! Form::open(['route' => ['documents_manager.destroy', $document->id], 'method' => 'delete']) !!}
+                                                                                    {{--  {!! Form::open(['route' => ['documents_manager.destroy', $document->d_m_id], 'method' => 'delete']) !!}
                                     
                                                 {!! Form::button('Delete button', [
                                                     'type' => 'submit',
@@ -95,7 +104,7 @@
                                                     'onclick' => "return confirm('Do you want to delete this document?')",
                                                     'style' => 'display: none;', // Add inline CSS to hide the button
                                                 ]) !!}
-                                    {!! Form::close() !!}
+                                    {!! Form::close() !!} --}}
                                                 <!-- Add more options as needed -->
                                             </div>
                                         </div>
@@ -108,11 +117,7 @@
                     </table>
                 </div>
             
-                <div class="card-footer clearfix">
-                    <div class="float-right">
-                        @include('adminlte-templates::common.paginate', ['records' => $documents])
-                    </div>
-                </div>
+                
             </div>
             
             

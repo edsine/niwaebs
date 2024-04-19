@@ -95,12 +95,13 @@
             </ul>
 
         </li>
+        @can('view user managment module')
         @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="bi bi-tools menu-icon"></i>
 
-                    <span class="menu-title">System Setup</span>
+                    <span class="menu-title">User Management</span>
                     <i class="menu-arrow"></i>
 
                 </a>
@@ -114,16 +115,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('employers.index') }}">Clients</a>
+                    </li>
 
                 </ul>
 
             </li>
         @endif
+        @endcan
 
-
-
-        @if (auth()->check() &&
-                (in_array(auth()->user()->staff->department_id, [1, 5, 4]) || auth()->user()->hasRole('super-admin')))
+        @can('view service applications module')
+        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [1, 5, 4]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('serviceApplications.index') }}">
                     <i class="fa fa-compass menu-icon"></i>
@@ -132,7 +135,9 @@
                 </a>
             </li>
         @endif
+        @endcan
 
+        @can('view approval module')
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-check menu-icon"></i>
@@ -159,14 +164,17 @@
 
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('document.index') }}">
                         Documents Approval
 
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
+        @endcan
+
+        @can('view service application setup module')
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-check menu-icon"></i>
@@ -200,18 +208,21 @@
                     <a class="nav-link" href="{{ route('inspection_fee.index') }}">Inspection Fee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">Equipment And Fees</a>
+                    <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">Demand Notice</a>
                 </li>
 
 
             </ul>
         </li>
+        @endcan
+
         @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
             <!-- Start Of REport System Menu -->
             @include('accounting::layouts.reportmenu')
             <!-- End Of REport System Menu -->
         @endif
 
+        @can('view operational task module')
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-tasks menu-icon"></i>
@@ -252,7 +263,9 @@
 
             </ul>
         </li>
+        @endcan
 
+        @can('view my task module')
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-columns menu-icon"></i>
@@ -317,7 +330,7 @@
                         </li> --}}
 
                         {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('folders.index') }}">Folders</a>
+                            <a class="nav-link" href="{{ route('folders.index') }}">Files</a>
                         </li> --}}
 
 
@@ -346,6 +359,7 @@
                 </li>
             </ul>
         </li>
+        @endcan
 
         @if (auth()->check() &&
                 (in_array(auth()->user()->staff->department_id, [11, 12, 10]) || auth()->user()->hasRole('super-admin')))
@@ -468,8 +482,8 @@
             </li>
         @endif
 
-        @if (auth()->check() &&
-                (in_array(auth()->user()->staff->department_id, [4, 5, 3, 13]) || auth()->user()->hasRole('super-admin')))
+        @can('view asset manager module')
+        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [4, 5, 3, 13]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas  fa-passport menu-icon"></i>
@@ -554,10 +568,10 @@
                     </li> --}}
                     {{--  @endcan --}}
 
-            </ul>
-        </li>
-
+                </ul>
+            </li>
         @endif
+        @endcan
 
 
         <li class="nav-item" id="myTask">
@@ -576,17 +590,17 @@
                     <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">My
                         Documents</a>
                 </li>
-                <li class="nav-item">
+               {{--  <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.sharedrole') }}">Official
                         Documents</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.index') }}">All Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('documents_category.index') }}">Folders</a>
+                    <a class="nav-link" href="{{ route('documents_category.index') }}">Files</a>
                 </li>
-                @if(auth()->user()->hasRole('super-admin'))
+                @if(auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.audits') }}">Document Audit Trail</a>
                 </li>
@@ -603,6 +617,57 @@
                 </li>
             </ul>
         </li>
+
+        @can('view incoming documents module')
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas  fa-id-card-clip menu-icon"></i>
+                <span class="menu-title">Incoming  Documents</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+                {{--  @can('read asset manager dashboard') --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_document_dashboard') }}"><i class="fas  fa-dashboard "></i>
+                        Dashboard</a>
+                </li> --}}
+                @if(auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming
+                        Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_category.index') }}">Files</a>
+                </li>
+                @endif
+
+                @can('view incoming documents')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.shareduser') }}">My
+                        Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">All Documents</a>
+                </li>
+                @endcan
+                
+                @if(auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">Document Audit Trail</a>
+                </li>
+                @endif
+                {{-- <li class="nav-item">
+
+                    <a class="nav-link" href="{{ route('reminder.index') }}"> <i
+                            class="bi bi-alarm "></i>Reminder</a>
+                </li> --}}
+                
+            </ul>
+        </li>
+        @endcan
+
+    </ul>
+    </li>
 
     </ul>
     </li>

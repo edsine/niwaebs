@@ -50,12 +50,12 @@
         <div class='btn-group'>
             {!! Form::button('Approve', [
                 'type' => 'button',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!}
         </div>
@@ -63,10 +63,10 @@
     </div>
 @endif --}}
 @php 
-$app_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 1)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+$app_fee = \App\Models\Payment::where('payment_status', 1)->where('approval_status', 0)->where('payment_type', 1)->where("employer_id", $serviceApplication->user_id)->latest()->first();
 @endphp
 @if(!empty($app_fee))
-@if ($serviceApplication->current_step == 5)
+@if ($serviceApplication->current_step == 4)
     <div class="col-sm-12">
         <!-- Documents Approval -->
         <h3>Application Fee Payment Approval</h3>
@@ -92,12 +92,12 @@ $app_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type'
         <div class='btn-group'>
             {!! Form::button('Approve', [
                 'type' => 'button',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {{-- {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!} --}}
         </div>
@@ -106,7 +106,7 @@ $app_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type'
 @endif
 @endif
 @php 
-$pro_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 2)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+$pro_fee = \App\Models\Payment::where('payment_status', 1)->where('approval_status', 0)->where('payment_type', 2)->where("employer_id", $serviceApplication->user_id)->latest()->first();
 @endphp
 @if(!empty($pro_fee))
 @if ($serviceApplication->current_step == 6)
@@ -135,12 +135,12 @@ $pro_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type'
         <div class='btn-group'>
             {!! Form::button('Approve', [
                 'type' => 'button',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!}
         </div>
@@ -150,7 +150,7 @@ $pro_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type'
 @endif
 
 @php 
-$insp_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 3)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+$insp_fee = \App\Models\Payment::where('payment_status', 1)->where('approval_status', 0)->where('payment_type', 3)->where("employer_id", $serviceApplication->user_id)->latest()->first();
 @endphp
 @if(!empty($insp_fee))
 @if ($serviceApplication->current_step == 8)
@@ -177,12 +177,12 @@ $insp_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type
         <div class='btn-group'>
             {!! Form::button('SUBMIT', [
                 'type' => 'submit',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {{-- {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!} --}}
         </div>
@@ -211,12 +211,12 @@ $insp_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type
         <div class='btn-group'>
             {!! Form::button('Approve', [
                 'type' => 'button',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!}
         </div>
@@ -279,7 +279,7 @@ $insp_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type
 @endif
 
 @php 
-$equip_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_type', 5)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+$equip_fee = \App\Models\Payment::where('payment_status', 1)->where('approval_status', 0)->where('payment_type', 5)->where("employer_id", $serviceApplication->user_id)->latest()->first();
 @endphp
 @if(!empty($equip_fee))
 @if ($serviceApplication->current_step == 12)
@@ -301,12 +301,12 @@ $equip_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_typ
         <div class='btn-group'>
             {!! Form::button('Approve', [
                 'type' => 'button',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!}
         </div>
@@ -336,12 +336,12 @@ $equip_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_typ
         <div class='btn-group'>
             {!! Form::button('Approve', [
                 'type' => 'button',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!}
         </div>
@@ -368,12 +368,12 @@ $equip_fee = \App\Models\Payment::where('payment_status', 1)->where('payment_typ
         <div class='btn-group'>
             {!! Form::button('Approve', [
                 'type' => 'button',
-                'class' => 'btn btn-success btn-xs',
+                'class' => 'btn btn-success btn-xs1',
                 'onclick' => "setSelectedStatus('approve')",
             ]) !!}
             {!! Form::button('Decline', [
                 'type' => 'button',
-                'class' => 'btn btn-danger btn-xs',
+                'class' => 'btn btn-danger btn-xs1',
                 'onclick' => "setSelectedStatus('decline')",
             ]) !!}
         </div>

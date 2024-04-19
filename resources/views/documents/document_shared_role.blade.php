@@ -20,15 +20,15 @@
 
         <div class="card">
             <div class="card-body p-5">
-                <div class="table-responsive1">
-                    <table class="table" id="document-table">
+                <div class="table-responsive">
+                    <table class="table align-middle gs-0 gy-4" id="order-listing">
                         <thead>
                             <tr>
                                 {{-- <th>S/N</th> --}}
                                 <th>Document Name</th>
                                 <th>Role Name</th>
                                 <th>Document URL</th>
-                                <th>Folder Name</th>
+                                <th>File Name</th>
                                 <th>Start Date</th>
                                 <th>Expiry Date</th>
                                 <th>Action</th>
@@ -37,6 +37,9 @@
                         <tbody>
                             @php $n =1; @endphp
                             @foreach ($documents as $document)
+                            @php
+                            $document->category = $categories[$document->category_id] ?? null;
+                        @endphp
                                 <tr>
                                     {{-- <td>{{ $n++ }}</td> --}}
                                     <td>{{ $document->title }}</td>
@@ -45,8 +48,16 @@
                                     <td><a target="_blank"
                                             href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}
                                         </a>
-                                    <td>{{ $document->category_name ?? 'NILL' }}</td>
-                                    <td>{{ $document->start_date }}</td>
+                                    </td>
+                                      <td>
+                                            @if ($document->category)
+                                                {{ $document->category->department->name ?? '' }}
+                                                /
+                                                {{ $document->category_name ?? 'NILL' }}
+                                            @else
+                                                NILL
+                                            @endif
+                                        </td>                                        <td>{{ $document->start_date }}</td>
                                     <td>{{ $document->end_date }}</td>
                                     <td>
                                         <div class="dropdown">
@@ -69,7 +80,7 @@
                                                 @endif
                                                 <a class="open-modal-share btn btn-default btn-xs dropdown-item"
                                                     href="#" data-toggle="modal" data-target="#shareModal"
-                                                    data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Share</a>
+                                                    data-share={{ $document->id }}><i class="fa fa-share-alt"></i> Assign to</a>
                                                 @if (Auth::user()->hasRole('super-admin'))
                                                     <a class="btn btn-default btn-xs dropdown-item"
                                                         href="{{ asset($document->document_url) }}" download><i
@@ -129,11 +140,7 @@
                     </table>
                 </div>
 
-                <div class="card-footer clearfix">
-                    <div class="float-right">
-                        @include('adminlte-templates::common.paginate', ['records' => $documents])
-                    </div>
-                </div>
+                
             </div>
 
 
