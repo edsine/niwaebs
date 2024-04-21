@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Mail\SendEmail;
 use App\Models\IncomingMetaTag;
+use App\Models\IncomingDocumentsCategory;
 use App\Models\IncomingDocuments;
 use App\Models\Documents;
 use Laracasts\Flash\Flash;
@@ -97,6 +98,9 @@ class IncomingDocumentsController extends AppBaseController
         'incoming_documents_manager.created_at as document_created_at',
         'incoming_documents_manager.id as d_id',
         'incoming_documents_manager.title',
+        'incoming_documents_manager.full_name as sender_full_name',
+        'incoming_documents_manager.email as sender_email',
+        'incoming_documents_manager.phone as sender_phone',
         'incoming_documents_manager.document_url',
         'incoming_documents_categories.description as doc_description',
         'incoming_documents_has_users.is_download',
@@ -105,10 +109,10 @@ class IncomingDocumentsController extends AppBaseController
         'incoming_documents_has_users.assigned_by',
         DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
     )
-    ->latest('incoming_documents_manager.created_at')
     ->where('incoming_documents_has_users.assigned_by','!=', '0')
+    ->latest('incoming_documents_manager.created_at')
     ->groupBy('incoming_documents_has_users.assigned_by','incoming_documents_has_users.user_id','incoming_documents_has_users.is_download','incoming_documents_has_users.allow_share','incoming_documents_has_users.user_id','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
-    ->with('createdBy')
+    //->with('createdBy')
     ->get();
 
     // Get the roles with the specified role IDs
@@ -169,6 +173,9 @@ $userData = $users->map(function ($user) {
                     'incoming_documents_manager.created_at as document_created_at',
                     'incoming_documents_manager.id as d_id',
                     'incoming_documents_manager.title',
+                    'incoming_documents_manager.full_name as sender_full_name',
+                    'incoming_documents_manager.email as sender_email',
+                    'incoming_documents_manager.phone as sender_phone',
                     'incoming_documents_manager.document_url',
                     'incoming_documents_categories.description as doc_description',
                     'incoming_documents_has_users.is_download',
@@ -184,16 +191,15 @@ $userData = $users->map(function ($user) {
                 //->with('createdBy')
                 ->get();
 
-                $users1 = $this->userRepository->all();
+                $roles1 = Role::whereIn('id', [2])->get();
 
-        $userData = $users1->map(function ($user) {
-            return [
-                'id' => $user->id,
-                'name' => $user->first_name . ' ' . $user->last_name,
-            ];
-        });
+// Get the users who have any of these roles
+$userData = User::whereHas('roles', function ($query) use ($roles1) {
+    $query->whereIn('id', $roles1->pluck('id'));
+})->get(['id', \DB::raw('CONCAT(first_name, " ", last_name) AS name')]);
+
+
         }
-
 
         $roles = $this->roleRepository->all()->pluck('name', 'id');
         
@@ -201,6 +207,7 @@ $userData = $users->map(function ($user) {
 
        return view('incoming_documents.secretary', compact('documents', 'users', 'roles'));
     }
+
 
 
     public function dashboard()
@@ -235,21 +242,19 @@ $userData = $users->map(function ($user) {
             ->where('audits.auditable_type', "App\Models\Documents")
             ->latest('incoming_documents_manager.created_at')
             ->get(); */
-            $documents = DB::table('documents_manager')
+            $documents = DB::table('incoming_documents_manager')
             ->join('audits', 'incoming_documents_manager.id', '=', 'audits.auditable_id')
-            ->join('users as created_by_user', 'incoming_documents_manager.created_by', '=', 'created_by_user.id')
             ->join('incoming_documents_has_users', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
             ->join('users as assigned_to_user', 'incoming_documents_has_users.user_id', '=', 'assigned_to_user.id')
             ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
-            ->select('incoming_documents_categories.id as d_c_id','incoming_documents_manager.*', 'incoming_documents_manager.id as id', 'audits.*', 'created_by_user.first_name as created_by_first_name', 'created_by_user.last_name as created_by_last_name', 'assigned_to_user.first_name as assigned_to_first_name', 'assigned_to_user.last_name as assigned_to_last_name', 'incoming_documents_manager.created_at as createdAt', 'incoming_documents_categories.name as category_name')
-            ->where('audits.auditable_type', "App\Models\Documents")
+            ->select('incoming_documents_categories.id as d_c_id','incoming_documents_manager.*', 'incoming_documents_manager.id as id', 'audits.*', 'assigned_to_user.first_name as assigned_to_first_name', 'assigned_to_user.last_name as assigned_to_last_name', 'incoming_documents_manager.created_at as createdAt', 'incoming_documents_categories.name as category_name')
+            ->where('audits.auditable_type', "App\Models\IncomingDocuments")
             ->latest('incoming_documents_manager.created_at')
+            ->limit(5)
             ->distinct() // Ensure distinct results
-            ->get();        
-
-        // Now that you have the documents, you can load the category relationship
-$documentIds = $documents->pluck('d_c_id')->toArray();
-$categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+            ->get();
+            $documentIds = $documents->pluck('d_c_id')->toArray();
+$categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
         } else{
             
             return redirect()->back()->with('error', 'Permission denied for document audit trail access');
@@ -309,6 +314,9 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         'incoming_documents_manager.category_id',
         'incoming_documents_categories.id',
         'incoming_documents_manager.title',
+        'incoming_documents_manager.full_name as sender_full_name',
+        'incoming_documents_manager.email as sender_email',
+        'incoming_documents_manager.phone as sender_phone',
         'incoming_documents_has_users.created_at as createdAt',
         'incoming_documents_categories.name as category_name',
         'incoming_documents_has_users.start_date',
@@ -363,6 +371,9 @@ $userData = $users->map(function ($user) {
     ->select(
         'incoming_documents_categories.id',
         'incoming_documents_manager.title',
+        'incoming_documents_manager.full_name as sender_full_name',
+        'incoming_documents_manager.email as sender_email',
+        'incoming_documents_manager.phone as sender_phone',
         'incoming_documents_has_users.created_at as createdAt',
         'incoming_documents_categories.name as category_name',
         'incoming_documents_has_users.start_date',
@@ -683,7 +694,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     }
 
     /**
-     * Show the form for creating a new Memo.
+     * Show the form for creating a new incoming document no authentication.
      */
     public function create()
     {
@@ -723,6 +734,46 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
 
         return view('incoming_documents.create', compact(['categories', 'users', 'roles', 'dept', 'office']));
+    }
+
+    public function add_document()
+    {
+        
+            $categories1 = DB::table('incoming_documents_categories')
+            ->join('departments', 'departments.id', '=', 'incoming_documents_categories.department_id')
+            //->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select('incoming_documents_categories.description as subject', 'departments.name as department_name', 'incoming_documents_categories.id as documents_category_id', 'incoming_documents_categories.name as category_name', 'incoming_documents_categories.description as documents_category_description')
+            ->where('departments.id', 15)
+            ->get();
+            $categories = $categories1->map(function ($category) {
+                return [
+                    'id' => $category->documents_category_id,
+                    'name' => $category->department_name . ' / ' .  $category->category_name . ' / ' .  $category->subject,
+                ];
+            })->pluck('name', 'id')->toArray();
+        
+            
+        //$roles = Role::pluck('name', 'id')->all();
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        // $roles->prepend('Select role', '');
+        // $departments->prepend('Select department', '');
+        $users1 = $this->userRepository->all();
+
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+
+        $users = $userData->pluck('name', 'id');
+        //$users->prepend('Select user', '');
+        $dept = Department::where('id',15)->get();
+        // dd($dept);
+        $office = Branch::get();
+
+
+        return view('incoming_documents.add', compact(['categories', 'users', 'roles', 'dept', 'office']));
     }
 
     
@@ -828,8 +879,21 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     public function store(Request $request)
     {
 
+        // Validate the request
+    $validatedData = $request->validate([
+        'title' => 'required',
+        'full_name' => 'required',
+        'email' => 'required|email',
+        'phone' => 'required|numeric',
+        'description' => 'required',
+        'file' => 'required|mimes:pdf,doc,docx,jpeg,png,gif|max:1024',
+    ], [
+        'file.mimes' => 'Please select a valid file format (PDF, DOC, DOCX, JPEG, PNG, GIF).',
+        'file.max' => 'File size exceeds the maximum limit of 1MB.',
+    ]);
+
         //$user = Auth::user();
-        $input = $request->all();
+        $input = $validatedData;
         $input['created_by'] = 0;
 
         // Get folder and its parents. Create if path does not exist
@@ -857,11 +921,15 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
         $document_input['title'] = $input['title'];
         $document_input['description'] = $input['description'];
+        $document_input['full_name'] = $input['full_name'];
+        $document_input['email'] = $input['email'];
+        $document_input['phone'] = $input['phone'];
 
-        if (isset($input['category_id'])) {
+        /* if (isset($input['category_id'])) {
 
             $document_input['category_id'] = $input['category_id'];
-        }
+        } */
+        $document_input['category_id'] = 1;
         $document_input['created_by'] = 0;
 
 

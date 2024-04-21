@@ -261,5 +261,6 @@
         todayHighlight: true,
       });
     }
-  });
+
+  })
 })(jQuery);

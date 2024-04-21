@@ -9,8 +9,11 @@
         <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr>
-                    {{-- <th>S/N</th> --}}
+                    <th>S/N</th>
                     <th>Document Title</th>
+                    <th>Sender Name</th>
+                    <th>Sender Email</th>
+                    <th>Sender Phone</th>
                     <th>Document URL</th>
                     <th>Department Name / File No.</th>
                     <th>Subject</th>
@@ -20,12 +23,15 @@
                 </tr>
             </thead>
             <tbody>
-                @php $n =1; @endphp
-                @foreach ($documents as $document)
+                
+                @foreach ($documents as $index => $document)
                     
                     <tr>
-                        {{-- <td>{{ $n++ }}</td> --}}
-                        <td>{{ $document->title }}</td>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $document->title ?? 'NILL' }}</td>
+                        <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
+                        <td>{{ $document->sender_email ?? 'NILL' }}</td>
+                        <td>{{ $document->sender_phone ?? 'NILL' }}</td>
                          <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
@@ -35,8 +41,7 @@
                         
                        {{--  @endif --}}
                         <td>
-                            <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
-                                    data-shareuser={{ $document->d_id }}>Approve</a>
+                            <a class="btn btn-primary" href="#" onClick="approveDocument({{ $document->d_id }})">Approve</a>
                         </td>
                     </tr>
                 @endforeach
@@ -309,7 +314,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data', 'id' => 'approve-form']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title">Approve Document</h5>
@@ -321,7 +326,7 @@ aria-hidden="true" data-backdrop="false">
 
                 <div class="form-group">
                     {!! Form::label('users', 'Select User(s):') !!}
-                    {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+                    {!! Form::select('users[]', $users, $users, ['class' => 'form-control', 'id' => 'userSelectn', 'required']) !!}
 
                     {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
                     {!! Form::hidden('notify_id', 1, ['id' => 'notify_id']) !!}
@@ -329,10 +334,10 @@ aria-hidden="true" data-backdrop="false">
                 {{-- <div class="form-group">
     {!! Form::label('approved_date_time', 'Approved Date/Time') !!}
     {!! Form::datetime('approved_date_time', null, ['class' => 'form-control', 'id' => 'approved_date_time']) !!}
-</div> --}}
+</div> --}} 
 <div class="form-group">
     <label for="approved_date_time">Approved Date/Time:</label>
-    <input type="datetime-local" id="approved_date_time" name="approved_date_time" class="form-control">
+    <input type="text" id="approved_date_time1" value="{{ date('Y-m-d H:i:s') }}" name="approved_date_time" class="form-control">
 </div>
 
                 <div class="form-group" style="display: none;">
@@ -356,14 +361,14 @@ aria-hidden="true" data-backdrop="false">
                 {!! Form::label('comment', 'Type your comment:') !!}
                     <div class="form-group">
                         <div class="custom-comment">
-                            {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                            {!! Form::textarea('comment', "Incoming document approved", ['class' => 'form-control']) !!}
                         </div>
                     </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                <button type="submit" class="btn btn-primary" id="approve_button">SUBMIT</button>
             </div>
             {!! Form::close() !!}
         </div>
@@ -655,3 +660,16 @@ $(document).on("click", ".open-modal-share", function() {
     console.log("Select2 initialization script executed.");
 });
     </script>
+
+<script>
+   
+   function approveDocument(id) {
+        if (confirm("Do you want to approve this document?")) {
+            // If the user clicks "OK", do something here, like submitting a form
+            $(".modal-body #shareuser_id").val(id);
+            document.getElementById('approve-form').submit();
+        } else {
+            // If the user clicks "Cancel", do nothing
+        }
+    }
+ </script>

@@ -9,8 +9,11 @@
         <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr>
-                    {{-- <th>S/N</th> --}}
+                    <th>S/N</th>
                     <th>Document Title</th>
+                    <th>Sender Name</th>
+                    <th>Sender Email</th>
+                    <th>Sender Phone</th>
                     <th>Assigned To</th>
                     <th>Document URL</th>
                     <th>Department Name / File No.</th>
@@ -23,12 +26,15 @@
                 </tr>
             </thead>
             <tbody>
-                @php $n =1; @endphp
-                @foreach ($documents as $document)
+                
+                @foreach ($documents as $index => $document)
                     
                     <tr>
-                        {{-- <td>{{ $n++ }}</td> --}}
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $document->title }}</td>
+                        <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
+                        <td>{{ $document->sender_email ?? 'NILL' }}</td>
+                        <td>{{ $document->sender_phone ?? 'NILL' }}</td>
                         {{-- <td>{{ $document->description }}</td> --}}
                         <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>

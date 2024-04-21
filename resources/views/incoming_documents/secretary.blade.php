@@ -5,15 +5,15 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Incoming Documents</h1>
+                    <h1>Incoming/Manual Documents</h1>
                 </div>
                {{--  @if(Auth::user()->hasRole('super-admin')) --}}
-                {{-- <div class="col-sm-6">
+                <div class="col-sm-6">
                     <a class="btn btn-primary float-end"
                        href="{{ route('incoming_documents_manager.create') }}">
-                        Add New
+                        Add New Incoming Manual Document
                     </a>
-                </div> --}}
+                </div>
                 {{-- @endif --}}
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="clearfix"></div>
 
         <div class="card">
-            @include('documents.secretary_table')
+            @include('incoming_documents.secretary_table')
         </div>
     </div>
 

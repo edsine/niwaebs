@@ -53,43 +53,43 @@
             <ul class="nav flex-column sub-menu">
                 @can('view md dashboard')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('md') }}">MDOVERVIEW</a>
+                        <a class="nav-link" href="{{ route('md') }}">MD Overview</a>
                     </li>
                 @endcan
                 @can('view area office coordination')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('aocadmin') }}">Area Office CORD.OVERVIEW</a>
+                        <a class="nav-link" href="{{ route('aocadmin') }}">Area Office Cord. Overview</a>
                     </li>
                 @endcan
                 @can('view areamanager dashboard')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('am') }}">Area Manager OVERVIEW</a>
+                        <a class="nav-link" href="{{ route('am') }}">Area Manager Overview</a>
                     </li>
                 @endcan
                 @can('view marine dashboard')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('marineadmin') }}">Marine OVERVIEW</a>
+                        <a class="nav-link" href="{{ route('marineadmin') }}">Marine Overview</a>
                     </li>
                 @endcan
                 @can('view engineering dashboard')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('engineering') }}">Engineering OVERVIEW</a>
+                        <a class="nav-link" href="{{ route('engineering') }}">Engineering Overview</a>
                     </li>
                 @endcan
                 @can('view finance and account dashboard')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('financeadmin') }}">finance and account
-                            OVERVIEW</a>
+                            Overview</a>
                     </li>
                 @endcan
                 @can('view audit dashboard')
                     <li class="nav-item">
-                        <a class="nav-link" href="auditadmin">Audit OVERVIEW</a>
+                        <a class="nav-link" href="auditadmin">Audit Overview</a>
                     </li>
                 @endcan
                 @can('view corporate affairs dashboard')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('copaffairs') }}">Corporate Affairs OVERVIEW</a>
+                        <a class="nav-link" href="{{ route('copaffairs') }}">Corporate Affairs Overview</a>
                     </li>
                 @endcan
             </ul>
@@ -189,9 +189,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('sub-services.index') }}">Sub-Service Type</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('registration_fee.index') }}">Registration fee</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('application_form_fee.index') }}">Application Fee</a>
                 </li>
@@ -209,6 +209,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('equipmentAndFees.index') }}">Demand Notice</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('change.signature') }}">Sign Signature</a>
                 </li>
 
 
@@ -633,7 +636,7 @@
                 </li> --}}
                 @if(auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming/Manual
                         Documents</a>
                 </li>
                 <li class="nav-item">
@@ -647,7 +650,7 @@
                         Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">All Documents</a>
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">Received Documents</a>
                 </li>
                 @endcan
                 
@@ -665,6 +668,15 @@
             </ul>
         </li>
         @endcan
+
+        {{-- <li class="nav-item">
+            <a class="nav-link" href="{{ route('serviceApplications.index') }}">
+                <i class="fa fa-compass menu-icon"></i>
+                <span class="menu-title">Live Chat</span>
+
+            </a>
+        </li> --}}
+
 
     </ul>
     </li>
