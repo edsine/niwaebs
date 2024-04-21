@@ -1,13 +1,265 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .hidden1 {
+        display: none;
+    }
+</style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h1 class="text-center mb-5">MANAGING DIRECTOR DASHBOARD</h1>
 
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
-                <div class="col-4">
+                <div class="col-md-9 grid-margin stretch-card">
+                    <!--begin::Chart widget 15-->
+                    {{-- <div class="card  h-xl-100"> --}}
+                    <div class="card  h-xl-100">
+                        <!--begin::Header-->
+                        <div class="card-header pt-7">
+                            <!--begin::Title-->
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bolder text-dark">Department / File No.</span>
+                            </h3>
+                            <!--end::Title-->
+                            <!--begin::Toolbar-->
+                           {{--  <div class="card-toolbar">
+                                <div class="form-group">
+
+                                  
+                                    <form id="branchForm" class="form" method="GET"
+                                        action="{{ route('showarea') }}">
+                                        @csrf
+                                        {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
+                                            'class' => 'form-control form-select',
+                                            'id' => 'branchSelect',
+                                        ]) !!}
+                                        <button type="submit" class="btn btn-success">View Details</button>
+                                    </form>
+
+                                </div>
+
+                            </div> --}}
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body d-flex1 justify-content-between1 flex-column1 px-0 pb-0 ">
+                            <!--begin::Chart container-->
+
+
+                            <div id="md" style=""></div>
+                            {{-- <canvas id="md" width="800" height="400"></canvas> --}}
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Chart widget 15-->
+
+                </div>
+                <div class="col-md-3 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">
+                          <i class="far fa-futbol"></i>
+                          Incoming Document Audit Trail
+                        </h4>
+                        @php 
+                        $documents = \DB::table('incoming_documents_manager')
+            ->join('audits', 'incoming_documents_manager.id', '=', 'audits.auditable_id')
+            ->join('incoming_documents_has_users', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+            ->join('users as assigned_to_user', 'incoming_documents_has_users.user_id', '=', 'assigned_to_user.id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select('incoming_documents_categories.id as d_c_id','incoming_documents_manager.*', 'incoming_documents_manager.id as id', 'audits.*', 'assigned_to_user.first_name as assigned_to_first_name', 'assigned_to_user.last_name as assigned_to_last_name', 'incoming_documents_manager.created_at as createdAt', 'incoming_documents_categories.name as category_name')
+            ->where('audits.auditable_type', "App\Models\IncomingDocuments")
+            ->latest('incoming_documents_manager.created_at')
+            ->limit(5)
+            ->distinct() // Ensure distinct results
+            ->get();
+            $documentIds = $documents->pluck('d_c_id')->toArray();
+$categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+
+                        @endphp
+                        <ul class="solid-bullet-list">
+                            @foreach ($documents as $document)
+                            @php
+                            $document->category = $categories[$document->category_id] ?? null;
+                            @endphp
+                          <li>
+                            <h5>{{ $document->title }}
+                              <span class="float-right text-muted font-weight-normal small">{{ date('M d, Y H:i A', strtotime($document->createdAt)) }}</span>
+                            </h5>
+                            <p class="text-muted">{{ $document->assigned_to_first_name }} {{ $document->assigned_to_last_name }}</p>
+                            <p class="text-muted">@if ($document->category)
+                                {{ $document->category->department->name ?? '' }}
+                                /
+                                {{ $document->category_name ?? 'NILL' }}
+                            @else
+                            {{ $document->category_name ?? 'NILL' }}
+                            @endif</p>
+                            <p class="text-muted"><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                            </p>
+                            <p class="text-muted">{{ $document->event }}</p>
+                          </li>
+                          @endforeach
+                        </ul>
+                        {{-- <div class="border-top pt-3">
+                          <div class="d-flex justify-content-between">
+                            <button class="btn btn-outline-dark">More</button>
+                            <button class="btn btn-primary btn-icon-text">
+                            More
+                            <i class="btn-icon-append fas fa-angle-double-right"></i>
+                            </button>
+                          </div>
+                        </div> --}}
+                      </div>
+                    </div>
+                  </div>
+                 {{--  <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fas fa-gift"></i>
+                                Document Analytics
+                            </h4>
+                            <canvas id="orders-chart1"></canvas>
+                            <div id="orders-chart-legend1" class="orders-chart-legend"></div>                  
+                        </div>
+                    </div>
+                </div>  --}}               
+               {{--  <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">
+                          <i class="fas fa-calendar-alt"></i>
+                          Reminder
+                        </h4>
+                        <div id="inline-datepicker-example1" class="datepicker"></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="event-details"></div> --}}
+                  
+                  
+                  <div class="row">
+                    <div class="col-12 grid-margin">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">
+                            <i class="fas fa-envelope"></i>
+                           Latest Incoming Documents
+                          </h4>
+                            <div class="table-responsive">
+                                <table class="table align-middle gs-0 gy-4" id="order-listing11">
+                                    <thead>
+                                        <tr>
+                                            {{-- <th>S/N</th> --}}
+                                            <th>Document Title</th>
+                                            <th>Sender Name</th>
+                                            <th>Sender Email</th>
+                                            <th>Sender Phone</th>
+                                            <th>Assigned To</th>
+                                            <th>Document URL</th>
+                                            <th>Department Name / File No.</th>
+                                            <th>Subject</th>
+                                            <th>Created Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        @foreach ($documents1 as $document)
+                                            @php @endphp
+                                            <tr>
+                                                {{-- <td>{{ $n++ }}</td> --}}
+                                                <td>{{ $document->title ?? 'NILL' }}</td>
+                                                <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
+                                                <td>{{ $document->sender_email ?? 'NILL' }}</td>
+                                                <td>{{ $document->sender_phone ?? 'NILL' }}</td>
+                                                {{-- <td>{{ $document->description }}</td> --}}
+                                                <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
+                                                <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                                                </td>
+                                                
+                                                <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                                                <td>{{ $document->doc_description ?? 'NILL' }}</td>
+                                                <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
+                                               
+                                              
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            
+                        </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12 grid-margin">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">
+                            <i class="fas fa-envelope"></i>
+                           Latest Internal Documents
+                          </h4>
+                            <div class="table-responsive">
+                                <table class="table align-middle gs-0 gy-4" id="order-listing11">
+                                    <thead>
+                                        <tr>
+                                            {{-- <th>S/N</th> --}}
+                                            <th>Document Title</th>
+                                            <th>Assigned To</th>
+                                            <th>Document URL</th>
+                                            <th>Department Name / File No.</th>
+                                            <th>Subject</th>
+                                            <th>Created Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        @foreach ($documents2 as $document)
+                                            @php @endphp
+                                            <tr>
+                                                {{-- <td>{{ $n++ }}</td> --}}
+                                                <td>{{ $document->title ?? 'NILL' }}</td>
+                                                {{-- <td>{{ $document->description }}</td> --}}
+                                                <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
+                                                <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                                                </td>
+                                                
+                                                <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                                                <td>{{ $document->doc_description ?? 'NILL' }}</td>
+                                                <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
+                                               
+                                              
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            
+                        </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 
+
+               
+            </div>
+            
+{{--             <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Analytics</button>
+ --}}            
+            <div id="content" class="hidden1">
+                <div class="col-12 float-right">
                     <div class="row">
                         <div class="col-3">
                             {!! Form::label('', 'Filter By', ['class' => 'form-label mt-2']) !!}
@@ -47,7 +299,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="row g-5 g-xl-8">
                 <div class="col-xl-3">
                     <!--begin::Statistics Widget 5-->
@@ -275,16 +526,12 @@
                 </div>
 
             </div>
-            <br>
-            <br>
-
-
 
             <!--begin::Row-->
-            <div class="row g-5 g-xl-10">
+            <div class="row g-5 g-xl-10" style="margin-bottom: 70px;">
+                
                 <!--begin::Col-->
-                <div class="col-md-6 mb-md-5 mb-xl-10">
-                    <div class="row g-5 g-xl-10">
+                
                         <div class="col-md-6 col-xl-6 mb-xxl-10">
                             <!--begin::Card widget 8-->
                             <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
@@ -356,7 +603,7 @@
                             </div>
                             <!--end::Card widget 5-->
                         </div>
-                        <div class="col-md-6 col-xl-6 mb-xxl-10">
+                        <div class="col-md-6 col-xl-6 mb-xxl-10" >
                             <!--begin::Card widget 9-->
                             <div class="card overflow-hidden h-md-50 mb-5 mb-xl-10">
                                 <!--begin::Card body-->
@@ -410,58 +657,18 @@
                             <!--end::Card widget 7-->
                         </div>
                     </div>
-                </div>
+
+        </div>
+            <br>
+            <br>
 
 
 
-                <div class="col-md-6 mb-0">
-                    <!--begin::Chart widget 15-->
-                    {{-- <div class="card  h-xl-100"> --}}
-                    <div class="card  h-xl-100">
-                        <!--begin::Header-->
-                        <div class="card-header pt-7">
-                            <!--begin::Title-->
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bolder text-dark">Area Offices Performance</span>
-                            </h3>
-                            <!--end::Title-->
-                            <!--begin::Toolbar-->
-                            <div class="card-toolbar">
-                                <div class="form-group">
-
-                                    {{-- {!! Form::date('date', now()->format('Y-m-d'), ['class' => 'date form-control']) !!} --}}
-
-                                    <form id="branchForm" class="form" method="GET"
-                                        action="{{ route('showarea') }}">
-                                        @csrf
-                                        {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
-                                            'class' => 'form-control form-select',
-                                            'id' => 'branchSelect',
-                                        ]) !!}
-                                        {{-- <input type="hidden" name="branch_id" id="selectedBranchId"> --}}
-                                        <button type="submit" class="btn btn-success">View Details</button>
-                                    </form>
-
-                                </div>
-                                <!--begin::Menu-->
-
-                            </div>
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body d-flex justify-content-between flex-column px-0 pb-0 ">
-                            <!--begin::Chart container-->
+            
 
 
-                            <div id="md"></div>
-                            {{-- <canvas id="md" width="800" height="400"></canvas> --}}
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Chart widget 15-->
 
-                </div>
+               
 
                 <!-- Modal -->
                 <div class="modal fade" id="thestate" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -711,88 +918,196 @@
                         </div>
                     </div>
                 </div>
-
+                <script>
+                    function toggleContent() {
+                        var content = document.getElementById("content");
+                        if (content.style.display === "none") {
+                            content.style.display = "block";
+                        } else {
+                            content.style.display = "none";
+                        }
+                    }
+                </script>
                 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
                     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-
+                
                 <script>
                     // options = {
                     //     series: [44, 55, 13, 33],
                     //     labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
                     // }
 
-                    var chart=new ApexCharts(document.querySelector('#md'),options);
-                    chart.render();
+                    //var chart=new ApexCharts(document.querySelector('#md'),options);
+                    //chart.render();
                 </script>
                  <script>
                     $(function() {
-                        var chartdata = @json($data);
+    var chartdata = @json($data);
 
-                        var names = chartdata.map(function(item) {
-                            return item.name;
-                        });
-                        var numbers = chartdata.map(function(item) {
-                            return item.num;
-                        });
+    var names = chartdata.map(function(item) {
+        return item.name;
+    });
+    var numbers = chartdata.map(function(item) {
+        return item.num;
+    });
 
-                        var options = {
-                            chart: {
-                                type: 'pie',
-                            },
-                            series: numbers,
-                            labels: names,
-                            setTitle: 'Hello.....................',
-                            plotOptions: {
-                                pie: {
-                                    size: 200
-                                }
-                            },
-                        };
+    var options = {
+        chart: {
+            type: 'pie',
+        },
+        series: numbers,
+        labels: names,
+        setTitle: 'Hello.....................',
+        plotOptions: {
+            pie: {
+                size: 200
+            }
+        },
+    };
 
-                        var thechart = new ApexCharts(document.querySelector('#md'), options);
-                        thechart.render();
-                    });
+    var thechart = new ApexCharts(document.querySelector('#md'), options);
+    thechart.render();
+});
+
                 </script>
-                {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
-                {{-- <script>
-                    const myChart = document.getElementById('md').getContext('2d');
+                <script>
+                 /* $(function() {
+    if ($("#orders-chart1").length) {
+      var currentChartCanvas = $("#orders-chart1").get(0).getContext("2d");
+      var currentChart = new Chart(currentChartCanvas, {
+        type: 'bar',
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          datasets: [{
+              label: 'Internal Documents',
+              data: [{!! $data1->pluck('num')->implode(',') !!}],
+              backgroundColor: '#392c70'
+            },
+            {
+              label: 'Incoming Documents',
+              data: [{!! $data2->pluck('num')->implode(',') !!}],
+              backgroundColor: '#d1cede'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          layout: {
+            padding: {
+              left: 0,
+              right: 0,
+              top: 20,
+              bottom: 0
+            }
+          },
+          scales: {
+            yAxes: [{
+              gridLines: {
+                drawBorder: false,
+              },
+              ticks: {
+                stepSize: 200,
+                fontColor: "#686868"
+              }
+            }],
+            xAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true,
+                fontColor: "#686868"
+              },
+              gridLines: {
+                display: false,
+              },
+              barPercentage: 0.4
+            }]
+          },
+          legend: {
+            display: false
+          },
+          elements: {
+            point: {
+              radius: 0
+            }
+          },
+          legendCallback: function(chart) { 
+            var text = [];
+            text.push('<ul class="legend'+ chart.id +'">');
+            for (var i = 0; i < chart.data.datasets.length; i++) {
+              text.push('<li><span class="legend-label" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>');
+              if (chart.data.datasets[i].label) {
+                text.push(chart.data.datasets[i].label);
+              }
+              text.push('</li>');
+            }
+            text.push('</ul>');
+            return text.join("");
+          },
+        }
+      });
+      document.getElementById('orders-chart-legend1').innerHTML = currentChart.generateLegend();
+    }
+});
+ */
 
-                    const data = {
-                        labels: ['Actual', 'Target'],
-                        datasets: [{
-                            label: 'Performances',
-                            data: [300, 50],
-                            backgroundColor: [
-                                'rgb(255, 99, 132)',
-                                'rgb(54, 162, 235)',
-                                // 'rgb(255, 205, 86)'
-                            ],
+</script>
 
-                            hoverOffset: 4
-                        }]
-                    }; --}}
+@push('stack_scripts')
+<script>
+   // $(function() {
+    /* var events = {!! json_encode($reminder) !!};
+    if ($("#inline-datepicker-example1").length) {
+    $('#inline-datepicker-example1').datepicker({
+        enableOnReadonly: true,
+        todayHighlight: true,
+        beforeShowDay: function(date) {
+            var year = date.getFullYear();
+            var month = (date.getMonth() + 1).toString().padStart(2, '0');
+            var day = date.getDate().toString().padStart(2, '0');
+            var formattedDate = year + '-' + month + '-' + day;
 
-                var doughnutPieOptions = {
-                // responsive: true,
-                // animation: {
-                // animateScale: true,
-                // animateRotate: true
-                // }
+            var eventDates = events.filter(function(event) {
+                return event.reminderstart_date === formattedDate;
+            });
 
-                {{-- responsive: true,
-                            maintainAspectRatio: false
+            if (eventDates.length > 0) {
+                return [true, 'highlight', eventDates[0].subject];
+            } else {
+                return [true, '', ''];
+            }
+        },
+        onSelect: function(date) {
+            var event = events.find(function(event) {
+                var year = date.getFullYear();
+                var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                var day = date.getDate().toString().padStart(2, '0');
+                var formattedDate = year + '-' + month + '-' + day;
 
-                    };
+                return event.reminderstart_date === formattedDate;
+            });
 
-                    const config = {
-                        type: 'doughnut',
-                        data: data,
-
-                        options: doughnutPieOptions
-                    };
-
-                    new Chart(myChart, config); --}}
-                {{-- </script> --}}
+            if (event) {
+                var content = '<ul>';
+                event.forEach(function(item) {
+                    content += '<li><strong>' + item.subject + '</strong></li>';
+                    content += '<li>' + item.title + '</li>';
+                    content += '<li><a href="' + item.document_url + '">' + item.document_url + '</a></li>';
+                    content += '<li>' + item.message + '</li>';
+                });
+                content += '</ul>';
+                $('#inline-datepicker-example1').attr('title', content).tooltip('open');
+            } else {
+                $('#inline-datepicker-example1').tooltip('disable');
+            }
+        }
+    });
+}
+ */
+  //});
+</script>
+@endpush
+              
             @endsection

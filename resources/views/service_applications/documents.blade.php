@@ -38,7 +38,7 @@
                                 <input type="hidden" name="document_id" value="" id="document_id">
 
 
-                                @if ($document->approval_status == 1)
+                                @if ($document->approval_status == 0)
                                     {!! Form::button('Decline', [
                                         'type' => 'button',
                                         'class' => 'btn btn-danger btn-xs',

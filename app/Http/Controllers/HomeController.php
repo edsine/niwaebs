@@ -547,17 +547,121 @@ class HomeController extends Controller
 
         $branch = Branch::all();
 
+        $departments = Department::all();
+
         $tc = \DB::table('employers')
             ->count();
 
 
-
-        $data = \DB::table('documents_categories')
-            ->selectRaw('COUNT(name) AS num, name')
+$data = \DB::table('documents_categories')
+            ->join('departments', 'departments.id', 'documents_categories.department_id')
+            ->selectRaw('COUNT(documents_categories.name) AS num, CONCAT(departments.name, "/", documents_categories.name) AS name')
             ->groupBy('name')
-            ->get(['name', 'num']);
+            ->get();
+
+            $data1 = \DB::table('documents_manager')
+    ->selectRaw('COUNT(documents_manager.title) AS num, MONTH(documents_manager.created_at) AS month')
+    ->whereYear('documents_manager.created_at', '=', now()->year)
+    ->groupBy('month')
+    ->orderBy('month')
+    ->get();
+
+$data2 = \DB::table('incoming_documents_manager')
+    ->selectRaw('COUNT(incoming_documents_manager.title) AS num, MONTH(incoming_documents_manager.created_at) AS month')
+    ->whereYear('incoming_documents_manager.created_at', '=', now()->year)
+    ->groupBy('month')
+    ->orderBy('month')
+    ->get();
+    $data3 = \DB::table('documents_manager')
+    ->join('incoming_documents_manager', 'documents_manager.created_at', '=', 'incoming_documents_manager.created_at')
+    ->selectRaw('(COUNT(documents_manager.title) + COUNT(incoming_documents_manager.title)) AS total_count, MONTH(documents_manager.created_at) AS month')
+    ->whereYear('documents_manager.created_at', now()->year)
+    ->groupBy('month')
+    ->orderBy('month')
+    ->get();
 
 
+    $documents1 = \App\Models\IncomingDocuments::query()
+    ->join('incoming_documents_has_users', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+    ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+    ->join('users', 'incoming_documents_has_users.user_id', '=', 'users.id')
+    ->select(
+        'incoming_documents_categories.id as category_id',
+        'incoming_documents_categories.name as category_name',
+        'incoming_documents_manager.created_at as assigned_created_at',
+        'incoming_documents_manager.id as d_id',
+        'incoming_documents_manager.title',
+        'incoming_documents_manager.full_name as sender_full_name',
+        'incoming_documents_manager.email as sender_email',
+        'incoming_documents_manager.phone as sender_phone',
+        'incoming_documents_manager.document_url',
+        'incoming_documents_categories.description as doc_description',
+        'incoming_documents_has_users.is_download',
+        'incoming_documents_has_users.allow_share',
+        'incoming_documents_has_users.user_id',
+        'incoming_documents_has_users.assigned_by',
+        \DB::raw('CONCAT(users.first_name, " ", users.last_name) AS assigned_to_name')
+    )
+    ->latest('incoming_documents_manager.created_at')
+    ->where('incoming_documents_has_users.assigned_by','!=', '0')
+    ->groupBy('incoming_documents_has_users.assigned_by',
+               'incoming_documents_has_users.user_id',
+               'incoming_documents_has_users.is_download',
+               'incoming_documents_has_users.allow_share',
+               'incoming_documents_has_users.user_id',
+               'incoming_documents_categories.description',
+               'incoming_documents_manager.document_url',
+               'incoming_documents_manager.title',
+               'incoming_documents_categories.id',
+               'incoming_documents_categories.name',
+               'incoming_documents_manager.created_at',
+               'incoming_documents_manager.id',
+               'assigned_to_name') // Include the nonaggregated column in the GROUP BY clause
+    ->with('createdBy')
+    ->limit(5)
+    ->get();
+
+    $documents2 = \App\Models\Documents::query()
+    ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+    ->select(
+        'documents_categories.id as category_id',
+        'documents_categories.name as category_name',
+        'documents_manager.created_at as assigned_created_at',
+        'documents_manager.id as d_id',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'documents_categories.description as doc_description',
+        'documents_has_users.is_download',
+        'documents_has_users.allow_share',
+        'documents_has_users.user_id',
+        'documents_has_users.assigned_by',
+        \DB::raw('CONCAT(users.first_name, " ", users.last_name) AS assigned_to_name')
+    )
+    ->latest('documents_manager.created_at')
+    ->where('documents_has_users.assigned_by','!=', '0')
+    ->groupBy('documents_has_users.assigned_by',
+               'documents_has_users.user_id',
+               'documents_has_users.is_download',
+               'documents_has_users.allow_share',
+               'documents_has_users.user_id',
+               'documents_categories.description',
+               'documents_manager.document_url',
+               'documents_manager.title',
+               'documents_categories.id',
+               'documents_categories.name',
+               'documents_manager.created_at',
+               'documents_manager.id',
+               'assigned_to_name') // Include the nonaggregated column in the GROUP BY clause
+    ->with('createdBy')
+    ->limit(5)
+    ->get();
+
+    $reminder = \DB::table('reminders')
+    ->join('documents_manager', 'documents_manager.id', 'reminders.documents_manager_id')
+    ->selectRaw('reminders.subject, reminders.message, reminders.reminderstart_date, documents_manager.title, documents_manager.document_url')
+    ->get();
 
         return view('md', compact(
             'branch',
@@ -565,7 +669,14 @@ class HomeController extends Controller
             'data',
             'ta',
             'revenue',
-            'services'
+            'services',
+            'departments',
+            'data1',
+            'data2',
+            'data3',
+            'documents1',
+            'documents2',
+            'reminder',
         ));
     }
 

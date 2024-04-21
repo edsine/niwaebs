@@ -7,7 +7,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h4 class="card-title">
-                        Change Staff Signature
+                        Change/Sign Signature
                     </h4>
                 </div>
         
