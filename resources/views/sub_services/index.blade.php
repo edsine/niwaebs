@@ -15,7 +15,7 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Services & Sub-Services</h3>
                 <div class="nk-block-des text-soft">
-                    
+
                 </div>
             </div><!-- .nk-block-head-content -->
             <!-- .nk-block-head-content -->
@@ -43,8 +43,8 @@
                     @endphp
                         @foreach ($services as $service)
                             <tr>
-                               
-                                <td>{{ $service->service->name }}</td>
+
+                                <td>{{ $service->service ? $service->service->name : '' }}</td>
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->branch->branch_name ?? 'NILL' }}</td>
                                  <td><span
@@ -77,7 +77,7 @@
                 </table>
             </div>
 
-            
+
         </div>
 
 @endsection

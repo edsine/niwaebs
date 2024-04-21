@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Flash;
+use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Models\EquipmentAndFee;
 use App\Models\ServiceApplication;
+use App\Models\Payment as Payments;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ServiceApplicationDocument;
 use App\Http\Controllers\AppBaseController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\ESSPPaymentController;
 use App\Repositories\ServiceApplicationRepository;
 use App\Http\Requests\CreateServiceApplicationRequest;
 use App\Http\Requests\UpdateServiceApplicationRequest;
-use App\Models\Payment as Payments;
 
 class ServiceApplicationController extends AppBaseController
 {

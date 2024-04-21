@@ -201,8 +201,6 @@ class DocumentController extends Controller
     public function ldmsStore(Request $request)
     {
 
-       dd($request->all());
-
         $request->validate([
             'title' => 'required',
             'ldms_documentFile' => 'required|file|max:10000|mimes:jpg,jpeg,png,pdf,doc,docx',

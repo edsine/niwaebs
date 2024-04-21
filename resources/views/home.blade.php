@@ -35,6 +35,7 @@
 
 @includeWhen($departmentId == 13, 'ictadmin')
 @includeWhen($departmentId == 14, 'businessdevadmin')
+@includeWhen($departmentId == 15, 'hradmin')
         @include('defaultdashboard')
     </div>
 @endsection
