@@ -116,12 +116,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/incoming_documents_manager/shared/user', 'App\Http\Controllers\IncomingDocumentsController@sharedUser')->name('incoming_documents_manager.shareduser');
     Route::get('/incoming_documents_manager/shared/role', 'App\Http\Controllers\IncomingDocumentsController@sharedRole')->name('incoming_documents_manager.sharedrole');
     Route::get('/incoming_documents_manager/all_documents/secretary', 'App\Http\Controllers\IncomingDocumentsController@secretary')->name('incoming_documents_manager.all_documents.secretary');
+    //Route::get('incoming_documents_manager/create', 'App\Http\Controllers\IncomingDocumentsController@create')->name('incoming_documents_manager.create');
+    
+    Route::resource('roles', RoleController::class);
+    // demo admin role
+    Route::get('demo_roles/{id}', 'App\Http\Controllers\RoleController@demo_edit')->name('demo_roles');
+Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update')->name('demo_update');
 
 
 
 });
 
-Route::get('/add/new/incoming/document/', 'App\Http\Controllers\IncomingDocumentsController@create')->name('add.new.incoming.document');
+Route::get('/add/new/incoming/document/', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
 Route::post('/add/new/incoming/store/', 'App\Http\Controllers\IncomingDocumentsController@store')->name('incoming_store');
 
 

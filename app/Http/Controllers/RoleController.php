@@ -37,7 +37,7 @@ class RoleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $roles = $this->roleRepository->paginate(10);
+        $roles = Role::where('id', '!=', '1')->get();
 
         return view('roles.index')->with('roles', $roles);
     }
@@ -153,6 +153,36 @@ class RoleController extends AppBaseController
         ]);
     }
 
+    public function demo_edit($id)
+    {
+        $role = $this->roleRepository->find($id);
+
+        if (empty($role)) {
+            Flash::error('Role not found');
+
+            return redirect(route('roles.index'));
+        }
+
+        $permissions = $this->permissionRepository->all();
+
+        $permissions->each(function ($permission) use ($role) {
+            $permission->assigned = $role->permissions->pluck('id')->contains($permission->id);
+        });
+
+
+        $groupedPermissions = $permissions->groupBy(function ($permission) {
+            $words = explode(' ', strtolower($permission->name));
+            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
+            return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
+        });
+
+        return view('roles.demo_edit')->with([
+            'role' => $role,
+            // 'permissions' => $permissions,
+            'groupedPermissions' => $groupedPermissions
+        ]);
+    }
+
     /**
      * Update the specified Role in storage.
      *
@@ -176,6 +206,26 @@ class RoleController extends AppBaseController
 
             return redirect(route('roles.index'));
         }
+
+        $input =  $request->all();
+        $role = $this->roleRepository->update($input, $id);
+        $role->syncPermissions($request->get('permissions') ?? []);
+
+        Flash::success('Role updated successfully.');
+
+        return redirect(route('roles.index'));
+    }
+
+    public function demo_update($id, Request $request)
+    {
+        $role = $this->roleRepository->find($id);
+
+        if (empty($role)) {
+            Flash::error('Role not found');
+
+            return redirect(route('roles.index'));
+        }
+
 
         $input =  $request->all();
         $role = $this->roleRepository->update($input, $id);

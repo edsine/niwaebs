@@ -38,7 +38,11 @@ class ReminderController extends Controller
     }
     public function index(Request $request)
     {
+        if (Auth()->user()->hasRole('super-admin')) {
         $data = Reminder::orderBy('id','desc')->get();
+        } else{
+        $data = Reminder::orderBy('id','desc')->where('user_id', Auth()->user()->id)->get();
+        }
 
         return view('dms.reminder', compact('data'));
     }
@@ -84,6 +88,7 @@ class ReminderController extends Controller
         $data->subject = $request->subject;
         $data->message = $request->message;
         $data->reminderstart_date = $request->reminderstart_date;
+        $data->user_id = Auth()->user()->id;
 
         if ($request->documents_manager_id !== null) {
 

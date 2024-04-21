@@ -23,6 +23,9 @@ class IncomingDocuments extends Model implements Auditable
         'document_url',
         'status',
         'approved_date_time',
+        'full_name',
+        'email',
+        'phone',
     ];
 
     protected $casts = [

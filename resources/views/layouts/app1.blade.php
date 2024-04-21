@@ -462,10 +462,11 @@
 }
 
 .centered-div {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
 }
 
 
@@ -553,10 +554,6 @@
                 <!-- main-panel starts -->
                 <div class="main-panel centered-div">
                     @include('layouts.content')
-                    <!--end::Content wrapper-->
-                    <!--begin::Footer-->
-                    {{-- @include('layouts.footer') --}}
-                    <!--end::Footer-->
                 </div>
        
         <!-- main-panel ends -->

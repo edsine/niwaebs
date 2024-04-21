@@ -169,7 +169,7 @@ class ServiceApplicationController extends AppBaseController
 
 
         if ($selected_button == 'decline') {
-            $document->approval_status = 0;
+            $document->approval_status = 2;
             Flash::error('Document has been declined');
         } else if ($selected_button == 'approve') {
             $document->approval_status = 1;

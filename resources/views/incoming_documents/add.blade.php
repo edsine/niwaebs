@@ -1,21 +1,31 @@
-@extends('layouts.app')
+@extends('layouts.app1')
 
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
-                    {{-- <img src="{{ asset('niwa.jpg') }}" style="height: 100px;"/> --}}
+                <div class="col-sm-12 text-center">
+                    <img src="{{ asset('niwa.jpg') }}" style="height: 100px;"/>
                     <h2>
-                        Add New Incoming Manual Document
+                        Add New Incoming Document
                     </h2>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="content px-3 mb-10">
-
+    <div class="content px-3">
+        @if(session()->has('success'))
+        <div class="alert alert-success" style="color: green; font-weight:bold">
+        {{ session()->get('success') }}
+        </div>
+        @endif
+        @if(session()->has('error'))
+        <div class="alert alert-error" style="color: red; font-weight:bold">
+        {{ session()->get('error') }}
+        </div>
+        @endif
+        
         @include('adminlte-templates::common.errors')
 
         <div class="card">
@@ -34,7 +44,7 @@
 
             </div>
 
-            <div class="card-footer" style="margin-bottom: 30px;">
+            <div class="card-footer" style="">
                 {!! Form::submit('SUBMIT', ['class' => 'btn btn-primary']) !!}
                 {{-- <a href="{{ route('incoming_documents_manager.index') }}" class="btn btn-default"> Cancel </a> --}}
             </div>

@@ -18,7 +18,8 @@ class Reminder extends Model
         'reminderstart_date',
         'reminderend_date',
         'frequency',
-        'documents_manager_id'
+        'documents_manager_id',
+        'user_id',
     ];
 
     public function reminderuser(){

@@ -10,7 +10,7 @@
       "language": {
         search: ""
       },
-      "order": [[0, "desc"]], // Sort by the first column (index 0) in descending order
+      //"order": [[1, "desc"]], // Sort by the first column (index 0) in descending order
       
     });
 
