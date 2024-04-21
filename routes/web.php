@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SupportController;
@@ -859,3 +860,9 @@ Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('
 Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth']);
 
 Route::resource('bookings', App\Http\Controllers\BookingController::class);
+Route::controller(BookingController::class)->group(function(){
+
+    Route::post('uploadpayment','paymentupload')->name('uploadpay');
+
+    Route::get('paymenthistory','paymenthistoryform')->name('payhistory');
+});

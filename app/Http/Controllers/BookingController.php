@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use Modules\Shared\Models\Branch;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\BookingRepository;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use App\Imports\Paymentrecords;
 
 class BookingController extends AppBaseController
 {
@@ -36,14 +39,45 @@ class BookingController extends AppBaseController
      */
     public function create()
     {
-        $state=Branch::all();
-        $trip =[
-            'one_way'=>'ONE WAY',
-            'return'=>'Return'
+        $state = Branch::all();
+        $trip = [
+            'one_way' => 'ONE WAY',
+            'return' => 'Return'
         ];
-        return view('bookings.create',compact('state','trip'));
+        return view('bookings.create', compact('state', 'trip'));
     }
 
+    public function paymentupload(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|file|mimes:csv,xlsx'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->hasFile('file')) {
+
+            try {
+                //code...
+                Excel::import(new Paymentrecords, request()->file('file'));
+
+                Flash::success('SUCCESSFULLY DONE');
+                return back()->with('message', 'SUCCESSFULLY DONE');
+            } catch (\Throwable $th) {
+                Flash::error('Error in the upload: ', $th);
+                return back()->with('message', 'ERROR');
+            }
+        }
+        Flash::error('Error in the upload , please check and retry it');
+    }
+
+
+    public function paymenthistoryform()
+    {
+        return view('upload.payment');
+    }
     /**
      * Store a newly created Booking in storage.
      */
