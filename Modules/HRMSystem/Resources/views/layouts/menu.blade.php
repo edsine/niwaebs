@@ -15,6 +15,7 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-sub-menu">
+              
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('setsalary.index') }}">Set Salary</a>
                 </li>

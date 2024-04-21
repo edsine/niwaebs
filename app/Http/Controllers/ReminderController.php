@@ -52,7 +52,7 @@ class ReminderController extends Controller
     {
         // $users = User::get()->pluck('first_name', 'id');
 
-        $users= User::selectRaw('id,CONCAT(first_name," ",last_name) AS name')->get()->pluck('name','id');
+        $users= User::selectRaw('id,CONCAT(first_name," ",last_name) AS name')->get()->pluck('name','');
         $user= \Auth::user()->id;
         // dd($users);
         $freq = [
