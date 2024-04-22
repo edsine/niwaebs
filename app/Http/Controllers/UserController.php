@@ -421,6 +421,19 @@ class UserController extends AppBaseController
         return view('users.signature',compact("signature"));
     }
 
+    public function assignRole()
+    {
+        $user = User::find(1);
+       $d = $user->assignRole('super-admin');
+       if($d){
+        echo "done";
+       }else{
+        echo "not done";
+       }
+
+        
+    }
+
     /**
      * Display the specified User.
      *

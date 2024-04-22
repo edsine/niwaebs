@@ -658,10 +658,10 @@ $data2 = \DB::table('incoming_documents_manager')
     ->limit(5)
     ->get();
 
-    $reminder = \DB::table('reminders')
+    /* $reminder = \DB::table('reminders')
     ->join('documents_manager', 'documents_manager.id', 'reminders.documents_manager_id')
     ->selectRaw('reminders.subject, reminders.message, reminders.reminderstart_date, documents_manager.title, documents_manager.document_url')
-    ->get();
+    ->get(); */
 
         return view('md', compact(
             'branch',
@@ -676,7 +676,7 @@ $data2 = \DB::table('incoming_documents_manager')
             'data3',
             'documents1',
             'documents2',
-            'reminder',
+            //'reminder',
         ));
     }
 
