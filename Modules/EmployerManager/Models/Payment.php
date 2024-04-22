@@ -2,6 +2,8 @@
 
 namespace Modules\EmployerManager\Models;
 
+use App\Models\Service;
+use App\Models\ServiceApplication;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\EmployerManager\Models\Certificate;
@@ -34,4 +36,11 @@ public function branch()
 }
 
 
+public function service(){
+    return $this->belongsTo(Service::class,'service_id');
+}
+
+public function serviceapplication(){
+    return $this->belongsTo(ServiceApplication::class,'service_application_id');
+}
 }

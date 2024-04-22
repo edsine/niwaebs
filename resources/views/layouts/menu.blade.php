@@ -100,7 +100,7 @@
 
                 @if (auth()->user()->hasRole('super-admin'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('payhistory') }}">MASS PAYMENT RECORD UPLOAD</a>
+                        <a class="nav-link" href="{{ route('payhistoryform') }}">MASS PAYMENT RECORD UPLOAD</a>
                     </li>
                 @endif
 

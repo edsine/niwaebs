@@ -35,6 +35,7 @@ use App\Http\Controllers\EmployerDocumentController;
 use App\Http\Controllers\DocumentsCategoryController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use Modules\Accounting\Http\Controllers\ExpenseController;
+use Modules\Accounting\Http\Controllers\PaymentController;
 
 
 /*
@@ -866,5 +867,10 @@ Route::controller(BookingController::class)->group(function(){
 
     Route::post('uploadpayment','paymentupload')->name('uploadpay');
 
-    Route::get('paymenthistory','paymenthistoryform')->name('payhistory')->middleware(['auth']);
+    Route::get('paymenthistory','paymenthistoryform')->name('payhistoryform')->middleware(['auth']);
+});
+
+
+Route::controller(PaymentController::class)->group(function(){
+    Route::get('payhistory','paymenthistory')->middleware('auth')->name('payhistory');
 });
