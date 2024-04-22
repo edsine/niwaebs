@@ -19,12 +19,14 @@
            
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
                 <div class=" col-md-9 grid-margin stretch-card">
+                    
                     <div class="card">
                       <div class="card-body">
                         <h4 class="card-title">
                           <i class="fas fa-envelope"></i>
                          Latest Incoming Documents
                         </h4>
+                        <a class="nav-link float-right" href="{{ route('incoming_documents_manager.index') }}">View All</a>
                           <div class="table-responsive">
                               <table class="table align-middle gs-0 gy-4" id="order-listing11">
                                   <thead>
@@ -78,6 +80,7 @@
                           <i class="far fa-futbol"></i>
                           Incoming Document Audit Trail
                         </h4>
+                        <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">View All</a>
                         @php 
                         $documents = \DB::table('incoming_documents_manager')
             ->join('audits', 'incoming_documents_manager.id', '=', 'audits.auditable_id')
@@ -165,8 +168,10 @@
                         <div class="card-body">
                           <h4 class="card-title">
                             <i class="fas fa-envelope"></i>
-                           Latest Internal Documents
+                           Latest Departmental Documents
                           </h4>
+                          <a class="nav-link float-right" href="{{ route('documents_manager.index') }}">View All</a>
+
                             <div class="table-responsive">
                                 <table class="table align-middle gs-0 gy-4" id="order-listing11">
                                     <thead>
@@ -207,51 +212,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-9 grid-margin stretch-card departmenthide" id="departmenthide">
-                        <!--begin::Chart widget 15-->
-                        {{-- <div class="card  h-xl-100"> --}}
-                        <div class="card  h-xl-100">
-                            <!--begin::Header-->
-                            <div class="card-header pt-7">
-                                <!--begin::Title-->
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder text-dark">Department / File No.</span>
-                                </h3>
-                                <!--end::Title-->
-                                <!--begin::Toolbar-->
-                               {{--  <div class="card-toolbar">
-                                    <div class="form-group">
-    
-                                      
-                                        <form id="branchForm" class="form" method="GET"
-                                            action="{{ route('showarea') }}">
-                                            @csrf
-                                            {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
-                                                'class' => 'form-control form-select',
-                                                'id' => 'branchSelect',
-                                            ]) !!}
-                                            <button type="submit" class="btn btn-success">View Details</button>
-                                        </form>
-    
-                                    </div>
-    
-                                </div> --}}
-                                <!--end::Toolbar-->
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body d-flex1 justify-content-between1 flex-column1 px-0 pb-0 ">
-                                <!--begin::Chart container-->
-    
-    
-                                <div id="md" style="width: 70%;height: 70%;"></div>
-                                {{-- <canvas id="md" width="800" height="400"></canvas> --}}
-                            </div>
-                            <!--end::Body-->
-                        </div>
-                        <!--end::Chart widget 15-->
-    
-                    </div>
+                    
                     
                   </div>
                   </div>
@@ -259,7 +220,51 @@
 
                
             </div>
-            
+            <div class="col-md-9 grid-margin stretch-card departmenthide" id="departmenthide">
+                <!--begin::Chart widget 15-->
+                {{-- <div class="card  h-xl-100"> --}}
+                <div class="card  h-xl-100">
+                    <!--begin::Header-->
+                    <div class="card-header pt-7">
+                        <!--begin::Title-->
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bolder text-dark">Department / File No.</span>
+                        </h3>
+                        <!--end::Title-->
+                        <!--begin::Toolbar-->
+                       {{--  <div class="card-toolbar">
+                            <div class="form-group">
+
+                              
+                                <form id="branchForm" class="form" method="GET"
+                                    action="{{ route('showarea') }}">
+                                    @csrf
+                                    {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
+                                        'class' => 'form-control form-select',
+                                        'id' => 'branchSelect',
+                                    ]) !!}
+                                    <button type="submit" class="btn btn-success">View Details</button>
+                                </form>
+
+                            </div>
+
+                        </div> --}}
+                        <!--end::Toolbar-->
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body d-flex1 justify-content-between1 flex-column1 px-0 pb-0 ">
+                        <!--begin::Chart container-->
+
+
+                        <div id="md" style="width: 70%;height: 70%;"></div>
+                        {{-- <canvas id="md" width="800" height="400"></canvas> --}}
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Chart widget 15-->
+
+            </div>
              
             <div id="contenthide" class="hidden1">
                 <div class="col-12 float-right">
