@@ -76,6 +76,8 @@ class HomeController extends Controller
 
         //     return redirect()->route('md');
         // }
+
+        // Finance DashBoard
         else if (Auth::check() && Auth::user()->staff->department_id == 2) {
             return redirect()->route('dashboard');
         } else {
@@ -527,11 +529,15 @@ class HomeController extends Controller
         $services = \DB::table('services')
             ->count();
 
-        $revenue = \DB::table('revenues')
+        // $revenue = \DB::table('revenues')
 
+        //     ->sum('amount');
+        $revenue= DB::table('payments')
+            ->where('payment_status',1)
+            ->select('amount')
             ->sum('amount');
 
-
+            // dd(DB::table('payments')->get());
         $ta = \DB::table('service_applications as sp')
             ->where('sp.application_form_payment_status', 1)
             ->join('staff as s', 'sp.user_id', 's.id')
@@ -547,7 +553,7 @@ class HomeController extends Controller
             ->count();
 
 
-            $data = \DB::table('documents_categories')
+$data = \DB::table('documents_categories')
             ->join('departments', 'departments.id', 'documents_categories.department_id')
             ->selectRaw('COUNT(documents_categories.name) AS num, CONCAT(departments.name, "/", documents_categories.name) AS name')
             ->groupBy('name')
