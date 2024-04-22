@@ -13,6 +13,7 @@ class Paymentrecords implements ToCollection
     */
     public function collection(Collection $collection)
     {
+        $skippedFirstRow = false;
         //
           $records=[
 

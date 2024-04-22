@@ -70,24 +70,24 @@ class UsersImport implements ToCollection
         }
     }
 
-    function generateRandomPassword($length = 12) {
+    function generateRandomPassword($length = 12)
+    {
         // Define the character sets to use for the password
         $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $lowercase = 'abcdefghijklmnopqrstuvwxyz';
         $numbers = '0123456789';
         $specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-    
+
         // Combine all character sets
         $allChars = $uppercase . $lowercase . $numbers . $specialChars;
-    
+
         // Generate a random password
         $password = '';
         $max = strlen($allChars) - 1;
         for ($i = 0; $i < $length; $i++) {
             $password .= $allChars[random_int(0, $max)];
         }
-    
+
         return $password;
     }
 }
-
