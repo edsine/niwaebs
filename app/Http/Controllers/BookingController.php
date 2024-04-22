@@ -47,8 +47,36 @@ class BookingController extends AppBaseController
         return view('bookings.create', compact('state', 'trip'));
     }
 
+    // public function paymentupload(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $validator = Validator::make($request->all(), [
+    //         'file' => 'required|file|mimes:csv,xlsx'
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return back()->withErrors($validator)->withInput();
+    //     }
+
+    //     if ($request->hasFile('file')) {
+
+    //         try {
+    //             //code...
+    //             Excel::import(new Paymentrecords, request()->file('file'));
+
+    //             Flash::success('SUCCESSFULLY DONE');
+    //             return back()->with('message', 'SUCCESSFULLY DONE');
+    //         } catch (\Throwable $th) {
+    //             Flash::error($th);
+    //             return back()->with('message', $th);
+    //         }
+    //     }
+    //     // Flash::error('Error in the upload , please check and retry it');
+    // }
+
     public function paymentupload(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'file' => 'required|file|mimes:csv,xlsx'
         ]);
@@ -60,18 +88,20 @@ class BookingController extends AppBaseController
         if ($request->hasFile('file')) {
 
             try {
-                //code...
-                Excel::import(new Paymentrecords, request()->file('file'));
+                $file=$request->file('file');
+                $import= new Paymentrecords();
+                Excel::import($import,$file);
 
                 Flash::success('SUCCESSFULLY DONE');
                 return back()->with('message', 'SUCCESSFULLY DONE');
             } catch (\Throwable $th) {
-                Flash::error('Error in the upload: ', $th);
-                return back()->with('message', 'ERROR');
+                Flash::error($th->getMessage());
+                return back()->with('message', $th->getMessage());
             }
         }
-        Flash::error('Error in the upload , please check and retry it');
+        // Flash::error('Error in the upload , please check and retry it');
     }
+
 
 
     public function paymenthistoryform()
