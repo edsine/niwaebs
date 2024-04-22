@@ -417,6 +417,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('change-email-password', [UserController::class, 'changePassword'])->name('change.email.password');
     Route::post('/save-signature', [UserController::class, 'saveSignature']);
     Route::get('/change-signature', [UserController::class, 'changeSignature'])->name('change.signature');
+    Route::get('/assign_role', [UserController::class, 'assignRole'])->name('assign_role');
+
 });
 
 // Route::get('/account', function () {
