@@ -42,7 +42,7 @@
                 </div>
             </div>
         </li>
-
+        @can('view overview module')
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas fa-home menu-icon"></i>
@@ -95,6 +95,7 @@
             </ul>
 
         </li>
+        @endcan
         @can('view user managment module')
         @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">

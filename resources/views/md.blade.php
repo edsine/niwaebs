@@ -2,7 +2,7 @@
 
 @section('content')
 <style>
-    .hidden1 {
+    .hidden1, .departmenthide {
         display: none;
     }
 </style>
@@ -14,53 +14,63 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h1 class="text-center mb-5">MANAGING DIRECTOR DASHBOARD</h1>
-
+            <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Revenue Analytics</button>
+            <button onclick="toggleDepartment()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Department / File No. Analytics</button>
+           
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
-                <div class="col-md-9 grid-margin stretch-card">
-                    <!--begin::Chart widget 15-->
-                    {{-- <div class="card  h-xl-100"> --}}
-                    <div class="card  h-xl-100">
-                        <!--begin::Header-->
-                        <div class="card-header pt-7">
-                            <!--begin::Title-->
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bolder text-dark">Department / File No.</span>
-                            </h3>
-                            <!--end::Title-->
-                            <!--begin::Toolbar-->
-                           {{--  <div class="card-toolbar">
-                                <div class="form-group">
+                <div class=" col-md-9 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">
+                          <i class="fas fa-envelope"></i>
+                         Latest Incoming Documents
+                        </h4>
+                          <div class="table-responsive">
+                              <table class="table align-middle gs-0 gy-4" id="order-listing11">
+                                  <thead>
+                                      <tr>
+                                          {{-- <th>S/N</th> --}}
+                                          <th>Document Title</th>
+                                          <th>Sender Name</th>
+                                          <th>Sender Email</th>
+                                          <th>Sender Phone</th>
+                                          <th>Assigned To</th>
+                                          <th>Document URL</th>
+                                          <th>Department Name / File No.</th>
+                                          <th>Subject</th>
+                                          <th>Created Date</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      
+                                      @foreach ($documents1 as $document)
+                                          @php @endphp
+                                          <tr>
+                                              {{-- <td>{{ $n++ }}</td> --}}
+                                              <td>{{ $document->title ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_email ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_phone ?? 'NILL' }}</td>
+                                              {{-- <td>{{ $document->description }}</td> --}}
+                                              <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
+                                              <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                                              </td>
+                                              
+                                              <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                                              <td>{{ $document->doc_description ?? 'NILL' }}</td>
+                                              <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
+                                             
+                                            
+                                          </tr>
+                                      @endforeach
+                                  </tbody>
+                              </table>
+                          
+                      </div>
 
-                                  
-                                    <form id="branchForm" class="form" method="GET"
-                                        action="{{ route('showarea') }}">
-                                        @csrf
-                                        {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
-                                            'class' => 'form-control form-select',
-                                            'id' => 'branchSelect',
-                                        ]) !!}
-                                        <button type="submit" class="btn btn-success">View Details</button>
-                                    </form>
-
-                                </div>
-
-                            </div> --}}
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body d-flex1 justify-content-between1 flex-column1 px-0 pb-0 ">
-                            <!--begin::Chart container-->
-
-
-                            <div id="md" style=""></div>
-                            {{-- <canvas id="md" width="800" height="400"></canvas> --}}
-                        </div>
-                        <!--end::Body-->
+                      </div>
                     </div>
-                    <!--end::Chart widget 15-->
-
-                </div>
+                  </div>
                 <div class="col-md-3 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
@@ -77,11 +87,11 @@
             ->select('incoming_documents_categories.id as d_c_id','incoming_documents_manager.*', 'incoming_documents_manager.id as id', 'audits.*', 'assigned_to_user.first_name as assigned_to_first_name', 'assigned_to_user.last_name as assigned_to_last_name', 'incoming_documents_manager.created_at as createdAt', 'incoming_documents_categories.name as category_name')
             ->where('audits.auditable_type', "App\Models\IncomingDocuments")
             ->latest('incoming_documents_manager.created_at')
-            ->limit(5)
+            ->limit(3)
             ->distinct() // Ensure distinct results
             ->get();
             $documentIds = $documents->pluck('d_c_id')->toArray();
-$categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+            $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
 
                         @endphp
                         <ul class="solid-bullet-list">
@@ -147,60 +157,7 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
                   
                   
                   <div class="row">
-                    <div class="col-12 grid-margin">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">
-                            <i class="fas fa-envelope"></i>
-                           Latest Incoming Documents
-                          </h4>
-                            <div class="table-responsive">
-                                <table class="table align-middle gs-0 gy-4" id="order-listing11">
-                                    <thead>
-                                        <tr>
-                                            {{-- <th>S/N</th> --}}
-                                            <th>Document Title</th>
-                                            <th>Sender Name</th>
-                                            <th>Sender Email</th>
-                                            <th>Sender Phone</th>
-                                            <th>Assigned To</th>
-                                            <th>Document URL</th>
-                                            <th>Department Name / File No.</th>
-                                            <th>Subject</th>
-                                            <th>Created Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        @foreach ($documents1 as $document)
-                                            @php @endphp
-                                            <tr>
-                                                {{-- <td>{{ $n++ }}</td> --}}
-                                                <td>{{ $document->title ?? 'NILL' }}</td>
-                                                <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
-                                                <td>{{ $document->sender_email ?? 'NILL' }}</td>
-                                                <td>{{ $document->sender_phone ?? 'NILL' }}</td>
-                                                {{-- <td>{{ $document->description }}</td> --}}
-                                                <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
-                                                <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
-                                                </td>
-                                                
-                                                <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
-                                                <td>{{ $document->doc_description ?? 'NILL' }}</td>
-                                                <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
-                                               
-                                              
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            
-                        </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                   
 
                   <div class="row">
                     <div class="col-12 grid-margin">
@@ -250,15 +207,61 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-9 grid-margin stretch-card departmenthide" id="departmenthide">
+                        <!--begin::Chart widget 15-->
+                        {{-- <div class="card  h-xl-100"> --}}
+                        <div class="card  h-xl-100">
+                            <!--begin::Header-->
+                            <div class="card-header pt-7">
+                                <!--begin::Title-->
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label fw-bolder text-dark">Department / File No.</span>
+                                </h3>
+                                <!--end::Title-->
+                                <!--begin::Toolbar-->
+                               {{--  <div class="card-toolbar">
+                                    <div class="form-group">
+    
+                                      
+                                        <form id="branchForm" class="form" method="GET"
+                                            action="{{ route('showarea') }}">
+                                            @csrf
+                                            {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
+                                                'class' => 'form-control form-select',
+                                                'id' => 'branchSelect',
+                                            ]) !!}
+                                            <button type="submit" class="btn btn-success">View Details</button>
+                                        </form>
+    
+                                    </div>
+    
+                                </div> --}}
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body d-flex1 justify-content-between1 flex-column1 px-0 pb-0 ">
+                                <!--begin::Chart container-->
+    
+    
+                                <div id="md" style="width: 70%;height: 70%;"></div>
+                                {{-- <canvas id="md" width="800" height="400"></canvas> --}}
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Chart widget 15-->
+    
+                    </div>
+                    
+                  </div>
                   </div>
                  
 
                
             </div>
             
-{{--             <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Analytics</button>
- --}}            
-            <div id="content" class="hidden1">
+             
+            <div id="contenthide" class="hidden1">
                 <div class="col-12 float-right">
                     <div class="row">
                         <div class="col-3">
@@ -299,7 +302,9 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
                         </div>
                     </div>
                 </div>
-            <div class="row g-5 g-xl-8">
+            
+            
+                <div class="row g-5 g-xl-8">
                 <div class="col-xl-3">
                     <!--begin::Statistics Widget 5-->
                     <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8">
@@ -408,9 +413,9 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
                     </a>
                     <!--end::Statistics Widget 5-->
                 </div>
-
             </div>
-            <div class="row g-5 g-xl-8">
+           
+                <div class="row g-5 g-xl-8">
                 <div class="col-xl-3">
                     <!--begin::Statistics Widget 5-->
                     <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8">
@@ -525,10 +530,10 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
                     <!--end::Statistics Widget 5-->
                 </div>
 
-            </div>
+                </div>
 
-            <!--begin::Row-->
-            <div class="row g-5 g-xl-10" style="margin-bottom: 70px;">
+               <!--begin::Row-->
+               <div class="row g-5 g-xl-10" style="margin-bottom: 70px;">
                 
                 <!--begin::Col-->
                 
@@ -656,9 +661,9 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
                             </div>
                             <!--end::Card widget 7-->
                         </div>
-                    </div>
-
+            </div>
         </div>
+    
             <br>
             <br>
 
@@ -920,11 +925,19 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
                 </div>
                 <script>
                     function toggleContent() {
-                        var content = document.getElementById("content");
-                        if (content.style.display === "none") {
-                            content.style.display = "block";
-                        } else {
+                        var content = document.getElementById("contenthide");
+                        if (content.style.display === "block") {
                             content.style.display = "none";
+                        } else {
+                            content.style.display = "block";
+                        }
+                    }
+                    function toggleDepartment() {
+                        var content = document.getElementById("departmenthide");
+                        if (content.style.display === "block") {
+                            content.style.display = "none";
+                        } else {
+                            content.style.display = "block";
                         }
                     }
                 </script>
