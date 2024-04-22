@@ -93,7 +93,9 @@ class BookingController extends AppBaseController
                 Excel::import($import,$file);
 
                 Flash::success('SUCCESSFULLY DONE');
-                return back()->with('message', 'SUCCESSFULLY DONE');
+                // return back()->with('message', 'SUCCESSFULLY DONE');
+                return redirect()->route('payhistory')->with('message', 'SUCCESSFULLY DONE');
+                // return redirect()->route('payhistory')->with('message', 'SUCCESSFULLY DONE');
             } catch (\Throwable $th) {
                 Flash::error($th->getMessage());
                 return back()->with('message', $th->getMessage());

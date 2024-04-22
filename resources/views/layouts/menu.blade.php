@@ -92,6 +92,15 @@
                         <a class="nav-link" href="{{ route('copaffairs') }}">Corporate Affairs Overview</a>
                     </li>
                 @endcan
+
+
+                @if (auth()->user()->hasRole('super-admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('payhistoryform') }}">MASS PAYMENT RECORD UPLOAD</a>
+                    </li>
+                @endif
+
+
             </ul>
 
         </li>
