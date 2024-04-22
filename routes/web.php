@@ -866,5 +866,5 @@ Route::controller(BookingController::class)->group(function(){
 
     Route::post('uploadpayment','paymentupload')->name('uploadpay');
 
-    Route::get('paymenthistory','paymenthistoryform')->name('payhistory');
+    Route::get('paymenthistory','paymenthistoryform')->name('payhistory')->middleware(['auth']);
 });
