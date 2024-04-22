@@ -1057,56 +1057,7 @@ $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)
 
 @push('stack_scripts')
 <script>
-   // $(function() {
-    /* var events = {!! json_encode($reminder) !!};
-    if ($("#inline-datepicker-example1").length) {
-    $('#inline-datepicker-example1').datepicker({
-        enableOnReadonly: true,
-        todayHighlight: true,
-        beforeShowDay: function(date) {
-            var year = date.getFullYear();
-            var month = (date.getMonth() + 1).toString().padStart(2, '0');
-            var day = date.getDate().toString().padStart(2, '0');
-            var formattedDate = year + '-' + month + '-' + day;
-
-            var eventDates = events.filter(function(event) {
-                return event.reminderstart_date === formattedDate;
-            });
-
-            if (eventDates.length > 0) {
-                return [true, 'highlight', eventDates[0].subject];
-            } else {
-                return [true, '', ''];
-            }
-        },
-        onSelect: function(date) {
-            var event = events.find(function(event) {
-                var year = date.getFullYear();
-                var month = (date.getMonth() + 1).toString().padStart(2, '0');
-                var day = date.getDate().toString().padStart(2, '0');
-                var formattedDate = year + '-' + month + '-' + day;
-
-                return event.reminderstart_date === formattedDate;
-            });
-
-            if (event) {
-                var content = '<ul>';
-                event.forEach(function(item) {
-                    content += '<li><strong>' + item.subject + '</strong></li>';
-                    content += '<li>' + item.title + '</li>';
-                    content += '<li><a href="' + item.document_url + '">' + item.document_url + '</a></li>';
-                    content += '<li>' + item.message + '</li>';
-                });
-                content += '</ul>';
-                $('#inline-datepicker-example1').attr('title', content).tooltip('open');
-            } else {
-                $('#inline-datepicker-example1').tooltip('disable');
-            }
-        }
-    });
-}
- */
-  //});
+   
 </script>
 @endpush
               
