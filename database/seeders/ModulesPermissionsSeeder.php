@@ -26,6 +26,7 @@ class ModulesPermissionsSeeder extends Seeder
             'view asset manager module',
             'view incoming documents module',
             'view incoming documents',
+            'view overview module',
         ];
 
         // Create permissions
