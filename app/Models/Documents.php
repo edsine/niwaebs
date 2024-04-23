@@ -20,20 +20,23 @@ class Documents extends Model implements Auditable
         'description',
         'created_by',
         'category_id',
-        'document_url'
+        'document_url',
+        'department_id',
     ];
 
     protected $casts = [
         'title' => 'string',
         'description' => 'string',
         'created_by' => 'integer',
-        'category_id' => 'integer'
+        'category_id' => 'integer',
+        'department_id' => 'integer',
     ];
 
     public static array $rules = [
         'title' => 'required|unique:documents_manager,title',
         'file' => 'required|file|max:2048',
         'description' => 'required',
+        'department_id' => 'required',
     ];
     
 

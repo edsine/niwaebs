@@ -9,9 +9,9 @@
         <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr>
-                    {{-- <th>S/N</th> --}}
+                    <th>S/N</th>
                     <th>Document Title</th>
-                    <th>Assigned To</th>
+                    {{-- <th>Assigned To</th> --}}
                     <th>Document URL</th>
                     <th>Department Name / File No.</th>
                     <th>Subject</th>
@@ -24,29 +24,31 @@
             </thead>
             <tbody>
                 @php $n =1; @endphp
-                @foreach ($documents as $document)
+                @foreach ($documents as $index => $document)
                     
                     <tr>
-                        {{-- <td>{{ $n++ }}</td> --}}
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $document->title }}</td>
                         {{-- <td>{{ $document->description }}</td> --}}
-                        <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
+                        {{-- <td>{{ $document->assigned_to_name ?? 'NILL' }}</td> --}}
                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
-                        <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                        <td>{{ $document->dep_name ? $document->dep_name.' / ' : '' }}{{ $document->cat_name ?? 'NILL' }}</td>
                         <td>{{ $document->doc_description ?? 'NILL' }}</td>
                         <td>{{ $document->document_created_at }}</td>
                         {{-- @if(Auth::user()->hasRole('super-admin')) --}}
                         <td style="width: 120px;">
                             
                             <div class="btn-group" role="group">
-                                
-                                @if(($document->allow_share == 1 && $document->user_id == Auth()->user()->id) || $document->assigned_by == Auth()->user()->id)
+                                <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
+                                    data-shareuser={{ $document->d_id }}>User</a>
+                                    
+                               {{--  @if(($document->allow_share == 1 && $document->user_id == Auth()->user()->id) || $document->assigned_by == Auth()->user()->id)
                                 <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
                                     data-shareuser={{ $document->d_id }}>User</a>
                             @endif
-
+ --}}
 {{-- <a class="open-modal-sharerole btn btn-danger" href="#" data-toggle="modal" data-target="#shareroleModal"
 data-sharerole={{ $document->d_id }}>Role</a> --}}
 
@@ -65,7 +67,7 @@ data-sharerole={{ $document->d_id }}>Role</a> --}}
                                             <i class="far fa-eye"></i> View
                                         </a>
                                         @if(Auth::user()->hasRole('super-admin'))
-                                        <a href="{{ route('incoming_documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs dropdown-item'>
+                                        <a href="{{ route('documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs dropdown-item'>
                                             <i class="far fa-edit"></i> Edit
                                         </a>
                                         @endif
@@ -92,7 +94,7 @@ data-sharerole={{ $document->d_id }}>Role</a> --}}
                                             <i class="far fa-trash-alt"></i> Delete
                                         </a>
                                         @endif
-                                                                             {{-- {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
+                                                                             {{-- {!! Form::open(['route' => ['documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
                             
                                         {!! Form::button('Delete button', [
                                             'type' => 'submit',
@@ -106,14 +108,14 @@ data-sharerole={{ $document->d_id }}>Role</a> --}}
                                     </div>
                                 </div>
                             
-                           {{--  {!! Form::open(['route' => ['incoming_documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
+                           {{--  {!! Form::open(['route' => ['documents_manager.destroy', $document->d_id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                <a href="{{ route('incoming_documents_manager.show', [$document->d_id]) }}"
+                                <a href="{{ route('documents_manager.show', [$document->d_id]) }}"
                                     class='btn btn-default btn-xs'>
                                     <i class="far fa-eye"></i>
                                 </a>
                                 
-                                <a href="{{ route('incoming_documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs'>
+                                <a href="{{ route('documents_manager.edit', [$document->d_id]) }}" class='btn btn-default btn-xs'>
                                     <i class="far fa-edit"></i>
                                 </a>
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
@@ -136,7 +138,7 @@ data-sharerole={{ $document->d_id }}>Role</a> --}}
 <div class="modal fade" id="uploadsModal" tabindex="-1" role="dialog" aria-labelledby="uploadsModalModalLabel"
     aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog" role="document">
-        {!! Form::open(['route' => 'incoming_documents_manager.add', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'documents_manager.add', 'enctype' => 'multipart/form-data']) !!}
         @csrf
         <div class="modal-content">
             <div class="modal-header">
@@ -216,7 +218,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'incoming_documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title" id="curr1"></h5>
@@ -269,7 +271,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'incoming_documents_manager.send_email', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'documents_manager.send_email', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title"> Send Email</h5>
@@ -395,7 +397,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title">User Permission</h5>
@@ -452,7 +454,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'incoming_documents_manager.sharerole', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'documents_manager.sharerole', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title">Role Permission</h5>
@@ -498,7 +500,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'incoming_documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'documents_manager.add_comment', 'enctype' => 'multipart/form-data']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title" id="curr1"></h5>
@@ -612,7 +614,7 @@ aria-hidden="true" data-backdrop="false">
 
     // AJAX request to fetch document history
     $.ajax({
-        url: '/incoming_documents_manager/version/' + documentId,
+        url: '/documents_manager/version/' + documentId,
         type: 'GET',
         success: function(response) {
             // Populate table with fetched data
@@ -652,7 +654,7 @@ $(document).on("click", ".open-modal-comment", function() {
 
     // AJAX request to fetch document comment
     $.ajax({
-        url: '/incoming_documents_manager/comment/' + documentId,
+        url: '/documents_manager/comment/' + documentId,
         type: 'GET',
         success: function(response) {
             // Populate table with fetched data
@@ -684,7 +686,7 @@ $(document).on("click", ".open-modal-share", function() {
 
     // AJAX request to fetch document share
     $.ajax({
-        url: '/incoming_documents_manager/share/' + share,
+        url: '/documents_manager/share/' + share,
         type: 'GET',
         success: function(response) {
             // Populate table with fetched data

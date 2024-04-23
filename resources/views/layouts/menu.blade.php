@@ -567,6 +567,7 @@
        
        
         @can('view incoming documents module')
+
         
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
@@ -576,6 +577,45 @@
                 </a>
 
                 <ul class="nav flex-column sub-menu">
+
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="#">
+                <i class="fas  fa-id-card-clip menu-icon"></i>
+                <span class="menu-title">Incoming  Documents</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="nav flex-column sub-menu">
+                {{--  @can('read asset manager dashboard') --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_document_dashboard') }}"><i class="fas  fa-dashboard "></i>
+                        Dashboard</a>
+                </li> --}}
+                @if(auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming/Manual
+                        Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_category.index') }}">Files</a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.shareduser') }}">My
+                        Documents</a>
+                </li>
+                @can('view incoming documents')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">Received Documents</a>
+                </li>
+                @endcan
+                
+                @if(auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">Document Audit Trail</a>
+                </li>
+                @endif
+                {{-- <li class="nav-item">
+
 
                     @if (auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
                         <li class="nav-item">

@@ -132,7 +132,7 @@ Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update
 
 });
 
-Route::get('/add/new/incoming/document/', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
+Route::get('/new/incoming', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
 Route::post('/add/new/incoming/store/', 'App\Http\Controllers\IncomingDocumentsController@store')->name('incoming_store');
 
 
