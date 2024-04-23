@@ -730,5 +730,6 @@
 
 
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> --}}
+<script src="{{ asset('public/js/jquery-3.7.0.min.js')}}"></script>
 @endpush
