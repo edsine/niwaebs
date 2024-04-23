@@ -24,43 +24,46 @@
                     <table class="table align-middle gs-0 gy-4" id="order-listing">
                         <thead>
                             <tr>
-                               {{--  <th>S/N</th> --}}
+                                <th>S/N</th>
                                 <th>Document Title</th>
-                                <th>Full Name</th>
+                                <th>Created By</th>
+                                <th>Assigned By</th>
+                                <th>Assigned To</th>
                                 <th>Document URL</th>
                                 <th>Department Name / File No.</th>
                                 <th>Start Date</th>
                                 <th>Expiry Date</th>
+                                <th>Share User</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php $n =1; @endphp
-                            @foreach ($documents as $document)
+                            
+                            @foreach ($documents as $index => $document)
                             @php
-                            $document->category = $categories[$document->d_m_c_id] ?? null;
+                         //   $document->category = $categories[$document->d_m_c_id] ?? null;
                         @endphp
                                 <tr>
-                                    {{-- <td>{{ $n++ }}</td> --}}
+                                    <td>{{ $index + 1 }}</td>
                                     <td>{{ $document->title }}</td>
                                     {{-- <td>{{ $document->description }}</td> --}}
                                     <td>{{ $document->created_by_name ?? 'NILL' }}</td>
+                                    <td>{{ $document->assigned_by_name ?? 'NILL' }}</td>
+                                    <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
                                     <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}</a>
-                                        <td>
-                                            @if ($document->category)
-                                                {{ $document->category->department->name ?? '' }}
-                                                /
-                                                {{ $document->category_name ?? 'NILL' }}
-                                            @else
-                                            {{ $document->category_name ?? 'NILL' }}
-                                            @endif
-                                        </td>
-                                        <td>{{ $document->start_date }}</td>
+                                    <td>{{ $document->dep_name ? $document->dep_name.' / ' : '' }}{{ $document->cat_name ?? 'NILL' }}</td>
+                                    <td>{{ $document->start_date }}</td>
                                     <td>{{ $document->end_date }}</td>
+                                    <td>
+                                        @if(($document->allow_share == 1 && $document->user_id == Auth()->user()->id) || $document->assigned_by == Auth()->user()->id)
+                                    <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
+                                        data-shareuser={{ $document->d_m_id }}>User</a>
+                                @endif
+                                    </td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Click to view options
+                                                View options
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right" style="z-index: 9999;" aria-labelledby="dropdownMenuButton">
                                                 <a target="_blank" href="{{ asset($document->document_url) }}"
@@ -151,7 +154,7 @@ aria-hidden="true" data-backdrop="false">
             </div>
 
             <!-- Memo Id Field -->
-            {!! Form::hidden('upload_id', null, ['id' => 'upload_id']) !!}
+            {!! Form::hidden('upload_m_id', null, ['id' => 'upload_m_id']) !!}
 
         </div>
         <div class="modal-footer">
@@ -387,48 +390,59 @@ aria-hidden="true" data-backdrop="false">
 
 <div class="modal fade" id="shareuserModal" tabindex="-1" role="dialog" aria-labelledby="shareuserModalLabel"
 aria-hidden="true" data-backdrop="false">
-<div class="modal-dialog " role="document">
-    <div class="modal-content">
-        {!! Form::open(['route' => 'documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
-    @csrf
-        <div class="modal-header">
-            <h5 class="modal-title">User Permission</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            {!! Form::open(['route' => 'documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+        @csrf
+            <div class="modal-header">
+                <h5 class="modal-title">User Permission</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
-            <div class="form-group">
-                {!! Form::label('users', 'Select User(s):') !!}
-                {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
-                
-                {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
-                {!! Form::label('specify_su', 'Specify the period') !!}
-            </div>
-            <div class="form-group" id="enable_date" style="display: none">
-                {!! Form::label('start_date', 'Start Date') !!}
-                {!! Form::date('start_date', null, ['class' => 'form-control','id' => 'start_date1']) !!}<br/>
-                {!! Form::label('end_date', 'End Date') !!}
-                {!! Form::date('end_date', null, ['class' => 'form-control','id' => 'end_date1']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::checkbox('is_download', 1, ['id' => 'is_download']) !!}
-                {!! Form::label('is_download', 'Allow Download') !!}
-            </div>
+                <div class="form-group">
+                    {!! Form::label('users', 'Select User(s):') !!}
+                    {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
 
+                    {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
+                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
+                    {!! Form::label('specify_su', 'Specify the period') !!}
+                </div>
+                <div class="form-group" id="enable_date" style="display: none">
+                    {!! Form::label('start_date', 'Start Date') !!}
+                    {!! Form::date('start_date', null, ['class' => 'form-control','id' => 'start_date1']) !!}<br/>
+                    {!! Form::label('end_date', 'End Date') !!}
+                    {!! Form::date('end_date', null, ['class' => 'form-control','id' => 'end_date1']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('is_download', 1, ['id' => 'is_download']) !!}
+                    {!! Form::label('is_download', 'Allow Download') !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('allow_share', 1, null, ['id' => 'allow_share']) !!}
+                    {!! Form::label('allow_share', 'Allow Share') !!}
+                </div>
+                {!! Form::label('comment', 'Type your comment:') !!}
+                    <div class="form-group">
+                        <div class="custom-comment">
+                            {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+            {!! Form::close() !!}
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">SUBMIT</button>
-        </div>
-        {!! Form::close() !!}
+      
     </div>
-  
-</div>
 </div>
 
 <div class="modal fade" id="shareroleModal" tabindex="-1" role="dialog" aria-labelledby="shareroleModalLabel"
@@ -570,7 +584,7 @@ aria-hidden="true" data-backdrop="false">
    
     $(document).on("click", ".open-modal-upload", function() {
         let upload = $(this).data('upload');
-        $(".modal-body #upload_id").val(upload);
+        $(".modal-body #upload_m_id").val(upload);
     });
     $(document).on("click", ".open-modal-shareuser", function() {
         let shareuser = $(this).data('shareuser');

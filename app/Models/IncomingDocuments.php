@@ -26,19 +26,22 @@ class IncomingDocuments extends Model implements Auditable
         'full_name',
         'email',
         'phone',
+        'department_id',
     ];
 
     protected $casts = [
         'title' => 'string',
         'description' => 'string',
         'created_by' => 'integer',
-        'category_id' => 'integer'
+        'category_id' => 'integer',
+        'department_id' => 'integer',
     ];
 
     public static array $rules = [
-        'title' => 'required|unique:incoming_documents_manager,title',
+        'title' => 'required',
         'file' => 'required|file|max:2048',
         'description' => 'required',
+        'department_id' => 'required',
     ];
     
 
