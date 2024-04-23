@@ -185,8 +185,14 @@ function enum_equipment_fees_metrics()
     $option[8] = 'Per Trip';
     $option[9] = 'Kilometer';
     $option[10] = 'Meter';
+    $option[11] = 'M3 /month';
+    $option[12] = '/M2';
+    $option[13] = '/annum';
+    $option[14] = '/M2/day';
+    $option[15] = 'M3 /month';
+    $option[16] = '/litre';
 
-
+	
     return $option;
 }
 
