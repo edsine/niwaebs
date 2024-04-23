@@ -24,7 +24,7 @@ class EmployersImport implements ToCollection
                 $skippedFirstRow = true;
                 continue; // Skip the first row
             }
-
+            // dd($row);
             $employerData = [
                 // Extract other fields and populate staff data array
                 'company_email' => $row[1],
@@ -38,7 +38,7 @@ class EmployersImport implements ToCollection
                 'company_rcnumber' => $row[8],
                 'contact_position' => $row[9],
                 'contact_number' => $row[10],
-                'company_localgovt' => 1,//$row[11],
+                'company_localgovt' => 1, //$row[11],
                 'company_state' => $row[12],
                 'business_area' => $row[13],
                 'inspection_status' => 0,

@@ -6,20 +6,20 @@
 
 
 
-    <form class="form" action="{{ route(''uploadpay'') }}" enctype="multipart/form-data" method="post">
+    <form class="form" action="{{ route('servicestore') }}" enctype="multipart/form-data" method="post">
         @csrf
 
         <div class="row">
 
             <div class="form-group col-6">
 
-                <label for="" class=" form-label text-uppercase">Upload Record <i
+                <label for="" class=" form-label text-uppercase">Upload Service Application <i
                         class=" text-danger">*</i></label>
                 <input type="file" name="file" class=" form-control file col-8" id="">
             </div>
 
             <div class="form-group col-6 mt-2">
-                <a href="{{ route('paydownload') }}" class="btn  btn-secondary  btn-sm "> <i class=" bi bi-download"></i>
+                <a href="{{ route('savapdownload') }}" class="btn  btn-secondary  btn-sm "> <i class=" bi bi-download"></i>
                     DOWNLOAD SAMPLE</a>
 
             </div>
