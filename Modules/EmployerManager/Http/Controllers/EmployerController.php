@@ -2,31 +2,33 @@
 
 namespace Modules\EmployerManager\Http\Controllers;
 
-use Modules\EmployerManager\Http\Requests\CreateEmployerRequest;
-use Modules\EmployerManager\Http\Requests\UpdateEmployerRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\LocalGovt;
-use App\Models\State;
 use App\Models\User;
-use Modules\EmployerManager\Repositories\EmployerRepository;
-use Illuminate\Http\Request;
+use App\Models\State;
+use App\Models\LocalGovt;
+use App\Models\Signature;
 use Laracasts\Flash\Flash;
-use Illuminate\Support\Facades\DB;
-use Modules\EmployerManager\Models\Employee;
-use Modules\EmployerManager\Models\Employer;
-use Modules\Shared\Repositories\BranchRepository;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Modules\EmployerManager\Models\Certificate;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Modules\EmployerManager\Models\Payment;
+use App\Imports\EmployerImport;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\UsersImport; // Create this import class
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\AppBaseController;
+use Modules\EmployerManager\Models\Payment;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Modules\EmployerManager\Models\Employee;
+use Modules\EmployerManager\Models\Employer;
+use Modules\EmployerManager\Models\Certificate;
+use Modules\Shared\Repositories\BranchRepository;
 use Modules\EmployerManager\Imports\EmployersImport;
-use App\Models\Signature;
+use App\Imports\UsersImport; // Create this import class
+use Modules\EmployerManager\Repositories\EmployerRepository;
+use Modules\EmployerManager\Http\Requests\CreateEmployerRequest;
+use Modules\EmployerManager\Http\Requests\UpdateEmployerRequest;
 
 class EmployerController extends AppBaseController
 {
@@ -178,7 +180,7 @@ class EmployerController extends AppBaseController
                 ->withInput();
         }
 
-       /*  if ($request->hasFile('file')) {
+        /*  if ($request->hasFile('file')) {
             try {
                 $file = $request->file('file');
 
@@ -199,8 +201,8 @@ class EmployerController extends AppBaseController
         }
 
         return redirect(route('employers.index')); */
-           Excel::import(new EmployersImport(), request()->file('file'));
-               return redirect(route('employers.index')); 
+        Excel::import(new EmployersImport(), request()->file('file'));
+        return redirect(route('employers.index'));
     }
 
     public function bulkEmployerUpload()
@@ -226,6 +228,63 @@ class EmployerController extends AppBaseController
         return view('employermanager::employers.create', compact('employers', 'state', 'local_govt', 'branches'));
     }
 
+
+    public function storemass(Request $request)
+    {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|file|mimes:csv,xlsx'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->hasFile('file')) {
+
+            try {
+                $file = $request->file('file');
+                $import = new EmployerImport();
+
+                Excel::import($import, $file);
+
+                Flash::success('SUCCESSFULLY DONE');
+
+                return back()->with('message', 'SUCCESSFULLY DONE');
+            } catch (\Throwable $th) {
+                Flash::error($th->getMessage());
+                return back()->with('message', $th->getMessage());
+            }
+        }
+    }
+
+    public function downloademployersample()
+    {
+        
+        $file = public_path('excelfile\employersrecord.xlsx'); // Path to your sample Excel file
+        
+        // Return the file as a download response
+        return Response::download($file, 'employerssample.xlsx');
+
+    }
+    public function downloadpaymentsample()
+    {
+       
+        $file = public_path('excelfile\paymentrecord.xlsx'); // Path to your sample Excel file
+        
+        // Return the file as a download response
+        return Response::download($file, 'paymenthistorysample.xlsx');
+    }
+    public function downloadservicesample()
+    { $file = public_path('excelfile\serviceapplication.xlsx'); // Path to your sample Excel file
+        
+        // Return the file as a download response
+        return Response::download($file, 'serviceapplicationsample.xlsx');
+    }
+    public function displayform()
+    {
+        return view('upload.employersmass');
+    }
     /**
      * Store a newly created Employer in storage.
      */

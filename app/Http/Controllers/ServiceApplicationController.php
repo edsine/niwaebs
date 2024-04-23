@@ -6,8 +6,12 @@ use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Models\EquipmentAndFee;
 use App\Models\ServiceApplication;
+
 use App\Models\Payment as Payments;
+use App\Imports\Servicesapplication;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 use App\Models\ServiceApplicationDocument;
 use App\Http\Controllers\AppBaseController;
 use Modules\EmployerManager\Models\Payment;
@@ -64,6 +68,40 @@ class ServiceApplicationController extends AppBaseController
     /**
      * Display the specified ServiceApplication.
      */
+
+    public function uploadpage()
+    {
+        return view('service_applications.upload');
+    }
+    public function serviceupload(Request $request)
+    {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|file|mimes:csv,xlsx'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->hasFile('file')) {
+
+            try {
+                $file=$request->file('file');
+                $import= new Servicesapplication();
+                Excel::import($import,$file);
+
+                Flash::success('SUCCESSFULLY DONE');
+               
+                return back()->with('message','SUCCESSFULLY DONE');
+            } catch (\Throwable $th) {
+                Flash::error($th->getMessage());
+                return back()->with('message', $th->getMessage());
+            }
+        }
+        
+    }
+
     public function show($id)
     {
         $user = Auth::user();
@@ -225,13 +263,13 @@ class ServiceApplicationController extends AppBaseController
     {
         $serviceApplication = ServiceApplication::find($id);
         $pay = Payments::where('payment_status', 1)->where('payment_type', 1)->where("employer_id", $serviceApplication->user_id)->latest()->first();
-        if($pay){
-        $pay->approval_status = 1;
-        $pay->save();
+        if ($pay) {
+            $pay->approval_status = 1;
+            $pay->save();
         }
         $serviceApplication->status_summary = 'Application form fee approved';
         $serviceApplication->save();
-         Flash::success('Payment has been approved');
+        Flash::success('Payment has been approved');
 
 
         return redirect()->back();
@@ -257,10 +295,10 @@ class ServiceApplicationController extends AppBaseController
             $serviceApplication->finance_is_processing_fee_verified = 1;
             $serviceApplication->current_step = 7;
             $serviceApplication->status_summary = 'Processing fee have been approved';
-           // $serviceApplication->date_of_inspection = $request->date_of_inspection;
-           $pay = Payments::where('payment_status', 1)->where('payment_type', 2)->where("employer_id", $serviceApplication->user_id)->latest()->first();
-           $pay->approval_status = 1;
-           $pay->save();
+            // $serviceApplication->date_of_inspection = $request->date_of_inspection;
+            $pay = Payments::where('payment_status', 1)->where('payment_type', 2)->where("employer_id", $serviceApplication->user_id)->latest()->first();
+            $pay->approval_status = 1;
+            $pay->save();
             Flash::success('Payment has been approved');
         }
 
@@ -293,8 +331,8 @@ class ServiceApplicationController extends AppBaseController
             $serviceApplication->date_of_inspection = $request->date_of_inspection;
 
             $pay = Payments::where('payment_status', 1)->where('payment_type', 3)->where("employer_id", $serviceApplication->user_id)->latest()->first();
-           $pay->approval_status = 1;
-           $pay->save();
+            $pay->approval_status = 1;
+            $pay->save();
 
             Flash::success('Payment has been approved');
         }
@@ -341,24 +379,24 @@ class ServiceApplicationController extends AppBaseController
         $sum_total = 0;
         $equipment = $request->input('equipment');
 
-$prices = $request->input('price');
-$quantities = $request->input('qty');
+        $prices = $request->input('price');
+        $quantities = $request->input('qty');
 
-// Ensure both price and quantity arrays are of the same length
-if (count($prices) === count($quantities)) {
-    // Iterate through each index
-    for ($i = 0; $i < count($prices); $i++) {
-        // Get the price and quantity at the current index
-        $price = (int)$prices[$i] ?? 0;
-        $quantity = (int)$quantities[$i] ?? 0;
+        // Ensure both price and quantity arrays are of the same length
+        if (count($prices) === count($quantities)) {
+            // Iterate through each index
+            for ($i = 0; $i < count($prices); $i++) {
+                // Get the price and quantity at the current index
+                $price = (int)$prices[$i] ?? 0;
+                $quantity = (int)$quantities[$i] ?? 0;
 
-        // Calculate the total for the current item
-        $total = $price * $quantity;
+                // Calculate the total for the current item
+                $total = $price * $quantity;
 
-        // Add the total to the sum
-        $sum_total += $total;
-    }
-}
+                // Add the total to the sum
+                $sum_total += $total;
+            }
+        }
 
 
         $serviceApplication = ServiceApplication::find($id);
@@ -406,8 +444,8 @@ if (count($prices) === count($quantities)) {
             $serviceApplication->status_summary = 'Equipment fee has been approved';
 
             $pay = Payments::where('payment_status', 1)->where('payment_type', 5)->where("employer_id", $serviceApplication->user_id)->latest()->first();
-           $pay->approval_status = 1;
-           $pay->save();
+            $pay->approval_status = 1;
+            $pay->save();
             Flash::success('Payment has been approved');
         }
 

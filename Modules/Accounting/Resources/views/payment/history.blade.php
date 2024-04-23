@@ -21,7 +21,7 @@
             <td>{{$item->employer?$item->employer->company_name:'No NAME FOUND' }}</td>
             <td>{{$item->branch?$item->branch->branch_name:'No Area Office'}}</td>
             {{-- <td>{{$item->service->name}}</td> --}}
-            <td>{{$item->serviceapplication->service?$item->serviceapplication->service->name: 'No Yet Applied'}}</td>
+            <td>{{$item->serviceapplication->service->name?$item->serviceapplication->service->name: 'No Yet Applied'}}</td>
             <td>{{$item->amount}}</td>
         </tr>
             @endforeach

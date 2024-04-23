@@ -33,9 +33,12 @@ use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\EmployerDocumentController;
 use App\Http\Controllers\DocumentsCategoryController;
+
+use App\Http\Controllers\ServiceApplicationController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use Modules\Accounting\Http\Controllers\ExpenseController;
 use Modules\Accounting\Http\Controllers\PaymentController;
+use Modules\EmployerManager\Http\Controllers\EmployerController;
 
 
 /*
@@ -874,3 +877,16 @@ Route::controller(BookingController::class)->group(function(){
 Route::controller(PaymentController::class)->group(function(){
     Route::get('payhistory','paymenthistory')->middleware('auth')->name('payhistory');
 });
+
+
+Route::get('serviceappupload',[ServiceApplicationController::class,'uploadpage'])->middleware('auth')->name('serviceupload');
+Route::post('saveupload',[ServiceApplicationController::class,'serviceupload'])->middleware('auth')->name('servicestore');
+
+Route::get('emplhistlist',[EmployerController::class,'displayform'])->name('emplist')->middleware('auth');
+Route::post('emplhistsa',[EmployerController::class,'storemass'])->name('emplistsa')->middleware('auth');
+
+
+//download sample
+Route::get('downloademployers',[EmployerController::class,'downloademployersample'])->name('empldownload');
+Route::get('downloadservice',[EmployerController::class,'downloadservicesample'])->name('savapdownload');
+Route::get('downloadpay',[EmployerController::class,'downloadpaymentsample'])->name('paydownload');
