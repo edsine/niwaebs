@@ -35,7 +35,7 @@
                          <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
-                        <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                        <td>{{ $document->dep_name ? $document->dep_name.' / ' : '' }}{{ $document->cat_name ?? 'NILL' }}</td>
                         <td>{{ $document->doc_description ?? 'NILL' }}</td>
                         <td>{{ $document->document_created_at }}</td>
                         

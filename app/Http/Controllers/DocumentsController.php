@@ -88,7 +88,7 @@ class DocumentsController extends AppBaseController
             // The logged-in user ID exists in the $userIds array
             //$documents = $this->documentRepository->paginate(10);
             $documents = \App\Models\Documents::query()
-    ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
     ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
     ->select(
         'documents_categories.id as category_id',
@@ -98,15 +98,17 @@ class DocumentsController extends AppBaseController
         'documents_manager.title',
         'documents_manager.document_url',
         'documents_categories.description as doc_description',
-        'documents_has_users.is_download',
-        'documents_has_users.allow_share',
-        'documents_has_users.user_id',
-        'documents_has_users.assigned_by',
-        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name')
+        'documents_categories.name as cat_name',
+        'departments.name as dep_name',
+       // 'documents_has_users.is_download',
+       // 'documents_has_users.allow_share',
+       // 'documents_has_users.user_id',
+       // 'documents_has_users.assigned_by',
+       // DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name')
     )
     ->latest('documents_manager.created_at')
-    ->groupBy('documents_has_users.assigned_by','documents_has_users.user_id','documents_has_users.is_download','documents_has_users.allow_share','documents_has_users.user_id','documents_categories.description','documents_manager.document_url','documents_manager.title','documents_categories.id', 'documents_categories.name', 'documents_manager.created_at', 'documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
-    ->with('createdBy')
+    ->groupBy('documents_categories.description','documents_manager.document_url','documents_manager.title','documents_categories.id', 'documents_categories.name', 'documents_manager.created_at', 'documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+    //->with('createdBy')
     ->get();
 
     $users1 = $this->userRepository->all();
@@ -138,29 +140,27 @@ class DocumentsController extends AppBaseController
         } else {
             // The logged-in user ID does not exist in the $userIds array
                 $documents = \App\Models\Documents::query()
-                ->join('documents_has_users', 'documents_manager.id', '=', 'documents_has_users.document_id')
-                ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
-                ->select(
-                    'documents_categories.id as category_id',
-                    'documents_categories.name as category_name',
-                    'documents_manager.created_at as document_created_at',
-                    'documents_manager.id as d_id',
-                    'documents_manager.title',
-                    'documents_manager.document_url',
-                    'documents_categories.description as doc_description',
-                    'documents_has_users.is_download',
-                    'documents_has_users.allow_share',
-                    'documents_has_users.user_id',
-                    'documents_has_users.assigned_by',
-                    DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name')
-                    )
-                ->where('documents_has_users.user_id', $userId)
+                ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
+    ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->select(
+        'documents_categories.id as category_id',
+        'documents_categories.name as category_name',
+        'documents_manager.created_at as document_created_at',
+        'documents_manager.id as d_id',
+        'documents_manager.title',
+        'documents_manager.document_url',
+        'documents_categories.description as doc_description',
+        'documents_categories.name as cat_name',
+        'departments.name as dep_name',
+         )
+                ->where('documents_manager.created_by', $userId)
                 ->latest('documents_manager.created_at')
-                ->groupBy('documents_has_users.assigned_by','documents_has_users.user_id','documents_has_users.is_download','documents_has_users.allow_share','documents_has_users.user_id','documents_categories.description','documents_manager.document_url','documents_manager.title','documents_categories.id', 'documents_categories.name', 'documents_manager.created_at', 'documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
-                ->with('createdBy')
+                ->groupBy('documents_categories.description','documents_manager.document_url','documents_manager.title','documents_categories.id', 'documents_categories.name', 'documents_manager.created_at', 'documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+                //->with('createdBy')
                 ->get();
 
-                $users1 = DB::table('users')
+
+    $users1 = DB::table('users')
     ->join('staff', 'staff.user_id', '=', 'users.id')
     ->join('departments', 'departments.id', '=', 'staff.department_id')
     ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
@@ -285,8 +285,10 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     ->latest('documents_has_users.created_at')
     ->groupBy('documents_manager.document_url','documents_manager.category_id','documents_has_users.id','documents_has_users.created_at', 'documents_categories.name', 'documents_manager.category_id')
     ->get(); */
+   
     $documents = DB::table('documents_has_users')
     ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
     ->join('users', 'documents_has_users.user_id', '=', 'users.id')
     ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
     ->select(
@@ -297,10 +299,17 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         'documents_categories.name as category_name',
         'documents_has_users.start_date',
         'documents_has_users.end_date',
+        'documents_has_users.allow_share',
+        'documents_has_users.is_download',
+        'documents_has_users.user_id',
+        'documents_has_users.assigned_by',
         'documents_manager.document_url as document_url',
         'documents_manager.id as d_m_id',
         'documents_categories.id as d_m_c_id',
-
+        'documents_categories.name as cat_name',
+        'departments.name as dep_name',
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name'),
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.assigned_by) AS assigned_by_name'),
         DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
     )
     ->latest('documents_has_users.created_at')
@@ -334,19 +343,28 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     //here
     $documents = DB::table('documents_has_users')
     ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+    ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
     ->join('users', 'documents_has_users.user_id', '=', 'users.id')
     ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
     ->select(
+        'documents_manager.category_id',
         'documents_categories.id',
         'documents_manager.title',
         'documents_has_users.created_at as createdAt',
         'documents_categories.name as category_name',
         'documents_has_users.start_date',
         'documents_has_users.end_date',
+        'documents_has_users.allow_share',
+        'documents_has_users.is_download',
+        'documents_has_users.user_id',
+        'documents_has_users.assigned_by',
         'documents_manager.document_url as document_url',
         'documents_manager.id as d_m_id',
         'documents_categories.id as d_m_c_id',
-
+        'documents_categories.name as cat_name',
+        'departments.name as dep_name',
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name'),
+        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.assigned_by) AS assigned_by_name'),
         DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
     )
     ->latest('documents_has_users.created_at')
@@ -365,14 +383,14 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     ->get();
 
     
-    $users1 = DB::table('users')
+    $users2 = DB::table('users')
     ->join('staff', 'staff.user_id', '=', 'users.id')
     ->join('departments', 'departments.id', '=', 'staff.department_id')
     ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
     ->where('staff.department_id', '=', Auth::user()->staff->department_id) // Explicitly specifying the table name for user_id
     ->get();
 
-        $userData = $users1->map(function ($user) {
+        $userData = $users2->map(function ($user) {
             return [
                 'id' => $user->id,
                 'name' => $user->first_name . ' ' . $user->last_name,
@@ -768,7 +786,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
         Flash::success('Document shared successfully.');
 
-        return redirect(route('documents_manager.shareduser'));
+        return redirect()->back();
     }
 
     public function shareRole(Request $request)
@@ -863,6 +881,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         $file->move($path_folder, $file_name);
         $document_url = $path . "/" . $file_name;
         $document_input['document_url'] = $document_url;
+        $document_input['department_id'] = Auth()->user()->staff->department_id;
         $document = $this->documentRepository->create($document_input);
 
         DocumentHistory::create([
@@ -878,13 +897,13 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         $userId = $user->id;
         $roles = $roleId; //$input['roles'];
         if ($roles != null) {
-            $this->_assignToRoles($roles, $document);
+           // $this->_assignToRoles($roles, $document);
         }
         // Assign to user(s)
         
         $users = [$userId]; // Convert $userId to an array
         if ($users != null) {
-            $this->_assignToUsers($users, $document);
+           // $this->_assignToUsers($users, $document);
         }
 
         // Retrieve meta tags from the request

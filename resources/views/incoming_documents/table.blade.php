@@ -14,7 +14,7 @@
                     <th>Sender Name</th>
                     <th>Sender Email</th>
                     <th>Sender Phone</th>
-                    <th>Assigned To</th>
+                    {{-- <th>Assigned To</th> --}}
                     <th>Document URL</th>
                     <th>Department Name / File No.</th>
                     <th>Subject</th>
@@ -36,11 +36,11 @@
                         <td>{{ $document->sender_email ?? 'NILL' }}</td>
                         <td>{{ $document->sender_phone ?? 'NILL' }}</td>
                         {{-- <td>{{ $document->description }}</td> --}}
-                        <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
+                        {{-- <td>{{ $document->assigned_to_name ?? 'NILL' }}</td> --}}
                         <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
-                        <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                        <td>{{ $document->dep_name ? $document->dep_name.' / ' : '' }}{{ $document->cat_name ?? 'NILL' }}</td>
                         <td>{{ $document->doc_description ?? 'NILL' }}</td>
                         <td>{{ $document->document_created_at }}</td>
                         {{-- @if(Auth::user()->hasRole('super-admin')) --}}
@@ -48,10 +48,8 @@
                             
                             <div class="btn-group" role="group">
                                 
-                                @if(($document->allow_share == 1 && $document->user_id == Auth()->user()->id) || $document->assigned_by == Auth()->user()->id)
                                 <a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
                                     data-shareuser={{ $document->d_id }}>User</a>
-                            @endif
 
 {{-- <a class="open-modal-sharerole btn btn-danger" href="#" data-toggle="modal" data-target="#shareroleModal"
 data-sharerole={{ $document->d_id }}>Role</a> --}}
@@ -416,6 +414,7 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
 
                     {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
+                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
