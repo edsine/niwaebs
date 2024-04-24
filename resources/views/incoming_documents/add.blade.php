@@ -7,7 +7,7 @@
                 <div class="col-sm-12 text-center">
                     <img src="{{ asset('niwa.jpg') }}" style="height: 100px;"/>
                     <h2>
-                        Add New Incoming Document
+                        Add New Incoming Letter
                     </h2>
                 </div>
             </div>
