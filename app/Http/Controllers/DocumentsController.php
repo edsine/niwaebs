@@ -430,7 +430,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     ->get();
 
     
-    $users2 = DB::table('users')
+    /* $users2 = DB::table('users')
     ->join('staff', 'staff.user_id', '=', 'users.id')
     ->join('departments', 'departments.id', '=', 'staff.department_id')
     ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
@@ -442,7 +442,32 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
                 'id' => $user->id,
                 'name' => $user->first_name . ' ' . $user->last_name,
             ];
-        });
+        }); */
+        // Fetch roles
+$roles2 = Role::whereIn('id', [2])->get();
+
+// Get the users who have any of these roles
+$users1 = User::whereHas('roles', function ($query) use ($roles2) {
+    $query->whereIn('id', $roles2->pluck('id'));
+})->get(['id', 'first_name', 'last_name']);
+
+$users2 = DB::table('users')
+    ->join('staff', 'staff.user_id', '=', 'users.id')
+    ->join('departments', 'departments.id', '=', 'staff.department_id')
+    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
+    ->where('staff.department_id', '=', Auth::user()->staff->department_id)
+    ->get();
+
+// Combine the data
+$mergedUsers = $users2->merge($users1);
+
+// Process the data for display
+$userData = $mergedUsers->map(function ($user) {
+    return [
+        'id' => $user->id,
+        'name' => $user->first_name . ' ' . $user->last_name,
+    ];
+});
 
         
         }

@@ -18,6 +18,9 @@ use Modules\EmployerManager\Models\Employer;
 use Modules\EmployerManager\Models\Certificate;
 use Modules\ClaimsCompensation\Models\ClaimsCompensation;
 use App\Models\AttendanceEmployee;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
+use App\Repositories\RoleRepository;
 
 
 class HomeController extends Controller
@@ -27,10 +30,15 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    /** @var $roleRepository RoleRepository */
+    private $roleRepository;
+
+    public function __construct(RoleRepository $roleRepo)
     {
         $this->middleware('auth');
         $this->middleware('twofactor');
+        $this->roleRepository = $roleRepo;
     }
 
     /**
@@ -711,6 +719,26 @@ $data2 = \DB::table('incoming_documents_manager')
     ->where('documents_manager.department_id', '=', '1')
     ->get();
 
+     // Get the roles with the specified role IDs
+$roles = Role::whereIn('id', [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39])->get();
+
+// Get the users who have any of these roles
+$users = User::whereHas('roles', function ($query) use ($roles) {
+    $query->whereIn('id', $roles->pluck('id'));
+})->get(['id', 'first_name', 'last_name']);
+
+// Transform user data
+$userData = $users->map(function ($user) {
+    return [
+        'id' => $user->id,
+        'name' => $user->first_name . ' ' . $user->last_name,
+    ];
+});
+   
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        
+        $users123 = $userData->pluck('name', 'id');
+
     /* $reminder = \DB::table('reminders')
     ->join('documents_manager', 'documents_manager.id', 'reminders.documents_manager_id')
     ->selectRaw('reminders.subject, reminders.message, reminders.reminderstart_date, documents_manager.title, documents_manager.document_url')
@@ -731,6 +759,7 @@ $data2 = \DB::table('incoming_documents_manager')
             'data3',
             'documents1',
             'documents2',
+            'users123',
             //'reminder',
         ));
     }
