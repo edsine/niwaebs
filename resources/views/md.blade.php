@@ -14,12 +14,12 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h1 class="text-center mb-5">MANAGING DIRECTOR DASHBOARD</h1>
-            <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Revenue Analytics</button>
-            <button onclick="toggleDepartment()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Department / File No. Analytics</button>
-             <button onclick="toggleDepartmentalDocument()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Departmental Documents Analytics</button>
+            <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;">Revenue Update</button>
+            <button onclick="toggleDepartment()" class="btn btn-primary" style="margin-bottom: 70px;">Incoming Letter Update</button>
+             <button onclick="toggleDepartmentalDocument()" class="btn btn-primary" style="margin-bottom: 70px;">Departmental Documents Updates</button>
 
 
-             <div class="row mb-10">
+            <!--  <div class="row mb-10">
                 <div class="col-md-3">
                     {!! Form::label('department_id', 'Departmental File No. Analytics:') !!}
              {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect']) !!}
@@ -30,17 +30,17 @@
              {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect']) !!}
            
                 </div>
-                <!-- <div class="col-md-3">
+                <div class="col-md-3">
              {!! Form::label('department_id', 'Departmental Documents Analytics:') !!}
              {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
            
-                </div> -->
+                </div>
                 <div class="col-md-3">
              {!! Form::label('department_id', 'Incoming Letters Analytics:') !!}
              {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect']) !!}
            
                 </div>
-             </div>
+             </div> -->
 
               <div class="col-md-9 grid-margin stretch-card departmenthide" id="departmenthide">
                 <!--begin::Chart widget 15-->
@@ -495,7 +495,7 @@
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
                 <div class="col-md-12 grid-margin stretch-card depDoc1" id="depDoc1">
 <div class="col-md-3">
-             {!! Form::label('department_id', 'Departmental Documents Analytics:') !!}
+             {!! Form::label('department_id', 'Click to select user department:') !!}
              {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
            
                 </div>
@@ -503,7 +503,7 @@
             <div class="card-body p-5">
                 <h4 class="card-title">
                           <i class="fas fa-envelope"></i>
-                         Latest 5 Departmental Documents
+                         Latest 5 Departmental Document Updates
                         </h4>
                 <div class="table-responsive1" style="overflow-y: auto;">
                     <table class="table align-middle gs-0 gy-4" id="order-listing2">
@@ -515,8 +515,7 @@
                                 <th>Assigned By</th>
                                 <th>Assigned To</th>
                                 <th>Document URL</th>
-                                <th>Start Date</th>
-                                <th>Expiry Date</th>
+                                <th>Share User</th>
                             </tr>
                         </thead>
                         <tbody id="documentsTableBody">
@@ -551,30 +550,88 @@
     }
 
     function displayDocuments(documents) {
-        let tableBody = document.getElementById('documentsTableBody');
-        tableBody.innerHTML = '';
+    let tableBody = document.getElementById('documentsTableBody');
+    tableBody.innerHTML = '';
 
-        documents.forEach((document, index) => {
-            let row = `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${document.title}</td>
-                    <td>${document.created_by_name}</td>
-                    <td>${document.assigned_by_name}</td>
-                    <td>${document.assigned_to_name}</td>
-                    <td>${document.document_url}</td>
-                    <td>${document.start_date}</td>
-                    <td>${document.end_date}</td>
-                </tr>
-            `;
-            tableBody.insertAdjacentHTML('beforeend', row);
-        });
-    }
+    documents.forEach((document, index) => {
+        let row = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${document.title}</td>
+                <td>${document.created_by_name}</td>
+                <td>${document.assigned_by_name}</td>
+                <td>${document.assigned_to_name}</td>
+                <td><a target="_blank" href="${ document.document_url }">${ document.document_url.substr(10) }</a></td>
+                <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
+                                    data-shareuser=${document.d_m_id}>User</a></td>
+            </tr>
+        `;
+        tableBody.insertAdjacentHTML('beforeend', row);
+    });
+}
+
 
 </script>
             
         </div>
                 </div>
+
+                <div class="modal fade" id="shareuserModal" tabindex="-1" role="dialog" aria-labelledby="shareuserModalLabel"
+aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+        @csrf
+            <div class="modal-header">
+                <h5 class="modal-title">User Permission</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    {!! Form::label('users', 'Select User(s):') !!}
+                    {!! Form::select('users[]', $users123, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+
+                    {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
+                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
+                    {!! Form::label('specify_su', 'Specify the period') !!}
+                </div>
+                <div class="form-group" id="enable_date" style="display: none">
+                    {!! Form::label('start_date', 'Start Date') !!}
+                    {!! Form::date('start_date', null, ['class' => 'form-control','id' => 'start_date1']) !!}<br/>
+                    {!! Form::label('end_date', 'End Date') !!}
+                    {!! Form::date('end_date', null, ['class' => 'form-control','id' => 'end_date1']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('is_download', 1, ['id' => 'is_download']) !!}
+                    {!! Form::label('is_download', 'Allow Download') !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('allow_share', 1, ['id' => 'allow_share']) !!}
+                    {!! Form::label('allow_share', 'Allow Share') !!}
+                </div>
+                {!! Form::label('comment', 'Type your comment:') !!}
+                    <div class="form-group">
+                        <div class="custom-comment">
+                            {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+      
+    </div>
+</div>
                 <div class=" col-md-9 grid-margin stretch-card">
                     
                     <div class="card">
