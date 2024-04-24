@@ -659,7 +659,7 @@
                     <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">Document Audit Trail</a>
                 </li>
                 @endif
-                {{-- <li class="nav-item">
+               <li class="nav-item">
 
                     <a class="nav-link" href="{{ route('reminder.index') }}"> <i
                             class="bi bi-alarm "></i>Reminder</a>
