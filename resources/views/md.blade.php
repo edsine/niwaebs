@@ -2,7 +2,7 @@
 
 @section('content')
 <style>
-    .hidden1, .departmenthide {
+    .hidden1, .departmenthide, .depDoc1 {
         display: none;
     }
 </style>
@@ -16,211 +16,33 @@
             <h1 class="text-center mb-5">MANAGING DIRECTOR DASHBOARD</h1>
             <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Revenue Analytics</button>
             <button onclick="toggleDepartment()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Department / File No. Analytics</button>
+             <button onclick="toggleDepartmentalDocument()" class="btn btn-primary" style="margin-bottom: 70px;">Show/Hide Departmental Documents Analytics</button>
+
+
+             <div class="row mb-10">
+                <div class="col-md-3">
+                    {!! Form::label('department_id', 'Departmental File No. Analytics:') !!}
+             {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect']) !!}
            
-            <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
-                <div class=" col-md-9 grid-margin stretch-card">
-                    
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">
-                          <i class="fas fa-envelope"></i>
-                         Latest Incoming Documents
-                        </h4>
-                        <a class="nav-link float-right" href="{{ route('incoming_documents_manager.index') }}">View All</a>
-                          <div class="table-responsive">
-                              <table class="table align-middle gs-0 gy-4" id="order-listing11">
-                                  <thead>
-                                      <tr>
-                                          {{-- <th>S/N</th> --}}
-                                          <th>Document Title</th>
-                                          <th>Sender Name</th>
-                                          <th>Sender Email</th>
-                                          <th>Sender Phone</th>
-                                          <th>Assigned To</th>
-                                          <th>Document URL</th>
-                                          <th>Department Name / File No.</th>
-                                          <th>Subject</th>
-                                          <th>Created Date</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      
-                                      @foreach ($documents1 as $document)
-                                          @php @endphp
-                                          <tr>
-                                              {{-- <td>{{ $n++ }}</td> --}}
-                                              <td>{{ $document->title ?? 'NILL' }}</td>
-                                              <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
-                                              <td>{{ $document->sender_email ?? 'NILL' }}</td>
-                                              <td>{{ $document->sender_phone ?? 'NILL' }}</td>
-                                              {{-- <td>{{ $document->description }}</td> --}}
-                                              <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
-                                              <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
-                                              </td>
-                                              
-                                              <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
-                                              <td>{{ $document->doc_description ?? 'NILL' }}</td>
-                                              <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
-                                             
-                                            
-                                          </tr>
-                                      @endforeach
-                                  </tbody>
-                              </table>
-                          
-                      </div>
+                </div>
+                <div class="col-md-3">
+                    {!! Form::label('department_id', 'Incoming File No. Analytics:') !!}
+             {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect']) !!}
+           
+                </div>
+                <!-- <div class="col-md-3">
+             {!! Form::label('department_id', 'Departmental Documents Analytics:') !!}
+             {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
+           
+                </div> -->
+                <div class="col-md-3">
+             {!! Form::label('department_id', 'Incoming Letters Analytics:') !!}
+             {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect']) !!}
+           
+                </div>
+             </div>
 
-                      </div>
-                    </div>
-                  </div>
-                <div class="col-md-3 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">
-                          <i class="far fa-futbol"></i>
-                          Incoming Document Audit Trail
-                        </h4>
-                        <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">View All</a>
-                        @php 
-                        $documents = \DB::table('incoming_documents_manager')
-            ->join('audits', 'incoming_documents_manager.id', '=', 'audits.auditable_id')
-            ->join('incoming_documents_has_users', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
-            ->join('users as assigned_to_user', 'incoming_documents_has_users.user_id', '=', 'assigned_to_user.id')
-            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
-            ->select('incoming_documents_categories.id as d_c_id','incoming_documents_manager.*', 'incoming_documents_manager.id as id', 'audits.*', 'assigned_to_user.first_name as assigned_to_first_name', 'assigned_to_user.last_name as assigned_to_last_name', 'incoming_documents_manager.created_at as createdAt', 'incoming_documents_categories.name as category_name')
-            ->where('audits.auditable_type', "App\Models\IncomingDocuments")
-            ->latest('incoming_documents_manager.created_at')
-            ->limit(3)
-            ->distinct() // Ensure distinct results
-            ->get();
-            $documentIds = $documents->pluck('d_c_id')->toArray();
-            $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
-
-                        @endphp
-                        <ul class="solid-bullet-list">
-                            @foreach ($documents as $document)
-                            @php
-                            $document->category = $categories[$document->category_id] ?? null;
-                            @endphp
-                          <li>
-                            <h5>{{ $document->title }}
-                              <span class="float-right text-muted font-weight-normal small">{{ date('M d, Y H:i A', strtotime($document->createdAt)) }}</span>
-                            </h5>
-                            <p class="text-muted">{{ $document->assigned_to_first_name }} {{ $document->assigned_to_last_name }}</p>
-                            <p class="text-muted">@if ($document->category)
-                                {{ $document->category->department->name ?? '' }}
-                                /
-                                {{ $document->category_name ?? 'NILL' }}
-                            @else
-                            {{ $document->category_name ?? 'NILL' }}
-                            @endif</p>
-                            <p class="text-muted"><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
-                            </p>
-                            <p class="text-muted">{{ $document->event }}</p>
-                          </li>
-                          @endforeach
-                        </ul>
-                        {{-- <div class="border-top pt-3">
-                          <div class="d-flex justify-content-between">
-                            <button class="btn btn-outline-dark">More</button>
-                            <button class="btn btn-primary btn-icon-text">
-                            More
-                            <i class="btn-icon-append fas fa-angle-double-right"></i>
-                            </button>
-                          </div>
-                        </div> --}}
-                      </div>
-                    </div>
-                  </div>
-                 {{--  <div class="col-md-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <i class="fas fa-gift"></i>
-                                Document Analytics
-                            </h4>
-                            <canvas id="orders-chart1"></canvas>
-                            <div id="orders-chart-legend1" class="orders-chart-legend"></div>                  
-                        </div>
-                    </div>
-                </div>  --}}               
-               {{--  <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">
-                          <i class="fas fa-calendar-alt"></i>
-                          Reminder
-                        </h4>
-                        <div id="inline-datepicker-example1" class="datepicker"></div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div id="event-details"></div> --}}
-                  
-                  
-                  <div class="row">
-                   
-
-                  <div class="row">
-                    <div class="col-12 grid-margin">
-                      <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">
-                            <i class="fas fa-envelope"></i>
-                           Latest Departmental Documents
-                          </h4>
-                          <a class="nav-link float-right" href="{{ route('documents_manager.index') }}">View All</a>
-
-                            <div class="table-responsive">
-                                <table class="table align-middle gs-0 gy-4" id="order-listing11">
-                                    <thead>
-                                        <tr>
-                                            {{-- <th>S/N</th> --}}
-                                            <th>Document Title</th>
-                                            <th>Assigned To</th>
-                                            <th>Document URL</th>
-                                            <th>Department Name / File No.</th>
-                                            <th>Subject</th>
-                                            <th>Created Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        @foreach ($documents2 as $document)
-                                            @php @endphp
-                                            <tr>
-                                                {{-- <td>{{ $n++ }}</td> --}}
-                                                <td>{{ $document->title ?? 'NILL' }}</td>
-                                                {{-- <td>{{ $document->description }}</td> --}}
-                                                <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
-                                                <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
-                                                </td>
-                                                
-                                                <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
-                                                <td>{{ $document->doc_description ?? 'NILL' }}</td>
-                                                <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
-                                               
-                                              
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            
-                        </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    
-                    
-                  </div>
-                  </div>
-                 
-
-               
-            </div>
-            <div class="col-md-9 grid-margin stretch-card departmenthide" id="departmenthide">
+              <div class="col-md-9 grid-margin stretch-card departmenthide" id="departmenthide">
                 <!--begin::Chart widget 15-->
                 {{-- <div class="card  h-xl-100"> --}}
                 <div class="card  h-xl-100">
@@ -265,8 +87,8 @@
                 <!--end::Chart widget 15-->
 
             </div>
-             
-            <div id="contenthide" class="hidden1">
+
+             <div id="contenthide" class="hidden1">
                 <div class="col-12 float-right">
                     <div class="row">
                         <div class="col-3">
@@ -667,7 +489,241 @@
                             <!--end::Card widget 7-->
                         </div>
             </div>
+             </div>
+
+              
+            <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
+                <div class="col-md-12 grid-margin stretch-card depDoc1" id="depDoc1">
+<div class="col-md-3">
+             {!! Form::label('department_id', 'Departmental Documents Analytics:') !!}
+             {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
+           
+                </div>
+                    <div class="card">
+            <div class="card-body p-5">
+                <h4 class="card-title">
+                          <i class="fas fa-envelope"></i>
+                         Latest 5 Departmental Documents
+                        </h4>
+                <div class="table-responsive1" style="overflow-y: auto;">
+                    <table class="table align-middle gs-0 gy-4" id="order-listing2">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Document Title</th>
+                                <th>Created By</th>
+                                <th>Assigned By</th>
+                                <th>Assigned To</th>
+                                <th>Document URL</th>
+                                <th>Start Date</th>
+                                <th>Expiry Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="documentsTableBody">
+    </tbody>
+                    </table>
+                </div>
+            
+                
+            </div>
+            
+            
+           <script>
+     document.addEventListener("DOMContentLoaded", function () {
+        // Fetch Departmental Documents based on selected department
+        document.getElementById('deptSelect1').addEventListener('change', function () {
+            let departmentId = this.value;
+            fetchDocuments(departmentId);
+        });
+
+        // Initial Fetch on Page Load
+        let departmentId = document.getElementById('deptSelect').value;
+        fetchDocuments(departmentId);
+    });
+
+    function fetchDocuments(departmentId) {
+        fetch(`/showDepartementalDocuments/${departmentId}`)
+            .then(response => response.json())
+            .then(data => {
+                displayDocuments(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function displayDocuments(documents) {
+        let tableBody = document.getElementById('documentsTableBody');
+        tableBody.innerHTML = '';
+
+        documents.forEach((document, index) => {
+            let row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${document.title}</td>
+                    <td>${document.created_by_name}</td>
+                    <td>${document.assigned_by_name}</td>
+                    <td>${document.assigned_to_name}</td>
+                    <td>${document.document_url}</td>
+                    <td>${document.start_date}</td>
+                    <td>${document.end_date}</td>
+                </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+</script>
+            
         </div>
+                </div>
+                <div class=" col-md-9 grid-margin stretch-card">
+                    
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">
+                          <i class="fas fa-envelope"></i>
+                         Latest Incoming Documents
+                        </h4>
+                        <a class="nav-link float-right" href="{{ route('incoming_documents_manager.index') }}">View All</a>
+                          <div class="table-responsive">
+                              <table class="table align-middle gs-0 gy-4" id="order-listing11">
+                                  <thead>
+                                      <tr>
+                                          {{-- <th>S/N</th> --}}
+                                          <th>Document Title</th>
+                                          <th>Sender Name</th>
+                                          <th>Sender Email</th>
+                                          <th>Sender Phone</th>
+                                          <th>Assigned To</th>
+                                          <th>Document URL</th>
+                                          <th>Department Name / File No.</th>
+                                          <th>Subject</th>
+                                          <th>Created Date</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      
+                                      @foreach ($documents1 as $document)
+                                          @php @endphp
+                                          <tr>
+                                              {{-- <td>{{ $n++ }}</td> --}}
+                                              <td>{{ $document->title ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_email ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_phone ?? 'NILL' }}</td>
+                                              {{-- <td>{{ $document->description }}</td> --}}
+                                              <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
+                                              <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                                              </td>
+                                              
+                                              <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
+                                              <td>{{ $document->doc_description ?? 'NILL' }}</td>
+                                              <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
+                                             
+                                            
+                                          </tr>
+                                      @endforeach
+                                  </tbody>
+                              </table>
+                          
+                      </div>
+
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-3 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">
+                          <i class="far fa-futbol"></i>
+                          Incoming Document Audit Trail
+                        </h4>
+                        <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">View All</a>
+                        @php 
+                        $documents = \DB::table('incoming_documents_manager')
+            ->join('audits', 'incoming_documents_manager.id', '=', 'audits.auditable_id')
+            ->join('incoming_documents_has_users', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+            ->join('users as assigned_to_user', 'incoming_documents_has_users.user_id', '=', 'assigned_to_user.id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select('incoming_documents_categories.id as d_c_id','incoming_documents_manager.*', 'incoming_documents_manager.id as id', 'audits.*', 'assigned_to_user.first_name as assigned_to_first_name', 'assigned_to_user.last_name as assigned_to_last_name', 'incoming_documents_manager.created_at as createdAt', 'incoming_documents_categories.name as category_name')
+            ->where('audits.auditable_type', "App\Models\IncomingDocuments")
+            ->latest('incoming_documents_manager.created_at')
+            ->limit(3)
+            ->distinct() // Ensure distinct results
+            ->get();
+            $documentIds = $documents->pluck('d_c_id')->toArray();
+            $categories = \App\Models\IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+
+                        @endphp
+                        <ul class="solid-bullet-list">
+                            @foreach ($documents as $document)
+                            @php
+                            $document->category = $categories[$document->category_id] ?? null;
+                            @endphp
+                          <li>
+                            <h5>{{ $document->title }}
+                              <span class="float-right text-muted font-weight-normal small">{{ date('M d, Y H:i A', strtotime($document->createdAt)) }}</span>
+                            </h5>
+                            <p class="text-muted">{{ $document->assigned_to_first_name }} {{ $document->assigned_to_last_name }}</p>
+                            <p class="text-muted">@if ($document->category)
+                                {{ $document->category->department->name ?? '' }}
+                                /
+                                {{ $document->category_name ?? 'NILL' }}
+                            @else
+                            {{ $document->category_name ?? 'NILL' }}
+                            @endif</p>
+                            <p class="text-muted"><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                            </p>
+                            <p class="text-muted">{{ $document->event }}</p>
+                          </li>
+                          @endforeach
+                        </ul>
+                        {{-- <div class="border-top pt-3">
+                          <div class="d-flex justify-content-between">
+                            <button class="btn btn-outline-dark">More</button>
+                            <button class="btn btn-primary btn-icon-text">
+                            More
+                            <i class="btn-icon-append fas fa-angle-double-right"></i>
+                            </button>
+                          </div>
+                        </div> --}}
+                      </div>
+                    </div>
+                  </div>
+                 {{--  <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fas fa-gift"></i>
+                                Document Analytics
+                            </h4>
+                            <canvas id="orders-chart1"></canvas>
+                            <div id="orders-chart-legend1" class="orders-chart-legend"></div>                  
+                        </div>
+                    </div>
+                </div>  --}}               
+               {{--  <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">
+                          <i class="fas fa-calendar-alt"></i>
+                          Reminder
+                        </h4>
+                        <div id="inline-datepicker-example1" class="datepicker"></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="event-details"></div> --}}
+                  
+                  
+                 
+                 
+
+               
+            </div>
+           
+             
+           
     
             <br>
             <br>
@@ -939,6 +995,14 @@
                     }
                     function toggleDepartment() {
                         var content = document.getElementById("departmenthide");
+                        if (content.style.display === "block") {
+                            content.style.display = "none";
+                        } else {
+                            content.style.display = "block";
+                        }
+                    }
+                    function toggleDepartmentalDocument() {
+                        var content = document.getElementById("depDoc1");
                         if (content.style.display === "block") {
                             content.style.display = "none";
                         } else {

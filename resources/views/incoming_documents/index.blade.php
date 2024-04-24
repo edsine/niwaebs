@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Received Documents</h1>
+                    <h1>Received Letters</h1>
                 </div>
                {{--  @if(Auth::user()->hasRole('super-admin')) --}}
                 {{-- <div class="col-sm-6">

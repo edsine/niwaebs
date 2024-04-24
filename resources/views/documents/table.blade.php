@@ -429,7 +429,7 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::label('is_download', 'Allow Download') !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::checkbox('allow_share', 1, null, ['id' => 'allow_share']) !!}
+                    {!! Form::checkbox('allow_share', 1, ['id' => 'allow_share']) !!}
                     {!! Form::label('allow_share', 'Allow Share') !!}
                 </div>
                 {!! Form::label('comment', 'Type your comment:') !!}

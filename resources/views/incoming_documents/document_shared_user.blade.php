@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>My Documents</h1>
+                    <h1>My Letters</h1>
                 </div>
                 
             </div>
@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Document Title</th>
+                                <th>Letter Title</th>
                                 {{-- <th>Created By</th> --}}
                                 <th>Assigned By</th>
                                 @if(Auth::user()->hasRole('super-admin') || Auth::user()->hasRole('MANAGING DIRECTOR'))
@@ -34,7 +34,7 @@
                                 <th>Sender Name</th>
                                 <th>Sender Email</th>
                                 <th>Sender Phone</th>
-                                <th>Document URL</th>
+                                <th>Letter URL</th>
                                 <th>Department Name / File No.</th>
                                 <th>Start Date</th>
                                 <th>Expiry Date</th>
@@ -411,10 +411,18 @@ aria-hidden="true" data-backdrop="false">
                 </button>
             </div>
             <div class="modal-body">
+<?php 
+// Display the results
+$options = '';
+foreach ($users as $id => $name) {
+    $options .= "<option value='$id'>$name</option>";
+}
 
+
+?>
                 <div class="form-group">
                     {!! Form::label('users', 'Select User(s):') !!}
-                    {!! Form::select('users[]', $users, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+                    <?php echo "<select name='users[]' class='form-control' id='userSelect' multiple='multiple'>$options</select>"; ?>
 
                     {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
                     {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
@@ -434,7 +442,7 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::label('is_download', 'Allow Download') !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::checkbox('allow_share', 1, null, ['id' => 'allow_share']) !!}
+                    {!! Form::checkbox('allow_share', 1, ['id' => 'allow_share']) !!}
                     {!! Form::label('allow_share', 'Allow Share') !!}
                 </div>
                 {!! Form::label('comment', 'Type your comment:') !!}

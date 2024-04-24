@@ -5,16 +5,16 @@
 </style>
 
 <div class="card-body p-5">
-    <div class="table-responsive1">
+    <div class="table-responsive1" style="overflow-y:auto">
         <table class="table align-middle gs-0 gy-4" id="order-listing">
             <thead>
                 <tr>
                     <th>S/N</th>
-                    <th>Document Title</th>
+                    <th>Letter Title</th>
                     <th>Sender Name</th>
                     <th>Sender Email</th>
                     <th>Sender Phone</th>
-                    <th>Document URL</th>
+                    <th>Letter URL</th>
                     <th>Department Name / File No.</th>
                     <th>Subject</th>
                     <th>Created Date</th>
@@ -41,7 +41,7 @@
                         
                        {{--  @endif --}}
                         <td>
-                            <a class="btn btn-primary" href="#" onClick="approveDocument({{ $document->d_id }})">Approve</a>
+                            <a class="btn btn-primary" href="#" onClick="approveDocument({{ $document->d_id }})">Received</a>
                         </td>
                     </tr>
                 @endforeach
@@ -664,7 +664,7 @@ $(document).on("click", ".open-modal-share", function() {
 <script>
    
    function approveDocument(id) {
-        if (confirm("Do you want to approve this document?")) {
+        if (confirm("Do you want to receive this letter?")) {
             // If the user clicks "OK", do something here, like submitting a form
             $(".modal-body #shareuser_id").val(id);
             document.getElementById('approve-form').submit();

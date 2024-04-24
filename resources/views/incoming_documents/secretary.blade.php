@@ -5,13 +5,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Incoming/Manual Documents</h1>
+                    <h1>Incoming Letters</h1>
                 </div>
                {{--  @if(Auth::user()->hasRole('super-admin')) --}}
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-end"
                        href="{{ route('incoming_documents_manager.create') }}">
-                        Add New Incoming Manual Document
+                        Add New Incoming Letter
                     </a>
                 </div>
                 {{-- @endif --}}

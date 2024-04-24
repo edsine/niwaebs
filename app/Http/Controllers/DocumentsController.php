@@ -193,6 +193,53 @@ class DocumentsController extends AppBaseController
         return view('documents.index', compact('documents', 'users', 'roles'));
     }
 
+    public function showDepartementalDocuments(Request $request, $id)
+{
+    $documents = DB::table('documents_has_users')
+        ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+        ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
+        ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+        ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+        ->select(
+            'documents_manager.category_id',
+            'documents_categories.id',
+            'documents_manager.title',
+            'documents_has_users.created_at as createdAt',
+            'documents_categories.name as category_name',
+            'documents_has_users.start_date',
+            'documents_has_users.end_date',
+            'documents_has_users.allow_share',
+            'documents_has_users.is_download',
+            'documents_has_users.user_id',
+            'documents_has_users.assigned_by',
+            'documents_manager.document_url as document_url',
+            'documents_manager.id as d_m_id',
+            'documents_categories.id as d_m_c_id',
+            'documents_categories.name as cat_name',
+            'departments.name as dep_name',
+            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name'),
+            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.assigned_by) AS assigned_by_name'),
+            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+        )
+        ->latest('documents_has_users.created_at')
+        ->groupBy(
+            'documents_manager.department_id',
+            'documents_categories.id',
+            'documents_has_users.start_date',
+            'documents_has_users.end_date',
+            'documents_manager.id',
+            'documents_manager.title',
+            'documents_manager.document_url',
+            'documents_has_users.id',
+            'documents_has_users.created_at',
+            'documents_categories.name'
+        )
+        ->where('documents_manager.department_id', '=', $id)
+        ->limit(5)
+        ->get();
+
+    return response()->json($documents);
+}
     public function documentsByAudits()
     {
         /* if (!checkPermission('create document')) {

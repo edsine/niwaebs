@@ -131,6 +131,8 @@ Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update
 Route::get('/new/incoming', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
 Route::post('/add/new/incoming/store/', 'App\Http\Controllers\IncomingDocumentsController@store')->name('incoming_store');
 
+Route::get('/showDepartementalDocuments/{id}', 'App\Http\Controllers\DocumentsController@showDepartementalDocuments');
+
 
 // Start of asset manager
 

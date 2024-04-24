@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>My Documents</h1>
+                    <h1>My Departmental Documents</h1>
                 </div>
                 
             </div>
@@ -20,7 +20,7 @@
 
         <div class="card">
             <div class="card-body p-5">
-                <div class="table-responsive1">
+                <div class="table-responsive1" style="overflow-y: auto;">
                     <table class="table align-middle gs-0 gy-4" id="order-listing">
                         <thead>
                             <tr>
@@ -424,7 +424,7 @@ aria-hidden="true" data-backdrop="false">
                     {!! Form::label('is_download', 'Allow Download') !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::checkbox('allow_share', 1, null, ['id' => 'allow_share']) !!}
+                    {!! Form::checkbox('allow_share', 1, ['id' => 'allow_share']) !!}
                     {!! Form::label('allow_share', 'Allow Share') !!}
                 </div>
                 {!! Form::label('comment', 'Type your comment:') !!}

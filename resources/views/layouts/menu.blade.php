@@ -581,7 +581,7 @@
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas  fa-id-card-clip menu-icon"></i>
-                <span class="menu-title">Documents</span>
+                <span class="menu-title">Departmental Documents</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
@@ -592,14 +592,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">My
-                        Documents</a>
+                        Departmental Documents</a>
                 </li>
                {{--  <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_manager.sharedrole') }}">Official
                         Documents</a>
                 </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('documents_manager.index') }}">All Documents</a>
+                    <a class="nav-link" href="{{ route('documents_manager.index') }}">All Departmental Documents</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('documents_category.index') }}">Files</a>
@@ -626,7 +626,7 @@
         <li class="nav-item" id="myTask">
             <a class="nav-link" href="#">
                 <i class="fas  fa-id-card-clip menu-icon"></i>
-                <span class="menu-title">Incoming  Documents</span>
+                <span class="menu-title">Incoming  Letters</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
@@ -637,8 +637,8 @@
                 </li> --}}
                 @if(auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming/Manual
-                        Documents</a>
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming
+                        Letters</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_documents_category.index') }}">Files</a>
@@ -646,11 +646,11 @@
                 @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_documents_manager.shareduser') }}">My
-                        Documents</a>
+                        Letters</a>
                 </li>
                 @can('view incoming documents')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">Received Documents</a>
+                    <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">Received Letters</a>
                 </li>
                 @endcan
                 
