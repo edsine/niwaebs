@@ -6,7 +6,7 @@ return [
     | Messenger display name
     |-------------------------------------
     */
-    'name' => env('CHATIFY_NAME', 'NIWA Messenger'),
+    'name' => env('CHATIFY_NAME', 'OPTIMA MESSENGER'),
 
     /*
     |-------------------------------------
@@ -60,7 +60,7 @@ return [
     |-------------------------------------
     */
     'user_avatar' => [
-        'folder' => 'users-avatar',
+        'folder' => '',  //i kept it this way so that it will go to the default storage folder
         'default' => 'avatar.png',
     ],
 

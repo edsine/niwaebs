@@ -783,7 +783,6 @@
 
     <script src="{{ asset('sh_assets/js/google-maps.js') }}"></script>
     <!-- End custom js for this page-->
-    @stack('stack_scripts')
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="{{ asset('sh_assets/js/dashboard.js') }}"></script>
