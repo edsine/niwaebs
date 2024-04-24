@@ -1,11 +1,12 @@
 @include('Chatify::layouts.headLinks')
 <div class="messenger">
+    
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
-                <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a>
+                <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">{{auth()->user()->first_name . ' '. auth()->user()->last_name }}</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#"><i class="fas fa-cog settings-btn"></i></a>
@@ -13,7 +14,7 @@
                 </nav>
             </nav>
             {{-- Search input --}}
-            <input type="text" class="messenger-search" placeholder="Search  Contact" />
+            <input type="text" class="messenger-search" placeholder="Search" />
             {{-- Tabs --}}
             {{-- <div class="messenger-listView-tabs">
                 <a href="#" class="active-tab" data-view="users">
@@ -42,7 +43,7 @@
                 {{-- items --}}
                 <p class="messenger-title"><span>Search</span></p>
                 <div class="search-records">
-                    <p class="message-hint center-el"><span>Type to search..</span></p>
+                    <p class="message-hint center-el"><span>Type to search Staff Name..</span></p>
                 </div>
              </div>
         </div>
@@ -58,7 +59,8 @@
                     <a href="#" class="show-listView"><i class="fas fa-arrow-left"></i></a>
                     <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;">
                     </div>
-                    <a href="#" class="user-name">{{ config('chatify.name') }}</a>
+                    {{-- <a href="#" class="user-name">{{ config('chatify.name') }}</a> --}}
+                    <a href="#">NIWA OPTIMA MESSENGER</a>
                 </div>
                 {{-- header buttons --}}
                 <nav class="m-header-right">

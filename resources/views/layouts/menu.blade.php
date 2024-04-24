@@ -614,7 +614,7 @@
                     <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">Document Audit Trail</a>
                 </li>
                 @endif
-                {{-- <li class="nav-item">
+               <li class="nav-item">
 
 
                     @if (auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))

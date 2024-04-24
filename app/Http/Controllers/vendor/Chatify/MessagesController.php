@@ -43,7 +43,9 @@ class MessagesController extends Controller
      */
     public function index( $id = null)
     {
+       
         $messenger_color = Auth::user()->messenger_color;
+       
         return view('Chatify::pages.app', [
             'id' => $id ?? 0,
             'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
@@ -62,6 +64,8 @@ class MessagesController extends Controller
     {
         $favorite = Chatify::inFavorite($request['id']);
         $fetch = User::where('id', $request['id'])->first();
+       
+        
         if($fetch){
             $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
         }
@@ -309,6 +313,7 @@ class MessagesController extends Controller
         foreach ($favorites->get() as $favorite) {
             // get user data
             $user = User::where('id', $favorite->favorite_id)->first();
+            
             $favoritesList .= view('Chatify::layouts.favorite', [
                 'user' => $user,
             ]);
@@ -332,17 +337,29 @@ class MessagesController extends Controller
     {
         $getRecords = null;
         $input = trim(filter_var($request['input']));
-        $records = User::where('id','!=',Auth::user()->id)
-                    ->where('name', 'LIKE', "%{$input}%")
-                    ->paginate($request->per_page ?? $this->perPage);
+
+        // $records = User::where('id','!=',Auth::user()->id)
+        //             ->where('first_name', 'LIKE', "%{$input}%")
+        //             ->orWhere(DB::selectRaw('first_name,last_name', AS, 'name'), 'LIKE',"%{$input}%")
+        //             ->paginate($request->per_page ?? $this->perPage);
+
+        $records = User::where('id', '!=', Auth::user()->id)
+                ->where(function($query) use ($input) {
+                    $query->where('first_name', 'LIKE', "%{$input}%")
+                          ->orWhere(DB::raw("CONCAT(first_name, ' ', last_name)"), 'LIKE', "%{$input}%");
+                })
+                ->paginate($request->per_page ?? $this->perPage);
+
+
         foreach ($records->items() as $record) {
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',
                 'user' => Chatify::getUserWithAvatar($record),
             ])->render();
         }
+      
         if($records->total() < 1){
-            $getRecords = '<p class="message-hint center-el"><span>Nothing to show.</span></p>';
+            $getRecords = '<p class="message-hint center-el"><span>Nothing to show, No Name found.</span></p>';
         }
         // send the response
         return Response::json([
