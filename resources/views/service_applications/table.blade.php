@@ -1,6 +1,6 @@
 <div class="card-body p-5">
     <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="order-listing">
+        <table class="table align-middle gs-0 gy-4" id="">
             <thead>
                 <tr>
                     <th class="min-w-200px">Client</th>

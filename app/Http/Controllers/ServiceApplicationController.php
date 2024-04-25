@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Models\EquipmentAndFee;
-use App\Models\ServiceApplication;
 
+use App\Models\ServiceApplication;
 use App\Models\Payment as Payments;
 use App\Imports\Servicesapplication;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ use App\Http\Controllers\AppBaseController;
 use Modules\EmployerManager\Models\Payment;
 use App\Http\Controllers\ESSPPaymentController;
 use App\Repositories\ServiceApplicationRepository;
+use App\Notifications\ServiceApplicationNotification;
 use App\Http\Requests\CreateServiceApplicationRequest;
 use App\Http\Requests\UpdateServiceApplicationRequest;
 
@@ -37,7 +39,7 @@ class ServiceApplicationController extends AppBaseController
     {
         // $serviceApplications = $this->serviceApplicationRepository->paginate(10);
 
-        $serviceApplications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '>', 3)->paginate(10);
+        $serviceApplications = ServiceApplication::orderBy('created_at', 'desc')->where('current_step', '>', 3)->paginate(10);
 
         return view('service_applications.index')
             ->with('serviceApplications', $serviceApplications);
@@ -87,19 +89,18 @@ class ServiceApplicationController extends AppBaseController
         if ($request->hasFile('file')) {
 
             try {
-                $file=$request->file('file');
-                $import= new Servicesapplication();
-                Excel::import($import,$file);
+                $file = $request->file('file');
+                $import = new Servicesapplication();
+                Excel::import($import, $file);
 
                 Flash::success('SUCCESSFULLY DONE');
-               
-                return back()->with('message','SUCCESSFULLY DONE');
+
+                return back()->with('message', 'SUCCESSFULLY DONE');
             } catch (\Throwable $th) {
                 Flash::error($th->getMessage());
                 return back()->with('message', $th->getMessage());
             }
         }
-        
     }
 
     public function show($id)
@@ -231,6 +232,8 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         $selected_status = $request->input('selected_status');
 
 
@@ -238,6 +241,11 @@ class ServiceApplicationController extends AppBaseController
             $serviceApplication->mse_are_documents_verified = 0;
             $serviceApplication->current_step = 3;
             Flash::success('Documents have been declined. Wait for client to update documents before approval will show');
+
+            if (!empty($client)) {
+                $notification = "Your documents have been declined";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         } else if ($selected_status == 'approve') {
             $serviceApplication->mse_are_documents_verified = 1;
             $unapproved_documents_count = ServiceApplicationDocument::where('service_application_id', $serviceApplication->id)->where('approval_status', '!=', 1)->count();
@@ -250,6 +258,11 @@ class ServiceApplicationController extends AppBaseController
             $serviceApplication->current_step = 6;
             $serviceApplication->status_summary = 'Your documents have been approved';
             Flash::success('Documents have been approved');
+
+            if (!empty($client)) {
+                $notification = "Your documents have been approved";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         }
 
         $serviceApplication->mse_document_verification_comment = $request->mse_document_verification_comment;
@@ -262,6 +275,15 @@ class ServiceApplicationController extends AppBaseController
     public function approveApplicationFee(Request $request, $id)
     {
         $serviceApplication = ServiceApplication::find($id);
+
+        if (empty($serviceApplication)) {
+            Flash::error('Application not found');
+
+            return redirect()->back();
+        }
+
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         $pay = Payments::where('payment_status', 1)->where('payment_type', 1)->where("employer_id", $serviceApplication->user_id)->latest()->first();
         if ($pay) {
             $pay->approval_status = 1;
@@ -270,6 +292,11 @@ class ServiceApplicationController extends AppBaseController
         $serviceApplication->status_summary = 'Application form fee approved';
         $serviceApplication->save();
         Flash::success('Payment has been approved');
+
+        if (!empty($client)) {
+            $notification = "Application form fee has been approved";
+            $client->notify(new ServiceApplicationNotification($notification));
+        }
 
 
         return redirect()->back();
@@ -287,10 +314,17 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         if ($selected_status == 'decline') {
             $serviceApplication->finance_is_processing_fee_verified = 0;
             $serviceApplication->status_summary = 'Processing fee has been declined';
             Flash::success('Payment has been declined.');
+
+            if (!empty($client)) {
+                $notification = "Processing fee has been declined";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         } else if ($selected_status == 'approve') {
             $serviceApplication->finance_is_processing_fee_verified = 1;
             $serviceApplication->current_step = 7;
@@ -300,6 +334,11 @@ class ServiceApplicationController extends AppBaseController
             $pay->approval_status = 1;
             $pay->save();
             Flash::success('Payment has been approved');
+
+            if (!empty($client)) {
+                $notification = "Processing fee has been approved";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         }
 
         $serviceApplication->save();
@@ -320,10 +359,17 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         if ($selected_status == 'decline') {
             $serviceApplication->finance_is_inspection_fee_verified = 0;
             $serviceApplication->status_summary = 'Inspection fee has been declined';
             Flash::success('Payment has been declined.');
+
+            if (!empty($client)) {
+                $notification = "Inspection fee has been declined";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         } else if ($selected_status == 'approve') {
             $serviceApplication->finance_is_inspection_fee_verified = 1;
             $serviceApplication->current_step = 9;
@@ -335,6 +381,11 @@ class ServiceApplicationController extends AppBaseController
             $pay->save();
 
             Flash::success('Payment has been approved');
+
+            if (!empty($client)) {
+                $notification = "Inspection fee has been approved";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         }
 
         $serviceApplication->save();
@@ -356,15 +407,27 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         if ($selected_status == 'decline') {
             $serviceApplication->inspection_status = 0;
             $serviceApplication->status_summary = 'Inspection status: Declined';
             Flash::success('Inspection status: Declined.');
+
+            if (!empty($client)) {
+                $notification = "Your inspection status has been set to 'declined'";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         } else if ($selected_status == 'approve') {
             $serviceApplication->inspection_status = 1;
             $serviceApplication->current_step = 10;
             $serviceApplication->status_summary = 'Inspection status: Approved';
             Flash::success('Inspection status: Approved');
+
+            if (!empty($client)) {
+                $notification = "Your inspection status has been set to 'approved'";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         }
 
         $serviceApplication->comments_on_inspection = $request->comments_on_inspection;
@@ -406,6 +469,8 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         $input = $request->all();
 
         $essp_payment = (new ESSPPaymentController)->generateRemita($request, $sum_total, $serviceApplication);
@@ -417,6 +482,11 @@ class ServiceApplicationController extends AppBaseController
                 $serviceApplication->equipment_fees_list = $equipment;
                 $serviceApplication->save();
             }
+        }
+
+        if (!empty($client)) {
+            $notification = "Payment of equipment fees is required";
+            $client->notify(new ServiceApplicationNotification($notification));
         }
 
         return redirect()->back();
@@ -434,10 +504,17 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         if ($selected_status == 'decline') {
             $serviceApplication->are_equipment_and_monitoring_fees_verified = 0;
             $serviceApplication->status_summary = 'Equipment fee has been declined';
             Flash::success('Payment has been declined.');
+
+            if (!empty($client)) {
+                $notification = "Equipment fee payment has been declined";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         } else if ($selected_status == 'approve') {
             $serviceApplication->are_equipment_and_monitoring_fees_verified = 1;
             $serviceApplication->current_step = 13;
@@ -447,6 +524,11 @@ class ServiceApplicationController extends AppBaseController
             $pay->approval_status = 1;
             $pay->save();
             Flash::success('Payment has been approved');
+
+            if (!empty($client)) {
+                $notification = "Equipment fee payment has been approved";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         }
 
         $serviceApplication->save();
@@ -467,16 +549,28 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         if ($selected_status == 'decline') {
             $serviceApplication->area_officer_approval = 0;
             $serviceApplication->current_step = 10;
             $serviceApplication->status_summary = 'Declined by Area officer';
             Flash::success('Declined.');
+
+            if (!empty($client)) {
+                $notification = "Your application has been declined by the area officer";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         } else if ($selected_status == 'approve') {
             $serviceApplication->area_officer_approval = 1;
             $serviceApplication->current_step = 14;
             $serviceApplication->status_summary = 'Approved by Area officer';
             Flash::success('Approved');
+
+            if (!empty($client)) {
+                $notification = "Your application has been approved by the area officer";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         }
 
         $serviceApplication->save();
@@ -497,17 +591,29 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
+        $client = User::where('id', $serviceApplication->user_id)->first();
+
         if ($selected_status == 'decline') {
             $serviceApplication->hod_marine_approval = 0;
             $serviceApplication->current_step = 12;
             $serviceApplication->status_summary = 'Declined by HOD Marine';
             Flash::success('Declined.');
+
+            if (!empty($client)) {
+                $notification = "Your application has been declined by the HOD Marine. Permit is ready";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         } else if ($selected_status == 'approve') {
             $serviceApplication->hod_marine_approval = 1;
             $serviceApplication->current_step = 15;
             $serviceApplication->issued_on = now();
             $serviceApplication->status_summary = 'Approved by HOD Marine';
             Flash::success('Approved');
+
+            if (!empty($client)) {
+                $notification = "Your application has been approved by the HOD Marine. Permit is ready";
+                $client->notify(new ServiceApplicationNotification($notification));
+            }
         }
 
         $serviceApplication->save();
