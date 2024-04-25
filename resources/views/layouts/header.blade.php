@@ -12,6 +12,35 @@
          color: #ffffff !important;
      }
  </style>
+ <?php 
+          if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+            $value = "superadmin";
+        } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
+            $value = "md_user";
+        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
+            $value = "minister";
+        } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
+            $value = "permsec";
+           
+        } else if (Auth::check() && Auth::user()->hasRole('USER')) {
+            $value = "dash";
+           
+        } else if (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
+           $value = "region";
+        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+        $value = "areamanager";
+        } else if (Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT')) {
+       $value = "ed_md";
+        } else if (Auth::check() && Auth::user()->hasRole('ED ADMIN')) {
+       $value = "ed_admin";
+        } else if (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
+
+            $value = "ed_op";
+            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
+        } else{
+            $value = "home";
+        }
+ ?>
  <!--begin::Header-->
  <!-- partial:partials/_navbar.html -->
  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
@@ -20,10 +49,10 @@
          {{-- <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route('home') }}">
 public\assets\media\logos\
             <img class=" border-50%"  width="250" height="150"  src="{{ asset('assets/media/logos/niwaebs.jpg') }}" alt="optima logo"/></a> --}}
-         <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route('home') }}">
+         <a class="navbar-brand brand-logo h-100px w-100px border-50%" href="{{ route($value) }}">
 
             <img class=" border-50%"  width="250" height="150"  src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" alt="optima logo"/></a>
-         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" alt="logo" class="h-60px w-100px"/></a>
+         <a class="navbar-brand brand-logo-mini" href="{{ route($value) }}"><img src="{{ asset('assets/media/logos/NIWA Optima-transparent.png') }}" alt="logo" class="h-60px w-100px"/></a>
      </div>
      {{-- <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
          <a href="#" class="navbar-brand brand-logo">

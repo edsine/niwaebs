@@ -235,11 +235,14 @@ class DocumentsController extends AppBaseController
             'documents_categories.name'
         )
         ->where('documents_manager.department_id', '=', $id)
-        ->limit(5)
+        ->limit(10)
         ->get();
 
     return response()->json($documents);
 }
+
+
+
     public function documentsByAudits()
     {
         /* if (!checkPermission('create document')) {

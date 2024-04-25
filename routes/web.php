@@ -136,6 +136,7 @@ Route::get('/new/incoming', 'App\Http\Controllers\IncomingDocumentsController@ad
 Route::post('/add/new/incoming/store/', 'App\Http\Controllers\IncomingDocumentsController@store')->name('incoming_store');
 
 Route::get('/showDepartementalDocuments/{id}', 'App\Http\Controllers\DocumentsController@showDepartementalDocuments');
+Route::get('/showIncomingDepartementalDocuments/{id}', 'App\Http\Controllers\IncomingDocumentsController@showIncomingDepartementalDocuments');
 
 
 // Start of asset manager
@@ -329,6 +330,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/superadmin', [HomeController::class, 'superdash'])->name('superadmin');
     Route::resource('services', App\Http\Controllers\ServiceController::class);
     Route::resource('sub-services', App\Http\Controllers\SubServiceController::class);
+
+    //area manager dashboard
+    Route::get('/get-for-area-manager/{id}', 'App\Http\Controllers\HomeController@getForAreaManager')->name('getForAreaManager');
+
 
     Route::get('thelist',[HomeController::class,'getbranch']);
 
