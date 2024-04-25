@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChatifyFavoritesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateChatifyFavoritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ch_favorites', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->bigInteger('user_id');
-            $table->bigInteger('favorite_id');
-            $table->timestamps();
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->morphs('notifiable');
         });
     }
 
@@ -28,6 +25,9 @@ class CreateChatifyFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ch_favorites');
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropColumn('notifiable_id');
+            $table->dropColumn('notifiable_type');
+        });
     }
-}
+};

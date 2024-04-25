@@ -5,6 +5,7 @@ $timeAndSeen = "<span data-time='$created_at' class='message-time'>
     </span>";
 ?>
 
+
 <div class="message-card @if($isSender) mc-sender @endif" data-id="{{ $id }}">
     {{-- Delete Message Button --}}
     @if ($isSender)
