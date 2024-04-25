@@ -38,7 +38,7 @@
             $value = "ed_op";
             //atp take note, you have not yet done page for ed_op,no role as ed operation yet
         } else{
-            $value = "home";
+            $value = "ict";
         }
  ?>
  <!--begin::Header-->

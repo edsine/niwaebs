@@ -1072,7 +1072,8 @@ $userData = $users->map(function ($user) {
     public function ictadmin()
     {
         $ictstaff = Staff::where('department_id', 3)->count();
-        return view('ictadmin', compact('ictstaff'));
+        $branch = Branch::get()->prepend('All');
+        return view('ictadmin', compact('ictstaff', 'branch'));
     }
 
     public function itmadmin()
