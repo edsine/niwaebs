@@ -20,10 +20,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        if(Auth()->user()->hasRole('super-admin')){
-        $services = Service::all();
-        }else{
-        $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();  
+        if (Auth()->user()->hasRole('super-admin')) {
+            $services = Service::all();
+        } else {
+            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
         }
 
         return view('services.index', compact('services'));
@@ -35,15 +35,15 @@ class ServiceController extends Controller
     public function create()
     {
         $states = State::all();
-        if(Auth()->user()->hasRole('super-admin')){
-        $branches = Branch::all();
-    }else{
-        $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
-    }
-        return view('services.create', compact(['states','branches']));
+        if (Auth()->user()->hasRole('super-admin')) {
+            $branches = Branch::all();
+        } else {
+            $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
+        }
+        return view('services.create', compact(['states', 'branches']));
     }
 
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,11 +54,11 @@ class ServiceController extends Controller
         $validated = $request->validated();
         $validated['status'] = 1;
         $check = Service::where('name', $request->input('name'))->where('branch_id', $request->input('branch_id'))->first();
-        if($check){
+        if ($check) {
             return redirect()->route('services.create')->with('error', 'Service type already exist in this area office!');
         }
         $service = Service::create($validated);
-        
+
         return redirect()->route('services.index')->with('success', 'Service added successfully!');
     }
 
@@ -82,12 +82,12 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $states = State::all();
-        if(Auth()->user()->hasRole('super-admin')){
+        if (Auth()->user()->hasRole('super-admin')) {
             $branches = Branch::all();
-        }else{
+        } else {
             $branches = Branch::where('id', Auth()->user()->staff->branch->id)->get();
         }
-        return view('services.edit', compact(['service', 'states','branches']));
+        return view('services.edit', compact(['service', 'states', 'branches']));
     }
 
     /**
@@ -109,6 +109,4 @@ class ServiceController extends Controller
             return redirect()->back()->with('success', 'Service deleted successfully!');
         return redirect()->back()->with('error', 'Service could not be deleted!');
     }
-
-    
 }
