@@ -2,8 +2,13 @@
 
 @section('content')
 <style>
-    .hidden1, .departmenthide, .depDoc1 {
+    .hidden1, .departmenthide, .depDoc1, .depDoc2 {
         display: none;
+    }
+    .btn.btn-primary:hover,
+    .btn.btn-primary:focus {
+        background: purple;
+        border-color: purple;
     }
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -13,11 +18,13 @@
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
-            <h1 class="text-center mb-5">MANAGING DIRECTOR DASHBOARD</h1>
-            <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;">Revenue Update</button>
-            <button onclick="toggleDepartment()" class="btn btn-primary" style="margin-bottom: 70px;">Incoming Letter Update</button>
-             <button onclick="toggleDepartmentalDocument()" class="btn btn-primary" style="margin-bottom: 70px;">Departmental Documents Updates</button>
-
+            <h1 class="text-center mb-5">OVERVIEW</h1>
+            <button onclick="toggleContent()" class="btn btn-primary" style="margin-bottom: 70px;background: purple;">Revenue Update</button>
+            <button onclick="toggleDepartment()" class="btn btn-primary" style="margin-bottom: 70px;background: purple;">Incoming Letter Update</button>
+            <button onclick="toggleDepartmentalDocument()" class="btn btn-primary" style="margin-bottom: 70px;background: purple;">Departmental Documents Updates</button>
+            <!-- <button onclick="toggleDepartmentalAuditDocument()" class="btn btn-primary" style="margin-bottom: 70px;">Departmental Documents Audit Trail Updates</button>
+            <button onclick="toggleIncomingAuditDocument()" class="btn btn-primary" style="margin-bottom: 70px;">Incoming Letters Audit Trail Updates</button>
+ -->
 
             <!--  <div class="row mb-10">
                 <div class="col-md-3">
@@ -42,51 +49,7 @@
                 </div>
              </div> -->
 
-              <div class="col-md-9 grid-margin stretch-card departmenthide" id="departmenthide">
-                <!--begin::Chart widget 15-->
-                {{-- <div class="card  h-xl-100"> --}}
-                <div class="card  h-xl-100">
-                    <!--begin::Header-->
-                    <div class="card-header pt-7">
-                        <!--begin::Title-->
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder text-dark">Department / File No.</span>
-                        </h3>
-                        <!--end::Title-->
-                        <!--begin::Toolbar-->
-                       {{--  <div class="card-toolbar">
-                            <div class="form-group">
-
-                              
-                                <form id="branchForm" class="form" method="GET"
-                                    action="{{ route('showarea') }}">
-                                    @csrf
-                                    {!! Form::select('branch_id', $branch->pluck('branch_name', 'id'), null, [
-                                        'class' => 'form-control form-select',
-                                        'id' => 'branchSelect',
-                                    ]) !!}
-                                    <button type="submit" class="btn btn-success">View Details</button>
-                                </form>
-
-                            </div>
-
-                        </div> --}}
-                        <!--end::Toolbar-->
-                    </div>
-                    <!--end::Header-->
-                    <!--begin::Body-->
-                    <div class="card-body d-flex1 justify-content-between1 flex-column1 px-0 pb-0 ">
-                        <!--begin::Chart container-->
-
-
-                        <div id="md" style="width: 70%;height: 70%;"></div>
-                        {{-- <canvas id="md" width="800" height="400"></canvas> --}}
-                    </div>
-                    <!--end::Body-->
-                </div>
-                <!--end::Chart widget 15-->
-
-            </div>
+            
 
              <div id="contenthide" class="hidden1">
                 <div class="col-12 float-right">
@@ -495,7 +458,7 @@
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10 justify-content-end">
                 <div class="col-md-12 grid-margin stretch-card depDoc1" id="depDoc1">
 <div class="col-md-3">
-             {!! Form::label('department_id', 'Click to select user department:') !!}
+             {!! Form::label('department_id', 'Cick To Select User Department:', ['style' => 'font-weight:bold;']) !!}
              {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
            
                 </div>
@@ -503,7 +466,7 @@
             <div class="card-body p-5">
                 <h4 class="card-title">
                           <i class="fas fa-envelope"></i>
-                         Latest 5 Departmental Document Updates
+                         Latest 10 Departmental Document
                         </h4>
                 <div class="table-responsive1" style="overflow-y: auto;">
                     <table class="table align-middle gs-0 gy-4" id="order-listing2">
@@ -532,16 +495,131 @@
         // Fetch Departmental Documents based on selected department
         document.getElementById('deptSelect1').addEventListener('change', function () {
             let departmentId = this.value;
+            fetchDocumentsData(departmentId);
+        });
+
+        // Initial Fetch on Page Load
+        //let departmentId = document.getElementById('deptSelect').value;
+        //fetchDocuments(departmentId);
+    });
+
+    function fetchDocumentsData(departmentId) {
+        fetch(`/showDepartementalDocuments/${departmentId}`)
+            .then(response => response.json())
+            .then(data => {
+                displayDocumentsData(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function displayDocumentsData(documents) {
+    let tableBody = document.getElementById('documentsTableBody');
+    tableBody.innerHTML = '';
+
+    if (documents.length === 0) {
+        let noResultsRow = `
+            <tr>
+                <td colspan="7" class="text-center text-danger"><strong>No results found</strong></td>
+            </tr>
+        `;
+        tableBody.insertAdjacentHTML('beforeend', noResultsRow);
+    } else {
+        documents.forEach((document, index) => {
+            let row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${document.title}</td>
+                    <td>${document.created_by_name}</td>
+                    <td>${document.assigned_by_name}</td>
+                    <td>${document.assigned_to_name}</td>
+                    <td><a target="_blank" href="${ document.document_url }">${ document.document_url.substr(10) }</a></td>
+                    <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
+                                        data-shareuser=${document.d_m_id}>User</a></td>
+                </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+}
+
+
+
+</script>
+            
+        </div>
+                </div>
+
+                  <div class="col-md-12 grid-margin stretch-card depDoc2" id="depDoc2">
+<!-- <div class="col-md-3">
+             {!! Form::label('department_id', 'Click to select user department:') !!}
+             {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'inDeptSelect']) !!}
+           
+                </div> -->
+                    <div class="card">
+            <div class="card-body p-5">
+                <h4 class="card-title">
+                          <i class="fas fa-envelope"></i>
+                         Latest 10 Incoming Letter
+                        </h4>
+                <div class="table-responsive1" style="overflow-y: auto;">
+                    <table class="table align-middle gs-0 gy-4" id="order-listing11">
+                                  <thead>
+                                      <tr>
+                                          {{-- <th>S/N</th> --}}
+                                          <th>Document Title</th>
+                                          <th>Sender Name</th>
+                                          <th>Sender Email</th>
+                                          <th>Sender Phone</th>
+                                          <th>Document URL</th>
+                                          <th>User Share</th>
+                                          <th>Subject</th>
+                                          <th>Created Date</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      
+                                      @foreach ($documents1 as $document)
+                                          @php @endphp
+                                          <tr>
+                                              {{-- <td>{{ $n++ }}</td> --}}
+                                              <td>{{ $document->title ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_email ?? 'NILL' }}</td>
+                                              <td>{{ $document->sender_phone ?? 'NILL' }}</td>
+                                              {{-- <td>{{ $document->description }}</td> --}}
+                                              <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                                              </td>
+                                  <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
+                                    data-shareuser=${document.d_m_id}>User</a></td>  
+                                              <td>{{ $document->doc_description ?? 'NILL' }}</td>
+                                              <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
+                                             
+                                            
+                                          </tr>
+                                      @endforeach
+                                  </tbody>
+                              </table>
+                </div>
+            
+                
+            </div>
+            
+            
+           <script>
+     document.addEventListener("DOMContentLoaded", function () {
+        // Fetch Departmental Documents based on selected department
+        document.getElementById('inDeptSelect').addEventListener('change', function () {
+            let departmentId = this.value;
             fetchDocuments(departmentId);
         });
 
         // Initial Fetch on Page Load
-        let departmentId = document.getElementById('deptSelect').value;
+        let departmentId = document.getElementById('inDeptSelect').value;
         fetchDocuments(departmentId);
     });
 
     function fetchDocuments(departmentId) {
-        fetch(`/showDepartementalDocuments/${departmentId}`)
+        fetch(`/showIncomingDepartementalDocuments/${departmentId}`)
             .then(response => response.json())
             .then(data => {
                 displayDocuments(data);
@@ -550,7 +628,7 @@
     }
 
     function displayDocuments(documents) {
-    let tableBody = document.getElementById('documentsTableBody');
+    let tableBody = document.getElementById('incomingDocumentsTableBody');
     tableBody.innerHTML = '';
 
     documents.forEach((document, index) => {
@@ -558,18 +636,19 @@
             <tr>
                 <td>${index + 1}</td>
                 <td>${document.title}</td>
-                <td>${document.created_by_name}</td>
-                <td>${document.assigned_by_name}</td>
-                <td>${document.assigned_to_name}</td>
+                <td>${document.sender_full_name}</td>
+                <td>${document.sender_email}</td>
+                <td>${document.sender_phone}</td>
                 <td><a target="_blank" href="${ document.document_url }">${ document.document_url.substr(10) }</a></td>
-                <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
+                <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
                                     data-shareuser=${document.d_m_id}>User</a></td>
+                <td>${document.doc_description}</td>
+                <td>${document.assigned_created_at}</td>
             </tr>
         `;
         tableBody.insertAdjacentHTML('beforeend', row);
     });
 }
-
 
 </script>
             
@@ -577,6 +656,63 @@
                 </div>
 
                 <div class="modal fade" id="shareuserModal" tabindex="-1" role="dialog" aria-labelledby="shareuserModalLabel"
+aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            {!! Form::open(['route' => 'documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+        @csrf
+            <div class="modal-header">
+                <h5 class="modal-title">User Permission</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    {!! Form::label('users', 'Select User(s):') !!}
+                    {!! Form::select('users[]', $users123, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+
+                    {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser_id']) !!}
+                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
+                    {!! Form::label('specify_su', 'Specify the period') !!}
+                </div>
+                <div class="form-group" id="enable_date" style="display: none">
+                    {!! Form::label('start_date', 'Start Date') !!}
+                    {!! Form::date('start_date', null, ['class' => 'form-control','id' => 'start_date1']) !!}<br/>
+                    {!! Form::label('end_date', 'End Date') !!}
+                    {!! Form::date('end_date', null, ['class' => 'form-control','id' => 'end_date1']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('is_download', 1, ['id' => 'is_download']) !!}
+                    {!! Form::label('is_download', 'Allow Download') !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('allow_share', 1, ['id' => 'allow_share']) !!}
+                    {!! Form::label('allow_share', 'Allow Share') !!}
+                </div>
+                {!! Form::label('comment', 'Type your comment:') !!}
+                    <div class="form-group">
+                        <div class="custom-comment">
+                            {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+      
+    </div>
+</div>
+
+ <div class="modal fade" id="shareuserModal1" tabindex="-1" role="dialog" aria-labelledby="shareuserModalLabel1"
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
@@ -632,62 +768,9 @@ aria-hidden="true" data-backdrop="false">
       
     </div>
 </div>
-                <div class=" col-md-9 grid-margin stretch-card">
-                    
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">
-                          <i class="fas fa-envelope"></i>
-                         Latest Incoming Documents
-                        </h4>
-                        <a class="nav-link float-right" href="{{ route('incoming_documents_manager.index') }}">View All</a>
-                          <div class="table-responsive">
-                              <table class="table align-middle gs-0 gy-4" id="order-listing11">
-                                  <thead>
-                                      <tr>
-                                          {{-- <th>S/N</th> --}}
-                                          <th>Document Title</th>
-                                          <th>Sender Name</th>
-                                          <th>Sender Email</th>
-                                          <th>Sender Phone</th>
-                                          <th>Assigned To</th>
-                                          <th>Document URL</th>
-                                          <th>Department Name / File No.</th>
-                                          <th>Subject</th>
-                                          <th>Created Date</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      
-                                      @foreach ($documents1 as $document)
-                                          @php @endphp
-                                          <tr>
-                                              {{-- <td>{{ $n++ }}</td> --}}
-                                              <td>{{ $document->title ?? 'NILL' }}</td>
-                                              <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
-                                              <td>{{ $document->sender_email ?? 'NILL' }}</td>
-                                              <td>{{ $document->sender_phone ?? 'NILL' }}</td>
-                                              {{-- <td>{{ $document->description }}</td> --}}
-                                              <td>{{ $document->assigned_to_name ?? 'NILL' }}</td>
-                                              <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
-                                              </td>
-                                              
-                                              <td>{{ $document->category ? $document->category->department->name.' / ' : '' }}{{ $document->category->name ?? 'NILL' }}</td>
-                                              <td>{{ $document->doc_description ?? 'NILL' }}</td>
-                                              <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
-                                             
-                                            
-                                          </tr>
-                                      @endforeach
-                                  </tbody>
-                              </table>
-                          
-                      </div>
 
-                      </div>
-                    </div>
-                  </div>
-                <div class="col-md-3 grid-margin stretch-card">
+                
+                <div class="col-md-3 grid-margin stretch-card" style="display: none;">
                     <div class="card">
                       <div class="card-body">
                         <h4 class="card-title">
@@ -1041,7 +1124,7 @@ aria-hidden="true" data-backdrop="false">
                         </div>
                     </div>
                 </div>
-                <script>
+                <script> //.hidden1, .departmenthide, .depDoc1, .depDoc2
                     function toggleContent() {
                         var content = document.getElementById("contenthide");
                         if (content.style.display === "block") {
@@ -1051,7 +1134,7 @@ aria-hidden="true" data-backdrop="false">
                         }
                     }
                     function toggleDepartment() {
-                        var content = document.getElementById("departmenthide");
+                        var content = document.getElementById("depDoc2");
                         if (content.style.display === "block") {
                             content.style.display = "none";
                         } else {
