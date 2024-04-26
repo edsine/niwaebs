@@ -659,10 +659,10 @@
                     <a class="nav-link" href="{{ route('incoming_documents_manager.shareduser') }}">My
                         Letters</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_documents_manager.shareduserfile') }}">My
                         Files</a>
-                </li>
+                </li> --}}
                 @can('view incoming documents')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">Received Letters</a>

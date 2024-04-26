@@ -533,27 +533,30 @@ class HomeController extends Controller
         $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
        // $services->prepend('Select Service', 0); // Add an empty option with label 'Select Service'
        $documents1 = \App\Models\IncomingDocuments::query()
-            ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
-            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
-            ->select(
-                'incoming_documents_categories.id as category_id',
-                'incoming_documents_categories.name as category_name',
-                'incoming_documents_manager.created_at as assigned_created_at',
-                'incoming_documents_manager.id as d_m_id',
-                'incoming_documents_manager.title',
-                'incoming_documents_manager.full_name as sender_full_name',
-                'incoming_documents_manager.email as sender_email',
-                'incoming_documents_manager.phone as sender_phone',
-                'incoming_documents_manager.document_url',
-                'incoming_documents_categories.description as doc_description',
-                'incoming_documents_manager.status',
-                'incoming_documents_categories.name as cat_name',
-                'departments.name as dep_name',
+                ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+                ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+                ->select(
+                    'incoming_documents_categories.id as category_id',
+                    'incoming_documents_categories.name as category_name',
+                    'incoming_documents_manager.created_at as document_created_at',
+                    'incoming_documents_manager.id as d_id',
+                    'incoming_documents_manager.title',
+                    'incoming_documents_manager.full_name as sender_full_name',
+                    'incoming_documents_manager.email as sender_email',
+                    'incoming_documents_manager.phone as sender_phone',
+                    'incoming_documents_manager.document_url',
+                    'incoming_documents_categories.description as doc_description',
+                    'incoming_documents_manager.status',
+                    'incoming_documents_categories.name as cat_name',
+                    'departments.name as dep_name',
+                    //'incoming_documents_has_users.user_id',
+                    //'incoming_documents_has_users.assigned_by',
+                    //DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
                     )
-                ->where('incoming_documents_manager.status','!=', '0')
+                ->where('incoming_documents_manager.status', '0')
+                ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
                 ->latest('incoming_documents_manager.created_at')
                 ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
-                ->where('incoming_documents_manager.department_id', '=', '15')
                 ->limit(10)
                 ->get();
 
