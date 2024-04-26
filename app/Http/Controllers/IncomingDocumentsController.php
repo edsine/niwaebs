@@ -34,6 +34,7 @@ use App\Repositories\IncomingDocumentsCategoryRepository;
 use Modules\WorkflowEngine\Models\Staff;
 use App\Models\DocumentsCategory;
 
+
 class IncomingDocumentsController extends AppBaseController
 {
 
@@ -86,7 +87,7 @@ class IncomingDocumentsController extends AppBaseController
 
         $user_id = $userIds->contains($loggedInUserId);
 
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        if (Auth::user()->hasRole('super-admin')) {
             // The logged-in user ID exists in the $userIds array
             //$documents = $this->documentRepository->paginate(10);
             $documents = \App\Models\IncomingDocuments::query()
@@ -111,31 +112,141 @@ class IncomingDocumentsController extends AppBaseController
                     //DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
                     )
                 ->where('incoming_documents_manager.status','!=', '0')
+                //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
                 ->latest('incoming_documents_manager.created_at')
-                ->groupBy('incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+                ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
                 //->with('createdBy')
                 ->get();
 
 
-    // Get the roles with the specified role IDs
-$roles = Role::whereIn('id', [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39])->get();
+                $users1 = $this->userRepository->all();
+
+                $userData = $users1->map(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'name' => $user->first_name . ' ' . $user->last_name,
+                    ];
+                });
+   
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        
+        $users = $userData->pluck('name', 'id');
+
+} else if (Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+    // The logged-in user ID exists in the $userIds array
+    //$documents = $this->documentRepository->paginate(10);
+    $documents = \App\Models\IncomingDocuments::query()
+    ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+    ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+    ->select(
+        'incoming_documents_categories.id as category_id',
+        'incoming_documents_categories.name as category_name',
+        'incoming_documents_manager.created_at as document_created_at',
+        'incoming_documents_manager.id as d_id',
+        'incoming_documents_manager.title',
+        'incoming_documents_manager.full_name as sender_full_name',
+        'incoming_documents_manager.email as sender_email',
+        'incoming_documents_manager.phone as sender_phone',
+        'incoming_documents_manager.document_url',
+        'incoming_documents_categories.description as doc_description',
+        'incoming_documents_manager.status',
+        'incoming_documents_categories.name as cat_name',
+        'departments.name as dep_name',
+            //'incoming_documents_has_users.user_id',
+            //'incoming_documents_has_users.assigned_by',
+            //DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
+            )
+        ->where('incoming_documents_manager.status','!=', '0')
+        ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+        ->latest('incoming_documents_manager.created_at')
+        ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+        //->with('createdBy')
+        ->get();
+
+
+// Get the roles with the specified role IDs
+$roles3 = Role::whereIn('id', [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39])->get();
 
 // Get the users who have any of these roles
-$users = User::whereHas('roles', function ($query) use ($roles) {
-    $query->whereIn('id', $roles->pluck('id'));
+$users3 = User::whereHas('roles', function ($query) use ($roles3) {
+$query->whereIn('id', $roles3->pluck('id'));
 })->get(['id', 'first_name', 'last_name']);
 
 // Transform user data
-$userData = $users->map(function ($user) {
+$userData = $users3->map(function ($user) {
+return [
+'id' => $user->id,
+'name' => $user->first_name . ' ' . $user->last_name,
+];
+});
+
+$roles = $this->roleRepository->all()->pluck('name', 'id');
+
+$users = $userData->pluck('name', 'id');
+
+} else if (Auth()->user()->hasRole('Area Manager')) {
+    // The logged-in user ID exists in the $userIds array
+    //$documents = $this->documentRepository->paginate(10);
+    $documents = \App\Models\IncomingDocuments::query()
+    ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+    ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+    ->select(
+        'incoming_documents_categories.id as category_id',
+        'incoming_documents_categories.name as category_name',
+        'incoming_documents_manager.created_at as document_created_at',
+        'incoming_documents_manager.id as d_id',
+        'incoming_documents_manager.title',
+        'incoming_documents_manager.full_name as sender_full_name',
+        'incoming_documents_manager.email as sender_email',
+        'incoming_documents_manager.phone as sender_phone',
+        'incoming_documents_manager.document_url',
+        'incoming_documents_categories.description as doc_description',
+        'incoming_documents_manager.status',
+        'incoming_documents_categories.name as cat_name',
+        'departments.name as dep_name',
+            //'incoming_documents_has_users.user_id',
+            //'incoming_documents_has_users.assigned_by',
+            //DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
+            )
+        ->where('incoming_documents_manager.status','!=', '0')
+        ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+        ->latest('incoming_documents_manager.created_at')
+        ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+        //->with('createdBy')
+        ->get();
+
+
+// Fetch roles
+$roles2 = Role::whereIn('id', [2])->get();
+
+// Get the users who have any of these roles
+$users1 = User::whereHas('roles', function ($query) use ($roles2) {
+    $query->whereIn('id', $roles2->pluck('id'));
+})->get(['id', 'first_name', 'last_name']);
+
+$users2 = DB::table('users')
+    ->join('staff', 'staff.user_id', '=', 'users.id')
+    ->join('departments', 'departments.id', '=', 'staff.department_id')
+    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
+    ->where('staff.department_id', '=', Auth::user()->staff->department_id)
+    ->where('staff.branch_id', '=', Auth::user()->staff->branch_id)
+    ->get();
+
+// Combine the data
+$mergedUsers = $users2->merge($users1);
+
+// Process the data for display
+$userData = $mergedUsers->map(function ($user) {
     return [
         'id' => $user->id,
         'name' => $user->first_name . ' ' . $user->last_name,
     ];
 });
-   
-        $roles = $this->roleRepository->all()->pluck('name', 'id');
-        
-        $users = $userData->pluck('name', 'id');
+
+
+$roles = $this->roleRepository->all()->pluck('name', 'id');
+
+$users = $userData->pluck('name', 'id');
 
 } else{
             
@@ -192,8 +303,9 @@ $userData = $users->map(function ($user) {
                     //DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
                     )
                 ->where('incoming_documents_manager.status', '0')
+                ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
                 ->latest('incoming_documents_manager.created_at')
-                ->groupBy('incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+                ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
                 //->with('createdBy')
                 ->get();
 
@@ -304,17 +416,11 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
 
     public function sharedUser()
     {
-        /* /* if (!checkPermission('create document')) {
-            Flash::error('Permission denied');
-
-            return redirect()->back();
-        } */
-
 
         $userId = Auth::user()->id;
 
 
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        if (Auth::user()->hasRole('super-admin')) {
 
     $documents = DB::table('incoming_documents_has_users')
     ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
@@ -348,6 +454,7 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
     )
     ->latest('incoming_documents_has_users.created_at')
     ->where('incoming_documents_has_users.assigned_by', '!=', '0')
+    ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
     ->groupBy(
         'incoming_documents_manager.category_id',
         'incoming_documents_categories.id',
@@ -358,27 +465,99 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
         'incoming_documents_manager.document_url',
         'incoming_documents_has_users.id',
         'incoming_documents_has_users.created_at',
-        'incoming_documents_categories.name'
+        'incoming_documents_categories.name',
+        'incoming_documents_has_users.allow_share',
+        'incoming_documents_has_users.is_download',
+        'incoming_documents_has_users.user_id',
+        'incoming_documents_has_users.assigned_by',
+        'incoming_documents_manager.created_by',
+        'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
     )
     ->get();
 
     
-    // Get the roles with the specified role IDs
-$roles = Role::whereIn('id', [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39])->get();
+    $users1 = $this->userRepository->all();
 
-// Get the users who have any of these roles
-$users0 = User::whereHas('roles', function ($query) use ($roles) {
-    $query->whereIn('id', $roles->pluck('id'));
-})->get(['id', 'first_name', 'last_name']);
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
 
-// Transform user data
-$userData = $users0->map(function ($user) {
-    return [
-        'id' => $user->id,
-        'name' => $user->first_name . ' ' . $user->last_name,
-    ];
-});
 
+        } else if (Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+
+            $documents = DB::table('incoming_documents_has_users')
+            ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+            ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users.user_id', '=', 'users.id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.full_name as sender_full_name',
+                'incoming_documents_manager.email as sender_email',
+                'incoming_documents_manager.phone as sender_phone',
+                'incoming_documents_has_users.created_at as createdAt',
+                'incoming_documents_categories.name as category_name',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.document_url as document_url',
+                'incoming_documents_manager.id as d_m_id',
+                'incoming_documents_categories.id as d_m_c_id',
+                'incoming_documents_categories.name as cat_name',
+                'departments.name as dep_name',
+        
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users.created_at')
+            ->where('incoming_documents_has_users.assigned_by', '!=', '0')
+            ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->groupBy(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_manager.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.document_url',
+                'incoming_documents_has_users.id',
+                'incoming_documents_has_users.created_at',
+                'incoming_documents_categories.name',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.created_by',
+                'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
+            )
+            ->get();
+        
+            
+            // Get the roles with the specified role IDs
+        $roles1 = Role::whereIn('id', [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39])->get();
+        
+        // Get the users who have any of these roles
+        $users0 = User::whereHas('roles', function ($query) use ($roles1) {
+            $query->whereIn('id', $roles1->pluck('id'));
+        })->get(['id', 'first_name', 'last_name']);
+        
+        // Transform user data
+        $userData = $users0->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+        
         } else {
            
 
@@ -423,9 +602,16 @@ $userData = $users0->map(function ($user) {
         'incoming_documents_manager.document_url',
         'incoming_documents_has_users.id',
         'incoming_documents_has_users.created_at',
-        'incoming_documents_categories.name'
+        'incoming_documents_categories.name',
+        'incoming_documents_has_users.allow_share',
+        'incoming_documents_has_users.is_download',
+        'incoming_documents_has_users.user_id',
+        'incoming_documents_has_users.assigned_by',
+        'incoming_documents_manager.created_by',
+        'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
     )
     ->where('incoming_documents_has_users.user_id', '=', $userId)
+    ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
     ->get();
 
     
@@ -442,6 +628,7 @@ $users2 = DB::table('users')
     ->join('departments', 'departments.id', '=', 'staff.department_id')
     ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
     ->where('staff.department_id', '=', Auth::user()->staff->department_id)
+    ->where('staff.branch_id', '=', Auth::user()->staff->branch_id)
     ->get();
 
 // Combine the data
@@ -480,6 +667,241 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
 
         return view('incoming_documents.document_shared_user', compact('documents', 'users', 'roles', 'categories'));
     }
+
+    public function sharedUserFile()
+    {
+
+        $userId = Auth::user()->id;
+
+
+        if (Auth::user()->hasRole('super-admin')) {
+
+            $documents = DB::table('incoming_documents_has_users_files')
+            ->join('documents_manager', 'documents_manager.id', '=', 'incoming_documents_has_users_files.document_id')
+            ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users_files.user_id', '=', 'users.id')
+            ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            ->select(
+                'documents_manager.category_id',
+                'documents_categories.id',
+                'documents_manager.title',
+                'incoming_documents_has_users_files.created_at as createdAt',
+                'documents_categories.name as category_name',
+                'incoming_documents_has_users_files.start_date',
+                'incoming_documents_has_users_files.end_date',
+                'incoming_documents_has_users_files.allow_share',
+                'incoming_documents_has_users_files.is_download',
+                'incoming_documents_has_users_files.user_id',
+                'incoming_documents_has_users_files.assigned_by',
+                'documents_manager.document_url as document_url',
+                'documents_manager.id as d_m_id',
+                'documents_categories.id as d_m_c_id',
+                'documents_categories.name as cat_name',
+                'departments.name as dep_name',
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users_files.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users_files.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users_files.created_at')
+            //->where('documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->groupBy(
+                'documents_manager.category_id',
+                'documents_categories.id',
+                'incoming_documents_has_users_files.start_date',
+                'incoming_documents_has_users_files.end_date',
+                'documents_manager.id',
+                'documents_manager.title',
+                'documents_manager.document_url',
+                'incoming_documents_has_users_files.id',
+                'incoming_documents_has_users_files.created_at',
+                'documents_categories.name',
+                'incoming_documents_has_users_files.allow_share',
+                'incoming_documents_has_users_files.is_download',
+                'incoming_documents_has_users_files.user_id',
+                'incoming_documents_has_users_files.assigned_by',
+                'departments.name',
+                'documents_manager.created_by',
+            )
+            ->get();
+        
+            
+            $users1 = $this->userRepository->all();
+        
+                $userData = $users1->map(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'name' => $user->first_name . ' ' . $user->last_name,
+                    ];
+                });
+        
+                } else if (Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        
+                    /* $documents = DB::table('incoming_documents_has_users_files')
+            ->join('documents_manager', 'documents_manager.id', '=', 'incoming_documents_has_users_files.document_id')
+            ->join('users', 'incoming_documents_has_users_files.user_id', '=', 'users.id')
+            ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            ->select('incoming_documents_has_users_files.*', 'documents_manager.*', 'users.*', 'incoming_documents_has_users_files.created_at as createdAt', 'documents_categories.name as category_name', 'documents_manager.category_id as d_m_c_id')
+            ->latest('incoming_documents_has_users_files.created_at')
+            ->groupBy('documents_manager.document_url','documents_manager.category_id','incoming_documents_has_users_files.id','incoming_documents_has_users_files.created_at', 'documents_categories.name', 'documents_manager.category_id')
+            ->get(); */
+           
+            $documents = DB::table('incoming_documents_has_users_files')
+            ->join('documents_manager', 'documents_manager.id', '=', 'incoming_documents_has_users_files.document_id')
+            ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users_files.user_id', '=', 'users.id')
+            ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            ->select(
+                'documents_manager.category_id',
+                'documents_categories.id',
+                'documents_manager.title',
+                'incoming_documents_has_users_files.created_at as createdAt',
+                'documents_categories.name as category_name',
+                'incoming_documents_has_users_files.start_date',
+                'incoming_documents_has_users_files.end_date',
+                'incoming_documents_has_users_files.allow_share',
+                'incoming_documents_has_users_files.is_download',
+                'incoming_documents_has_users_files.user_id',
+                'incoming_documents_has_users_files.assigned_by',
+                'documents_manager.document_url as document_url',
+                'documents_manager.id as d_m_id',
+                'documents_categories.id as d_m_c_id',
+                'documents_categories.name as cat_name',
+                'departments.name as dep_name',
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users_files.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users_files.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users_files.created_at')
+            ->where('documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->groupBy(
+                'documents_manager.category_id',
+                'documents_categories.id',
+                'incoming_documents_has_users_files.start_date',
+                'incoming_documents_has_users_files.end_date',
+                'documents_manager.id',
+                'documents_manager.title',
+                'documents_manager.document_url',
+                'incoming_documents_has_users_files.id',
+                'incoming_documents_has_users_files.created_at',
+                'documents_categories.name',
+                'incoming_documents_has_users_files.allow_share',
+                'incoming_documents_has_users_files.is_download',
+                'incoming_documents_has_users_files.user_id',
+                'incoming_documents_has_users_files.assigned_by',
+                'departments.name',
+                'documents_manager.created_by',
+            )
+            ->get();
+        
+            
+            $users1 = $this->userRepository->all();
+        
+                $userData = $users1->map(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'name' => $user->first_name . ' ' . $user->last_name,
+                    ];
+                });
+        
+                } else {
+                   
+        
+            //here
+            $documents = DB::table('incoming_documents_has_users_files')
+            ->join('documents_manager', 'documents_manager.id', '=', 'incoming_documents_has_users_files.document_id')
+            ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users_files.user_id', '=', 'users.id')
+            ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+            ->select(
+                'documents_manager.category_id',
+                'documents_categories.id',
+                'documents_manager.title',
+                'incoming_documents_has_users_files.created_at as createdAt',
+                'documents_categories.name as category_name',
+                'incoming_documents_has_users_files.start_date',
+                'incoming_documents_has_users_files.end_date',
+                'incoming_documents_has_users_files.allow_share',
+                'incoming_documents_has_users_files.is_download',
+                'incoming_documents_has_users_files.user_id',
+                'incoming_documents_has_users_files.assigned_by',
+                'documents_manager.document_url as document_url',
+                'documents_manager.id as d_m_id',
+                'documents_categories.id as d_m_c_id',
+                'documents_categories.name as cat_name',
+                'departments.name as dep_name',
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users_files.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users_files.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users_files.created_at')
+            ->groupBy(
+                'documents_categories.id',
+                'incoming_documents_has_users_files.start_date',
+                'incoming_documents_has_users_files.end_date',
+                'documents_manager.id',
+                'documents_manager.title',
+                'documents_manager.document_url',
+                'incoming_documents_has_users_files.id',
+                'incoming_documents_has_users_files.created_at',
+                'documents_categories.name'
+            )
+            ->where('incoming_documents_has_users_files.user_id', '=', $userId)
+            ->where('documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->get();
+    
+    // Fetch roles
+//$roles2 = Role::whereIn('id', [2])->get();
+
+// Get the users who have any of these roles
+/* $users1 = User::whereHas('roles', function ($query) use ($roles2) {
+    $query->whereIn('id', $roles2->pluck('id'));
+})->get(['id', 'first_name', 'last_name']); */
+
+$users2 = DB::table('users')
+    ->join('staff', 'staff.user_id', '=', 'users.id')
+    ->join('departments', 'departments.id', '=', 'staff.department_id')
+    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
+    ->where('staff.department_id', '=', Auth::user()->staff->department_id)
+    ->where('staff.branch_id', '=', Auth::user()->staff->branch_id)
+    ->get();
+
+// Combine the data
+//$mergedUsers = $users2;
+
+// Process the data for display
+$userData = $users2->map(function ($user) {
+    return [
+        'id' => $user->id,
+        'name' => $user->first_name . ' ' . $user->last_name,
+    ];
+});
+
+
+        
+        }
+
+        // Now that you have the documents, you can load the category relationship
+$documentIds = $documents->pluck('d_m_c_id')->toArray();
+$categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
+
+
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        // $roles->prepend('Select role', '');
+        // $departments->prepend('Select department', '');
+       /*  $users1 = $this->userRepository->all();
+
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        }); */
+
+        $users = $userData->pluck('name', 'id');
+
+        return view('incoming_documents.document_shared_user_file', compact('documents', 'users', 'roles', 'categories'));
+    }
+
 
     public function showIncomingDepartementalDocuments(Request $request, $id)
 {
@@ -849,6 +1271,47 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         return view('incoming_documents.add', compact(['categories', 'users', 'roles', 'dept', 'office']));
     }
 
+    public function area_office_document()
+    {
+        
+            $categories1 = DB::table('incoming_documents_categories')
+            ->join('departments', 'departments.id', '=', 'incoming_documents_categories.department_id')
+            //->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select('incoming_documents_categories.description as subject', 'departments.name as department_name', 'incoming_documents_categories.id as documents_category_id', 'incoming_documents_categories.name as category_name', 'incoming_documents_categories.description as documents_category_description')
+            ->where('departments.id', 15)
+            ->get();
+            $categories = $categories1->map(function ($category) {
+                return [
+                    'id' => $category->documents_category_id,
+                    'name' => $category->department_name . ' / ' .  $category->category_name . ' / ' .  $category->subject,
+                ];
+            })->pluck('name', 'id')->toArray();
+        
+            
+        //$roles = Role::pluck('name', 'id')->all();
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        // $roles->prepend('Select role', '');
+        // $departments->prepend('Select department', '');
+        $users1 = $this->userRepository->all();
+
+        $userData = $users1->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+
+        $users = $userData->pluck('name', 'id');
+        //$users->prepend('Select user', '');
+        $dept = Department::where('id',15)->get();
+        // dd($dept);
+        $branches = Branch::get()->pluck('branch_name', 'id');
+        $branches = $branches->prepend('Select Area Office', '');
+
+
+        return view('incoming_documents.area_office_create', compact(['categories', 'users', 'roles', 'dept', 'branches']));
+    }
+
     
 
     public function shareUser(Request $request)
@@ -958,6 +1421,8 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         'full_name' => 'required',
         'email' => 'required|email',
         'phone' => 'required|numeric',
+        'department_id' => 'required|numeric',
+        'branch_id' => 'required|numeric',
         'description' => 'required',
         'file' => 'required|mimes:pdf,doc,docx,jpeg,png,gif|max:1024',
     ], [
@@ -1016,7 +1481,8 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         $document_url = $path . "/" . $file_name;
         $document_input['document_url'] = $document_url;
         $document_input['status'] = '0';
-        $document_input['department_id'] = "15";
+        $document_input['department_id'] = $input['department_id'];
+        $document_input['branch_id'] = $input['branch_id'];
         $document = $this->documentRepository->create($document_input);
 
         DocumentHistory::create([

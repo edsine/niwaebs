@@ -22,6 +22,7 @@ class Documents extends Model implements Auditable
         'category_id',
         'document_url',
         'department_id',
+        'branch_id',
     ];
 
     protected $casts = [
@@ -30,6 +31,7 @@ class Documents extends Model implements Auditable
         'created_by' => 'integer',
         'category_id' => 'integer',
         'department_id' => 'integer',
+        'branch_id' => 'integer',
     ];
 
     public static array $rules = [
@@ -37,8 +39,14 @@ class Documents extends Model implements Auditable
         'file' => 'required|file|max:2048',
         'description' => 'required',
         'department_id' => 'required',
+        'branch_id' => 'required',
     ];
     
+
+    public function department()
+{
+    return $this->belongsTo(Department::class, 'department_id', 'id');
+}
 
     public function createdBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -42,8 +42,8 @@ class ServiceApplicationController extends AppBaseController
             $serviceApplications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '>', 3)->paginate(10);
 
         } else {
-
-            $serviceApplications = ServiceApplication::orderBy('id','desc')->where('branch_id', Auth()->user()->staff->branch->id)->where('current_step', '>', 3)->paginate(10);
+            
+            $serviceApplications = ServiceApplication::orderBy('id','desc')->where('branch_id', Auth()->user()->staff->branch_id)->where('current_step', '>', 3)->paginate(10);
 
         }
         return view('service_applications.index')

@@ -37,5 +37,10 @@ class DocumentsCategory extends Model implements Auditable
     {
         return $this->hasMany(Documents::class, 'category_id', 'id');
     }
+
+    public function documentsManager()
+{
+    return $this->hasMany(Documents::class, 'category_id', 'id');
+}
     
 }

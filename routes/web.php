@@ -91,6 +91,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/documents_manager/shared/role', 'App\Http\Controllers\DocumentsController@sharedRole')->name('documents_manager.sharedrole');
 
     Route::post('/generate-file-no', 'App\Http\Controllers\DocumentsCategoryController@generateFileNo');
+
+    Route::get('/documents_manager/shared/user/file', 'App\Http\Controllers\DocumentsController@sharedUserFile')->name('documents_manager.shareduserfile');
+    Route::post('documents_manager/shareuserfile', [App\Http\Controllers\DocumentsController::class, 'shareUserFile'])->name('documents_manager.shareuserfile');
+
     //End of document manager
 
     //Start of incoming documents
@@ -122,7 +126,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/incoming_documents_manager/shared/role', 'App\Http\Controllers\IncomingDocumentsController@sharedRole')->name('incoming_documents_manager.sharedrole');
     Route::get('/incoming_documents_manager/all_documents/secretary', 'App\Http\Controllers\IncomingDocumentsController@secretary')->name('incoming_documents_manager.all_documents.secretary');
     //Route::get('incoming_documents_manager/create', 'App\Http\Controllers\IncomingDocumentsController@create')->name('incoming_documents_manager.create');
-    
+    Route::get('/incoming_documents_manager/shared/user/file', 'App\Http\Controllers\IncomingDocumentsController@sharedUserFile')->name('incoming_documents_manager.shareduserfile');
+    Route::post('incoming_documents_manager/shareuserfile', [App\Http\Controllers\IncomingDocumentsController::class, 'shareUserFile'])->name('incoming_documents_manager.shareuserfile');
+
+
     Route::resource('roles', RoleController::class);
     // demo admin role
     Route::get('demo_roles/{id}', 'App\Http\Controllers\RoleController@demo_edit')->name('demo_roles');
@@ -133,6 +140,8 @@ Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update
 });
 
 Route::get('/new/incoming', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
+Route::get('/area/office/incoming', 'App\Http\Controllers\IncomingDocumentsController@area_office_document')->name('area.office.incoming.document');
+
 Route::post('/add/new/incoming/store/', 'App\Http\Controllers\IncomingDocumentsController@store')->name('incoming_store');
 
 Route::get('/showDepartementalDocuments/{id}', 'App\Http\Controllers\DocumentsController@showDepartementalDocuments');

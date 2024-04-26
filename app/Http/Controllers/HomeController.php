@@ -552,7 +552,7 @@ class HomeController extends Controller
                     )
                 ->where('incoming_documents_manager.status','!=', '0')
                 ->latest('incoming_documents_manager.created_at')
-                ->groupBy('incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+                ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
                 ->where('incoming_documents_manager.department_id', '=', '15')
                 ->limit(10)
                 ->get();
