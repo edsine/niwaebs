@@ -33,11 +33,19 @@
        $value = "ed_md";
         } else if (Auth::check() && Auth::user()->hasRole('ED ADMIN')) {
        $value = "ed_admin";
-        } else if (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
+        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+
+            $value = "areamanager";
+            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
+        } 
+        
+         else if (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
 
             $value = "ed_op";
             //atp take note, you have not yet done page for ed_op,no role as ed operation yet
-        } else{
+        } 
+        
+        else{
             $value = "ict";
         }
  ?>
