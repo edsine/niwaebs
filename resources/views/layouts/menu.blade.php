@@ -62,7 +62,7 @@
                     @endcan
                     @can('view areamanager dashboard')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('am') }}">Area Manager Overview</a>
+                            <a class="nav-link" href="{{ route('areamanager') }}">Area Manager Overview</a>
                         </li>
                     @endcan
                     @can('view marine dashboard')

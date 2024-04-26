@@ -586,8 +586,13 @@ class HomeController extends Controller
 
         
         $users123 = $userData->pluck('name', 'id');
+        if (Auth()->user()->hasRole('super-admin')) {
+        $service_applications = ServiceApplication::where('current_step', '=', '110')->get();
+        } else{
+        $service_applications = ServiceApplication::where('current_step', '=', '110')->where('branch_id', '=', Auth::user()->staff->branch_id)->get();
+        }
 
-        return view('am', compact('branch', 'services', 'documents1', 'departments_data', 'users123'));
+        return view('am', compact('branch', 'services', 'documents1', 'departments_data', 'users123', 'service_applications'));
     }
 
     public function getForAreaManager($id)
@@ -712,7 +717,7 @@ $data2 = \DB::table('incoming_documents_manager')
                     )
                 ->where('incoming_documents_manager.status','!=', '0')
                 ->latest('incoming_documents_manager.created_at')
-                ->groupBy('incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+                ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
                 ->where('incoming_documents_manager.department_id', '=', '15')
                 ->limit(10)
                 ->get();
@@ -802,7 +807,14 @@ $data2 = \DB::table('incoming_documents_manager')
         'documents_manager.document_url',
         'documents_has_users.id',
         'documents_has_users.created_at',
-        'documents_categories.name'
+        'documents_categories.name',
+        'documents_manager.category_id',
+        'documents_has_users.allow_share',
+        'documents_has_users.is_download',
+        'documents_has_users.user_id',
+        'documents_has_users.assigned_by',
+        'departments.name',
+        'documents_manager.created_by',
     )
     ->where('documents_manager.department_id', '=', '1')
     ->get();

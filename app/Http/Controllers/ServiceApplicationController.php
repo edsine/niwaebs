@@ -419,8 +419,12 @@ class ServiceApplicationController extends AppBaseController
 
         if ($essp_payment == true) {
             if ($input['payment_type'] == "5") {
-                $serviceApplication->current_step = 11;
+                /* $serviceApplication->current_step = 11;
                 $serviceApplication->status_summary = "Payment of equipment fees required, Invoice has been sent to you";
+                $serviceApplication->equipment_fees_list = $equipment;
+                $serviceApplication->save(); */
+                $serviceApplication->current_step = 110;
+                $serviceApplication->status_summary = "Please review and approve this demand notice.";
                 $serviceApplication->equipment_fees_list = $equipment;
                 $serviceApplication->save();
             }
@@ -428,6 +432,27 @@ class ServiceApplicationController extends AppBaseController
 
         return redirect()->back();
     }
+
+    public function approveDemandNotice(Request $request, $id)
+    {
+
+
+        $serviceApplication = ServiceApplication::find($id);
+        if (empty($serviceApplication)) {
+            Flash::error('Application not found');
+
+            return redirect()->back();
+        }
+
+                $serviceApplication->current_step = 11;
+                $serviceApplication->status_summary = "Payment of equipment fees required, Invoice has been sent to you";
+                //$serviceApplication->equipment_fees_list = $equipment;
+                $serviceApplication->save();
+                Flash::success('Demand notice approved');
+
+        return redirect()->back();
+    }
+
 
     public function approveEquipmentFee(Request $request, $id)
     {

@@ -93,4 +93,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     {
         return $this->hasMany(ServiceApplicationDocument::class);
     }
+
+    public function processingType()
+{
+    return $this->belongsTo(ProcessingType::class, 'service_id', 'service_id');
+}
 }
