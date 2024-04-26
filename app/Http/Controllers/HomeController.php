@@ -69,7 +69,7 @@ class HomeController extends Controller
         // else if(Auth::check() && Auth::user()->hasAnyRole(['super-admin', 'branch-manager']))
         {
 
-            return redirect()->route('am');
+            return redirect()->route('areamanager');
         } else if (Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT')) {
 
             return redirect()->route('ed_md');
