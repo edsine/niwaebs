@@ -96,7 +96,7 @@
             </li>
             @endcan
             
-        @can('view user managment module')
+        {{-- @can('view user managment module') --}}
             @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
                 <li class="nav-item" id="myTask">
                     <a class="nav-link" href="#">
@@ -124,7 +124,7 @@
 
                 </li>
             @endif
-        @endcan
+        {{-- @endcan --}}
 
         @can('view service applications module')
             @if (auth()->check() &&
@@ -227,7 +227,7 @@
             <!-- End Of REport System Menu -->
         @endif
 
-        @can('view operational task module')
+        {{-- @can('view operational task module') --}}
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas fa-tasks menu-icon"></i>
@@ -267,7 +267,7 @@
 
                 </ul>
             </li>
-        @endcan
+        {{-- @endcan --}}
 
         @can('view my task module')
             <li class="nav-item" id="myTask">
@@ -492,7 +492,7 @@
         </li>
 
 
-    @can('view asset manager module')
+    {{-- @can('view asset manager module') --}}
         @if (auth()->check() &&
                 (in_array(auth()->user()->staff->department_id, [4, 5, 3, 13]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
@@ -582,7 +582,7 @@
                 </ul>
             </li>
         @endif
-    @endcan
+    {{-- @endcan --}}
 
 
     <li class="nav-item" id="myTask">

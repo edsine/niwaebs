@@ -30,8 +30,10 @@ Route::prefix('leave_request_data')->group(function() {
     //Route::get('/', 'LeaveRequestController@index')->middleware('role');
     Route::get('/leave_types','LeaveTypesController@index')->name("atp");
     Route::get('/get-data/{id}','LeaveRequestController@getDuration');
-
+Route::get('/cdu','LeaveRequestController@dur')->name('cdu');
+Route::post('/first_apply','LeaveRequestController@mygm')->name('gmleave');
 });
+
 
 
 
