@@ -443,6 +443,7 @@ Route::get('md_user', [HomeController::class, 'md'])->name('md');
 
 
 Route::get('areamanager', [HomeController::class, 'areamanager'])->name('am');
+Route::get('areamanager', [HomeController::class, 'areamanager'])->name('areamanager');
 //=================================== Zoom Meeting ======================================================================
 Route::get('zoom', function () {
     return view('zoom-meeting.index');
