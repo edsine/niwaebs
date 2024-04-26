@@ -575,7 +575,7 @@ Route::post('hod-marine-approval/{id}', [App\Http\Controllers\ServiceApplication
 Route::get('/map/{id}', 'App\Http\Controllers\ServiceApplicationController@showMap')->name('map.show');
 
 //Area manager approve equipment and fees created for a client
-Route::post('/service-application/{id}/approve', 'App\Http\Controllers\ServiceApplicationController@approveDemandNotice')->name('approve_demand_notice');
+Route::get('/service-application/{id}/approve', 'App\Http\Controllers\ServiceApplicationController@approveDemandNotice')->name('approve_demand_notice');
 
 
 

@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .nav-link{
+        font-weight: 600;
+    }
+</style>
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
@@ -11,7 +16,7 @@
                     <div class=" justify-content-between">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Letter Of Intent</a>
+                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document Updates</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Demand Notice</a>
@@ -19,7 +24,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Updates</a>
                               </li>
-                            
+                              <li class="nav-item">
+                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Letter Of Intent Updates</a>
+                              </li>
                           </ul>
                           <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="letter" role="tabpanel" aria-labelledby="letter-tab">
@@ -178,111 +185,8 @@
                             </div>
                         </div>
                         
-                                          <div class="col-md-12 grid-margin stretch-card depDoc2" id="depDoc2">
-                        <!-- <div class="col-md-3">
-                                     {!! Form::label('department_id', 'Click to select user department:') !!}
-                                     {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'inDeptSelect']) !!}
-                                   
-                                        </div> -->
-                                            <div class="card">
-                                    <!-- <div class="card-body p-5">
-                                        <h4 class="card-title">
-                                                  <i class="fas fa-envelope"></i>
-                                                 Latest 10 Incoming Letter
-                                                </h4>
-                                        <div class="table-responsive1" style="overflow-y: auto;">
-                                            <table class="table align-middle gs-0 gy-4" id="order-listing11">
-                                                          <thead>
-                                                              <tr>
-                                                                  {{-- <th>S/N</th> --}}
-                                                                  <th>Document Title</th>
-                                                                  <th>Sender Name</th>
-                                                                  <th>Sender Email</th>
-                                                                  <th>Sender Phone</th>
-                                                                  <th>Document URL</th>
-                                                                  <th>User Share</th>
-                                                                  <th>Subject</th>
-                                                                  <th>Created Date</th>
-                                                              </tr>
-                                                          </thead>
-                                                          <tbody>
-                                                              
-                                                              @foreach ($documents1 as $document)
-                                                                  @php @endphp
-                                                                  <tr>
-                                                                      {{-- <td>{{ $n++ }}</td> --}}
-                                                                      <td>{{ $document->title ?? 'NILL' }}</td>
-                                                                      <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
-                                                                      <td>{{ $document->sender_email ?? 'NILL' }}</td>
-                                                                      <td>{{ $document->sender_phone ?? 'NILL' }}</td>
-                                                                      {{-- <td>{{ $document->description }}</td> --}}
-                                                                      <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
-                                                                      </td>
-                                                          <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
-                                                            data-shareuser=${document.d_m_id}>User</a></td>  
-                                                                      <td>{{ $document->doc_description ?? 'NILL' }}</td>
-                                                                      <td>{{ $document->assigned_created_at ?? 'NILL' }}</td>
-                                                                     
-                                                                    
-                                                                  </tr>
-                                                              @endforeach
-                                                          </tbody>
-                                                      </table>
-                                        </div>
-                                    
-                                        
-                                    </div> -->
-                                    
-                                    
-                                   <script>
-                             document.addEventListener("DOMContentLoaded", function () {
-                                // Fetch Departmental Documents based on selected department
-                                document.getElementById('inDeptSelect').addEventListener('change', function () {
-                                    let departmentId = this.value;
-                                    fetchDocuments(departmentId);
-                                });
-                        
-                                // Initial Fetch on Page Load
-                                let departmentId = document.getElementById('inDeptSelect').value;
-                                fetchDocuments(departmentId);
-                            });
-                        
-                            function fetchDocuments(departmentId) {
-                                fetch(`/showIncomingDepartementalDocuments/${departmentId}`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        displayDocuments(data);
-                                    })
-                                    .catch(error => console.error('Error:', error));
-                            }
-                        
-                            function displayDocuments(documents) {
-                            let tableBody = document.getElementById('incomingDocumentsTableBody');
-                            tableBody.innerHTML = '';
-                        
-                            documents.forEach((document, index) => {
-                                let row = `
-                                    <tr>
-                                        <td>${index + 1}</td>
-                                        <td>${document.title}</td>
-                                        <td>${document.sender_full_name}</td>
-                                        <td>${document.sender_email}</td>
-                                        <td>${document.sender_phone}</td>
-                                        <td><a target="_blank" href="${ document.document_url }">${ document.document_url.substr(10) }</a></td>
-                                        <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
-                                                            data-shareuser=${document.d_m_id}>User</a></td>
-                                        <td>${document.doc_description}</td>
-                                        <td>${document.assigned_created_at}</td>
-                                    </tr>
-                                `;
-                                tableBody.insertAdjacentHTML('beforeend', row);
-                            });
-                        }
-                        
-                        </script>
-                                    
-                                </div>
-                                        </div>
+
+                                         
                                 </div>
                             </div>
                             </div>
@@ -322,15 +226,18 @@
  --}}                                 {{-- <td><?php //$type = \App\Models\ProcessingType::where('service_id', $service_application->id)->first(); ?>
                                       {{ $type->name ?? 'NILL' }}
                                              </td>               --}} 
-                                             <?php
-// Assuming $service_application->equipment_fees_list is the JSON string
-$equipment_fees_list = json_decode($service_application->equipment_fees_list, true); // Convert JSON to PHP array
-
-$sum = 0;
-foreach ($equipment_fees_list as $item) {
-    $sum += $item['price'];
-} ?>            
-<td>{{ isset($service_application->equipment_fees_list) ? '₦'. number_format($sum, 2) : 'N/A' }}</td>
+                                                         
+<td><?php if(isset($service_application->equipment_fees_list)){
+    // Assuming $service_application->equipment_fees_list is the JSON string
+    $equipment_fees_list = json_decode($service_application->equipment_fees_list, true); // Convert JSON to PHP array
+    
+    $sum = 0;
+    foreach ($equipment_fees_list as $item) {
+        $sum += $item['price'];
+    } ?>
+    {{ isset($service_application->equipment_fees_list) ? '₦'. number_format($sum, 2) : 'N/A' }}
+<?php } ?>
+</td>
 <td>{{ $service_application->created_at ?? 'NILL' }}</td>
                                                                <td>
                                                                 <a href="javascript:void(0)" onclick="confirmApproval('{{ route('approve_demand_notice', $service_application->id) }}')" class="btn btn-primary">Approve</a>
@@ -509,6 +416,171 @@ foreach ($equipment_fees_list as $item) {
             
                         </div>
 </div>
+<div class="tab-pane fade" id="letter1" role="tabpanel" aria-labelledby="letter1-tab">
+    <div class="col-md-12 grid-margin stretch-card depDoc2" id="depDoc2">
+         {{-- <div class="col-md-3">
+                     {!! Form::label('department_id', 'Click to select user department:') !!}
+                     {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'inDeptSelect']) !!}
+                   
+                        </div> --}}
+                            <div class="card">
+                    <div class="card-body p-5">
+                        <h4 class="card-title">
+                                  <i class="fas fa-envelope"></i>
+                                 Latest 10 Letter Intent
+                                </h4>
+                        <div class="table-responsive1" style="overflow-y: auto;">
+                            <table class="table align-middle gs-0 gy-4" id="order-listing11">
+                                          <thead>
+                                              <tr>
+                                                  {{-- <th>S/N</th> --}}
+                                                  <th>Document Title</th>
+                                                  <th>Sender Name</th>
+                                                  <th>Sender Email</th>
+                                                  <th>Sender Phone</th>
+                                                  <th>Document URL</th>
+                                                  <th>User Share</th>
+                                                  <th>Subject</th>
+                                                  <th>Created Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              
+                                              @foreach ($documents1 as $document)
+                                                  @php @endphp
+                                                  <tr>
+                                                      {{-- <td>{{ $n++ }}</td> --}}
+                                                      <td>{{ $document->title ?? 'NILL' }}</td>
+                                                      <td>{{ $document->sender_full_name ?? 'NILL' }}</td>
+                                                      <td>{{ $document->sender_email ?? 'NILL' }}</td>
+                                                      <td>{{ $document->sender_phone ?? 'NILL' }}</td>
+                                                      {{-- <td>{{ $document->description }}</td> --}}
+                                                      <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                                                      </td>
+                                          <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
+                                            data-shareuser={{ $document->d_id }}>User</a></td>  
+                                                      <td>{{ $document->doc_description ?? 'NILL' }}</td>
+                                                      <td>{{ $document->document_created_at ?? 'NILL' }}</td>
+                                                     
+                                                    
+                                                  </tr>
+                                              @endforeach
+                                          </tbody>
+                                      </table>
+                        </div>
+                    
+                        
+                    </div>
+                    
+                    
+                   <script>
+             document.addEventListener("DOMContentLoaded", function () {
+                // Fetch Departmental Documents based on selected department
+                document.getElementById('inDeptSelect').addEventListener('change', function () {
+                    let departmentId = this.value;
+                    fetchDocuments(departmentId);
+                });
+        
+                // Initial Fetch on Page Load
+                let departmentId = document.getElementById('inDeptSelect').value;
+                fetchDocuments(departmentId);
+            });
+        
+            function fetchDocuments(departmentId) {
+                fetch(`/showIncomingDepartementalDocuments/${departmentId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        displayDocuments(data);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        
+            function displayDocuments(documents) {
+            let tableBody = document.getElementById('incomingDocumentsTableBody');
+            tableBody.innerHTML = '';
+        
+            documents.forEach((document, index) => {
+                let row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${document.title}</td>
+                        <td>${document.sender_full_name}</td>
+                        <td>${document.sender_email}</td>
+                        <td>${document.sender_phone}</td>
+                        <td><a target="_blank" href="${ document.document_url }">${ document.document_url.substr(10) }</a></td>
+                        <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
+                                            data-shareuser=${document.d_m_id}>User</a></td>
+                        <td>${document.doc_description}</td>
+                        <td>${document.assigned_created_at}</td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+        
+        </script>
+                    
+                </div>
+                        </div>
+
+                        <div class="modal fade" id="shareuserModal1" tabindex="-1" role="dialog" aria-labelledby="shareuserModalLabel1"
+aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data']) !!}
+        @csrf
+            <div class="modal-header">
+                <h5 class="modal-title">User Permission</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    {!! Form::label('users', 'Select User(s):') !!}
+                    {!! Form::select('users[]', $users123, null, ['class' => 'form-control', 'id' => 'userSelect', 'multiple' => 'multiple']) !!}
+
+                    {!! Form::hidden('shareuser_id', null, ['id' => 'shareuser1_id']) !!}
+                    {!! Form::hidden('notify_id', null, ['id' => 'notify_id']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('specify_su', 0, null, ['id' => 'specify_su']) !!}
+                    {!! Form::label('specify_su', 'Specify the period') !!}
+                </div>
+                <div class="form-group" id="enable_date" style="display: none">
+                    {!! Form::label('start_date', 'Start Date') !!}
+                    {!! Form::date('start_date', null, ['class' => 'form-control','id' => 'start_date1']) !!}<br/>
+                    {!! Form::label('end_date', 'End Date') !!}
+                    {!! Form::date('end_date', null, ['class' => 'form-control','id' => 'end_date1']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('is_download', 1, ['id' => 'is_download']) !!}
+                    {!! Form::label('is_download', 'Allow Download') !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::checkbox('allow_share', 1, ['id' => 'allow_share']) !!}
+                    {!! Form::label('allow_share', 'Allow Share') !!}
+                </div>
+                {!! Form::label('comment', 'Type your comment:') !!}
+                    <div class="form-group">
+                        <div class="custom-comment">
+                            {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+      
+    </div>
+</div>
+                          </div>
+
                      </div>
             </div>
             
@@ -518,6 +590,12 @@ foreach ($equipment_fees_list as $item) {
             <br>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).on("click", ".open-modal-shareuser", function() {
+        let shareuser = $(this).data('shareuser');
+        $(".modal-body #shareuser_id").val(shareuser);
+        $(".modal-body #shareuser1_id").val(shareuser);
+    });
+    
    $(document).ready(function() {
         // Function to update statistics based on selected options
         function updateStatistics() {

@@ -17,7 +17,43 @@
         font-size: larger;
     }
 </style>
+<?php 
+          if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+            $value = "superadmin";
+        } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
+            $value = "md_user";
+        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
+            $value = "minister";
+        } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
+            $value = "permsec";
+           
+        } else if (Auth::check() && Auth::user()->hasRole('USER')) {
+            $value = "dash";
+           
+        } else if (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
+           $value = "region";
+        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+        $value = "areamanager";
+        } else if (Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT')) {
+       $value = "ed_md";
+        } else if (Auth::check() && Auth::user()->hasRole('ED ADMIN')) {
+       $value = "ed_admin";
+        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
 
+            $value = "areamanager";
+            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
+        } 
+        
+         else if (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
+
+            $value = "ed_op";
+            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
+        } 
+        
+        else{
+            $value = "ict";
+        }
+ ?>
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar-text  sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
@@ -40,6 +76,14 @@
                     </p>
                 </div>
             </div>
+        </li>
+        <li class="nav-item" id="myTask">
+            <a class="nav-link" href="{{ route($value) }}">
+                <i class="fas fa-home menu-icon"></i>
+                <span class="menu-title">Overview</span>
+
+                
+            </a>
         </li>
         @can('view overview module')
             <li class="nav-item" id="myTask">
@@ -659,10 +703,10 @@
                     <a class="nav-link" href="{{ route('incoming_documents_manager.shareduser') }}">My
                         Letters</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_documents_manager.shareduserfile') }}">My
                         Files</a>
-                </li>
+                </li> --}}
                 @can('view incoming documents')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('incoming_documents_manager.index') }}">Received Letters</a>
