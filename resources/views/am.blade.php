@@ -330,7 +330,7 @@ $sum = 0;
 foreach ($equipment_fees_list as $item) {
     $sum += $item['price'];
 } ?>            
-<td>{{ isset($service_application->equipment_fees_list) ? $sum : 'N/A' }}</td>
+<td>{{ isset($service_application->equipment_fees_list) ? '₦'. number_format($sum, 2) : 'N/A' }}</td>
 <td>{{ $service_application->created_at ?? 'NILL' }}</td>
                                                                <td>
                                                                 <a href="javascript:void(0)" onclick="confirmApproval('{{ route('approve_demand_notice', $service_application->id) }}')" class="btn btn-primary">Approve</a>
