@@ -46,17 +46,17 @@
                                         ]) !!}
                                     </div>
                                     <div class="row">
-                                    <div class="form-group col-md-4">
-                                        {!! Form::label('daystaken', 'Number of days to take:') !!}
-                                        {!! Form::number('daystaken', null, [
-                                            'class' => 'form-control form-control-solid border border-2 ',
-                                            'placeholder' => 'input the number of days to take',
-                                            'id' => 'days',
-                                        ]) !!}
-                                    </div>
+                                        <div class="form-group col-md-4">
+                                            {!! Form::label('daystaken', 'Number of days to take:') !!}
+                                            {!! Form::number('daystaken', null, [
+                                                'class' => 'form-control form-control-solid border border-2 ',
+                                                'placeholder' => 'input the number of days to take',
+                                                'id' => 'days',
+                                            ]) !!}
+                                        </div>
                                         <div class="form-group col-md-4">
                                             {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:', ['style' => 'font-size: 0.8125rem;']) !!}
-                                    
+
                                             {!! Form::text('end_date', null, [
                                                 'class' => 'form-control form-control-solid border border-2 ',
                                                 'placeholder' => 'the date for you to resume',
@@ -69,7 +69,7 @@
                                             {!! Form::button('Update', ['class' => 'btn btn-info', 'id' => 'u', 'onclick' => 'resumeDate()']) !!}
                                         </div>
                                     </div>
-                                   {{--  <div class="form-group ">
+                                    {{--  <div class="form-group ">
                                         {!! Form::label('end_date', 'EXPECTED DATE TO RESUME:') !!}
                                         {!! Form::text('end_date', null, [
                                             'class' => 'form-control form-control-solid border border-2 ',
@@ -110,7 +110,7 @@
                                         {!! Form::label('local_council', 'LOCAL COUNCIL/AREA COUNCIL:') !!}
                                         {!! Form::text('local_council', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
                                     </div>
-                                    
+
                                 </section>
                                 <h3>Step 3</h3>
                                 <section>
@@ -131,7 +131,7 @@
                                         {!! Form::text('officer_relieve', null, ['class' => 'form-control form-control-solid border border-2 ']) !!}
                                     </div>
                                 </section>
-                                
+
 
                                 <h3>Finish</h3>
                                 <section>
@@ -141,10 +141,10 @@
                                         {!! Form::label('signature_path', 'UPLOAD SIGNATURE PDF ONLY') !!}
                                         <div class="form-group">
                                             {!! Form::file('signature_path', [
-    'class' => 'form-control form-control-solid border border-2',
-    'accept' => '.pdf',
-    'onchange' => 'validateFile(this)'
-]) !!}
+                                                'class' => 'form-control form-control-solid border border-2',
+                                                'accept' => '.pdf',
+                                                'onchange' => 'validateFile(this)',
+                                            ]) !!}
                                         </div>
                                     </div>
                                     <div class="form-check">
@@ -162,42 +162,42 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#leave_type').on('click', function() {
-            const selectedId = $(this).val();
-            const port = location.protocol + '//' + location.host;
+    <script>
+        $(document).ready(function() {
+            $('#leave_type').on('click', function() {
+                const selectedId = $(this).val();
+                const port = location.protocol + '//' + location.host;
 
-            if (selectedId !== '') {
-                $.ajax({
-                    url: `${port}/leave_request_data/get-data/${selectedId}`,
-                    type: 'GET',
-                    data: {
-                        id: selectedId
-                    },
-                    dataType: 'json',
-                    //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    success: function(response) {
-                        var du = JSON.stringify(response.duration);
-                        $('#number_days').val('');
-                        $('#number_days').val(du);
+                if (selectedId !== '') {
+                    $.ajax({
+                        url: `${port}/leave_request_data/get-data/${selectedId}`,
+                        type: 'GET',
+                        data: {
+                            id: selectedId
+                        },
+                        dataType: 'json',
+                        //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        success: function(response) {
+                            var du = JSON.stringify(response.duration);
+                            $('#number_days').val('');
+                            $('#number_days').val(du);
 
-                    },
-                    error: function() {
-                        alert('Failed to retrieve duration.');
-                    }
-                });
-            } else {
-                $('#number_days').val('');
-            }
+                        },
+                        error: function() {
+                            alert('Failed to retrieve duration.');
+                        }
+                    });
+                } else {
+                    $('#number_days').val('');
+                }
+            });
         });
-    });
-</script>
-<script>
-    function resumeDate(){
-   /*  document.addEventListener('DOMContentLoaded', function() { */
-        //let updatebtn = document.getElementById('u');
-       // updatebtn.addEventListener('click', () => {
+    </script>
+    <script>
+        function resumeDate() {
+            /*  document.addEventListener('DOMContentLoaded', function() { */
+            //let updatebtn = document.getElementById('u');
+            // updatebtn.addEventListener('click', () => {
 
             let datestart = document.getElementById('date_start');
             let numberofdays = document.getElementById('number_days');
@@ -210,7 +210,8 @@
 
             if (parseInt(daystaken.value) > parseInt(numberofdays.value)) {
                 let notificationAlert = document.getElementById('notificationAlert');
-                notificationAlert.textContent = daystaken.value + "   exceeds the allowed limit of " + numberofdays.value + "days";
+                notificationAlert.textContent = daystaken.value + "   exceeds the allowed limit of " + numberofdays.value +
+                    "days";
                 notificationAlert.classList.remove('d-none');
 
 
@@ -240,21 +241,20 @@
 
             }
 
-        };// });
-   /*  }); */
-</script>
-<script>
-    function validateFile(input) {
-        if (input.files && input.files[0]) {
-            var fileSize = input.files[0].size; // Size in bytes
-            var maxSize = 1024 * 1024; // 1MB in bytes
+        }; // });
+        /*  }); */
+    </script>
+    <script>
+        function validateFile(input) {
+            if (input.files && input.files[0]) {
+                var fileSize = input.files[0].size; // Size in bytes
+                var maxSize = 1024 * 1024; // 1MB in bytes
 
-            if (fileSize > maxSize) {
-                alert('File size exceeds the maximum limit of 1MB.');
-                input.value = ''; // Clear the file input
+                if (fileSize > maxSize) {
+                    alert('File size exceeds the maximum limit of 1MB.');
+                    input.value = ''; // Clear the file input
+                }
             }
         }
-    }
-</script>
-
+    </script>
 @endsection

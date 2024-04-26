@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\AssetModel;
-use Illuminate\Support\Facades\File; 
-use Yajra\Datatables\Datatables;
-use App\Http\Controllers\TraitSettings;
-use DB;
-use App\Models\User;
 use App;
 use Auth;
+use App\Models\User;
 use Milon\Barcode\DNS2D;
+use App\Models\AssetModel;
+use App\Models\BrandModel;
+use Illuminate\Http\Request;
 
-
+use Yajra\Datatables\Datatables;
+use Modules\Shared\Models\Branch;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File; 
+use App\Http\Controllers\TraitSettings;
 
 class Asset extends Controller
 {
@@ -28,8 +29,26 @@ class Asset extends Controller
     }
 
     //return page
-    public function index() {
-		return view( 'asset.index' );
+    public function index(Request $request) {
+        $location= Branch::all();
+        $brand=DB::table('brand')->get();
+        $type=DB::table('asset_type')->get();
+        $supplier=DB::table('supplier')->get();
+        
+        $asset= DB::table('assets')->get();
+        if($request->ajax()){
+            $alldata= \DataTables::of($asset)
+            ->addIndexColumn()
+            ->addColumn('action',function($row){
+                $btn = '<a href="#" data-toggle="tooltip" data-id=" ' . $row->id . ' " data-original-title="Edit" class=" edit  btn-link">Edit </a>';
+                $btn .= ' <a href="#"  data-toggle="tooltip" data-id=" ' . $row->id . '" data-original-title="Delete" class="delete text-danger  ">Delete </a> ';
+
+                return $btn;
+            })
+            ->rawColumns
+        }
+        
+		return view( 'asset.index',compact('location','brand','type','supplier'));
     }
 
     
@@ -56,6 +75,7 @@ class Asset extends Controller
 	 * @return object
 	 */
     public function getdata(){
+        
         $data = DB::select("select niwa_assets.*, supplier.name as supplier, brand.name as brand, asset_type.name as type , location.name as location
         from niwa_assets left join supplier 
         on niwa_assets.supplierid = supplier.id

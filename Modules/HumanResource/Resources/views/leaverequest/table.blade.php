@@ -1,5 +1,5 @@
 <div class="card-body">
-    <h4 class="card-title">Staff table</h4>
+   
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
@@ -8,13 +8,11 @@
                         <tr>
                             <th> STATFF ID</th>
                             <th>TYPE OF LEAVE</th>
-                            <th>NEW LEAVE DATE</th>
+                            <th> LEAVE DATE</th>
                             <th>NUMBER OF DAYS</th>
-                            <th>OFFICER RELIEVER</th>
-                            <th>LEAVE END DATE</th>
-                           {{--  <th>ACCOUNT OFFICER STATUS</th>
-                            <th>DEPARTMENT HEAD STATUS</th>
-                            <th>HR STATUS</th> --}}
+                            <th>RESUMPTION DATE</th>
+                            <th>STATUS</th>
+
                             <th colspan="3">Action</th>
                         </tr>
                     </thead>
@@ -29,9 +27,18 @@
                                 <td>{{ $leaves->date_start_new }}</td>
                                 <td>{{ $leaves->daystaken }}</td>
 
-                                <td>{{ $leaves->officer_relieve }}</td>
+                              
                                 <td>{{ $leaves->end_date }}</td>
-                                <td style="width: 120px">
+                                <td>
+                                    @if ($leaves->status==1)
+                                    <span>Awaiting GM Approval</span>
+                                    @elseif ($leaves->status==2)
+                                    <span>Awaiting  HR GM Approval</span>
+                                    @elseif ($leaves->status==3) 
+                                    <span class=" text-success"> Leave Approved</span>
+                                    @endif
+                                </td>
+                                {{-- <td style="width: 120px">
                                     {!! Form::open(['route' => ['leave_request.destroy', $leaves->id], 'method' => 'delete']) !!}
                                     <div class='btn-group'>
                                         <a href="{{ route('leave_request.show', [$leaves->id]) }}"
@@ -45,7 +52,7 @@
                                         {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
                                     </div>
                                     {!! Form::close() !!}
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
