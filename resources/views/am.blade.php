@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .nav-link{
+        font-weight: 600;
+    }
+</style>
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
@@ -322,15 +327,18 @@
  --}}                                 {{-- <td><?php //$type = \App\Models\ProcessingType::where('service_id', $service_application->id)->first(); ?>
                                       {{ $type->name ?? 'NILL' }}
                                              </td>               --}} 
-                                             <?php
-// Assuming $service_application->equipment_fees_list is the JSON string
-$equipment_fees_list = json_decode($service_application->equipment_fees_list, true); // Convert JSON to PHP array
-
-$sum = 0;
-foreach ($equipment_fees_list as $item) {
-    $sum += $item['price'];
-} ?>            
-<td>{{ isset($service_application->equipment_fees_list) ? '₦'. number_format($sum, 2) : 'N/A' }}</td>
+                                                         
+<td><?php if(isset($service_application->equipment_fees_list)){
+    // Assuming $service_application->equipment_fees_list is the JSON string
+    $equipment_fees_list = json_decode($service_application->equipment_fees_list, true); // Convert JSON to PHP array
+    
+    $sum = 0;
+    foreach ($equipment_fees_list as $item) {
+        $sum += $item['price'];
+    } ?>
+    {{ isset($service_application->equipment_fees_list) ? '₦'. number_format($sum, 2) : 'N/A' }}
+<?php } ?>
+</td>
 <td>{{ $service_application->created_at ?? 'NILL' }}</td>
                                                                <td>
                                                                 <a href="javascript:void(0)" onclick="confirmApproval('{{ route('approve_demand_notice', $service_application->id) }}')" class="btn btn-primary">Approve</a>

@@ -587,9 +587,9 @@ class HomeController extends Controller
         
         $users123 = $userData->pluck('name', 'id');
         if (Auth()->user()->hasRole('super-admin')) {
-        $service_applications = ServiceApplication::where('current_step', '=', '110')->get();
+        $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->get();
         } else{
-        $service_applications = ServiceApplication::where('current_step', '=', '110')->where('branch_id', '=', Auth::user()->staff->branch_id)->get();
+        $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->where('branch_id', '=', Auth::user()->staff->branch_id)->get();
         }
 
         return view('am', compact('branch', 'services', 'documents1', 'departments_data', 'users123', 'service_applications'));
