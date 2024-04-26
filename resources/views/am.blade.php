@@ -321,9 +321,17 @@
 {{--                                                               <td>{{ $service_application->processingTypes ? $service_application->processingTypes->name : 'NILL' }}</td>
  --}}                                 {{-- <td><?php //$type = \App\Models\ProcessingType::where('service_id', $service_application->id)->first(); ?>
                                       {{ $type->name ?? 'NILL' }}
-                                             </td>               --}}             
-   <td>{{ $service_application->equipment_fees_list ?? 'NILL' }}</td> 
-                                                               <td>{{ $service_application->created_at ?? 'NILL' }}</td>
+                                             </td>               --}} 
+                                             <?php
+// Assuming $service_application->equipment_fees_list is the JSON string
+$equipment_fees_list = json_decode($service_application->equipment_fees_list, true); // Convert JSON to PHP array
+
+$sum = 0;
+foreach ($equipment_fees_list as $item) {
+    $sum += $item['price'];
+} ?>            
+<td>{{ isset($service_application->equipment_fees_list) ? $sum : 'N/A' }}</td>
+<td>{{ $service_application->created_at ?? 'NILL' }}</td>
                                                                <td>
                                                                 <a href="javascript:void(0)" onclick="confirmApproval('{{ route('approve_demand_notice', $service_application->id) }}')" class="btn btn-primary">Approve</a>
                                                             </td>
