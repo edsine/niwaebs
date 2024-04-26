@@ -8,6 +8,8 @@ use App\Models\DocumentsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Modules\Shared\Models\Department;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentsCategoryController extends Controller
 {
@@ -18,13 +20,54 @@ class DocumentsCategoryController extends Controller
     
     public function index()
     {
-        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('REGISTRY OFFICER')) {
-        $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->get();
-    } else {
-        $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->where('department_id', Auth()->user()->staff->department->id)->get();
-    }
 
-        return view('documents_categories.index', compact('documents_categories'));
+     if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY')) {
+        $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->get();
+        
+        $documents_categories1 = DB::table('documents_categories')
+    ->join('documents_manager', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->join('departments', 'documents_manager.department_id', '=', 'departments.id')
+    ->select('documents_manager.id as doc_id', 'departments.name as d_name', 'documents_categories.*', DB::raw('COUNT(documents_manager.id) as count_documents_manager'), 'documents_categories.description', 'documents_categories.id as cat_id', 'documents_categories.created_at as createdAt', 'documents_categories.name as category_name')
+    ->latest('documents_categories.created_at')
+    ->groupBy('documents_manager.id', 'documents_categories.department_id', 'documents_categories.deleted_at', 'departments.name', 'documents_manager.branch_id', 'documents_manager.department_id', 'documents_manager.deleted_at', 'documents_categories.updated_at', 'documents_manager.updated_at', 'documents_manager.created_at', 'documents_manager.created_by', 'documents_manager.document_url', 'documents_categories.description', 'documents_manager.title', 'documents_categories.id', 'documents_categories.created_at', 'documents_categories.name')
+    ->get();
+    } else {
+       
+
+        $documents_categories1 = DB::table('documents_categories')
+    ->join('documents_manager', 'documents_manager.category_id', '=', 'documents_categories.id')
+    ->join('departments', 'documents_manager.department_id', '=', 'departments.id')
+    ->select('documents_manager.id as doc_id', 'departments.name as d_name', 'documents_categories.*', DB::raw('COUNT(documents_manager.id) as count_documents_manager'), 'documents_categories.description', 'documents_categories.id as cat_id', 'documents_categories.created_at as createdAt', 'documents_categories.name as category_name')
+    ->latest('documents_categories.created_at')
+    ->groupBy('documents_manager.id', 'documents_categories.department_id', 'documents_categories.deleted_at', 'departments.name', 'documents_manager.branch_id', 'documents_manager.department_id', 'documents_manager.deleted_at', 'documents_categories.updated_at', 'documents_manager.updated_at', 'documents_manager.created_at', 'documents_manager.created_by', 'documents_manager.document_url', 'documents_categories.description', 'documents_manager.title', 'documents_categories.id', 'documents_categories.created_at', 'documents_categories.name')
+    ->get();
+     $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->where('department_id', Auth()->user()->staff->department->id)->get();
+    } 
+
+
+$users2 = DB::table('users')
+    ->join('staff', 'staff.user_id', '=', 'users.id')
+    ->join('departments', 'departments.id', '=', 'staff.department_id')
+    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
+    //->where('staff.department_id', '=', Auth::user()->staff->department_id)
+    //->where('staff.branch_id', '=', Auth::user()->staff->branch_id)
+    ->get();
+
+// Combine the data
+//$mergedUsers = $users2;
+
+// Process the data for display
+$userData = $users2->map(function ($user) {
+    return [
+        'id' => $user->id,
+        'name' => $user->first_name . ' ' . $user->last_name,
+    ];
+});
+
+$users = $userData->pluck('name', 'id');
+
+
+        return view('documents_categories.index', compact('documents_categories', 'users','documents_categories1'));
     }
 
     public function generateFileNo(Request $request) {
@@ -48,7 +91,7 @@ class DocumentsCategoryController extends Controller
      */
     public function create()
     {
-        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('REGISTRY OFFICER')) {
+        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY')) {
             $departments = Department::get();
         } else {
             //$departments = Department::where('id', Auth()->user()->staff->department->id)->get();
@@ -65,7 +108,7 @@ class DocumentsCategoryController extends Controller
     public function store(StoreDocumentsCategoryRequest $request)
 {
     try {
-        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('REGISTRY OFFICER')) {
+        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY')) {
             $validated = $request->validated();
             /*  if (Auth()->user()->hasRole('super-admin')) {
              $validated['department_id'] = $request->input('department_id');

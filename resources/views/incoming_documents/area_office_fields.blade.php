@@ -1,6 +1,11 @@
+<div class="form-group col-sm-12 mb-3">
+    {!! Form::label('branch_id', 'Select Area Office:') !!}
+    {!! Form::select('branch_id', $branches, null, ['class' => ' form-select', 'required']) !!}
+</div>
+
 <!-- Title Field -->
 <div class="form-group col-sm-12 mb-3">
-    {!! Form::label('title', 'Document Name:') !!}
+    {!! Form::label('title', 'Input Service Type:') !!}
     {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
@@ -17,8 +22,7 @@
 <div class="form-group col-sm-6 mb-3">
     {!! Form::label('phone', 'Sender Phone:') !!}
     {!! Form::number('phone', null, ['class' => 'form-control', 'required']) !!}
-    <input type="hidden" name="department_id" value="15" class="form-control" placeholder="">
-    <input type="hidden" name="branch_id" value="15" class="form-control" placeholder="">
+    <input type="hidden" name="department_id" value="16" class="form-control" required>
 </div>
 
 <!-- Description Field -->
@@ -30,7 +34,7 @@
 
 <!-- Document Url Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('file', 'Upload A File:') !!}
+    {!! Form::label('file', 'Upload Letter Of Intent:') !!}
     <div class="input-group">
         <div class="custom-file">
             {!! Form::file('file', ['class' => 'form-control', 'required', 'id' => 'fileInput', 'accept' => '.pdf,.doc,.docx,image/*', 'required']) !!}
