@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/documents_manager/shared/user/file', 'App\Http\Controllers\DocumentsController@sharedUserFile')->name('documents_manager.shareduserfile');
     Route::post('documents_manager/shareuserfile', [App\Http\Controllers\DocumentsController::class, 'shareUserFile'])->name('documents_manager.shareuserfile');
 
+    Route::post('/store-clicked-link', 'App\Http\Controllers\DocumentsController@storeClickedLink')->name('store_clicked_link');
+    Route::get('/fetch-clicked-links', 'App\Http\Controllers\DocumentsController@fetchClickedLinks')->name('fetch_clicked_links');
+
     //End of document manager
 
     //Start of incoming documents
@@ -146,6 +149,11 @@ Route::post('/add/new/incoming/store/', 'App\Http\Controllers\IncomingDocumentsC
 
 Route::get('/showDepartementalDocuments/{id}', 'App\Http\Controllers\DocumentsController@showDepartementalDocuments');
 Route::get('/showIncomingDepartementalDocuments/{id}', 'App\Http\Controllers\IncomingDocumentsController@showIncomingDepartementalDocuments');
+
+Route::get('/showDepartementalDocumentsAndBranch/{id}', 'App\Http\Controllers\DocumentsController@showDepartementalDocumentsAndBranch');
+//Route::get('/showIncomingDepartementalDocumentsAndBranch/{id}', 'App\Http\Controllers\IncomingDocumentsController@showIncomingDepartementalDocumentsAndBranch');
+
+Route::get('/showDepartementalDocumentsByUser/{id}', 'App\Http\Controllers\DocumentsController@showDepartementalDocumentsByUser');
 
 
 // Start of asset manager
@@ -365,6 +373,7 @@ Route::group(['middleware' => ['auth']], function () {
 // });
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/default_home', [HomeController::class, 'index'])->name('default_home');
     Route::get('/niwa/payments', [ESSPPaymentController::class, 'index'])->name('niwa.payments');
     Route::patch('/approve-payment/{id}', [ESSPPaymentController::class, 'approvePayment'])
         ->name('approvePayment');
@@ -432,7 +441,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/active', [UserController::class, 'getactive'])->name('active');
     Route::get('/pending', [UserController::class, 'getpending'])->name('pending');
-    Route::post('/upload', [UserController::class, 'upload'])->name('upload');
+    Route::post('/bulk_upload_now', [UserController::class, 'upload'])->name('bulk_upload_now');
     Route::get('/bulkUpload', [UserController::class, 'bulkUpload'])->name('bulkUpload');
     Route::get('change-email-password', [UserController::class, 'showChangePasswordForm'])->name('change.email.password.form');
     Route::post('change-email-password', [UserController::class, 'changePassword'])->name('change.email.password');

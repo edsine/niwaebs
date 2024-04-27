@@ -11,43 +11,22 @@
          background-color: #309241 !important;
          color: #ffffff !important;
      }
+     .clicked-link {
+    color: black; /* Change the color to black for clicked links */
+}
  </style>
  <?php 
           if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             $value = "superadmin";
         } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
             $value = "md_user";
-        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
-            $value = "minister";
-        } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
-            $value = "permsec";
-           
-        } else if (Auth::check() && Auth::user()->hasRole('USER')) {
-            $value = "dash";
-           
-        } else if (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
-           $value = "region";
         } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
         $value = "areamanager";
-        } else if (Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT')) {
-       $value = "ed_md";
-        } else if (Auth::check() && Auth::user()->hasRole('ED ADMIN')) {
-       $value = "ed_admin";
-        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+        } else {
 
-            $value = "areamanager";
+            $value = "default_home";
             //atp take note, you have not yet done page for ed_op,no role as ed operation yet
         } 
-        
-         else if (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
-
-            $value = "ed_op";
-            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
-        } 
-        
-        else{
-            $value = "ict";
-        }
  ?>
  <!--begin::Header-->
  <!-- partial:partials/_navbar.html -->

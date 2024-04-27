@@ -36,7 +36,65 @@
         </div>
     </div>
 </div>
+<script>
+    // Function to handle link click
+ function saveData(linkUrl) {
+     var userId = "{{ auth()->id() }}"; // Assuming Laravel's auth()->id() returns the user ID
+     var csrfToken = "{{ csrf_token() }}"; // Get the CSRF token
+     var fullUrl = "{{ asset('') }}" + linkUrl; // Full URL using the asset() function
 
+     
+     // Send an AJAX request to store the clicked link for the user
+     $.ajax({
+         url: "{{ route('store_clicked_link') }}",
+         method: "POST",
+         data: {
+             _token: csrfToken, // Include CSRF token in the data payload
+             userId: userId,
+             linkUrl: linkUrl
+         },
+         success: function(response) {
+             // Do something after successfully storing the clicked link
+             console.log("Link clicked and stored for user " + userId);
+             // Optionally, you can add a class to the clicked link
+             //$(this).addClass("clicked-link");
+             $(".document-link[href='" + fullUrl + "']").addClass("clicked-link");
+         },
+         error: function(xhr, status, error) {
+             console.error("Error storing clicked link: " + error);
+         }
+     });
+ };
+     
+ </script>   
+ 
+ <script>
+     $(document).ready(function() {
+         // Assuming you have some way to identify the user, like user ID
+         var userId = "{{ auth()->id() }}"; // Assuming Laravel's auth()->id() returns the user ID
+         
+ 
+         // Fetch existing clicked links for the user
+         $.ajax({
+             url: "{{ route('fetch_clicked_links') }}",
+             method: "GET",
+             data: {userId: userId},
+             success: function(response) {
+                 //alert(JSON.stringify(response));
+                 // Add the 'clicked-link' class to clicked links
+                 response.forEach(function(link) {
+                    var fullUrl = "{{ asset('') }}" + link.link_url; // Full URL using the asset() function
+
+                     $(".document-link[href='" + fullUrl + "']").addClass("clicked-link");
+                 });
+             },
+             error: function(xhr, status, error) {
+                 console.error("Error fetching clicked links: " + error);
+             }
+         });
+     });
+ </script>
+ 
 <script>
     "use strict";
 

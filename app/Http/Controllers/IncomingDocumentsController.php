@@ -935,6 +935,39 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
     return response()->json($documents);
 }
 
+public function showIncomingDepartementalDocumentsAndBranch(Request $request, $id)
+{
+    $documents = \App\Models\IncomingDocuments::query()
+            ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select(
+                'incoming_documents_categories.id as category_id',
+                'incoming_documents_categories.name as category_name',
+                'incoming_documents_manager.created_at as assigned_created_at',
+                'incoming_documents_manager.id as d_m_id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.full_name as sender_full_name',
+                'incoming_documents_manager.email as sender_email',
+                'incoming_documents_manager.phone as sender_phone',
+                'incoming_documents_manager.document_url',
+                'incoming_documents_categories.description as doc_description',
+                'incoming_documents_manager.status',
+                'incoming_documents_categories.name as cat_name',
+                'departments.name as dep_name',
+                    )
+                ->where('incoming_documents_manager.status','!=', '0')
+                ->latest('incoming_documents_manager.created_at')
+                ->groupBy('incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
+                ->where('incoming_documents_manager.department_id', '=', $id)
+                ->where('incoming_documents_manager.branch_id', '=', auth()->user()->staff->branch_id)
+                ->limit(10)
+                ->get();
+
+
+    return response()->json($documents);
+}
+
+
     public function sharedRole()
     {
         /* /* if (!checkPermission('create document')) {

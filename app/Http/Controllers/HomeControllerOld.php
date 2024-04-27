@@ -25,7 +25,7 @@ use App\Models\Service;
 use App\Models\ServiceApplication;
 
 
-class HomeController extends Controller
+class HomeControllerOld extends Controller
 {
     /**
      * Create a new controller instance.
@@ -54,14 +54,46 @@ class HomeController extends Controller
             return redirect()->route('superadmin');
         } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
             return redirect()->route('md_user');
+        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
+            return redirect()->route('minister');
+        } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
+
+            return redirect()->route('permsec');
+        } else if (Auth::check() && Auth::user()->hasRole('USER')) {
+
+            return redirect()->route('dash');
+        } else if (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
+
+            return redirect()->route('region');
         } else if (Auth::check() && Auth::user()->hasRole('Area Manager'))
+        // else if(Auth::check() && Auth::user()->hasAnyRole(['super-admin', 'branch-manager']))
         {
 
             return redirect()->route('areamanager');
+        } else if (Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT')) {
+
+            return redirect()->route('ed_md');
+        } else if (Auth::check() && Auth::user()->hasRole('ED ADMIN')) {
+
+            return redirect()->route('ed_admin');
+        } else if (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
+
+            return redirect()->route('ed_op');
+            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
+        }
+
+        // else if (Auth::check() && Auth::user()->hasRole('MD')) {
+
+        //     return redirect()->route('md');
+        // }
+
+        // Finance DashBoard
+        else if (Auth::check() && Auth::user()->staff->department_id == 2) {
+            return redirect()->route('dashboard');
         } else {
 
 
-            /* $claims_table = 'death_claims';
+            $claims_table = 'death_claims';
             $claims_death_count = DB::table($claims_table)->count();
             $branch = Branch::get()->prepend('all');
 
@@ -86,134 +118,25 @@ class HomeController extends Controller
 
             //i will add all the information here
 
-            $staff = DB::table('staff')->count(); */
-            $branch = Branch::all();
-            $services = Service::where('branch_id', Auth()->user()->staff->branch_id)->get();
-            
-            $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
-           // $services->prepend('Select Service', 0); // Add an empty option with label 'Select Service'
-           $documents12 = \App\Models\IncomingDocuments::query()
-                    ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
-                    ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
-                    ->select(
-                        'incoming_documents_categories.id as category_id',
-                        'incoming_documents_categories.name as category_name',
-                        'incoming_documents_manager.created_at as document_created_at',
-                        'incoming_documents_manager.id as d_id',
-                        'incoming_documents_manager.title',
-                        'incoming_documents_manager.full_name as sender_full_name',
-                        'incoming_documents_manager.email as sender_email',
-                        'incoming_documents_manager.phone as sender_phone',
-                        'incoming_documents_manager.document_url',
-                        'incoming_documents_categories.description as doc_description',
-                        'incoming_documents_manager.status',
-                        'incoming_documents_categories.name as cat_name',
-                        'departments.name as dep_name',
-                        //'incoming_documents_has_users.user_id',
-                        //'incoming_documents_has_users.assigned_by',
-                        //DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
-                        )
-                    ->where('incoming_documents_manager.status','!=', '0')
-                    ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
-                    ->where('incoming_documents_manager.department_id', Auth()->user()->staff->department_id)
-                    ->latest('incoming_documents_manager.created_at')
-                    ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
-                    ->limit(10)
-                    ->get();
-                    $documents1 = DB::table('incoming_documents_has_users')
-                    ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
-                    ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
-                    ->join('users', 'incoming_documents_has_users.user_id', '=', 'users.id')
-                    ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
-                    ->select(
-                        'incoming_documents_manager.category_id',
-                        'incoming_documents_categories.id',
-                        'incoming_documents_manager.title',
-                        'incoming_documents_manager.full_name as sender_full_name',
-                        'incoming_documents_manager.email as sender_email',
-                        'incoming_documents_manager.phone as sender_phone',
-                        'incoming_documents_has_users.created_at as createdAt',
-                        'incoming_documents_categories.name as category_name',
-                        'incoming_documents_has_users.start_date',
-                        'incoming_documents_has_users.end_date',
-                        'incoming_documents_has_users.allow_share',
-                        'incoming_documents_has_users.is_download',
-                        'incoming_documents_has_users.user_id',
-                        'incoming_documents_has_users.assigned_by',
-                        'incoming_documents_manager.document_url as document_url',
-                        'incoming_documents_manager.id as d_m_id',
-                        'incoming_documents_categories.id as d_m_c_id',
-                        'incoming_documents_categories.name as cat_name',
-                        'departments.name as dep_name',
-                
-                        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
-                        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
-                        DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
-                    )
-                    ->latest('incoming_documents_has_users.created_at')
-                    ->groupBy(
-                        'incoming_documents_categories.id',
-                        'incoming_documents_has_users.start_date',
-                        'incoming_documents_has_users.end_date',
-                        'incoming_documents_manager.id',
-                        'incoming_documents_manager.title',
-                        'incoming_documents_manager.document_url',
-                        'incoming_documents_has_users.id',
-                        'incoming_documents_has_users.created_at',
-                        'incoming_documents_categories.name',
-                        'incoming_documents_has_users.allow_share',
-                        'incoming_documents_has_users.is_download',
-                        'incoming_documents_has_users.user_id',
-                        'incoming_documents_has_users.assigned_by',
-                        'incoming_documents_manager.created_by',
-                        'incoming_documents_manager.category_id',
-                        'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
-                    )
-                    ->where('incoming_documents_has_users.user_id', '=', auth()->user()->id)
-                    //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
-                    ->get();
-    
-                    $dept = Department::get();
-         $deptData = $dept->map(function ($dept1) {
-                return [
-                    'id' => $dept1->id,
-                    'name' => $dept1->name,
-                ];
-            });
-    
-            $departments_data = $deptData->pluck('name', 'id');
-            $departments_data->prepend('Select Department', '');
-    
-            $departments_data1 = $deptData->pluck('name', 'id');
-            //$departments_data1->prepend('Select Department', '');
-    
-             $users1 = DB::table('users')
-        ->join('staff', 'staff.user_id', '=', 'users.id')
-        ->join('departments', 'departments.id', '=', 'staff.department_id')
-        ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
-        ->where('staff.department_id', '=', Auth::user()->staff->department_id) // Explicitly specifying the table name for user_id
-        ->where('staff.branch_id', '=', Auth::user()->staff->branch_id)
-        ->get();
-    
-            $userData = $users1->map(function ($user) {
-                return [
-                    'id' => $user->id,
-                    'name' => $user->first_name . ' ' . $user->last_name,
-                ];
-            });
-            
-    
-    
-            
-            $users123 = $userData->pluck('name', 'id');
-            if (Auth()->user()->hasRole('super-admin')) {
-            $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->get();
-            } else{
-            $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->where('branch_id', '=', Auth::user()->staff->branch_id)->get();
-            }
-    
-            return view('home', compact('branch', 'services', 'documents1', 'departments_data1', 'departments_data', 'users123', 'service_applications'));
-        
+            $staff = DB::table('staff')->count();
+
+            return view('home', compact(
+                'branch',
+                'registered_employers',
+                'pending_employers',
+                'registered_employees',
+                'pending_employees',
+                'claims_death_count',
+                'deathclaims',
+                'staff',
+                'staff_count',
+                'diseaseclaims',
+                'data',
+                'ictstaff',
+                'totalemployers',
+                'pendingclaims',
+                'approvedclaims'
+            ));
         }
     }
 
@@ -605,7 +528,7 @@ class HomeController extends Controller
     public function areamanager()
     {
         $branch = Branch::all();
-        $services = Service::where('branch_id', Auth()->user()->staff->branch_id)->get();
+        $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
         
         $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
        // $services->prepend('Select Service', 0); // Add an empty option with label 'Select Service'
