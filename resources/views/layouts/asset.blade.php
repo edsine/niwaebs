@@ -1,7 +1,7 @@
 <!-- asset manager scripts/css -->
 {{-- <link rel="stylesheet" href="{{ asset('plugin/datatables2/datatables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}"> --}}
-{{-- <script src="{{ asset('js/jquery-3.5.1.min.js')}}"></script> --}}
+<script src="{{ asset('js/jquery-3.5.1.min.js')}}"></script>
 <script src="{{ asset('js/popper.min.js')}}"></script>
 {{-- <script src="{{ asset('js/bootstrap.min.js')}}"></script> --}}
 {{-- <script src="{{ asset('js/bootstrap-datepicker.js')}}"></script> --}}

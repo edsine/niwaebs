@@ -79,9 +79,9 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label><?php echo trans('lang.supplier'); ?></label>
-                                    <select name="supplierid" id="editsupplierid" required class="form-control">
+                                    <select name="supplierid" id="supplierid" required class="form-control">
 
-                                        @foreach ($supplier as $item)
+                                        @foreach ($suppliers as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
@@ -227,7 +227,7 @@
                                     <label><?php echo trans('lang.supplier'); ?></label>
                                     <select name="supplierid" id="editsupplierid" required class="form-control">
 
-                                        @foreach ($supplier as $item)
+                                        @foreach ($suppliers as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
@@ -476,8 +476,9 @@
         <!--end delete data -->
     </section>
 
+<<<<<<< Updated upstream
     <script>
-        $(document).ready(function() {
+       /*  $(document).ready(function() { */
             $('#data').DataTable({
                 ajax: "{{ url('asset/data') }}",
                 columns: [{
@@ -510,428 +511,419 @@
                         searchable: false,
                         visible: false
                     },
+=======
+  @push('page_scripts')
+  <script>
+    /* $(document).ready(function() { */
+        $('#data').DataTable({
+            ajax: "{{ url('asset/data') }}",
+            columns: [{
+                    data: 'id',
+                    orderable: false,
+                    searchable: false,
+                    visible: false
+                },
+                {
+                    data: 'pictures'
+                },
+                {
+                    data: 'assettag'
+                },
+                {
+                    data: 'serial',
+                    orderable: false,
+                    searchable: false,
+                    visible: false
+                },
+                {
+                    data: 'purchasedate',
+                    orderable: false,
+                    searchable: false,
+                    visible: false
+                },
+                {
+                    data: 'cost',
+                    orderable: false,
+                    searchable: false,
+                    visible: false
+                },
+>>>>>>> Stashed changes
 
-                    {
-                        data: 'description',
-                        orderable: false,
-                        searchable: false,
-                        visible: false
-                    },
-                    {
-                        data: 'name'
-                    },
-                    {
-                        data: 'type'
-                    },
-                    {
-                        data: 'brand'
-                    },
-                    {
-                        data: 'location'
-                    },
-                    {
-                        data: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ],
-                buttons: [{
-                        extend: 'copy',
-                        text: 'Copy <i class="fa fa-files-o"></i>',
-                        className: 'btn btn-sm btn-fill btn-info ',
-                        title: '<?php echo trans('lang.asset_list '); ?>',
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        text: 'CSV <i class="fa fa-file-excel-o"></i>',
-                        className: 'btn btn-sm btn-fill btn-info ',
-                        title: '<?php echo trans('lang.asset_list'); ?>',
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        text: 'PDF <i class="fa fa-file-pdf-o"></i>',
-                        className: 'btn btn-sm btn-fill btn-info ',
-                        title: '<?php echo trans('lang.asset_list'); ?>',
-                        orientation: 'landscape',
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
-                        },
-                        customize: function(doc) {
-                            doc.styles.tableHeader.alignment = 'left';
-                            doc.content[1].table.widths = Array(doc.content[1].table.body[0]
-                                    .length + 1)
-                                .join('*').split('');
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        title: '<?php echo trans('lang.asset_list'); ?>',
-                        className: 'btn btn-sm btn-fill btn-info ',
-                        text: 'Print <i class="fa fa-print"></i>',
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
-                        }
-                    }
-                ]
-            });
-
-
-            //get all supplier
-            $.ajax({
-                type: "GET",
-                url: "{{ url('listsupplier') }}",
-                dataType: "JSON",
-                success: function(html) {
-                    var objs = html.message;
-                    jQuery.each(objs, function(index, record) {
-                        var id = decodeURIComponent(record.id);
-                        var name = decodeURIComponent(record.name);
-                        $("#supplierid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                        $("#editsupplierid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                    });
+                {
+                    data: 'description',
+                    orderable: false,
+                    searchable: false,
+                    visible: false
+                },
+                {
+                    data: 'name'
+                },
+                {
+                    data: 'type'
+                },
+                {
+                    data: 'brand'
+                },
+                {
+                    data: 'location'
+                },
+                {
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
                 }
-            });
-
-            //get all employee
-            $.ajax({
-                type: "GET",
-                url: "{{ url('listemployees') }}",
-                dataType: "JSON",
-                success: function(html) {
-                    var objs = html.message;
-                    jQuery.each(objs, function(index, record) {
-                        var id = decodeURIComponent(record.id);
-                        var name = decodeURIComponent(record.fullname);
-                        $("#checkinemployeeid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                        $("#checkoutemployeeid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                    });
-                }
-            });
-
-
-            //get all asset type
-            $.ajax({
-                type: "GET",
-                url: "{{ url('listassettype') }}",
-                dataType: "JSON",
-                success: function(html) {
-                    var objs = html.message;
-                    jQuery.each(objs, function(index, record) {
-                        var id = decodeURIComponent(record.id);
-                        var name = decodeURIComponent(record.name);
-                        $("#typeid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                        $("#edittypeid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                    });
-                }
-            });
-
-            //get all brand 
-            $.ajax({
-                type: "GET",
-                url: "{{ url('listbrand') }}",
-                dataType: "JSON",
-                success: function(html) {
-                    var objs = html.message;
-                    jQuery.each(objs, function(index, record) {
-                        var id = decodeURIComponent(record.id);
-                        var name = decodeURIComponent(record.name);
-                        $("#brandid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                        $("#editbrandid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                    });
-                }
-            });
-
-            //get all location 
-            $.ajax({
-                type: "GET",
-                url: "{{ url('listlocation') }}",
-                dataType: "JSON",
-                success: function(html) {
-                    var objs = html.message;
-                    jQuery.each(objs, function(index, record) {
-                        var id = decodeURIComponent(record.id);
-                        var name = decodeURIComponent(record.name);
-                        $("#locationid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                        $("#editlocationid").append($("<option></option>")
-                            .attr("value", id)
-                            .text(name));
-                    });
-                }
-            });
-
-            //generate product code
-            $.ajax({
-                type: "GET",
-                url: "{{ url('asset/generateproductcode') }}",
-                dataType: "JSON",
-                success: function(html) {
-                    var objs = html.message;
-                    $("#assettag").val(html.message);
-                }
-            });
-
-            //add data
-            $("#formadd").validate({
-                rules: {
-                    warranty: {
-                        required: true,
-                        digits: true,
-                        maxlength: 2
+            ],
+            buttons: [{
+                    extend: 'copy',
+                    text: 'Copy <i class="fa fa-files-o"></i>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    title: '<?php echo trans('lang.asset_list '); ?>',
+                    exportOptions: {
+                        columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
                     }
                 },
-                submitHandler: function(form) {
-                    var form = new FormData();
-                    var name = $("#name").val();
-                    var locationid = $("#locationid").val();
-                    var supplierid = $("#supplierid").val();
-                    var typeid = $("#typeid").val();
-                    var brandid = $("#brandid").val();
-                    var assettag = $("#assettag").val();
-                    var serial = $("#serial").val();
-                    var quantity = $("#quantity").val();
-                    var purchasedate = $("#purchasedate").val();
-                    var cost = $("#cost").val();
-                    var warranty = $("#warranty").val();
-                    var status = $("#status").val();
-                    var description = $("#description").val();
-                    var picture = $('#picture')[0].files[0];
-
-                    form.append('name', name);
-                    form.append('locationid', locationid);
-                    form.append('supplierid', supplierid);
-                    form.append('brandid', brandid);
-                    form.append('typeid', typeid);
-                    form.append('assettag', assettag);
-                    form.append('serial', serial);
-                    form.append('quantity', quantity);
-                    form.append('purchasedate', purchasedate);
-                    form.append('cost', cost);
-                    form.append('warranty', warranty);
-                    form.append('status', status);
-                    form.append('description', description);
-                    form.append('picture', picture);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ url('saveasset') }}",
-                        data: form,
-                        contentType: 'multipart/form-data',
-                        processData: false,
-                        contentType: false,
-                        success: function(data) {
-                            if (data.message == 'success') {
-                                $("#messagesuccess").css({
-                                    'display': "block"
-                                });
-                                $('#add').modal('hide');
-                                window.setTimeout(function() {
-                                    location.reload()
-                                }, 2000);
-                            }
-                            if (data.message == 'exist') {
-                                $(".messageexist").css({
-                                    'display': "block"
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-
-            //edit data
-            $("#formedit").validate({
-                rules: {
-                    warranty: {
-                        required: true,
-                        digits: true,
-                        maxlength: 2
+                {
+                    extend: 'csv',
+                    text: 'CSV <i class="fa fa-file-excel-o"></i>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    title: '<?php echo trans('lang.asset_list'); ?>',
+                    exportOptions: {
+                        columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
                     }
                 },
-                submitHandler: function(form) {
-                    var form = new FormData();
-                    var id = $("#editid").val();
-                    var name = $("#editname").val();
-                    var locationid = $("#editlocationid").val();
-                    var supplierid = $("#editsupplierid").val();
-                    var typeid = $("#edittypeid").val();
-                    var brandid = $("#editbrandid").val();
-                    var assettag = $("#editassettag").val();
-                    var serial = $("#editserial").val();
-                    var quantity = $("#editquantity").val();
-                    var purchasedate = $("#editpurchasedate").val();
-                    var cost = $("#editcost").val();
-                    var warranty = $("#editwarranty").val();
-                    var status = $("#editstatus").val();
-                    var description = $("#editdescription").val();
-                    var picture = $('#editpicture')[0].files[0];
-
-
-                    form.append('id', id);
-                    form.append('name', name);
-                    form.append('locationid', locationid);
-                    form.append('supplierid', supplierid);
-                    form.append('brandid', brandid);
-                    form.append('typeid', typeid);
-                    form.append('assettag', assettag);
-                    form.append('serial', serial);
-                    form.append('quantity', quantity);
-                    form.append('purchasedate', purchasedate);
-                    form.append('cost', cost);
-                    form.append('warranty', warranty);
-                    form.append('status', status);
-                    form.append('description', description);
-                    form.append('picture', picture);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ url('updateasset') }}",
-                        data: form,
-                        contentType: 'multipart/form-data',
-                        processData: false,
-                        contentType: false,
-                        success: function(data) {
-                            console.log(data);
-                            if (data.message == 'success') {
-                                $("#messageupdate").css({
-                                    'display': "block"
-                                });
-                                $('#edit').modal('hide');
-                                window.setTimeout(function() {
-                                    location.reload()
-                                }, 2000);
-                            }
-                            if (data.message == 'exist') {
-                                $(".messageexist").css({
-                                    'display': "block"
-                                });
-                            }
-
-                        }
-                    });
+                {
+                    extend: 'pdf',
+                    text: 'PDF <i class="fa fa-file-pdf-o"></i>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    title: '<?php echo trans('lang.asset_list'); ?>',
+                    orientation: 'landscape',
+                    exportOptions: {
+                        columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    },
+                    customize: function(doc) {
+                        doc.styles.tableHeader.alignment = 'left';
+                        doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                                .length + 1)
+                            .join('*').split('');
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: '<?php echo trans('lang.asset_list'); ?>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    text: 'Print <i class="fa fa-print"></i>',
+                    exportOptions: {
+                        columns: [2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    }
                 }
-            });
+            ]
+        });
 
-            //delete data
-            $("#formdelete").validate({
-                submitHandler: function(form) {
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ url('deleteasset') }}",
-                        data: $("#formdelete").serialize(),
-                        dataType: "JSON",
-                        success: function(data) {
-                            console.log(data);
-                            $("#messagedelete").css({
-                                'display': "block"
-                            });
-                            $('#delete').modal('hide');
-                            window.setTimeout(function() {
-                                location.reload()
-                            }, 2000)
-                        }
-                    });
+
+        //get all supplier
+        $.ajax({
+            type: "GET",
+            url: "{{ url('listsupplier') }}",
+            dataType: "JSON",
+            success: function(html) {
+                var objs = html.message;
+                jQuery.each(objs, function(index, record) {
+                    var id = decodeURIComponent(record.id);
+                    var name = decodeURIComponent(record.name);
+                    $("#supplierid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                    $("#editsupplierid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                });
+            }
+        });
+
+        //get all employee
+        $.ajax({
+            type: "GET",
+            url: "{{ url('listemployees') }}",
+            dataType: "JSON",
+            success: function(html) {
+                var objs = html.message;
+                jQuery.each(objs, function(index, record) {
+                    var id = decodeURIComponent(record.id);
+                    var name = decodeURIComponent(record.fullname);
+                    $("#checkinemployeeid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                    $("#checkoutemployeeid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                });
+            }
+        });
+
+
+        //get all asset type
+        $.ajax({
+            type: "GET",
+            url: "{{ url('listassettype') }}",
+            dataType: "JSON",
+            success: function(html) {
+                var objs = html.message;
+                jQuery.each(objs, function(index, record) {
+                    var id = decodeURIComponent(record.id);
+                    var name = decodeURIComponent(record.name);
+                    $("#typeid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                    $("#edittypeid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                });
+            }
+        });
+
+        //get all brand 
+        $.ajax({
+            type: "GET",
+            url: "{{ url('listbrand') }}",
+            dataType: "JSON",
+            success: function(html) {
+                var objs = html.message;
+                jQuery.each(objs, function(index, record) {
+                    var id = decodeURIComponent(record.id);
+                    var name = decodeURIComponent(record.name);
+                    $("#brandid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                    $("#editbrandid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                });
+            }
+        });
+
+        //get all location 
+        $.ajax({
+            type: "GET",
+            url: "{{ url('listlocation') }}",
+            dataType: "JSON",
+            success: function(html) {
+                var objs = html.message;
+                jQuery.each(objs, function(index, record) {
+                    var id = decodeURIComponent(record.id);
+                    var name = decodeURIComponent(record.name);
+                    $("#locationid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                    $("#editlocationid").append($("<option></option>")
+                        .attr("value", id)
+                        .text(name));
+                });
+            }
+        });
+
+        //generate product code
+        $.ajax({
+            type: "GET",
+            url: "{{ url('asset/generateproductcode') }}",
+            dataType: "JSON",
+            success: function(html) {
+                var objs = html.message;
+                $("#assettag").val(html.message);
+            }
+        });
+
+        //add data
+        $("#formadd").validate({
+            rules: {
+                warranty: {
+                    required: true,
+                    digits: true,
+                    maxlength: 2
                 }
-            });
+            },
+            submitHandler: function(form) {
+                var form = new FormData();
+                var name = $("#name").val();
+                var locationid = $("#locationid").val();
+                var supplierid = $("#supplierid").val();
+                var typeid = $("#typeid").val();
+                var brandid = $("#brandid").val();
+                var assettag = $("#assettag").val();
+                var serial = $("#serial").val();
+                var quantity = $("#quantity").val();
+                var purchasedate = $("#purchasedate").val();
+                var cost = $("#cost").val();
+                var warranty = $("#warranty").val();
+                var status = $("#status").val();
+                var description = $("#description").val();
+                var picture = $('#picture')[0].files[0];
 
-            //show edit data
-            $('#edit').on('show.bs.modal', function(e) {
-                var $modal = $(this),
-                    id = $(e.relatedTarget).attr('customdata');
+                form.append('name', name);
+                form.append('locationid', locationid);
+                form.append('supplierid', supplierid);
+                form.append('brandid', brandid);
+                form.append('typeid', typeid);
+                form.append('assettag', assettag);
+                form.append('serial', serial);
+                form.append('quantity', quantity);
+                form.append('purchasedate', purchasedate);
+                form.append('cost', cost);
+                form.append('warranty', warranty);
+                form.append('status', status);
+                form.append('description', description);
+                form.append('picture', picture);
+
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('assetbyid') }}",
-                    data: {
-                        id: id
-                    },
-                    dataType: "JSON",
+                    url: "{{ url('saveasset') }}",
+                    data: form,
+                    contentType: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
-                        $("#editid").val(id);
-                        $("#editname").val(data.message.assetname);
-                        $("#editlocationid").val(data.message.locationid);
-                        $("#editsupplierid").val(data.message.supplierid);
-                        $("#editbrandid").val(data.message.brandid);
-                        $("#edittypeid").val(data.message.typeid);
-                        $("#editassettag").val(data.message.assettag);
-                        $("#editserial").val(data.message.serial);
-                        $("#editquantity").val(data.message.quantity);
-                        $("#editpurchasedate").val(data.message.purchasedate);
-                        $("#editcost").val(data.message.cost);
-                        $("#editwarranty").val(data.message.warranty);
-                        $("#editstatus").val(data.message.status);
-                        $("#editdescription").val(data.message.assetdescription);
+                        if (data.message == 'success') {
+                            $("#messagesuccess").css({
+                                'display': "block"
+                            });
+                            $('#add').modal('hide');
+                            window.setTimeout(function() {
+                                location.reload()
+                            }, 2000);
+                        }
+                        if (data.message == 'exist') {
+                            $(".messageexist").css({
+                                'display': "block"
+                            });
+                        }
                     }
                 });
-            });
+            }
+        });
+
+        //edit data
+        $("#formedit").validate({
+            rules: {
+                warranty: {
+                    required: true,
+                    digits: true,
+                    maxlength: 2
+                }
+            },
+            submitHandler: function(form) {
+                var form = new FormData();
+                var id = $("#editid").val();
+                var name = $("#editname").val();
+                var locationid = $("#editlocationid").val();
+                var supplierid = $("#editsupplierid").val();
+                var typeid = $("#edittypeid").val();
+                var brandid = $("#editbrandid").val();
+                var assettag = $("#editassettag").val();
+                var serial = $("#editserial").val();
+                var quantity = $("#editquantity").val();
+                var purchasedate = $("#editpurchasedate").val();
+                var cost = $("#editcost").val();
+                var warranty = $("#editwarranty").val();
+                var status = $("#editstatus").val();
+                var description = $("#editdescription").val();
+                var picture = $('#editpicture')[0].files[0];
 
 
-            //checkout
-            $("#formcheckout").validate({
-                submitHandler: function(form) {
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ url('savecheckout') }}",
-                        data: $("#formcheckout").serialize(),
-                        dataType: "JSON",
-                        success: function(data) {
-                            console.log(data);
-                            $("#checkoutsuccess").css({
+                form.append('id', id);
+                form.append('name', name);
+                form.append('locationid', locationid);
+                form.append('supplierid', supplierid);
+                form.append('brandid', brandid);
+                form.append('typeid', typeid);
+                form.append('assettag', assettag);
+                form.append('serial', serial);
+                form.append('quantity', quantity);
+                form.append('purchasedate', purchasedate);
+                form.append('cost', cost);
+                form.append('warranty', warranty);
+                form.append('status', status);
+                form.append('description', description);
+                form.append('picture', picture);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('updateasset') }}",
+                    data: form,
+                    contentType: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.message == 'success') {
+                            $("#messageupdate").css({
                                 'display': "block"
                             });
-                            $('#checkout').modal('hide');
+                            $('#edit').modal('hide');
                             window.setTimeout(function() {
                                 location.reload()
-                            }, 2000)
+                            }, 2000);
                         }
-                    });
-                }
-            });
-
-
-            //checkin
-            $("#formcheckin").validate({
-                submitHandler: function(form) {
-                    $.ajax({
-                        method: "POST",
-                        url: "{{ url('savecheckin') }}",
-                        data: $("#formcheckin").serialize(),
-                        dataType: "JSON",
-                        success: function(data) {
-                            console.log(data);
-                            $("#checkinsuccess").css({
+                        if (data.message == 'exist') {
+                            $(".messageexist").css({
                                 'display': "block"
                             });
-                            $('#checkin').modal('hide');
-                            window.setTimeout(function() {
-                                location.reload()
-                            }, 2000)
                         }
-                    });
+
+                    }
+                });
+            }
+        });
+
+        //delete data
+        $("#formdelete").validate({
+            submitHandler: function(form) {
+                $.ajax({
+                    method: "POST",
+                    url: "{{ url('deleteasset') }}",
+                    data: $("#formdelete").serialize(),
+                    dataType: "JSON",
+                    success: function(data) {
+                        console.log(data);
+                        $("#messagedelete").css({
+                            'display': "block"
+                        });
+                        $('#delete').modal('hide');
+                        window.setTimeout(function() {
+                            location.reload()
+                        }, 2000)
+                    }
+                });
+            }
+        });
+
+        //show edit data
+        $('#edit').on('show.bs.modal', function(e) {
+            var $modal = $(this),
+                id = $(e.relatedTarget).attr('customdata');
+            $.ajax({
+                type: "POST",
+                url: "{{ url('assetbyid') }}",
+                data: {
+                    id: id
+                },
+                dataType: "JSON",
+                success: function(data) {
+                    $("#editid").val(id);
+                    $("#editname").val(data.message.assetname);
+                    $("#editlocationid").val(data.message.locationid);
+                    $("#editsupplierid").val(data.message.supplierid);
+                    $("#editbrandid").val(data.message.brandid);
+                    $("#edittypeid").val(data.message.typeid);
+                    $("#editassettag").val(data.message.assettag);
+                    $("#editserial").val(data.message.serial);
+                    $("#editquantity").val(data.message.quantity);
+                    $("#editpurchasedate").val(data.message.purchasedate);
+                    $("#editcost").val(data.message.cost);
+                    $("#editwarranty").val(data.message.warranty);
+                    $("#editstatus").val(data.message.status);
+                    $("#editdescription").val(data.message.assetdescription);
                 }
             });
+<<<<<<< Updated upstream
 
             //show checkout
             $('#checkout').on('show.bs.modal', function(e) {
@@ -978,6 +970,104 @@
                     id = $(e.relatedTarget).attr('customdata');
                 $("#iddelete").val(id);
             });
-        });
+        /* }); */
     </script>
+=======
+        });
+
+
+        //checkout
+        $("#formcheckout").validate({
+            submitHandler: function(form) {
+                $.ajax({
+                    method: "POST",
+                    url: "{{ url('savecheckout') }}",
+                    data: $("#formcheckout").serialize(),
+                    dataType: "JSON",
+                    success: function(data) {
+                        console.log(data);
+                        $("#checkoutsuccess").css({
+                            'display': "block"
+                        });
+                        $('#checkout').modal('hide');
+                        window.setTimeout(function() {
+                            location.reload()
+                        }, 2000)
+                    }
+                });
+            }
+        });
+
+
+        //checkin
+        $("#formcheckin").validate({
+            submitHandler: function(form) {
+                $.ajax({
+                    method: "POST",
+                    url: "{{ url('savecheckin') }}",
+                    data: $("#formcheckin").serialize(),
+                    dataType: "JSON",
+                    success: function(data) {
+                        console.log(data);
+                        $("#checkinsuccess").css({
+                            'display': "block"
+                        });
+                        $('#checkin').modal('hide');
+                        window.setTimeout(function() {
+                            location.reload()
+                        }, 2000)
+                    }
+                });
+            }
+        });
+
+        //show checkout
+        $('#checkout').on('show.bs.modal', function(e) {
+            var $modal = $(this),
+                id = $(e.relatedTarget).attr('customdata');
+            $.ajax({
+                type: "POST",
+                url: "{{ url('assetbyid') }}",
+                data: {
+                    id: id
+                },
+                dataType: "JSON",
+                success: function(data) {
+                    $("#assetid").val(id);
+                    $("#checkoutname").val(data.message.name);
+                    $("#checkoutassettag").val(data.message.assettag);
+                }
+            });
+        });
+
+        //show checkin
+        $('#checkin').on('show.bs.modal', function(e) {
+            var $modal = $(this),
+                id = $(e.relatedTarget).attr('customdata');
+            $.ajax({
+                type: "POST",
+                url: "{{ url('assetbyid') }}",
+                data: {
+                    id: id
+                },
+                dataType: "JSON",
+                success: function(data) {
+                    $("#checkinassetid").val(id);
+                    $("#checkinname").val(data.message.name);
+                    $("#checkinassettag").val(data.message.assettag);
+                }
+            });
+        });
+
+        //show delete data
+
+        $('#delete').on('show.bs.modal', function(e) {
+            var $modal = $(this),
+                id = $(e.relatedTarget).attr('customdata');
+            $("#iddelete").val(id);
+        });
+   /*  }); */
+</script>
+  @endpush
+>>>>>>> Stashed changes
 @endsection

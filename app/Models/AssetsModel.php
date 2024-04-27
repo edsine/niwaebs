@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AssetsModel extends Model
 {
-	protected $table = 'assets';
+	protected $table = 'niwa_assets';
 
 
 	 public function getStatusAttribute($value)

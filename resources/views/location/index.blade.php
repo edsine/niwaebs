@@ -142,7 +142,7 @@
 </section>
 
 <script>
-$(document).ready(function() {
+/* $(document).ready(function() { */
 
     $('#data').DataTable({
 
@@ -292,6 +292,6 @@ $('#delete').on('show.bs.modal', function(e) {
     id = $(e.relatedTarget).attr('customdata');
     $("#iddelete").val(id);
 });
-});
+/* }); */
 </script>
 @endsection
