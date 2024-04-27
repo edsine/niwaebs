@@ -37,7 +37,7 @@
                         <td>{{ $document->sender_phone ?? 'NILL' }}</td>
                         {{-- <td>{{ $document->description }}</td> --}}
                         {{-- <td>{{ $document->assigned_to_name ?? 'NILL' }}</td> --}}
-                        <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
+                        <td><a class="document-link" target="_blank" href="{{ asset($document->document_url) }}" onClick="saveData('{{ $document->document_url }}')">{{ substr($document->document_url, 10) }} </a>
                         </td>
                         
                         <td>{{ $document->dep_name ? $document->dep_name.' / ' : '' }}{{ $document->cat_name ?? 'NILL' }}</td>

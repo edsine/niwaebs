@@ -5,6 +5,7 @@
     .nav-link{
         font-weight: 600;
     }
+   
 </style>
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
@@ -34,7 +35,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                      {!! Form::label('department_id', 'Cick To Select User Department:', ['style' => 'font-weight:bold;']) !!}
-                                     {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
+                                     {!! Form::select('department_id', $departments_data1, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
                                    
                                         </div>
                                 </div>
@@ -69,18 +70,19 @@
                                         
                                     </div>
                                     
-                                    
+                          {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    --}}       
                                    <script>
                              document.addEventListener("DOMContentLoaded", function () {
                                 // Fetch Departmental Documents based on selected department
                                 document.getElementById('deptSelect1').addEventListener('change', function () {
                                     let departmentId = this.value;
+                                    //alert(departmentId);
                                     fetchDocumentsData(departmentId);
                                 });
                         
                                 // Initial Fetch on Page Load
-                                //let departmentId = document.getElementById('deptSelect').value;
-                                //fetchDocuments(departmentId);
+                                let departmentId = document.getElementById('deptSelect1').value;
+                                fetchDocumentsData(departmentId);
                             });
                         
                             function fetchDocumentsData(departmentId) {
@@ -95,6 +97,7 @@
                             function displayDocumentsData(documents) {
                             let tableBody = document.getElementById('documentsTableBody');
                             tableBody.innerHTML = '';
+                            //alert(JSON.stringify(documents));
                         
                             if (documents.length === 0) {
                                 let noResultsRow = `
@@ -104,7 +107,9 @@
                                 `;
                                 tableBody.insertAdjacentHTML('beforeend', noResultsRow);
                             } else {
+                                //alert(JSON.stringify(documents));
                                 documents.forEach((document, index) => {
+                                    var fullUrl = "{{ asset('') }}" + document.document_url;
                                     let row = `
                                         <tr>
                                             <td>${index + 1}</td>
@@ -112,7 +117,7 @@
                                             <td>${document.created_by_name}</td>
                                             <td>${document.assigned_by_name}</td>
                                             <td>${document.assigned_to_name}</td>
-                                            <td><a target="_blank" href="${ document.document_url }">${ document.document_url.substr(10) }</a></td>
+                                            <td><a class="document-link" target="_blank" onClick="saveData('${ document.document_url }')" href="${ fullUrl }">${ document.document_url.substr(10) }</a></td>
                                             <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal"
                                                                 data-shareuser=${document.d_m_id}>User</a></td>
                                         </tr>
@@ -455,8 +460,10 @@
                                                       <td>{{ $document->sender_email ?? 'NILL' }}</td>
                                                       <td>{{ $document->sender_phone ?? 'NILL' }}</td>
                                                       {{-- <td>{{ $document->description }}</td> --}}
-                                                      <td><a target="_blank" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }} </a>
-                                                      </td>
+                                                      
+                                                      <td>
+                                                        <a class="document-link" target="_blank" onClick="saveData('{{ $document->document_url }}')" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}</a>
+                                                    </td>
                                           <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
                                             data-shareuser={{ $document->d_id }}>User</a></td>  
                                                       <td>{{ $document->doc_description ?? 'NILL' }}</td>
@@ -471,6 +478,7 @@
                     
                         
                     </div>
+                    
                     
                     
                    <script>
@@ -500,6 +508,7 @@
             tableBody.innerHTML = '';
         
             documents.forEach((document, index) => {
+                var fullUrl = "{{ asset('') }}" + document.document_url;
                 let row = `
                     <tr>
                         <td>${index + 1}</td>
@@ -507,7 +516,7 @@
                         <td>${document.sender_full_name}</td>
                         <td>${document.sender_email}</td>
                         <td>${document.sender_phone}</td>
-                        <td><a target="_blank" href="${ document.document_url }">${ document.document_url.substr(10) }</a></td>
+                        <td><a target="_blank" class="document-link" onClick="saveData('${ document.document_url }')" href="${ fullUrl }">${ document.document_url.substr(10) }</a></td>
                         <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
                                             data-shareuser=${document.d_m_id}>User</a></td>
                         <td>${document.doc_description}</td>
@@ -642,5 +651,5 @@ aria-hidden="true" data-backdrop="false">
 
 </script>
 
-           
+
             @endsection
