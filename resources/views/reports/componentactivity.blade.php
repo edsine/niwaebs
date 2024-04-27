@@ -52,7 +52,7 @@
 </section>
 
 <script>
-$(document).ready(function() {    
+/* $(document).ready(function() {  */   
     $('#recentcomponentactivity').DataTable({
 
         ajax: "{{ url('home/recentcomponentactivity')}}",
@@ -130,6 +130,6 @@ $(document).ready(function() {
         ]
     });
 
-});
+/* }); */
 </script>
 @endsection

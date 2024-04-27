@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BrandModel;
 use Yajra\Datatables\Datatables;
 use App\Http\Controllers\TraitSettings;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App;
 use Auth;

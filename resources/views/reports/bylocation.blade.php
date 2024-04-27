@@ -78,7 +78,7 @@
 </section>
 
 <script>
-$(document).ready(function() {   
+/* $(document).ready(function() {   */ 
 
     //get all location 
 $.ajax({
@@ -224,6 +224,6 @@ $.ajax({
         e.preventDefault();
     });
 
-});
+/* }); */
 </script>
 @endsection

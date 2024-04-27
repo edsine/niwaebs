@@ -33,6 +33,7 @@ use App\Repositories\DocumentsCategoryRepository;
 use Modules\WorkflowEngine\Models\Staff;
 use App\Models\DocumentsCategory;
 use App\Repositories\DocumentHasUserFileRepository;
+use App\Models\ClickedLink;
 
 class DocumentsController extends AppBaseController
 {
@@ -223,6 +224,39 @@ class DocumentsController extends AppBaseController
         return view('documents.index', compact('documents', 'users', 'roles'));
     }
 
+    public function storeClickedLink(Request $request)
+{
+    $userId = Auth::id();
+    $linkUrl = $request->input('linkUrl');
+
+    // Check if a record already exists for the given user and link_url
+    $existingRecord = ClickedLink::where('user_id', $userId)
+                                  ->where('link_url',  $linkUrl)
+                                  ->first();
+
+    if ($existingRecord) {
+        // Update the existing record if it already exists
+        $existingRecord->update([
+            'updated_at' => now(), // Update the timestamp
+        ]);
+    } else {
+        // Create a new record if it doesn't exist
+        ClickedLink::create([
+            'user_id' => $userId,
+            'link_url' => $linkUrl,
+        ]);
+    }
+}
+
+public function fetchClickedLinks(Request $request)
+{
+    $userId = $userId = Auth::id();
+
+    // Fetch clicked links for the user
+    $clickedLinks = ClickedLink::where('user_id', $userId)->get();
+
+    return response()->json($clickedLinks);
+}
     public function showDepartementalDocuments(Request $request, $id)
 {
     $documents = DB::table('documents_has_users')
@@ -262,15 +296,78 @@ class DocumentsController extends AppBaseController
             'documents_manager.document_url',
             'documents_has_users.id',
             'documents_has_users.created_at',
-            'documents_categories.name'
+            'documents_categories.name',
+            'documents_manager.category_id',
+            'documents_has_users.allow_share',
+            'documents_has_users.is_download',
+            'documents_has_users.user_id',
+            'documents_has_users.assigned_by',
+            'departments.name',
+            'documents_manager.created_by',
         )
         ->where('documents_manager.department_id', '=', $id)
+        ->where('documents_manager.branch_id', '=', auth()->user()->staff->branch_id)
         ->limit(10)
         ->get();
 
     return response()->json($documents);
 }
 
+public function showDepartementalDocumentsByUser(Request $request, $id)
+{
+    $documents = DB::table('documents_has_users')
+        ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users.document_id')
+        ->join('departments', 'departments.id', '=', 'documents_manager.department_id')
+        ->join('users', 'documents_has_users.user_id', '=', 'users.id')
+        ->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')
+        ->select(
+            'documents_manager.category_id',
+            'documents_categories.id',
+            'documents_manager.title',
+            'documents_has_users.created_at as createdAt',
+            'documents_categories.name as category_name',
+            'documents_has_users.start_date',
+            'documents_has_users.end_date',
+            'documents_has_users.allow_share',
+            'documents_has_users.is_download',
+            'documents_has_users.user_id',
+            'documents_has_users.assigned_by',
+            'documents_manager.document_url as document_url',
+            'documents_manager.id as d_m_id',
+            'documents_categories.id as d_m_c_id',
+            'documents_categories.name as cat_name',
+            'departments.name as dep_name',
+            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.user_id) AS assigned_to_name'),
+            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_has_users.assigned_by) AS assigned_by_name'),
+            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = documents_manager.created_by) AS created_by_name')
+        )
+        ->latest('documents_has_users.created_at')
+        ->groupBy(
+            'documents_manager.department_id',
+            'documents_categories.id',
+            'documents_has_users.start_date',
+            'documents_has_users.end_date',
+            'documents_manager.id',
+            'documents_manager.title',
+            'documents_manager.document_url',
+            'documents_has_users.id',
+            'documents_has_users.created_at',
+            'documents_categories.name',
+            'documents_manager.category_id',
+            'documents_has_users.allow_share',
+            'documents_has_users.is_download',
+            'documents_has_users.user_id',
+            'documents_has_users.assigned_by',
+            'departments.name',
+            'documents_manager.created_by',
+        )
+        ->where('documents_has_users.user_id', '=', auth()->user()->id)
+        //->where('documents_manager.branch_id', '=', auth()->user()->staff->branch_id)
+        ->limit(10)
+        ->get();
+
+    return response()->json($documents);
+}
 
 
     public function documentsByAudits()

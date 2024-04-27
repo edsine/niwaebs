@@ -222,7 +222,7 @@
 </section>
 
 <script>
-$(document).ready(function() {
+/* $(document).ready(function() { */
     $('#recentassetactivity').DataTable({
        
         bFilter:false,
@@ -389,7 +389,7 @@ $(document).ready(function() {
         }
     }); 
 
-});
+/* }); */
 
 
 

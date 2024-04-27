@@ -54,7 +54,7 @@
 </section>
 
 <script>
-$(document).ready(function() {    
+/* $(document).ready(function() {  */   
     $('#data').DataTable({
         
         ajax: "{{ url('maintenance')}}",
@@ -136,6 +136,6 @@ $(document).ready(function() {
         ]
     });
 
-});
+/* }); */
 </script>
 @endsection

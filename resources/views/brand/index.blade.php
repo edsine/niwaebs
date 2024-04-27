@@ -141,154 +141,157 @@
     <!--end delete data -->
 </section>
 
+{{-- @push('page_scripts') --}}
 <script>
-$(document).ready(function() {  
-
-    $('#data').DataTable({
-        ajax: "{{ url('brand')}}",
-        columns: [{
-            data: 'id',
-                orderable: false,
-                searchable: false,
-                visible: false
-            },
-           
-            {
-                data: 'name'
-            },
-            {
-                data: 'description'
-            },
-            {
-                data: 'action',
-                orderable: false,
-                searchable: false
-            }
-        ],
-       
-        buttons: [{
-                extend: 'copy',
-                text: 'Copy <i class="fa fa-files-o"></i>',
-                className: 'btn btn-sm btn-fill btn-info ',
-                title: '<?php echo trans('lang.brand_list ');?>',
-                exportOptions: {
-                    columns: [1, 2]
-                }
-            },
-            {
-                extend: 'csv',
-                text: 'CSV <i class="fa fa-file-excel-o"></i>',
-                className: 'btn btn-sm btn-fill btn-info ',
-                title: '<?php echo trans('lang.brand_list');?>',
-                exportOptions: {
-                    columns: [1, 2]
-                }
-            },
-            {
-                extend: 'pdf',
-                text: 'PDF <i class="fa fa-file-pdf-o"></i>',
-                className: 'btn btn-sm btn-fill btn-info ',
-                title: '<?php echo trans('lang.brand_list');?>',
-                orientation: 'landscape',
-                exportOptions: {
-                    columns: [1, 2]
+    /* $(document).ready(function() {   */
+    
+        $('#data').DataTable({
+            ajax: "{{ url('brand')}}",
+            columns: [{
+                data: 'id',
+                    orderable: false,
+                    searchable: false,
+                    visible: false
                 },
-                customize: function(doc) {
-                    doc.styles.tableHeader.alignment = 'left';
-                    doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1)
-                        .join('*').split('');
+               
+                {
+                    data: 'name'
+                },
+                {
+                    data: 'description'
+                },
+                {
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
                 }
-            },
-            {
-                extend: 'print',
-                title: '<?php echo trans('lang.brand_list');?>',
-                className: 'btn btn-sm btn-fill btn-info ',
-                text: 'Print <i class="fa fa-print"></i>',
-                exportOptions: {
-                    columns: [1, 2]
+            ],
+           
+            buttons: [{
+                    extend: 'copy',
+                    text: 'Copy <i class="fa fa-files-o"></i>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    title: '<?php echo trans('lang.brand_list ');?>',
+                    exportOptions: {
+                        columns: [1, 2]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    text: 'CSV <i class="fa fa-file-excel-o"></i>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    title: '<?php echo trans('lang.brand_list');?>',
+                    exportOptions: {
+                        columns: [1, 2]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    text: 'PDF <i class="fa fa-file-pdf-o"></i>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    title: '<?php echo trans('lang.brand_list');?>',
+                    orientation: 'landscape',
+                    exportOptions: {
+                        columns: [1, 2]
+                    },
+                    customize: function(doc) {
+                        doc.styles.tableHeader.alignment = 'left';
+                        doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1)
+                            .join('*').split('');
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: '<?php echo trans('lang.brand_list');?>',
+                    className: 'btn btn-sm btn-fill btn-info ',
+                    text: 'Print <i class="fa fa-print"></i>',
+                    exportOptions: {
+                        columns: [1, 2]
+                    }
                 }
-            }
-        ]
+            ]
+        });
+    
+    //add data
+    $("#formadd").validate({
+        submitHandler: function(form) {
+            $.ajax({
+                method: "POST",
+                url: "{{ url('savebrand')}}",
+                data: $("#formadd").serialize(),
+                dataType: "JSON",
+                success: function(data) {
+                    console.log(data);
+                    $("#messagesuccess").css({'display':"block"});
+                    $('#add').modal('hide');
+                    window.setTimeout(function(){location.reload()},2000)
+                }
+            });
+        }
     });
-
-//add data
-$("#formadd").validate({
-    submitHandler: function(form) {
+    
+    //edit data
+    $("#formedit").validate({
+        submitHandler: function(form) {
+            $.ajax({
+                method: "POST",
+                url: "{{ url('updatebrand')}}",
+                data: $("#formedit").serialize(),
+                dataType: "JSON",
+                success: function(data) {
+                    console.log(data);
+                    $("#messageupdate").css({'display':"block"});
+                    $('#edit').modal('hide');
+                    window.setTimeout(function(){location.reload()},2000)
+                }
+            });
+        }
+    });
+    
+    //delete data
+    $("#formdelete").validate({
+        submitHandler: function(form) {
+            $.ajax({
+                method: "POST",
+                url: "{{ url('deletebrand')}}",
+                data: $("#formdelete").serialize(),
+                dataType: "JSON",
+                success: function(data) {
+                    console.log(data);
+                    $("#messagedelete").css({'display':"block"});
+                    $('#delete').modal('hide');
+                    window.setTimeout(function(){location.reload()},2000)
+                }
+            });
+        }
+    });
+    
+    //show edit data
+    $('#edit').on('show.bs.modal', function(e) {
+        var $modal = $(this),
+        id = $(e.relatedTarget).attr('customdata');
         $.ajax({
-			method: "POST",
-            url: "{{ url('savebrand')}}",
-            data: $("#formadd").serialize(),
+            type: "POST",
+            url: "{{ url('brandbyid')}}",
+            data: {id:id},
             dataType: "JSON",
             success: function(data) {
-                console.log(data);
-				$("#messagesuccess").css({'display':"block"});
-				$('#add').modal('hide');
-				window.setTimeout(function(){location.reload()},2000)
-            }
-		});
-    }
-});
+                $("#editid").val(id);
+                $("#editname").val(data.message.name);
+                $("#editstatus").val(data.message.status);
+                $("#editdescription").val(data.message.description);
+            }   
+        });
+    });
+    
+    //show delete data
+    $('#delete').on('show.bs.modal', function(e) {
+        var $modal = $(this),
+        id = $(e.relatedTarget).attr('customdata');
+        $("#iddelete").val(id);
+    });
+    /* }); */
+    </script>
+{{-- @endpush --}}
 
-//edit data
-$("#formedit").validate({
-    submitHandler: function(form) {
-        $.ajax({
-			method: "POST",
-            url: "{{ url('updatebrand')}}",
-            data: $("#formedit").serialize(),
-            dataType: "JSON",
-            success: function(data) {
-                console.log(data);
-				$("#messageupdate").css({'display':"block"});
-				$('#edit').modal('hide');
-				window.setTimeout(function(){location.reload()},2000)
-            }
-		});
-    }
-});
-
-//delete data
-$("#formdelete").validate({
-    submitHandler: function(form) {
-        $.ajax({
-			method: "POST",
-            url: "{{ url('deletebrand')}}",
-            data: $("#formdelete").serialize(),
-            dataType: "JSON",
-            success: function(data) {
-                console.log(data);
-				$("#messagedelete").css({'display':"block"});
-				$('#delete').modal('hide');
-				window.setTimeout(function(){location.reload()},2000)
-            }
-		});
-    }
-});
-
-//show edit data
-$('#edit').on('show.bs.modal', function(e) {
-    var $modal = $(this),
-    id = $(e.relatedTarget).attr('customdata');
-	$.ajax({
-		type: "POST",
-		url: "{{ url('brandbyid')}}",
-		data: {id:id},
-		dataType: "JSON",
-		success: function(data) {
-			$("#editid").val(id);
-            $("#editname").val(data.message.name);
-            $("#editstatus").val(data.message.status);
-			$("#editdescription").val(data.message.description);
-		}   
-	});
-});
-
-//show delete data
-$('#delete').on('show.bs.modal', function(e) {
-    var $modal = $(this),
-    id = $(e.relatedTarget).attr('customdata');
-    $("#iddelete").val(id);
-});
-});
-</script>
 @endsection

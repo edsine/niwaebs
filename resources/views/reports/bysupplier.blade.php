@@ -80,7 +80,7 @@
 </section>
 
 <script>
-$(document).ready(function() {    
+/* $(document).ready(function() {  */   
     //get all supplier
     $.ajax({
         type: "GET",
@@ -225,6 +225,6 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-});
+/* }); */
 </script>
 @endsection
