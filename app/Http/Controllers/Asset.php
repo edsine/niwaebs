@@ -7,7 +7,10 @@ use Auth;
 use App\Models\User;
 use Milon\Barcode\DNS2D;
 use App\Models\AssetModel;
+use App\Models\AssetTypeModel;
+use App\Models\SupplierModel;
 use App\Models\BrandModel;
+use App\Models\AssetsModel;
 use Illuminate\Http\Request;
 
 use Yajra\Datatables\Datatables;
@@ -30,14 +33,14 @@ class Asset extends Controller
 
     //return page
     public function index(Request $request) {
-        $location= Branch::all();
-        $brand=DB::table('brand')->get();
-        $type=DB::table('asset_type')->get();
-        $supplier=DB::table('supplier')->get();
+        $location = [];//Branch::all();
+        $brand = [];//BrandModel::all();
+        $type= [];//AssetTypeModel::all();
+        $suppliers = [];//SupplierModel::all();
         
-        $asset= DB::table('assets')->get();
+        $asset= AssetsModel::get();
         if($request->ajax()){
-            $alldata= \DataTables::of($asset)
+            $alldata= DataTables::of($asset)
             ->addIndexColumn()
             ->addColumn('action',function($row){
                 $btn = '<a href="#" data-toggle="tooltip" data-id=" ' . $row->id . ' " data-original-title="Edit" class=" edit  btn-link">Edit </a>';
@@ -45,10 +48,11 @@ class Asset extends Controller
 
                 return $btn;
             })
-            ->rawColumns
+            ->rawColumns(['Action'])
+            ->make(true);
         }
         
-		return view( 'asset.index',compact('location','brand','type','supplier'));
+		return view( 'asset.index',compact('location','brand','type','suppliers'));
     }
 
     
@@ -282,7 +286,7 @@ $res['assetbarcode'] = '<img src="data:image/png;base64,' . $barcode->getBarcode
         else{ 
       
             if($request->hasFile('picture')) {
-                $this->validate($request, ['picture' => 'mimes:jpeg,png,jpg|max:2048'],$message);
+                $this->validate($request, ['picture' => 'mimes:jpeg,png,jpg|max:5120'],$message);
                 $picturename  = date('mdYHis').uniqid().$request->file('picture')->getClientOriginalName();
                 $request->file('picture')->move(public_path("/upload/assets"), $picturename);
                 $data       = array('name'=>$name, 
@@ -564,11 +568,11 @@ $res['assetbarcode'] = '<img src="data:image/png;base64,' . $barcode->getBarcode
 	 */
 
 	public function generateproductcode() {
-        $lastid = DB::table('niwa_assets')->orderBy('id', 'desc')->first();
+        $lastid = AssetsModel::orderBy('id', 'desc')->first();
     
         if ( $lastid ) {
 			$res['success'] = 'success';
-			$res['message']=  'AST'.date('ymd').$lastid->id;
+			$res['message']=  'AST'.date('ymd').''.$lastid->id + 1;
         } else{
             $res['message']=  'AST'.date('ymd').'1';
         }

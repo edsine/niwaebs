@@ -80,7 +80,7 @@
 </section>
 
 <script>
-$(document).ready(function() {    
+/* $(document).ready(function() {   */  
     //get all asset type
     $.ajax({
         type: "GET",
@@ -227,6 +227,6 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-});
+/* }); */
 </script>
 @endsection

@@ -143,7 +143,7 @@
 </section>
 
 <script>
-$(document).ready(function() { 
+/* $(document).ready(function() {  */
     $('#data').DataTable({
 
         processing: true,
@@ -296,6 +296,6 @@ $('#delete').on('show.bs.modal', function(e) {
     $("#iddelete").val(id);
 });
 
-});
+/* }); */
 </script>
 @endsection

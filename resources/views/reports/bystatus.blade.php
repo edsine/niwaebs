@@ -86,7 +86,7 @@
 </section>
 
 <script>
-$(document).ready(function() {    
+/* $(document).ready(function() {  */   
     var tabledata = $('#data').DataTable({
 
         bFilter : false,
@@ -215,6 +215,6 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-});
+/* }); */
 </script>
 @endsection

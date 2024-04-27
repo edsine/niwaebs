@@ -79,9 +79,9 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label><?php echo trans('lang.supplier'); ?></label>
-                                    <select name="supplierid" id="editsupplierid" required class="form-control">
+                                    <select name="supplierid" id="supplierid" required class="form-control">
 
-                                        @foreach ($supplier as $item)
+                                        @foreach ($suppliers as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
@@ -227,7 +227,7 @@
                                     <label><?php echo trans('lang.supplier'); ?></label>
                                     <select name="supplierid" id="editsupplierid" required class="form-control">
 
-                                        @foreach ($supplier as $item)
+                                        @foreach ($suppliers as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
@@ -477,7 +477,7 @@
     </section>
 
     <script>
-        $(document).ready(function() {
+       /*  $(document).ready(function() { */
             $('#data').DataTable({
                 ajax: "{{ url('asset/data') }}",
                 columns: [{
@@ -978,6 +978,6 @@
                     id = $(e.relatedTarget).attr('customdata');
                 $("#iddelete").val(id);
             });
-        });
+        /* }); */
     </script>
 @endsection

@@ -213,7 +213,7 @@
 </section>
 
 <script>
-$(document).ready(function() { 
+/* $(document).ready(function() {  */
 //get all supplier
 $.ajax({
         type: "GET",
@@ -416,6 +416,6 @@ $('#delete').on('show.bs.modal', function(e) {
     id = $(e.relatedTarget).attr('customdata');
     $("#iddelete").val(id);
 });
-});
+/* }); */
 </script>
 @endsection

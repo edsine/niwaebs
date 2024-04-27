@@ -48,7 +48,7 @@
 </section>
 
 <script>
-$(document).ready(function() {  
+/* $(document).ready(function() {  */ 
     $('#recentassetactivity').DataTable({
         ajax: "{{ url('listassetactivityreport')}}",
         columns: [{
@@ -121,6 +121,6 @@ $(document).ready(function() {
         ]
     });
 
-});
+/* }); */
 </script>
 @endsection
