@@ -18,23 +18,23 @@ class AdminFoldersAndDocumentsPermissionsSeeder extends Seeder
     {
         $arrayOfPermissionNames =
             [
-                'read any folder',
-                'update any folder',
-                'delete any folder',
+                ' read any filesr',
+                'update any files',
+                'delete any files',
                 'read any document',
                 'update any document',
                 'delete any document',
 
-                'read branch folder',
-                'update branch folder',
-                'delete branch folder',
+                'read branch files',
+                ' update branch files',
+                'delete branch files',
                 'read branch document',
                 'update branch document',
                 'delete branch document',
 
-                'read department folder',
-                'update department folder',
-                'delete department folder',
+                'read department files',
+                'update department files',
+                ' delete department files',
                 'read department document',
                 'update department document',
                 'delete department document',

@@ -18,10 +18,10 @@ class FoldersPermissionsSeeder extends Seeder
     {
         $arrayOfPermissionNames =
             [
-                'create folder',
-                'read folder',
-                'update folder',
-                'delete folder',
+                'create files',
+                'read files',
+                'update files',
+                'delete files',
             ];
 
         $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {

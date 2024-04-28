@@ -21,8 +21,8 @@ class DTAPermissionsTableSeeder extends Seeder
 
             $arrayOfPermissionNames =
                 [
-                    'approve as md',
-                    'approve as hod',
+                    'approve as md leaveapproval',
+                    ' approve as hod leaveapproval',
                     'approve as account',
                 ];
 

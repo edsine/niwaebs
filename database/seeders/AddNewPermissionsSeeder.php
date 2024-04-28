@@ -34,7 +34,7 @@ class AddNewPermissionsSeeder extends Seeder
             'view finance and marine module',
             'access calendar event planner',
             'view all events calendar',
-            'access hr module',
+            'access  admin hr module leaveapproval',
             'view asset management',
             'send memo',
             'view and filter area officers data',
@@ -44,9 +44,9 @@ class AddNewPermissionsSeeder extends Seeder
             'view operational locations list',
             'view marine dashboard',
             'view engineering dashboard',
-            'view finance and account dashboard',
-            'view audit dashboard',
-            'view corporate affairs dashboard'
+            'view finance and account dashboards',
+            'view audit dashboards',
+            'view corporate affairs dashboards'
         ];
 
         $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {

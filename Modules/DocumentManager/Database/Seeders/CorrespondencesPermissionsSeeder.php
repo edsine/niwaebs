@@ -22,11 +22,11 @@ class CorrespondencesPermissionsSeeder extends Seeder
                 'update correspondence',
                 'delete correspondence',
                 'assign correspondence to department',
-                'read department-correspondence assignment',
-                'delete correspondence-department assignment',
-                'assign correspondence to user',
-                'read user-correspondence assignment',
-                'delete correspondence-user assignment',
+                'read department-correspondence memo Assigned',
+                'delete correspondence-department memo Assigned',
+                'assign correspondence to users',
+                'read user-correspondence  memo Assigned',
+                'delete correspondence-user   memo Assigned',
                 'add comment to correspondence'
             ];
 

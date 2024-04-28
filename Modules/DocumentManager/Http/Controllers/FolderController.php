@@ -44,17 +44,17 @@ class FolderController extends AppBaseController
         }
 
         // Return all folders
-        if (checkPermission('read any folder')) {
+        if (checkPermission(' read any filesr')) {
             $folders = $this->folderRepository->rootFolders()->paginate(10);
         }
 
         // Return folders in user's branch
-        else if (checkPermission('read branch folder')) {
+        else if (checkPermission('read branch files')) {
             $folders = $this->folderRepository->rootFolders()->where('branch_id', $user->staff->branch_id)->paginate(10);
         }
 
         // Return folders in user's department
-        else if (checkPermission('read department folder')) {
+        else if (checkPermission('read department files')) {
             $folders = $this->folderRepository->rootFolders()->where('department_id', $user->staff->department_id)->paginate(10);
         }
 
@@ -74,7 +74,7 @@ class FolderController extends AppBaseController
      */
     public function create()
     {
-        if (!checkPermission('create folder')) {
+        if (!checkPermission('create files')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -97,7 +97,7 @@ class FolderController extends AppBaseController
      */
     public function store(CreateFolderRequest $request)
     {
-        if (!checkPermission('create folder')) {
+        if (!checkPermission('create files')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -199,7 +199,7 @@ class FolderController extends AppBaseController
     public function edit($id)
     {
         $user = Auth::user();
-        if (!checkPermission('update folder')) {
+        if (!checkPermission('update files')) {
             Flash::error('Permission denied');
 
             return redirect(route('folders.index'));
@@ -233,7 +233,7 @@ class FolderController extends AppBaseController
     public function editSubFolder($id, $parent_folder_id)
     {
         $user = Auth::user();
-        if (!checkPermission('update folder')) {
+        if (!checkPermission('update files')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -267,7 +267,7 @@ class FolderController extends AppBaseController
     {
         $user = Auth::user();
         $input = $request->all();
-        if (!checkPermission('update folder')) {
+        if (!checkPermission('update files')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -362,7 +362,7 @@ class FolderController extends AppBaseController
     public function destroy($id)
     {
         $user = Auth::user();
-        if (!checkPermission('delete folder')) {
+        if (!checkPermission('delete files')) {
             Flash::error('Permission denied');
 
             return redirect()->back();

@@ -16,7 +16,7 @@
                 <h3 class="nk-block-title page-title">File Indexing</h3>
                 <div class="row">
                 <div class="col-md-12">
-                    @can("create folder")
+                    @can("create files")
                     
                     <a href="{{ route('documents_category.create') }}" class="btn btn-primary float-end" ><em
                         class="fa fa-user-add"></em> <span>Add New File</span></a>

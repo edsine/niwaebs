@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm-6">
             <a class="btn btn-primary float-end" data-toggle="modal" data-target="#createFolderModal">
-                Create Folder
+                create files
             </a>
         </div>
     </div>

@@ -21,10 +21,10 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
             'read approval request',
             'read approval appraisal',
             'read approval types',
-            'read payments approval',
-            'read documents approval',
-            'approve or decline payments',
-            'approve or decline service application documents',
+            'read niwaexpresspaymentmodule',
+            'read document approval',
+            'approve or decline payments niwaexpresspaymentmodule',
+            'approve or decline service applications documents',
         ];
 
         $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {

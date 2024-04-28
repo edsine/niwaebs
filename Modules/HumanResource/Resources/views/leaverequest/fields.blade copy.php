@@ -110,7 +110,7 @@
 <!-- Description Field -->
 {{-- 
 
-@can(['approve as md_hr', 'approve as leave_officer', 'approve as supervisor_office','approve as approve_status'])
+@can(['approve as md leaveapproval_hr', 'approve as leave_officer', 'approve as supervisor_office','approve as approve_status'])
 <!-- Regional Manager Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('md_hr', 'MD HR') !!}
