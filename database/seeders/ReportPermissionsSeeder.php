@@ -25,7 +25,7 @@ class ReportPermissionsSeeder extends Seeder
             'read cash flow',
             'read income summary',
             'read expense summary',
-            'read income vs expense summary',
+            'approve or decline document niwaexpresspaymentmodule',
             'read tax summary'
         ];
 

@@ -94,17 +94,17 @@
                     <i class="menu-arrow"></i>
                 </a>
                 <ul class="nav flex-column sub-menu">
-                    @can('view md dashboard')
+                    @can('view md dashboards')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('md') }}">MD Overview</a>
                         </li>
                     @endcan
-                    @can('view area office coordination')
+                    @can('view area office coordination dashboards')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('aocadmin') }}">Area Office Cord. Overview</a>
                         </li>
                     @endcan
-                    @can('view areamanager dashboard')
+                    @can('view areamanager dashboards')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('areamanager') }}">Area Manager Overview</a>
                         </li>
@@ -119,18 +119,18 @@
                             <a class="nav-link" href="{{ route('engineering') }}">Engineering Overview</a>
                         </li>
                     @endcan
-                    @can('view finance and account dashboard')
+                    @can('view finance and account dashboards')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('financeadmin') }}">finance and account
                                 Overview</a>
                         </li>
                     @endcan
-                    @can('view audit dashboard')
+                    @can('view audit dashboards')
                         <li class="nav-item">
                             <a class="nav-link" href="auditadmin">Audit Overview</a>
                         </li>
                     @endcan
-                    @can('view corporate affairs dashboard')
+                    @can('view corporate affairs dashboards')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('copaffairs') }}">Corporate Affairs Overview</a>
                         </li>
@@ -220,7 +220,7 @@
             </li>
         @endcan
 
-        @can('view service application setup module')
+        @can('view service applications setup module')
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas fa-check menu-icon"></i>
@@ -536,7 +536,7 @@
         </li>
 
 
-    {{-- @can('view asset manager module') --}}
+    {{-- @can('view asset management module') --}}
         @if (auth()->check() &&
                 (in_array(auth()->user()->staff->department_id, [4, 5, 3, 13]) || auth()->user()->hasRole('super-admin')))
             <li class="nav-item" id="myTask">
@@ -577,37 +577,37 @@
                         <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
                     </li>
 
-                    {{--  @can('read asset manager dashboard') --}}
+                    {{--  @can('read assets managements dashboards') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
                     </li> --}}
                     {{-- @endcan
-                @can('read assets') --}}
+                @can('read asset management') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
                     </li> --}}
                     {{-- @endcan
-                @can('read components') --}}
+                @can('read components asset management') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
                     </li> --}}
                     {{--  @endcan
-                @can('read maintenances') --}}
+                @can('read maintenances asset management') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
                     </li> --}}
                     {{-- @endcan
-                @can('read asset types') --}}
+                @can('read asset management types') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
                     </li> --}}
                     {{-- @endcan
-                @can('read brands') --}}
+                @can(' read brands asset management') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
                     </li> --}}
                     {{--  @endcan
-                @can('read suppliers') --}}
+                @can('read suppliers asset management') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
                     </li> --}}
@@ -617,7 +617,7 @@
                         <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
                     </li> --}}
                     {{--  @endcan
-                @can('read asset manager reports') --}}
+                @can('read asset management reports') --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
                     </li> --}}
@@ -636,7 +636,7 @@
             <i class="menu-arrow"></i>
         </a>
         <ul class="nav flex-column sub-menu">
-            {{--  @can('read asset manager dashboard') --}}
+            {{--  @can('read assets managements dashboards') --}}
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dash') }}"><i class="fas  fa-dashboard "></i>
                     Dashboard</a>
@@ -684,7 +684,7 @@
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-                {{--  @can('read asset manager dashboard') --}}
+                {{--  @can('read assets managements dashboards') --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_document_dashboard') }}"><i class="fas  fa-dashboard "></i>
                         Dashboard</a>

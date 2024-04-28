@@ -19,13 +19,13 @@ class ServiceApplicationPermissionsSeeder extends Seeder
         $arrayOfPermissionNames =
         [
             'read service applications',
-            'approve or decline processing fee',
-            'approve or decline inspection fee',
+            'approve or decline processing fee niwaexpresspaymentmodule',
+            'approve or decline inspection fee niwaexpresspaymentmodule',
             'set inspection status',
             'generate equipment invoice',
-            'approve or decline equipment fee',
-            'approve service application as area officer',
-            'approve service application as hod marine'
+            'approve or decline equipment sericeapproval  fee',
+            'approve service applications as area officer',
+            'approve service applications as hod marine'
         ];
 
         $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {

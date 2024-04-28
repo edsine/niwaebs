@@ -69,7 +69,7 @@ class FolderAPIController extends AppBaseController
      *      path="/folders",
      *      summary="createFolder",
      *      tags={"Folder"},
-     *      description="Create Folder",
+     *      description="create files",
      *      @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(ref="#/components/schemas/Folder")
@@ -157,7 +157,7 @@ class FolderAPIController extends AppBaseController
      *      path="/folders/{id}",
      *      summary="updateFolder",
      *      tags={"Folder"},
-     *      description="Update Folder",
+     *      description="update files",
      *      @OA\Parameter(
      *          name="id",
      *          description="id of Folder",
@@ -213,7 +213,7 @@ class FolderAPIController extends AppBaseController
      *      path="/folders/{id}",
      *      summary="deleteFolder",
      *      tags={"Folder"},
-     *      description="Delete Folder",
+     *      description="delete files",
      *      @OA\Parameter(
      *          name="id",
      *          description="id of Folder",
