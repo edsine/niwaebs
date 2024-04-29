@@ -53,7 +53,7 @@ use Modules\EmployerManager\Http\Controllers\EmployerController;
 */
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [HomeController::class, 'clockIn'])->name('home');
+   // Route::get('/home', [HomeController::class, 'clockIn'])->name('home');
     Route::post('/home/clock-in', [HomeController::class, 'clockIn'])->name('clock-in');
     Route::post('/home/clock-out', [HomeController::class, 'clockOut'])->name('clock-out');
     Route::get('/document/index', 'App\Http\Controllers\EmployerDocumentController@index')->name('document.index');
