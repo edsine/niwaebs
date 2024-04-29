@@ -6,7 +6,7 @@
 
 
 
-    <form class="form" action="{{ route(''uploadpay'') }}" enctype="multipart/form-data" method="post">
+    <form class="form" action="{{ route('uploadpay') }}" enctype="multipart/form-data" method="post">
         @csrf
 
         <div class="row">
