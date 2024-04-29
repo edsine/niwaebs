@@ -20,7 +20,7 @@
             
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
-    @can("create folder")
+    @can("create files")
     <div class="nk-block nk-block-lg">
         <div class="card card-bordered card-preview">
             <div class="card-inner">

@@ -43,13 +43,13 @@
     {!! Form::label('uploaded_doc', ' PDF FILE') !!}
 </div>
 
-@can(['approve as hod','approve as md','approve as account'])
+@can([' approve as hod leaveapproval','approve as md leaveapproval','approve as account'])
 <div class="form-group col-sm-6 my-4">
     {!! Form::label('comments ', 'Comments:') !!}
     {!! Form::textarea('comments',null, ['class' => 'form-control']) !!}
 </div>
 @endcan
-@can('approve as hod')
+@can(' approve as hod leaveapproval')
 <!-- HOD Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('hod_status', 'HOD Status') !!}
@@ -59,7 +59,7 @@
     </div>
 </div>
 @endcan
-@can('approve as md')
+@can('approve as md leaveapproval')
 <!-- MD Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('md_status', 'MD Status') !!}
@@ -79,7 +79,7 @@
     </div>
 </div>
 @endcan
-@can(['approve as hod','approve as md','approve as account'])
+@can([' approve as hod leaveapproval','approve as md leaveapproval','approve as account'])
 <!-- Approval Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('approval_status', 'Approval Status') !!}

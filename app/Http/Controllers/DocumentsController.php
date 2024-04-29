@@ -1562,7 +1562,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         return redirect(route('documents_manager.index'));
     }
     /**
-     * Assign memo to users
+     * assign memo to userss
      */
 
     public function assignToUsers(Request $request)
@@ -1571,7 +1571,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         $memo_id = $input['memo_id'];
         $users = $input['users'];
 
-        /* if (!checkPermission('assign memo to user')) {
+        /* if (!checkPermission('assign memo to users')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -1626,7 +1626,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
      */
     public function assignedUsers(Request $request, $id)
     {
-        /* if (!checkPermission('read user-memo assignment')) {
+        /* if (!checkPermission('read user memo  Assigned')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -1650,7 +1650,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
      */
     public function assignedDepartments(Request $request, $id)
     {
-        /*  if (!checkPermission('read department-memo assignment')) {
+        /*  if (!checkPermission(' read department memo Assigned')) {
             Flash::error('Permission denied');
 
             return redirect()->back();

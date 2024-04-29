@@ -19,7 +19,7 @@ class ProcurementPermissionsSeeder extends Seeder
         $arrayOfPermissionNames =
         [
             'read vendors',
-            'read departmental requistion',
+            'read departmental requisition',
             'read audit requisition',
             'read legal requisition',
             'read md requisition',

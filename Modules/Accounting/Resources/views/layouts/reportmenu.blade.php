@@ -41,7 +41,7 @@
                 <a class="nav-link" href="{{ route('report.expense.summary') }}">Expense Summary</a>
             </li>
         @endcan
-        @can('read income vs expense summary')
+        @can('approve or decline document niwaexpresspaymentmodule')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('report.income.vs.expense.summary') }}">Income Vs Expense</a>
             </li>

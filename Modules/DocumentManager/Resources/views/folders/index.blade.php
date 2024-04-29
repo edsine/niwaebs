@@ -90,7 +90,7 @@
                                         <path opacity="0.3" d="M11 14H8C7.4 14 7 13.6 7 13C7 12.4 7.4 12 8 12H11V14ZM16 12H13V14H16C16.6 14 17 13.6 17 13C17 12.4 16.6 12 16 12Z" fill="currentColor" />
                                     </svg>
                                 </span>
-                                <!--end::Svg Icon-->Create Folder</button>
+                                <!--end::Svg Icon-->create files</button>
                         </a>
                         <!--end::Export-->
                     </div>

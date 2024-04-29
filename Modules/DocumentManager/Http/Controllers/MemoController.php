@@ -233,7 +233,7 @@ $userData = $users1->map(function ($user) {
     }
 
     /**
-     * Assign memo to users
+     * assign memo to userss
      */
 
     public function assignToUsers(Request $request)
@@ -242,7 +242,7 @@ $userData = $users1->map(function ($user) {
         $memo_id = $input['memo_id'];
         $users = $input['users'];
 
-        if (!checkPermission('assign memo to user')) {
+        if (!checkPermission('assign memo to users')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -297,7 +297,7 @@ $userData = $users1->map(function ($user) {
      */
     public function assignedUsers(Request $request, $id)
     {
-        if (!checkPermission('read user-memo assignment')) {
+        if (!checkPermission('read user memo  Assigned')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -321,7 +321,7 @@ $userData = $users1->map(function ($user) {
      */
     public function assignedDepartments(Request $request, $id)
     {
-        if (!checkPermission('read department-memo assignment')) {
+        if (!checkPermission(' read department memo Assigned')) {
             Flash::error('Permission denied');
 
             return redirect()->back();

@@ -341,7 +341,7 @@ var KTFileManagerList = function () {
                         if (status == 'Valid') {
                             // Simulate process for demo only
                             setTimeout(function () {
-                                // Create folder link
+                                // create files link
                                 const folderLink = document.createElement('a');
                                 const folderLinkClasses = ['text-gray-800', 'text-hover-primary'];
                                 folderLink.setAttribute('href', '?page=apps/file-manager/blank');
