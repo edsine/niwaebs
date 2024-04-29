@@ -476,7 +476,6 @@
         <!--end delete data -->
     </section>
 
-<<<<<<< Updated upstream
     <script>
        /*  $(document).ready(function() { */
             $('#data').DataTable({
@@ -511,43 +510,6 @@
                         searchable: false,
                         visible: false
                     },
-=======
-  @push('page_scripts')
-  <script>
-    /* $(document).ready(function() { */
-        $('#data').DataTable({
-            ajax: "{{ url('asset/data') }}",
-            columns: [{
-                    data: 'id',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
-                {
-                    data: 'pictures'
-                },
-                {
-                    data: 'assettag'
-                },
-                {
-                    data: 'serial',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
-                {
-                    data: 'purchasedate',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
-                {
-                    data: 'cost',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
->>>>>>> Stashed changes
 
                 {
                     data: 'description',
@@ -923,8 +885,7 @@
                     $("#editdescription").val(data.message.assetdescription);
                 }
             });
-<<<<<<< Updated upstream
-
+        });
             //show checkout
             $('#checkout').on('show.bs.modal', function(e) {
                 var $modal = $(this),
@@ -972,102 +933,4 @@
             });
         /* }); */
     </script>
-=======
-        });
-
-
-        //checkout
-        $("#formcheckout").validate({
-            submitHandler: function(form) {
-                $.ajax({
-                    method: "POST",
-                    url: "{{ url('savecheckout') }}",
-                    data: $("#formcheckout").serialize(),
-                    dataType: "JSON",
-                    success: function(data) {
-                        console.log(data);
-                        $("#checkoutsuccess").css({
-                            'display': "block"
-                        });
-                        $('#checkout').modal('hide');
-                        window.setTimeout(function() {
-                            location.reload()
-                        }, 2000)
-                    }
-                });
-            }
-        });
-
-
-        //checkin
-        $("#formcheckin").validate({
-            submitHandler: function(form) {
-                $.ajax({
-                    method: "POST",
-                    url: "{{ url('savecheckin') }}",
-                    data: $("#formcheckin").serialize(),
-                    dataType: "JSON",
-                    success: function(data) {
-                        console.log(data);
-                        $("#checkinsuccess").css({
-                            'display': "block"
-                        });
-                        $('#checkin').modal('hide');
-                        window.setTimeout(function() {
-                            location.reload()
-                        }, 2000)
-                    }
-                });
-            }
-        });
-
-        //show checkout
-        $('#checkout').on('show.bs.modal', function(e) {
-            var $modal = $(this),
-                id = $(e.relatedTarget).attr('customdata');
-            $.ajax({
-                type: "POST",
-                url: "{{ url('assetbyid') }}",
-                data: {
-                    id: id
-                },
-                dataType: "JSON",
-                success: function(data) {
-                    $("#assetid").val(id);
-                    $("#checkoutname").val(data.message.name);
-                    $("#checkoutassettag").val(data.message.assettag);
-                }
-            });
-        });
-
-        //show checkin
-        $('#checkin').on('show.bs.modal', function(e) {
-            var $modal = $(this),
-                id = $(e.relatedTarget).attr('customdata');
-            $.ajax({
-                type: "POST",
-                url: "{{ url('assetbyid') }}",
-                data: {
-                    id: id
-                },
-                dataType: "JSON",
-                success: function(data) {
-                    $("#checkinassetid").val(id);
-                    $("#checkinname").val(data.message.name);
-                    $("#checkinassettag").val(data.message.assettag);
-                }
-            });
-        });
-
-        //show delete data
-
-        $('#delete').on('show.bs.modal', function(e) {
-            var $modal = $(this),
-                id = $(e.relatedTarget).attr('customdata');
-            $("#iddelete").val(id);
-        });
-   /*  }); */
-</script>
-  @endpush
->>>>>>> Stashed changes
 @endsection
