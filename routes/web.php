@@ -457,7 +457,7 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::view('/md','md');
 // Route::view('am','am');
 
-Route::get('md_user', [HomeController::class, 'md'])->name('md');
+Route::get('md_user', [HomeController::class, 'md'])->name('md_user');
 
 
 Route::get('areamanager', [HomeController::class, 'areamanager'])->name('am');

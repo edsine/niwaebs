@@ -17,16 +17,16 @@
                     <div class=" justify-content-between">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document Updates</a>
+                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Demand Notice</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Updates</a>
+                                <a class="nav-link" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Update</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Letter Of Intent Updates</a>
+                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Letter Of Intent</a>
                               </li>
                           </ul>
                           <div class="tab-content" id="myTabContent">

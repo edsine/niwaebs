@@ -21,13 +21,13 @@
             <h1 class="text-center mb-5">OVERVIEW</h1>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Updates</a>
+                    <a class="nav-link active" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Update</a>
                   </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Incoming Letter Update</a>
+                  <a class="nav-link" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Incoming Letter</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Departmental Documents Updates</a>
+                  <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Departmental Documents</a>
                 </li>
                 
                 </ul>

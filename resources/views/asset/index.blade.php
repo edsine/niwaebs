@@ -104,7 +104,7 @@
                                         @foreach ($brand as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
-
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -476,41 +476,40 @@
         <!--end delete data -->
     </section>
 
-  @push('page_scripts')
-  <script>
-    /* $(document).ready(function() { */
-        $('#data').DataTable({
-            ajax: "{{ url('asset/data') }}",
-            columns: [{
-                    data: 'id',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
-                {
-                    data: 'pictures'
-                },
-                {
-                    data: 'assettag'
-                },
-                {
-                    data: 'serial',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
-                {
-                    data: 'purchasedate',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
-                {
-                    data: 'cost',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
+    <script>
+       /*  $(document).ready(function() { */
+            $('#data').DataTable({
+                ajax: "{{ url('asset/data') }}",
+                columns: [{
+                        data: 'id',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'pictures'
+                    },
+                    {
+                        data: 'assettag'
+                    },
+                    {
+                        data: 'serial',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'purchasedate',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'cost',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
 
                 {
                     data: 'description',
@@ -644,7 +643,7 @@
             }
         });
 
-        //get all brand
+        //get all brand 
         $.ajax({
             type: "GET",
             url: "{{ url('listbrand') }}",
@@ -664,7 +663,7 @@
             }
         });
 
-        //get all location
+        //get all location 
         $.ajax({
             type: "GET",
             url: "{{ url('listlocation') }}",
@@ -887,99 +886,51 @@
                 }
             });
         });
-
-
-        //checkout
-        $("#formcheckout").validate({
-            submitHandler: function(form) {
+            //show checkout
+            $('#checkout').on('show.bs.modal', function(e) {
+                var $modal = $(this),
+                    id = $(e.relatedTarget).attr('customdata');
                 $.ajax({
-                    method: "POST",
-                    url: "{{ url('savecheckout') }}",
-                    data: $("#formcheckout").serialize(),
+                    type: "POST",
+                    url: "{{ url('assetbyid') }}",
+                    data: {
+                        id: id
+                    },
                     dataType: "JSON",
                     success: function(data) {
-                        console.log(data);
-                        $("#checkoutsuccess").css({
-                            'display': "block"
-                        });
-                        $('#checkout').modal('hide');
-                        window.setTimeout(function() {
-                            location.reload()
-                        }, 2000)
+                        $("#assetid").val(id);
+                        $("#checkoutname").val(data.message.name);
+                        $("#checkoutassettag").val(data.message.assettag);
                     }
                 });
-            }
-        });
+            });
 
-
-        //checkin
-        $("#formcheckin").validate({
-            submitHandler: function(form) {
+            //show checkin
+            $('#checkin').on('show.bs.modal', function(e) {
+                var $modal = $(this),
+                    id = $(e.relatedTarget).attr('customdata');
                 $.ajax({
-                    method: "POST",
-                    url: "{{ url('savecheckin') }}",
-                    data: $("#formcheckin").serialize(),
+                    type: "POST",
+                    url: "{{ url('assetbyid') }}",
+                    data: {
+                        id: id
+                    },
                     dataType: "JSON",
                     success: function(data) {
-                        console.log(data);
-                        $("#checkinsuccess").css({
-                            'display': "block"
-                        });
-                        $('#checkin').modal('hide');
-                        window.setTimeout(function() {
-                            location.reload()
-                        }, 2000)
+                        $("#checkinassetid").val(id);
+                        $("#checkinname").val(data.message.name);
+                        $("#checkinassettag").val(data.message.assettag);
                     }
                 });
-            }
-        });
-
-        //show checkout
-        $('#checkout').on('show.bs.modal', function(e) {
-            var $modal = $(this),
-                id = $(e.relatedTarget).attr('customdata');
-            $.ajax({
-                type: "POST",
-                url: "{{ url('assetbyid') }}",
-                data: {
-                    id: id
-                },
-                dataType: "JSON",
-                success: function(data) {
-                    $("#assetid").val(id);
-                    $("#checkoutname").val(data.message.name);
-                    $("#checkoutassettag").val(data.message.assettag);
-                }
             });
-        });
 
-        //show checkin
-        $('#checkin').on('show.bs.modal', function(e) {
-            var $modal = $(this),
-                id = $(e.relatedTarget).attr('customdata');
-            $.ajax({
-                type: "POST",
-                url: "{{ url('assetbyid') }}",
-                data: {
-                    id: id
-                },
-                dataType: "JSON",
-                success: function(data) {
-                    $("#checkinassetid").val(id);
-                    $("#checkinname").val(data.message.name);
-                    $("#checkinassettag").val(data.message.assettag);
-                }
+            //show delete data
+
+            $('#delete').on('show.bs.modal', function(e) {
+                var $modal = $(this),
+                    id = $(e.relatedTarget).attr('customdata');
+                $("#iddelete").val(id);
             });
-        });
-
-        //show delete data
-
-        $('#delete').on('show.bs.modal', function(e) {
-            var $modal = $(this),
-                id = $(e.relatedTarget).attr('customdata');
-            $("#iddelete").val(id);
-        });
-   /*  }); */
-</script>
-  @endpush
+        /* }); */
+    </script>
 @endsection
