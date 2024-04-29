@@ -18,15 +18,15 @@ class AssetManagerPermissionsSeeder extends Seeder
     {
         $arrayOfPermissionNames =
         [
-            'read asset manager dashboard',
-            'read assets',
-            'read components',
-            'read maintenances',
-            'read asset types',
-            'read brands',
-            'read suppliers',
+            'read assets managements dashboards',
+            'read asset management',
+            'read components asset management',
+            'read maintenances asset management',
+            'read asset management types',
+            ' read brands asset management',
+            'read suppliers asset management',
             'read locations',
-            'read asset manager reports'
+            'read asset management reports'
         ];
 
         $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {

@@ -41,7 +41,7 @@
                                         data-target="#assignToDepartmentsModal"
                                         data-correspondence={{ $correspondence->id }}>Departments</a>
                                 @endcan
-                                @can('assign correspondence to user')
+                                @can('assign correspondence to users')
                                     <a class="open-modal-users btn btn-secondary" href="#" data-toggle="modal"
                                         data-target="#assignToUsersModal"
                                         data-correspondence={{ $correspondence->id }}>Users</a>
@@ -50,11 +50,11 @@
                         </td>
                         <td style="width: 120px;">
                             <div class="btn-group" role="group">
-                                @can('read department-correspondence assignment')
+                                @can('read department-correspondence memo Assigned')
                                     <a class="btn btn-primary"
                                         href="{{ route('correspondences.assignedDepartments', [$correspondence->id]) }}">Departments</a>
                                 @endcan
-                                @can('read user-correspondence assignment')
+                                @can('read user-correspondence  memo Assigned')
                                     <a class="btn btn-secondary"
                                         href="{{ route('correspondences.assignedUsers', [$correspondence->id]) }}">Users</a>
                                 @endcan

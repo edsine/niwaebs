@@ -207,7 +207,7 @@ class CorrespondenceController extends AppBaseController
 
 
     /**
-     * Assign correspondence to users
+     * assign correspondence to userss
      */
 
     public function assignToUsers(Request $request)
@@ -217,7 +217,7 @@ class CorrespondenceController extends AppBaseController
         $correspondence_id = $input['correspondence_id'];
         $users = $input['users'];
 
-        if (!checkPermission('assign correspondence to user')) {
+        if (!checkPermission('assign correspondence to users')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -271,7 +271,7 @@ class CorrespondenceController extends AppBaseController
     }
 
     /**
-     * Assign correspondence to users
+     * assign correspondence to userss
      */
 
     public function addComments(Request $request)
@@ -306,7 +306,7 @@ class CorrespondenceController extends AppBaseController
      */
     public function assignedUsers(Request $request, $id)
     {
-        if (!checkPermission('read user-correspondence assignment')) {
+        if (!checkPermission('read user-correspondence  memo Assigned')) {
             Flash::error('Permission denied');
 
             return redirect()->back();
@@ -330,7 +330,7 @@ class CorrespondenceController extends AppBaseController
      */
     public function assignedDepartments(Request $request, $id)
     {
-        if (!checkPermission('read department-correspondence assignment')) {
+        if (!checkPermission('read department-correspondence memo Assigned')) {
             Flash::error('Permission denied');
 
             return redirect()->back();

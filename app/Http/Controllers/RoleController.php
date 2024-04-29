@@ -54,14 +54,26 @@ class RoleController extends AppBaseController
         $permissions->each(function ($permission) {
             $permission->assigned = false;
         });
+        
 
         $groupedPermissions = $permissions->groupBy(function ($permission) {
             $words = explode(' ', strtolower($permission->name));
-            $commonWords = array_intersect($words, ['user', 'role','folder', 'document','client', 'approval','payments','fee', 'inspection',  'memo','areamanager','md','hod','account','regional', 'medical', 'office','hr','assignment',          
-              'asset management','project',  'milestone', 'bug', 'grant chart', 'project task', 'timesheet',  'area office',      'head office',   'correspondence', 'invoices', 'gifmis',  'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax',   'service',  'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations',  'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal']);
+            // dd($words );
+            $commonWords = array_intersect($words, [
+                'user', 'role', 'files', 'document', 'client','niwaexpresspaymentmodule',
+              'memo', 'dashboards', 'leaveapproval', 'account', ' area office manager', 'medical',
+                'legal', 'qgis and arcgis', 'marine', 'salary',
+                'gifmis', 'finance', 'asset', 'management', 'crm', 'calender', 'locations',
+                'engineering','requisition', 'corporate', 'vendors', 'requisition',
+                'invoices', 'service applications','sericeapproval','product stock', 'cash flow', 'expense', 'tax', 'approval',
+                 'ticket',  'task','documents',
+                , 
+                'area office',    'correspondence',
+                'equipment', 'clients', 'survey','debtors',  ,
+            ]);
             return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
         });
-
+// dd($words);
 
         return view('roles.create')->with('groupedPermissions', $groupedPermissions);
     }
@@ -106,7 +118,7 @@ class RoleController extends AppBaseController
 
         $groupedPermissions = $role_permissions->groupBy(function ($permission) {
             $words = explode(' ', strtolower($permission->name));
-            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
+            $commonWords = array_intersect($words, ['user', 'role', 'client',   'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender',  'engineering', 'audit', 'requisition',  'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients',  'qgis and arcgis','finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets',  'office', 'inspection']);
             return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
         });
 
@@ -143,7 +155,7 @@ class RoleController extends AppBaseController
 
         $groupedPermissions = $permissions->groupBy(function ($permission) {
             $words = explode(' ', strtolower($permission->name));
-            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
+            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence',  'gifmis', 'asset management', 'crm', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate',   'payments','approval', 'service', 'fee', 'equipment', 'ticket', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis','finance', 'cash flow', 'product stock', 'debtors', 'summary', 'coordination', 'assets']);
             return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
         });
 
@@ -173,7 +185,7 @@ class RoleController extends AppBaseController
 
         $groupedPermissions = $permissions->groupBy(function ($permission) {
             $words = explode(' ', strtolower($permission->name));
-            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'finance', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'product stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
+            $commonWords = array_intersect($words, ['user', 'role', 'client',  'bug', 'grant chart',  'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence', 'invoices', 'gifmis', 'asset management', 'crm', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate', 'income', 'expense', 'tax', 'payments', 'approval', 'service', 'fee', 'equipment', 'ticket', 'components', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis', 'legal and procurement', 'finance', 'cash flow', 'stock', 'debtors', 'invoice', 'coordination', 'assets', 'legal', 'office', 'inspection']);
             return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
         });
 
