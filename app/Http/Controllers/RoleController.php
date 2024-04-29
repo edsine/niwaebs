@@ -67,9 +67,8 @@ class RoleController extends AppBaseController
                 'engineering','requisition', 'corporate', 'vendors', 'requisition',
                 'invoices', 'service applications','sericeapproval','product stock', 'cash flow', 'expense', 'tax', 'approval',
                  'ticket',  'task','documents',
-                , 
                 'area office',    'correspondence',
-                'equipment', 'clients', 'survey','debtors',  ,
+                'equipment', 'clients', 'survey','debtors',
             ]);
             return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
         });

@@ -999,6 +999,17 @@
                 <span class="">view service application setup module</span>
             </div>
                     </div> --}}
+                    <div class="row">
+                        <h4 class="mb-3 mt-5">service</h4>
+            <div class="col-6 mb-3">
+                <input class="form-checkbox h-4 w-4 service" name="permissions[]" type="checkbox" value="164" id="permissions[]">
+                <span class="">view service applications module</span>
+            </div>
+            <div class="col-6 mb-3">
+                <input class="form-checkbox h-4 w-4 service" name="permissions[]" type="checkbox" value="166" id="permissions[]">
+                <span class="">view service application setup module</span>
+            </div>
+        </div>
             {{-- <div class="row">
         <h4 class="mb-3 mt-5">fee</h4>
         <div class="col-12 mb-3">
