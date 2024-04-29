@@ -139,7 +139,7 @@
                             <div class="form-group col-md-6 mb-0" >
                                     <label for="purchasedate" class="control-label"><?php echo trans('lang.purchasedate');?></label>     
                                     <div class="input-group mb-0" >                       
-									<input class="form-control setdate" required="" placeholder="<?php echo trans('lang.purchasedate');?>" id="purchasedate" name="purchasedate" type="text">
+									<input class="form-control setdate" required="" placeholder="<?php echo trans('lang.purchasedate');?>" id="purchasedate" name="purchasedate" type="date">
                                     <span class="input-group-addon border-1" id="date" ><i class="fa fa-calendar"></i></span>      
                                 </div>
                                 <label class="error" for="purchasedate"></label>
@@ -262,7 +262,7 @@
                             <div class="form-group col-md-6 mb-0" >
                                     <label for="purchasedate" class="control-label"><?php echo trans('lang.purchasedate');?></label>     
                                     <div class="input-group mb-0" >                       
-									<input class="form-control setdate" required="" placeholder="<?php echo trans('lang.purchasedate');?>" id="editpurchasedate" name="purchasedate" type="text">
+									<input class="form-control setdate" required="" placeholder="<?php echo trans('lang.purchasedate');?>" id="editpurchasedate" name="purchasedate" type="date">
                                     <span class="input-group-addon border-1" id="date" ><i class="fa fa-calendar"></i></span>      
                                 </div>
                                 <label class="error" for="purchasedate"></label>
