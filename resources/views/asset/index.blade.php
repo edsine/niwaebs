@@ -104,7 +104,7 @@
                                         @foreach ($brand as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -476,42 +476,6 @@
         <!--end delete data -->
     </section>
 
-<<<<<<< Updated upstream
-    <script>
-       /*  $(document).ready(function() { */
-            $('#data').DataTable({
-                ajax: "{{ url('asset/data') }}",
-                columns: [{
-                        data: 'id',
-                        orderable: false,
-                        searchable: false,
-                        visible: false
-                    },
-                    {
-                        data: 'pictures'
-                    },
-                    {
-                        data: 'assettag'
-                    },
-                    {
-                        data: 'serial',
-                        orderable: false,
-                        searchable: false,
-                        visible: false
-                    },
-                    {
-                        data: 'purchasedate',
-                        orderable: false,
-                        searchable: false,
-                        visible: false
-                    },
-                    {
-                        data: 'cost',
-                        orderable: false,
-                        searchable: false,
-                        visible: false
-                    },
-=======
   @push('page_scripts')
   <script>
     /* $(document).ready(function() { */
@@ -547,7 +511,6 @@
                     searchable: false,
                     visible: false
                 },
->>>>>>> Stashed changes
 
                 {
                     data: 'description',
@@ -681,7 +644,7 @@
             }
         });
 
-        //get all brand 
+        //get all brand
         $.ajax({
             type: "GET",
             url: "{{ url('listbrand') }}",
@@ -701,7 +664,7 @@
             }
         });
 
-        //get all location 
+        //get all location
         $.ajax({
             type: "GET",
             url: "{{ url('listlocation') }}",
@@ -923,56 +886,6 @@
                     $("#editdescription").val(data.message.assetdescription);
                 }
             });
-<<<<<<< Updated upstream
-
-            //show checkout
-            $('#checkout').on('show.bs.modal', function(e) {
-                var $modal = $(this),
-                    id = $(e.relatedTarget).attr('customdata');
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('assetbyid') }}",
-                    data: {
-                        id: id
-                    },
-                    dataType: "JSON",
-                    success: function(data) {
-                        $("#assetid").val(id);
-                        $("#checkoutname").val(data.message.name);
-                        $("#checkoutassettag").val(data.message.assettag);
-                    }
-                });
-            });
-
-            //show checkin
-            $('#checkin').on('show.bs.modal', function(e) {
-                var $modal = $(this),
-                    id = $(e.relatedTarget).attr('customdata');
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('assetbyid') }}",
-                    data: {
-                        id: id
-                    },
-                    dataType: "JSON",
-                    success: function(data) {
-                        $("#checkinassetid").val(id);
-                        $("#checkinname").val(data.message.name);
-                        $("#checkinassettag").val(data.message.assettag);
-                    }
-                });
-            });
-
-            //show delete data
-
-            $('#delete').on('show.bs.modal', function(e) {
-                var $modal = $(this),
-                    id = $(e.relatedTarget).attr('customdata');
-                $("#iddelete").val(id);
-            });
-        /* }); */
-    </script>
-=======
         });
 
 
@@ -1069,5 +982,4 @@
    /*  }); */
 </script>
   @endpush
->>>>>>> Stashed changes
 @endsection

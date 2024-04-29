@@ -232,7 +232,19 @@
 
                 </ul>
             </li>
+
+        @endcan
+
+        @if (auth()->user()->hasRole('super-admin'))
+            <li class=" nav-item" id="myTask">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-columns menu-icon"></i>
+                    <span class="menu-title">Mass Upload</span>
+                    <i class="menu-arrow"></i>
+                </a>
+
         {{-- @endcan --}}
+
 
         @can('view my task module')
             <li class="nav-item" id="myTask">
