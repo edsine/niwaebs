@@ -1175,16 +1175,16 @@
                 <span class="">view incoming documents</span>
             </div>
                     </div>
-            <div class="row">
+           {{--  <div class="row">
         <h4 class="mb-3 mt-5">view overview module</h4>
         <div class="col-12 mb-3">
-        {{--     <a href="#" class="check-all-link" data-group="view overview module">Select All</a> <!-- Add Check All link -->
-         --}}</div>
+            <a href="#" class="check-all-link" data-group="view overview module">Select All</a> <!-- Add Check All link -->
+        </div>
                             <div class="col-6 mb-3">
                 <input class="form-checkbox h-4 w-4 view overview module" name="permissions[]" type="checkbox" value="172" id="permissions[]">
                 <span class="">view overview module</span>
             </div>
-                    </div>
+                    </div> --}}
         
         
         </div>
