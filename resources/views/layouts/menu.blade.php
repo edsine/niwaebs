@@ -306,7 +306,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
         @endcan
 
         @if (auth()->user()->hasRole('super-admin'))
-            <li class=" nav-item">
+            <li class=" nav-item" id="myTask">
                 <a href="#" class="nav-link">
                     <i class="fas fa-columns menu-icon"></i>
                     <span class="menu-title">Mass Upload</span>
