@@ -261,11 +261,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                             <span>Service Record</span>
                         </a>
                     </li>
+                </ul>
             </li>
-            @endcan
+        @endcan
 
 
-            @can('view my task module')
+        @can('view my task module')
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas fa-columns menu-icon"></i>
