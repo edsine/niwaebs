@@ -40,11 +40,9 @@ class ServiceApplicationController extends AppBaseController
         if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
 
             $serviceApplications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '>', 3)->paginate(10);
-
         } else {
-            
-            $serviceApplications = ServiceApplication::orderBy('id','desc')->where('branch_id', Auth()->user()->staff->branch_id)->where('current_step', '>', 3)->paginate(10);
 
+            $serviceApplications = ServiceApplication::orderBy('id', 'desc')->where('branch_id', Auth()->user()->staff->branch_id)->where('current_step', '>', 3)->paginate(10);
         }
         return view('service_applications.index')
             ->with('serviceApplications', $serviceApplications);
@@ -80,6 +78,13 @@ class ServiceApplicationController extends AppBaseController
     {
         return view('service_applications.upload');
     }
+
+    public function showserviceupload()
+    {
+        $serviceApplications=ServiceApplication::paginate();
+        return view('service_applications.showmassupload',compact('serviceApplications'));
+    }
+
     public function serviceupload(Request $request)
     {
         // dd($request->all());
@@ -91,22 +96,25 @@ class ServiceApplicationController extends AppBaseController
             return back()->withErrors($validator)->withInput();
         }
 
+
         if ($request->hasFile('file')) {
 
             try {
-                $file=$request->file('file');
-                $import= new Servicesapplication();
-                Excel::import($import,$file);
+                $file = $request->file('file');
+                $import = new Servicesapplication();
+
+                //   Excel::import($import,$file);
+                Excel::import(new Servicesapplication(), $file);
+
 
                 Flash::success('SUCCESSFULLY DONE');
-               
-                return back()->with('message','SUCCESSFULLY DONE');
+
+                return redirect()->route('serviceappdata')->with('message', 'SUCCESSFULLY UPLOADED');
             } catch (\Throwable $th) {
                 Flash::error($th->getMessage());
                 return back()->with('message', $th->getMessage());
             }
         }
-        
     }
 
     public function show($id)
@@ -444,11 +452,11 @@ class ServiceApplicationController extends AppBaseController
             return redirect()->back();
         }
 
-                $serviceApplication->current_step = 11;
-                $serviceApplication->status_summary = "Payment of equipment fees required, Invoice has been sent to you";
-                //$serviceApplication->equipment_fees_list = $equipment;
-                $serviceApplication->save();
-                Flash::success('Demand notice approved');
+        $serviceApplication->current_step = 11;
+        $serviceApplication->status_summary = "Payment of equipment fees required, Invoice has been sent to you";
+        //$serviceApplication->equipment_fees_list = $equipment;
+        $serviceApplication->save();
+        Flash::success('Demand notice approved');
 
         return redirect()->back();
     }

@@ -13,14 +13,14 @@
 
             <div class="form-group col-6">
 
-                <label for="" class=" form-label text-uppercase">Upload Service Application <i
+                <label for="" class=" form-label text-uppercase">Upload Service Application Record <i
                         class=" text-danger">*</i></label>
                 <input type="file" name="file" class=" form-control file col-8" id="">
             </div>
 
             <div class="form-group col-6 mt-2">
                 <a href="{{ route('savapdownload') }}" class="btn  btn-secondary  btn-sm "> <i class=" bi bi-download"></i>
-                    DOWNLOAD SAMPLE</a>
+                    DOWNLOAD A SAMPLE</a>
 
             </div>
             <div class="form-group">

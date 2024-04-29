@@ -144,7 +144,7 @@ class EmployerController extends AppBaseController
         foreach ($lastThreeYears as $year) {
             $totalEmployees[$year] = DB::table('employees')
                 ->where('employer_id', $certificate->employer->id)
-                ->whereYear('created_at', '=', $year) // Update the whereYear condition 
+                ->whereYear('created_at', '=', $year) // Update the whereYear condition
                 ->count();
 
             $paymentsAmount[$year] = DB::table('payments')
@@ -229,6 +229,14 @@ class EmployerController extends AppBaseController
     }
 
 
+    public function showmassemployers()
+    {
+        // dd('ddd');
+        $datas=Employer::all();
+
+        return view('upload.employersrecord',compact('datas'));
+    }
+
     public function storemass(Request $request)
     {
         // dd($request->all());
@@ -246,11 +254,12 @@ class EmployerController extends AppBaseController
                 $file = $request->file('file');
                 $import = new EmployerImport();
 
-                Excel::import($import, $file);
+                // Excel::import($import, $file);
+                Excel::import(new EmployersImport(), request()->file('file'));
 
                 Flash::success('SUCCESSFULLY DONE');
 
-                return back()->with('message', 'SUCCESSFULLY DONE');
+                return redirect()->route('showemplist')->with('message', 'SUCCESSFULLY DONE');
             } catch (\Throwable $th) {
                 Flash::error($th->getMessage());
                 return back()->with('message', $th->getMessage());
@@ -260,25 +269,25 @@ class EmployerController extends AppBaseController
 
     public function downloademployersample()
     {
-        
-        $file = public_path('excelfile\employersrecord.xlsx'); // Path to your sample Excel file
-        
-        // Return the file as a download response
-        return Response::download($file, 'employerssample.xlsx');
 
+        $file = public_path('excelfile\applicantsrecord.xlsx');
+
+
+        return Response::download($file, 'applicantdatasample.xlsx');
     }
     public function downloadpaymentsample()
     {
-       
-        $file = public_path('excelfile\paymentrecord.xlsx'); // Path to your sample Excel file
-        
-        // Return the file as a download response
+
+        $file = public_path('excelfile\paymentrecord.xlsx');
+
+
         return Response::download($file, 'paymenthistorysample.xlsx');
     }
-    public function downloadservicesample()
-    { $file = public_path('excelfile\serviceapplication.xlsx'); // Path to your sample Excel file
-        
-        // Return the file as a download response
+    public function downloadservicesamples()
+    {
+        $file = public_path('excelfile\serviceapplication.xlsx');
+
+
         return Response::download($file, 'serviceapplicationsample.xlsx');
     }
     public function displayform()
