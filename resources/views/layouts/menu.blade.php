@@ -17,35 +17,17 @@
         font-size: larger;
     }
 </style>
-<?php
-if (Auth::check() && Auth::user()->hasRole('super-admin')) {
-    $value = 'superadmin';
-} elseif (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
-    $value = 'md_user';
-} elseif (Auth::check() && Auth::user()->hasRole('minister')) {
-    $value = 'minister';
-} elseif (Auth::check() && Auth::user()->hasRole('permsec')) {
-    $value = 'permsec';
-} elseif (Auth::check() && Auth::user()->hasRole('USER')) {
-    $value = 'dash';
-} elseif (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
-    $value = 'region';
-} elseif (Auth::check() && Auth::user()->hasRole('Area Manager')) {
-    $value = 'areamanager';
-} elseif (Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT')) {
-    $value = 'ed_md';
-} elseif (Auth::check() && Auth::user()->hasRole('ED ADMIN')) {
-    $value = 'ed_admin';
-} elseif (Auth::check() && Auth::user()->hasRole('Area Manager')) {
-    $value = 'areamanager';
-    //atp take note, you have not yet done page for ed_op,no role as ed operation yet
-} elseif (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
-    $value = 'ed_op';
-    //atp take note, you have not yet done page for ed_op,no role as ed operation yet
-} else {
-    $value = 'ict';
-}
-?>
+<?php 
+          if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+            $value = "superadmin";
+        } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
+            $value = "md_user";
+        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+            $value = "areamanager";
+        } else{
+            $value = "home";
+        }
+ ?>
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar-text  sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
@@ -74,65 +56,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                 <i class="fas fa-home menu-icon"></i>
                 <span class="menu-title">Overview</span>
 
-
+                
             </a>
         </li>
-        @can('view overview module')
-            <li class="nav-item" id="myTask">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-home menu-icon"></i>
-                    <span class="menu-title">Overview</span>
-
-                    <i class="menu-arrow"></i>
-                </a>
-                <ul class="nav flex-column sub-menu">
-                    @can('view md dashboards')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('md') }}">MD Overview</a>
-                        </li>
-                    @endcan
-                    @can('view area office coordination dashboards')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('aocadmin') }}">Area Office Cord. Overview</a>
-                        </li>
-                    @endcan
-                    @can('view areamanager dashboards')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('areamanager') }}">Area Manager Overview</a>
-                        </li>
-                    @endcan
-                    @can('view marine dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('marineadmin') }}">Marine Overview</a>
-                        </li>
-                    @endcan
-                    @can('view engineering dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('engineering') }}">Engineering Overview</a>
-                        </li>
-                    @endcan
-                    @can('view finance and account dashboards')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('financeadmin') }}">finance and account
-                                Overview</a>
-                        </li>
-                    @endcan
-                    @can('view audit dashboards')
-                        <li class="nav-item">
-                            <a class="nav-link" href="auditadmin">Audit Overview</a>
-                        </li>
-                    @endcan
-                    @can('view corporate affairs dashboards')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('copaffairs') }}">Corporate Affairs Overview</a>
-                        </li>
-                    @endcan
-                </ul>
-
-            </li>
-        @endcan
-
-        @can('view user managment module')
+        
+            
+        {{-- @can('view user managment module') --}}
             @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
                 <li class="nav-item" id="myTask">
                     <a class="nav-link" href="#">
@@ -160,7 +89,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
 
                 </li>
             @endif
-        @endcan
+        {{-- @endcan --}}
 
         @can('view service applications module')
             @if (auth()->check() &&
@@ -212,7 +141,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             </li>
         @endcan
 
-        @can('view service applications setup module')
+        @can('view service application setup module')
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas fa-check menu-icon"></i>
@@ -263,7 +192,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             <!-- End Of REport System Menu -->
         @endif
 
-        @can('view operational task module')
+        {{-- @can('view operational task module') --}}
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="fas fa-tasks menu-icon"></i>
@@ -303,38 +232,8 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
 
                 </ul>
             </li>
-        @endcan
+        {{-- @endcan --}}
 
-        @if (auth()->user()->hasRole('super-admin'))
-            <li class=" nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-columns menu-icon"></i>
-                    <span class="menu-title">Mass Upload</span>
-                    <i class="menu-arrow"></i>
-                </a>
-
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('payhistoryform') }}">
-                            <i class="fas menu-icon fa-book"></i>
-                            <span>Payment Record</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('document.create') }}">
-                            <i class="fas fa-balance-scale menu-icon"></i>
-                            <span>Services Record</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('document.create') }}">
-                            <i class="fas fa-balance-scale menu-icon"></i>
-                            <span>Applicants Record</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        @endif
         @can('view my task module')
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
@@ -548,106 +447,106 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
 
             </a>
         </li>
-    @endif
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('niwamessenger') }}">
-            <i class="bi bi-messenger menu-icon"></i>
-            <span class="menu-title">Messenger</span>
+        @endif
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('niwamessenger') }}">
+                <i class="bi bi-messenger menu-icon"></i>
+                <span class="menu-title">Messenger</span>
 
-        </a>
-    </li>
-
-
-    {{-- @can('view asset management module') --}}
-    @if (auth()->check() &&
-            (in_array(auth()->user()->staff->department_id, [4, 5, 3, 13]) || auth()->user()->hasRole('super-admin')))
-        <li class="nav-item" id="myTask">
-            <a class="nav-link" href="#">
-                <i class="fas  fa-passport menu-icon"></i>
-                <span class="menu-title">Asset Manager</span>
-                <i class="menu-arrow"></i>
             </a>
-            <ul class="nav flex-column sub-menu">
+        </li>
 
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
-                </li>
+    {{-- @can('view asset manager module') --}}
+        @if (auth()->check() &&
+                (in_array(auth()->user()->staff->department_id, [4, 5, 3, 13]) || auth()->user()->hasRole('super-admin')))
+            <li class="nav-item" id="myTask">
+                <a class="nav-link" href="#">
+                    <i class="fas  fa-passport menu-icon"></i>
+                    <span class="menu-title">Asset Manager</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <ul class="nav flex-column sub-menu">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
-                </li>
 
-                {{--  @can('read assets managements dashboards') --}}
-                {{-- <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
+                    </li>
+
+                    {{--  @can('read asset manager dashboard') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('asset/home') }}"><?php echo trans('lang.dashboard'); ?></a>
                     </li> --}}
-                {{-- @endcan
-                @can('read asset management') --}}
-                {{-- <li class="nav-item">
+                    {{-- @endcan
+                @can('read assets') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assetlist') }}"><?php echo trans('lang.assetmenu'); ?></a>
                     </li> --}}
-                {{-- @endcan
-                @can('read components asset management') --}}
-                {{-- <li class="nav-item">
+                    {{-- @endcan
+                @can('read components') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('componentlist') }}"><?php echo trans('lang.componentmenu'); ?></a>
                     </li> --}}
-                {{--  @endcan
-                @can('read maintenances asset management') --}}
-                {{-- <li class="nav-item">
+                    {{--  @endcan
+                @can('read maintenances') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('maintenancelist') }}"><?php echo trans('lang.maintenancemenu'); ?></a>
                     </li> --}}
-                {{-- @endcan
-                @can('read asset management types') --}}
-                {{-- <li class="nav-item">
+                    {{-- @endcan
+                @can('read asset types') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('assettypelist') }}"><?php echo trans('lang.assettypemenu'); ?></a>
                     </li> --}}
-                {{-- @endcan
-                @can(' read brands asset management') --}}
-                {{-- <li class="nav-item">
+                    {{-- @endcan
+                @can('read brands') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('brandlist') }}"><?php echo trans('lang.brandmenu'); ?></a>
                     </li> --}}
-                {{--  @endcan
-                @can('read suppliers asset management') --}}
-                {{-- <li class="nav-item">
+                    {{--  @endcan
+                @can('read suppliers') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('supplierlist') }}"><?php echo trans('lang.suppliermenu'); ?></a>
                     </li> --}}
-                {{--  @endcan
+                    {{--  @endcan
                 @can('read locations') --}}
-                {{-- <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('locationlist') }}"><?php echo trans('lang.locationmenu'); ?></a>
                     </li> --}}
-                {{--  @endcan
-                @can('read asset management reports') --}}
-                {{-- <li class="nav-item">
+                    {{--  @endcan
+                @can('read asset manager reports') --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('reports/allreports') }}"><?php echo trans('lang.reportmenu'); ?></a>
                     </li> --}}
-                {{--  @endcan --}}
+                    {{--  @endcan --}}
 
-            </ul>
-        </li>
-    @endif
+                </ul>
+            </li>
+        @endif
     {{-- @endcan --}}
 
 
@@ -658,7 +557,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             <i class="menu-arrow"></i>
         </a>
         <ul class="nav flex-column sub-menu">
-            {{--  @can('read assets managements dashboards') --}}
+            {{--  @can('read asset manager dashboard') --}}
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dash') }}"><i class="fas  fa-dashboard "></i>
                     Dashboard</a>
@@ -706,7 +605,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-                {{--  @can('read assets managements dashboards') --}}
+                {{--  @can('read asset manager dashboard') --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_document_dashboard') }}"><i class="fas  fa-dashboard "></i>
                         Dashboard</a>
@@ -815,3 +714,4 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
         });
     });
 </script>
+
