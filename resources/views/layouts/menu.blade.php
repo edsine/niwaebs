@@ -22,36 +22,10 @@
             $value = "superadmin";
         } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
             $value = "md_user";
-        } else if (Auth::check() && Auth::user()->hasRole('minister')) {
-            $value = "minister";
-        } else if (Auth::check() && Auth::user()->hasRole('permsec')) {
-            $value = "permsec";
-           
-        } else if (Auth::check() && Auth::user()->hasRole('USER')) {
-            $value = "dash";
-           
-        } else if (Auth::check() && Auth::user()->hasRole('Regional Manager')) {
-           $value = "region";
         } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
-        $value = "areamanager";
-        } else if (Auth::check() && Auth::user()->hasRole('ED FINANCE & ACCOUNT')) {
-       $value = "ed_md";
-        } else if (Auth::check() && Auth::user()->hasRole('ED ADMIN')) {
-       $value = "ed_admin";
-        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
-
             $value = "areamanager";
-            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
-        } 
-        
-         else if (Auth::check() && Auth::user()->hasRole('ED OPERATION')) {
-
-            $value = "ed_op";
-            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
-        } 
-        
-        else{
-            $value = "ict";
+        } else{
+            $value = "home";
         }
  ?>
 <!-- partial:partials/_sidebar.html -->
@@ -85,60 +59,7 @@
                 
             </a>
         </li>
-        @can('view overview module')
-            <li class="nav-item" id="myTask">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-home menu-icon"></i>
-                    <span class="menu-title">Overview</span>
-
-                    <i class="menu-arrow"></i>
-                </a>
-                <ul class="nav flex-column sub-menu">
-                    @can('view md dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('md') }}">MD Overview</a>
-                        </li>
-                    @endcan
-                    @can('view area office coordination')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('aocadmin') }}">Area Office Cord. Overview</a>
-                        </li>
-                    @endcan
-                    @can('view areamanager dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('areamanager') }}">Area Manager Overview</a>
-                        </li>
-                    @endcan
-                    @can('view marine dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('marineadmin') }}">Marine Overview</a>
-                        </li>
-                    @endcan
-                    @can('view engineering dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('engineering') }}">Engineering Overview</a>
-                        </li>
-                    @endcan
-                    @can('view finance and account dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('financeadmin') }}">finance and account
-                                Overview</a>
-                        </li>
-                    @endcan
-                    @can('view audit dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="auditadmin">Audit Overview</a>
-                        </li>
-                    @endcan
-                    @can('view corporate affairs dashboard')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('copaffairs') }}">Corporate Affairs Overview</a>
-                        </li>
-                    @endcan
-                </ul>
-
-            </li>
-            @endcan
+        
             
         {{-- @can('view user managment module') --}}
             @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
