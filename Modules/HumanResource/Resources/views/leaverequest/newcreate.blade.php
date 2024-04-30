@@ -12,7 +12,7 @@
 
                     LEAVE APPLICATION PORTAL
                 </span>
-             
+
             </div>
             <div class="card-body">
                 <form action="{{ route('gmleave') }}" class="form" method="post">
@@ -22,7 +22,7 @@
                         <div class="col-6">
 
                             <div class="form-group">
-                                {!! Form::label('type', 'LEAVE FOR:', ['class' => 'form-label']) !!}
+                                {!! Form::label('type', 'Select The Type Of Leave:', ['class' => 'form-label']) !!}
                                 {!! Form::select('type', $leavetype, null, [
                                     'class' => 'form-control form-select',
                                     'required' => 'true',
@@ -37,7 +37,7 @@
                                 {!! Form::number('daystaken', null, [
                                     'class' => 'form-control',
                                     'id' => 'daysinputed',
-                                    'placeholder' => 'input the number of days to take from max',
+                                    'placeholder' => 'input the number of days to take from max leave type',
                                 ]) !!}
                             </div>
                         </div>
