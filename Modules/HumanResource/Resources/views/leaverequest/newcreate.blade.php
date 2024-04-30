@@ -71,7 +71,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // alert(1)
+
             let resumptiondate = $('#end_date');
             let dateselected = $('#date_start_newid');
             let daystotake = $('#daysinputed');
@@ -80,33 +80,14 @@
             let notificationAlert = document.getElementById('notificationAlert');
 
             dateselected.on('change', function() {
-                // alert($(this).val());
+
                 resumptiondate.val(calculateresumption(dateselected.val(), daystotake));
-                // alert(12)
 
-
-                // alert(leavetype.val());
             });
-            // btn.click(function() {
 
 
 
-            //     $.ajax({
-            //         type: "GET",
-            //         url: "{{ route('cdu') }}",
-            //         data: {
-            //             leave: leavetype.val()
-            //         },
 
-            //         success: function(response) {
-
-            //             var duration = response[0].duration
-
-
-
-            //         }
-            //     });
-            // })
 
 
 

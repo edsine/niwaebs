@@ -1,5 +1,5 @@
 <div class="card-body">
-   
+
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
@@ -27,32 +27,21 @@
                                 <td>{{ $leaves->date_start_new }}</td>
                                 <td>{{ $leaves->daystaken }}</td>
 
-                              
+
                                 <td>{{ $leaves->end_date }}</td>
                                 <td>
                                     @if ($leaves->status==1)
                                     <span>Awaiting GM Approval</span>
                                     @elseif ($leaves->status==2)
                                     <span>Awaiting  HR GM Approval</span>
-                                    @elseif ($leaves->status==3) 
+                                    @elseif ($leaves->status==3)
                                     <span class=" text-success"> Leave Approved</span>
                                     @endif
                                 </td>
-                                {{-- <td style="width: 120px">
-                                    {!! Form::open(['route' => ['leave_request.destroy', $leaves->id], 'method' => 'delete']) !!}
-                                    <div class='btn-group'>
-                                        <a href="{{ route('leave_request.show', [$leaves->id]) }}"
-                                            class='btn btn-default btn-xs'>
-                                            <i class="far fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('leave_request.edit', [$leaves->id]) }}"
-                                            class='btn btn-default btn-xs' title="MAKE APPROVAL">
-                                            <i class="far fa-edit"></i>
-                                        </a>
-                                        {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
+
                                     </div>
                                     {!! Form::close() !!}
-                                </td> --}}
+                                </td> 
                             </tr>
                         @endforeach
                     </tbody>

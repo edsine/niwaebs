@@ -232,9 +232,9 @@ class EmployerController extends AppBaseController
     public function showmassemployers()
     {
         // dd('ddd');
-        $datas=Employer::all();
+        $datas = Employer::all();
 
-        return view('upload.employersrecord',compact('datas'));
+        return view('upload.employersrecord', compact('datas'));
     }
 
     public function storemass(Request $request)
@@ -254,12 +254,17 @@ class EmployerController extends AppBaseController
                 $file = $request->file('file');
                 $import = new EmployerImport();
 
+                try {
+                    //code...
+                    Excel::import(new EmployersImport(), request()->file('file'));
+                } catch (\Throwable $th) {
+                    //
+                }
                 // Excel::import($import, $file);
-                Excel::import(new EmployersImport(), request()->file('file'));
 
-                Flash::success('SUCCESSFULLY DONE');
+                // Flash::success('SUCCESSFULLY DONE');
 
-                return redirect()->route('showemplist')->with('message', 'SUCCESSFULLY DONE');
+                return redirect()->route('showemplist')->with('success', 'SUCCESSFULLY UPLOADED');
             } catch (\Throwable $th) {
                 Flash::error($th->getMessage());
                 return back()->with('message', $th->getMessage());

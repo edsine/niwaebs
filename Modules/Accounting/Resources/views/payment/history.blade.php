@@ -25,7 +25,7 @@
                     <td>{{ $item->employer ? $item->employer->company_name : 'No NAME FOUND' }}</td>
                     <td>{{ $item->branch ? $item->branch->branch_name : 'No Area Office' }}</td>
 
-                    <td>{{ $item->serviceapplication ? $item->serviceapplication->service->name : 'No Yet Applied' }}
+                    <td>{{ $item->serviceapplication ? $item->serviceapplication->theservice->name : 'No Yet Applied' }}
                     </td>
 
                     @if ($item->payment_status == 1)

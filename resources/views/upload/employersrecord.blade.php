@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('flash::message')
     <a class="btn btn-success float-end" href="{{ route('emplist') }}">Mass Upload</a>
     <table class="table data-table">
         <thead>
