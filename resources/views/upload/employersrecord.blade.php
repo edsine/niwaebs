@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <table class=" table">
-        <a class="btn btn-success float-end" href="{{ route('emplist') }}">Mass Upload</a>
+    <a class="btn btn-success float-end" href="{{ route('emplist') }}">Mass Upload</a>
+    <table class="table data-table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -20,10 +20,13 @@
                     <td>{{ $data->company_name }}</td>
                     <td>{{ $data->company_email }}</td>
                     <td>{{ $data->company_address }}</td>
-                    <td>{{ $data->contact_firstname.''.$data->contact_middlename .''.$data->contact_surname }}</td>
+                    <td>{{ $data->contact_firstname . '' . $data->contact_middlename . '' . $data->contact_surname }}</td>
                     <td>{{ $data->contact_number }}</td>
                 </tr>
             @endforeach
         </tbody>
+        <script>
+           let table = new DataTable('.table');
+        </script>
     </table>
 @endsection

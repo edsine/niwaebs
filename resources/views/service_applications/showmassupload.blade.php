@@ -21,10 +21,10 @@
         <div class="clearfix"></div>
 
         <div class="card">
-            {{-- @include('service_applications.table') --}}
+
             <div class="card-body p-5">
                 <div class="table-responsive">
-                    <table class="table align-middle gs-0 gy-4" id="">
+                    <table class="table align-middle gs-0 gy-4" id="mytable1">
                         <thead>
                             <tr>
                                 <th class="min-w-200px">Applicant</th>
@@ -32,15 +32,11 @@
                                 <th class="min-w-200px">Application Form Payment Status</th>
                                 <th class="min-w-200px">Date of Inspection</th>
                                 <th class="min-w-200px">Service Type</th>
-
-
-                                {{-- <th class="min-w-120px" colspan="1">Action</th> --}}
-                                {{-- <th class="min-w-200px text-end rounded-end"></th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($serviceApplications as $serviceApplication)
-                                <tr class="fw-bold text-muted bg-light">
+                                <tr>
                                     <td>{{ $serviceApplication->employer()->company_name }}</td>
                                     <td>{{ $serviceApplication->service ? $serviceApplication->service->name : '' }}</td>
                                     <td>{{ $serviceApplication->application_form_payment_status ? 'Paid' : 'Not Paid' }}
@@ -48,27 +44,12 @@
                                     <td>{{ $serviceApplication->date_of_inspection }}</td>
                                     <td>{{ $serviceApplication->service_type_id == 'mechanical' ? 'Mechanical' : 'Manual' }}
                                     </td>
-
-                                    {{-- <td style="width: 120px">
-                                        <div class='btn-group'>
-                                            <a href="{{ route('serviceApplications.show', [$serviceApplication->id]) }}"
-                                                class='btn btn-default btn-xs' title="View & Make Service Approvals">
-                                                <i class="far fa-eye"></i>
-                                            </a>
-                                        </div>
-                                        <div class='btn-group'>
-                                            <a href="{{ route('map.show', [$serviceApplication->id]) }}"
-                                                class='btn btn-default btn-xs'>
-                                                <i class="fa fa-map-marker"></i>
-                                            </a>
-                                        </div>
-                                    </td> --}}
-                                    {{-- <th class="min-w-200px text-end rounded-end"></th> --}}
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+
 
                 <div class="card-footer clearfix">
                     <div class="float-right">
@@ -81,4 +62,8 @@
 
         </div>
     </div>
+   
+    <script>
+        let table = new DataTable('.table');
+     </script>
 @endsection

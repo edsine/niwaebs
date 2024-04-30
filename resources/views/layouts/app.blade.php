@@ -468,6 +468,12 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script> --}}
 
+<link rel="stylesheet" href="//cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+{{-- <script>
+    let table= new DataTable('#atpdata-table');
+</script> --}}
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('sh_assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
@@ -517,7 +523,7 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
-     
+
      {{-- <div class="col-md-4 col-sm-6 grid-margin stretch-card"> --}}
     <div class="loader-demo-box1">
         <div class="dot-opacity-loader">
@@ -530,7 +536,7 @@
     <!--end::Theme mode setup on page load-->
     <!--begin::App-->
     <div class="container-scroller">
-        
+
         <!--begin::Header-->
         @if (auth()->check())
             @include('layouts.header')
@@ -863,11 +869,11 @@
     <script>
 document.addEventListener("DOMContentLoaded", function() {
   // DOMContentLoaded event is fired when the initial HTML document has been completely loaded and parsed
-  
+
   // Get references to the loader elements
   var loaderBox = document.querySelector('.loader-demo-box1');
   var dotLoader = document.querySelector('.dot-opacity-loader');
-  
+
   // Hide the loader elements
   loaderBox.style.display = 'none';
   dotLoader.style.display = 'none';
