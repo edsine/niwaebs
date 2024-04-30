@@ -116,15 +116,11 @@ class LeaveRequestController extends  AppBaseController
         $branches = $this->branchRepository->all()->pluck('branch_name', 'id');
         $branches->prepend('Select branch', '');
 
-        // $leavetype = $this->leavetypeRepository->all();
+      
 
         $leavetype = DB::table('leavetype')->selectRaw('id,CONCAT(name,duration,"(MAX:",duration,"DAYS)") AS type')->get()->pluck('type', 'id');
 
-        // dd($leavetype);
 
-
-        //the downone has been commented out
-        // $leavetype = $this->leavetypeRepository->all()->pluck('name','id');
 
 
 
@@ -189,7 +185,7 @@ class LeaveRequestController extends  AppBaseController
                     'date_start_new' => $date_start_new,
                     'end_date' => $end_date,
                     'status' => 1, // one to show that i have applied
-                    
+
 
                 ]
             );

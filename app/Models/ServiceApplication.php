@@ -84,7 +84,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         return $employer;
     }
 
-    public function service()
+    public function theservice()
     {
         return $this->belongsTo(Service::class,'service_id','id');
     }
