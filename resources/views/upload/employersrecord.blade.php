@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Oranisation Name</th>
+                <th>Applicant Name</th>
                 <th>Company Email</th>
                 <th>Company Address</th>
                 <th>Contact Person</th>

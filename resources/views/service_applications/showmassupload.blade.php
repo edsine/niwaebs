@@ -38,7 +38,7 @@
                             @foreach ($serviceApplications as $serviceApplication)
                                 <tr>
                                     <td>{{ $serviceApplication->employer()->company_name }}</td>
-                                    <td>{{ $serviceApplication->service ? $serviceApplication->service->name : '' }}</td>
+                                    <td>{{ $serviceApplication->theservice ? $serviceApplication->theservice->name : '' }}</td>
                                     <td>{{ $serviceApplication->application_form_payment_status ? 'Paid' : 'Not Paid' }}
                                     </td>
                                     <td>{{ $serviceApplication->date_of_inspection }}</td>
@@ -62,7 +62,7 @@
 
         </div>
     </div>
-   
+
     <script>
         let table = new DataTable('.table');
      </script>
