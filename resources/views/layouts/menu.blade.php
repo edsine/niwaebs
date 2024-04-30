@@ -249,17 +249,17 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                             <span>Applicant Record</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('payhistoryform') }}">
-                            <i class="fas menu-icon fa-book"></i>
-                            <span>Payment Record</span>
-                        </a>
-                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('serviceupload') }}">
                             <i class="fas fa-balance-scale menu-icon"></i>
                             <span>Service Application Record</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('payhistoryform') }}">
+                            <i class="fas menu-icon fa-book"></i>
+                            <span>Payment Record</span>
                         </a>
                     </li>
                 </ul>

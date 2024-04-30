@@ -86,7 +86,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public function service()
     {
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsTo(Service::class,'service_id','id');
     }
 
     public function documents()

@@ -41,28 +41,10 @@ class EmployersImport implements ToCollection
                 'contact_firstname' => $row[10],
                 'contact_middlename' => $row[11],
                 'branch_id' => $row[12],
+                'user_type' => $row[14],
+
                 'password' => Hash::make('12345678'), //13
-                // 'user_type' => $row[14],
 
-
-
-
-
-
-                // 'ecs_number' => $row[5],
-
-                // 'contact_position' => $row[9],
-
-                // //$row[11],
-
-                // 'business_area' => $row[13],
-                // 'inspection_status' => 0,
-                // 'company_phone' => $row[14],
-
-                // 'number_of_employees' => $row[16],
-
-                // 'registered_date' => date("Y-m-d"),
-                // 'paid_registration' => 0,
                 'user_id' => 1,
                 // 'region_id' => 1,
                 // 'transaction_id' => 1,
@@ -72,6 +54,7 @@ class EmployersImport implements ToCollection
                 // 'deleted_by' => 1,
                 //'account_officer_id' => 1,
             ];
+            // dd($employerData);
             Employer::create($employerData);
 
             // Send notification to the user
