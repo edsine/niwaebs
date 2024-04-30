@@ -96,7 +96,7 @@ class BookingController extends AppBaseController
                 // return back()->with('message', 'SUCCESSFULLY DONE');
                 // return redirect()->route('payhistory')->with('message', 'SUCCESSFULLY DONE');
                 // return redirect()->route('payhistory')->with('message', 'SUCCESSFULLY DONE');
-                return back()->with('message','SUCCESSFULLY DONE');
+                return redirect()->route('payhistory')->with('message','SUCCESSFULLY Uploaded');
             } catch (\Throwable $th) {
                 Flash::error($th->getMessage());
                 return back()->with('message', $th->getMessage());
