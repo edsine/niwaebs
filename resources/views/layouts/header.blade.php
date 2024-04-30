@@ -24,7 +24,7 @@
         $value = "areamanager";
         } else {
 
-            $value = "default_home";
+            $value = "home";
             //atp take note, you have not yet done page for ed_op,no role as ed operation yet
         } 
  ?>

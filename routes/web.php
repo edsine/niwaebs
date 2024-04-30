@@ -53,7 +53,7 @@ use Modules\EmployerManager\Http\Controllers\EmployerController;
 */
 
 Route::group(['middleware' => ['auth']], function () {
-   // Route::get('/home', [HomeController::class, 'clockIn'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/home/clock-in', [HomeController::class, 'clockIn'])->name('clock-in');
     Route::post('/home/clock-out', [HomeController::class, 'clockOut'])->name('clock-out');
     Route::get('/document/index', 'App\Http\Controllers\EmployerDocumentController@index')->name('document.index');
@@ -367,7 +367,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 // });
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    //Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/default_home', [HomeController::class, 'index'])->name('default_home');
     Route::get('/niwa/payments', [ESSPPaymentController::class, 'index'])->name('niwa.payments');
     Route::patch('/approve-payment/{id}', [ESSPPaymentController::class, 'approvePayment'])
