@@ -260,9 +260,7 @@ class EmployerController extends AppBaseController
                 } catch (\Throwable $th) {
                     //
                 }
-                // Excel::import($import, $file);
-
-                // Flash::success('SUCCESSFULLY DONE');
+                
 
                 return redirect()->route('showemplist')->with('success', 'SUCCESSFULLY UPLOADED');
             } catch (\Throwable $th) {
