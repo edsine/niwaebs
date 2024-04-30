@@ -906,10 +906,10 @@ Route::get('serviceappupload', [ServiceApplicationController::class, 'uploadpage
 Route::get('servicemassuploadrecord', [ServiceApplicationController::class, 'showserviceupload'])->middleware('auth')->name('serviceappdata');
 Route::post('saveupload', [ServiceApplicationController::class, 'serviceupload'])->middleware('auth')->name('servicestore');
 
-Route::get('emplhistlist', [EmployerController::class, 'displayform'])->name('emplist')->middleware('auth');
-Route::get('employlistmassrecord', [EmployerController::class, 'showmassemployers'])->name('showemplist')->middleware('auth');
+Route::get('amplhistlist', [EmployerController::class, 'displayform'])->name('emplist')->middleware('auth');
+Route::get('applicantlistmassrecord', [EmployerController::class, 'showmassemployers'])->name('showemplist')->middleware('auth');
 
-Route::post('emplhistsa', [EmployerController::class, 'storemass'])->name('emplistsa')->middleware('auth');
+Route::post('amplhistsa', [EmployerController::class, 'storemass'])->name('emplistsa')->middleware('auth');
 
 //download sample
 Route::get('downloademployers', [EmployerController::class, 'downloademployersample'])->name('empldownload');
