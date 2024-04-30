@@ -270,7 +270,7 @@ class EmployerController extends AppBaseController
     public function downloademployersample()
     {
 
-        $file = public_path('excelfile\applicantsrecord.xlsx');
+        $file = public_path('excelfile/applicantsrecord.xlsx');
 
 
         return Response::download($file, 'applicantdatasample.xlsx');
@@ -278,14 +278,14 @@ class EmployerController extends AppBaseController
     public function downloadpaymentsample()
     {
 
-        $file = public_path('excelfile\paymentrecord.xlsx');
+        $file = public_path('excelfile/paymentrecord.xlsx');
 
 
         return Response::download($file, 'paymenthistorysample.xlsx');
     }
     public function downloadservicesamples()
     {
-        $file = public_path('excelfile\serviceapplication.xlsx');
+        $file = public_path('excelfile/serviceapplication.xlsx');
 
 
         return Response::download($file, 'serviceapplicationsample.xlsx');
