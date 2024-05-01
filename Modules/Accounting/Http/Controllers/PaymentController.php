@@ -2,19 +2,20 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
-use App\Http\Controllers\AppBaseController;
-use Modules\Accounting\Models\BankAccount;
-use Modules\Accounting\Models\BillPayment;
-use Modules\Accounting\Models\Payment;
-use Modules\Accounting\Models\ProductServiceCategory;
-use Modules\Accounting\Models\Transaction;
-use Modules\Accounting\Models\Utility;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Modules\Accounting\Models\Utility;
 use Illuminate\Support\Facades\Validator;
+use Modules\Accounting\Models\BankAccount;
+use Modules\Accounting\Models\BillPayment;
+use Modules\Accounting\Models\Transaction;
+use App\Http\Controllers\AppBaseController;
+use Modules\EmployerManager\Models\Payment;
+use Modules\Accounting\Models\ProductServiceCategory;
+use Modules\EmployerManager\Models\Employer;
 use Modules\EmployerManager\Models\Payment as ModelsPayment;
 
 class PaymentController extends AppBaseController
@@ -72,11 +73,28 @@ class PaymentController extends AppBaseController
     public function paymenthistory()
     {
 
-        $payment = ModelsPayment::all();
+        $payment = ModelsPayment::orderBy('id', 'desc')->get();
         // dd($payment);
         return view('accounting::payment.history', compact('payment'));
     }
 
+    public function paymenthistoryedit($id)
+    {
+        $data = Payment::findOrFail($id);
+
+        $applicant = Employer::get()->pluck('company_name', 'id');
+        // dd($data);
+        // dd($data->employer->company_name);
+        return view('accounting::payment.historyedit', compact('data', 'applicant'));
+    }
+
+    public function paymenthistoryupdate($id, Request $request)
+    {
+        $data = Payment::findOrFail($id);
+
+        $data->update($request->all());
+        return redirect()->route('payhistory')->with('success', 'updated successfully');
+    }
     public function create()
     {
         if (Auth::user()->can('create payment')) {

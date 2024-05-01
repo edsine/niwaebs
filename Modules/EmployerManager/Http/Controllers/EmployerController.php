@@ -231,10 +231,26 @@ class EmployerController extends AppBaseController
 
     public function showmassemployers()
     {
-        // dd('ddd');
-        $datas = Employer::all();
+
+        $datas = Employer::orderBy('id', 'desc')->get();
 
         return view('upload.employersrecord', compact('datas'));
+    }
+    public function editmassemployersrecord($id)
+    {
+
+        $record = Employer::findOrFail($id);
+        // dd($record);
+        return view('upload.editapplicantrecord', compact('record'));
+    }
+
+    public function updatemassaplicantrecord(Request $request,$id)
+    {
+        // dd($request->all());
+        $record = Employer::findOrFail($id);
+        $record->update($request->all());
+
+        return redirect()->route('showemplist')->with('success', 'SUCCESSFULLY UPDATED APPLICANT RECORD');
     }
 
     public function storemass(Request $request)
@@ -260,7 +276,7 @@ class EmployerController extends AppBaseController
                 } catch (\Throwable $th) {
                     //
                 }
-                
+
 
                 return redirect()->route('showemplist')->with('success', 'SUCCESSFULLY UPLOADED');
             } catch (\Throwable $th) {
