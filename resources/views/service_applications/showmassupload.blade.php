@@ -27,22 +27,31 @@
                     <table class="table align-middle gs-0 gy-4" id="mytable1">
                         <thead>
                             <tr>
+                                <th class="min-w-200px">ID</th>
                                 <th class="min-w-200px">Applicant</th>
-                                <th class="min-w-200px">Service</th>
-                                <th class="min-w-200px">Application Form Payment Status</th>
-                                <th class="min-w-200px">Date of Inspection</th>
+                                <th class="min-w-200px">Service Name</th>
                                 <th class="min-w-200px">Service Type</th>
+                                <th class="min-w-200px">Form Payment Status</th>
+                                <th class="min-w-200px">Date of Inspection</th>
+                                <th> Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($serviceApplications as $serviceApplication)
                                 <tr>
-                                    <td>{{ $serviceApplication->employer()->company_name }}</td>
-                                    <td>{{ $serviceApplication->theservice ? $serviceApplication->theservice->name : '' }}</td>
+                                    <td>{{ $serviceApplication->id }}</td>
+                                    <td>{{ $serviceApplication->employer() ? $serviceApplication->employer()->company_name : 'Name Not Found' }}
+                                    </td>
+                                    <td>{{ $serviceApplication->theservice ? $serviceApplication->theservice->name : '' }}
+                                        <td>{{ $serviceApplication->service_type_id == 'mechanical' ? 'Mechanical' : 'Manual' }}
+                                    </td>
                                     <td>{{ $serviceApplication->application_form_payment_status ? 'Paid' : 'Not Paid' }}
                                     </td>
                                     <td>{{ $serviceApplication->date_of_inspection }}</td>
-                                    <td>{{ $serviceApplication->service_type_id == 'mechanical' ? 'Mechanical' : 'Manual' }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('serviceedit', [$serviceApplication->id]) }}" class="">Modify
+                                            Record</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -65,5 +74,5 @@
 
     <script>
         let table = new DataTable('.table');
-     </script>
+    </script>
 @endsection

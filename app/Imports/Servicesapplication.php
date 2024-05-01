@@ -24,11 +24,7 @@ class Servicesapplication implements ToCollection
                 continue; // Skip the first row
             }
 
-        //    dd($dateValue = ($row[4] - 25569) * 86400);
-
-        //    dd(Carbon::createFromTimestamp(($row[4] - 25569) * 86400)->toDateTimeString());
-
-
+        // dd($row);
             $records = [
                 'user_id' => $row[0],
                 'service_id' => $row[1],

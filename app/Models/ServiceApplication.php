@@ -7,7 +7,7 @@ use Modules\EmployerManager\Models\Employer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
- class ServiceApplication extends Model
+class ServiceApplication extends Model
 {
     use HasFactory;
     public $table = 'service_applications';
@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'hod_marine_approval',
         'hod_marine_signature_path',
         'permit_document_path',
-         'branch_id',
+        'branch_id',
     ];
 
     protected $casts = [
@@ -86,7 +86,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     public function theservice()
     {
-        return $this->belongsTo(Service::class,'service_id','id');
+        return $this->belongsTo(Service::class, 'service_id', 'id');
     }
 
     public function documents()
@@ -95,7 +95,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     }
 
     public function processingType()
-{
-    return $this->belongsTo(ProcessingType::class, 'service_id', 'service_id');
-}
+    {
+        return $this->belongsTo(ProcessingType::class, 'service_id', 'service_id');
+    }
 }

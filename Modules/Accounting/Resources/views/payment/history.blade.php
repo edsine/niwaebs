@@ -14,6 +14,7 @@
                 <th>AMOUNT </th>
                 <th>TRANSACTION ID</th>
                 <th> PAID AT</th>
+                <th>ACTION</th>
 
             </tr>
         </thead>
@@ -38,11 +39,14 @@
                     <td>{{ $item->amount }}</td>
                     <td>{{ $item->transaction_id }}</td>
                     <td>{{ $item->paid_at }}</td>
+                    <td>
+                        <a href="{{ route('payhistoryedit', [$item->id]) }}">Modify Record</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
         <script>
             let table = new DataTable('.table');
-         </script>
+        </script>
     </table>
 @endsection

@@ -11,6 +11,7 @@
                 <th>Company Address</th>
                 <th>Contact Person</th>
                 <th>Contact Phone Number</th>
+                <th>Action</th>
             </tr>
 
         </thead>
@@ -23,6 +24,9 @@
                     <td>{{ $data->company_address }}</td>
                     <td>{{ $data->contact_firstname . '' . $data->contact_middlename . '' . $data->contact_surname }}</td>
                     <td>{{ $data->contact_number }}</td>
+                    <td>
+                        <a href="{{route('editappli',[$data->id])}}">Modify Record</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

@@ -899,6 +899,9 @@ Route::controller(BookingController::class)->group(function () {
 
 Route::controller(PaymentController::class)->group(function () {
     Route::get('payhistory', 'paymenthistory')->middleware('auth')->name('payhistory');
+    Route::get('payhistoryedit/{id}/theupda', 'paymenthistoryedit')->middleware('auth')->name('payhistoryedit');
+    Route::post('payhistoryedit/{id}/', 'paymenthistoryupdate')->middleware('auth')->name('paymentupdate');
+
 });
 
 
@@ -906,8 +909,14 @@ Route::get('serviceappupload', [ServiceApplicationController::class, 'uploadpage
 Route::get('servicemassuploadrecord', [ServiceApplicationController::class, 'showserviceupload'])->middleware('auth')->name('serviceappdata');
 Route::post('saveupload', [ServiceApplicationController::class, 'serviceupload'])->middleware('auth')->name('servicestore');
 
+
+Route::get('serviceapprecoredit/{id}', [ServiceApplicationController::class, 'modifymassuploadpage'])->middleware('auth')->name('serviceedit');
+Route::post('serviceiapprecoreupdate/{id}', [ServiceApplicationController::class, 'updatemassservices'])->middleware('auth')->name('serviceeditiupdate');
+
 Route::get('amplhistlist', [EmployerController::class, 'displayform'])->name('emplist')->middleware('auth');
 Route::get('applicantlistmassrecord', [EmployerController::class, 'showmassemployers'])->name('showemplist')->middleware('auth');
+Route::get('applicantrecordedit/{id}',[EmployerController::class,'editmassemployersrecord'])->name('editappli')->middleware('auth');
+Route::post('applicantmassrecordupdate{id}',[EmployerController::class,'updatemassaplicantrecord'])->name('updateapp')->middleware('auth');
 
 Route::post('amplhistsa', [EmployerController::class, 'storemass'])->name('emplistsa')->middleware('auth');
 

@@ -19,6 +19,8 @@ use App\Http\Controllers\ESSPPaymentController;
 use App\Repositories\ServiceApplicationRepository;
 use App\Http\Requests\CreateServiceApplicationRequest;
 use App\Http\Requests\UpdateServiceApplicationRequest;
+use App\Models\Service;
+use Modules\EmployerManager\Models\Employer;
 
 class ServiceApplicationController extends AppBaseController
 {
@@ -81,8 +83,8 @@ class ServiceApplicationController extends AppBaseController
 
     public function showserviceupload()
     {
-        $serviceApplications=ServiceApplication::paginate();
-        return view('service_applications.showmassupload',compact('serviceApplications'));
+        $serviceApplications = ServiceApplication::orderBy('id', 'desc')->paginate();
+        return view('service_applications.showmassupload', compact('serviceApplications'));
     }
 
     public function serviceupload(Request $request)
@@ -117,6 +119,79 @@ class ServiceApplicationController extends AppBaseController
         }
     }
 
+    public function modifymassuploadpage($id)
+    {
+
+        $serviceApplication = $this->serviceApplicationRepository->find($id);
+
+
+        // $yesno = [0 => 'No', 1 => 'Yes'];
+        $yesno = [
+            [
+                'id' => 0,
+                'value' => 'No'
+            ],
+            [
+                'id' => 1,
+                'value' => 'Yes'
+            ]
+        ];
+        // dd($yesno);
+        $servicetype = ['mechanical' => 'Mechanical', 'manual' => 'Manual'];
+        $theservices = Service::all();
+        // dd($theservices);
+        $applicant = Employer::get();
+        // dd($applicant);
+        $approved = [
+[
+    'id'=>0,
+    'value'=>'Not Approved'
+],
+[
+    'id'=>0,
+    'value'=>'Approved'
+]
+];
+
+
+
+        if (empty($serviceApplication)) {
+            Flash::error('Service Application not found');
+
+            return redirect(route('serviceappdata'));
+        }
+
+        return view('service_applications.editmass', compact(
+            'serviceApplication',
+            'servicetype',
+            'yesno',
+            'theservices',
+            'applicant',
+            'approved'
+
+        ));
+    }
+
+    public function updatemassservices($id, Request $request)
+    {
+        // dd($request->all());
+        $serviceApplication = $this->serviceApplicationRepository->find($id);
+
+        if (empty($serviceApplication)) {
+            Flash::error('Service Application not found');
+
+            return redirect(route('serviceappdata'));
+        }
+        $serviceApplication->update($request->all());
+        // $serviceApplication = $this->serviceApplicationRepository->update($request->all(), $id);
+
+        Flash::success('Service Application updated successfully.');
+
+        return redirect(route('serviceappdata'));
+    }
+
+
+
     public function show($id)
     {
         $user = Auth::user();
@@ -149,26 +224,9 @@ class ServiceApplicationController extends AppBaseController
 
         return view('service_applications.show', compact('payments', 'documents', 'equipment_and_fees'))->with('serviceApplication', $serviceApplication);
     }
-    /* public function show($id)
-    {
-        $serviceApplication = $this->serviceApplicationRepository->find($id);
 
-        if (empty($serviceApplication)) {
-            Flash::error('Service Application not found');
 
-            return redirect(route('serviceApplications.index'));
-        }
 
-        $payments = Payment::where('service_application_id', $serviceApplication->id)->paginate(10);
-        $documents = $serviceApplication->documents()->paginate(10);
-        if(Auth()->user()->hasRole('super-admin')){
-        $equipment_and_fees = EquipmentAndFee::pluck('name', 'price');
-    }else{
-        $equipment_and_fees = EquipmentAndFee::where('branch_id', Auth()->user()->staff->branch->id)->pluck('name', 'price');
-    }
-
-        return view('service_applications.show', compact('payments', 'documents', 'equipment_and_fees'))->with('serviceApplication', $serviceApplication);
-    } */
 
     /**
      * Show the form for editing the specified ServiceApplication.
