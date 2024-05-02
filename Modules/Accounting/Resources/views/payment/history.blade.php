@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>APPLICANT </th>
+                <th>APPLICANT CODE </th>
                 <th>AREA OFFICE </th>
 
                 <th>SERVICES </th>
@@ -23,7 +23,8 @@
                 <tr>
 
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->employer ? $item->employer->company_name : 'No NAME FOUND' }}</td>
+                    {{-- @dd($item->serviceapp); --}}
+                    <td>{{ $item->serviceapp ? $item->serviceapp->applicant_code : 'No NAME FOUND' }}</td>
                     <td>{{ $item->branch ? $item->branch->branch_name : 'No Area Office' }}</td>
 
                     <td>{{ $item->serviceapplication ? $item->serviceapplication->theservice->name : 'No Yet Applied' }}

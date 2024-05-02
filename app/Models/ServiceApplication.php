@@ -15,6 +15,7 @@ class ServiceApplication extends Model
     public $fillable = [
         'service_id',
         'applicant_code',
+        'serviceapplication_code',
         'application_form_payment_status',
         'date_of_inspection',
         'service_type_id',
@@ -79,11 +80,18 @@ class ServiceApplication extends Model
         'branch_id' => 'required',
     ];
 
+    public function payment(){
+        return $this->hasMany(Payment::class,'serviceapplication_code','id');
+    }
     public function employer()
     {
         $employer = Employer::where('applicant_code', $this->applicant_code)->first();
         return $employer;
     }
+    public function applicant(){
+        return $this->belongsTo(Employer::class,'applicant_code','id');
+    }
+
     // public function employer(){
     //     return $this->belongsTo(Employer::class,'applicant_code','id');
     // }
