@@ -20,6 +20,8 @@
             $value = "superadmin";
         } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
             $value = "md_user";
+        } else if (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
+            $value = "ta_dashboard";
         } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
         $value = "areamanager";
         } else {
