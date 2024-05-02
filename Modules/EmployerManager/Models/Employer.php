@@ -82,7 +82,9 @@ class Employer extends Model implements Auditable
         'deleted_by' => 'integer'
     ]; */
 
-    public static array $rules = [];
+    public static array $rules = [
+        'applicant_code'=>'required'
+    ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
