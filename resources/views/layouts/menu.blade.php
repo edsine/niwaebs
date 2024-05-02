@@ -20,9 +20,11 @@
 <?php
 if (Auth::check() && Auth::user()->hasRole('super-admin')) {
     $value = 'superadmin';
-} elseif (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
+} else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
     $value = 'md_user';
-} elseif (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+} else if (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
+    $value = "ta_dashboard";
+} else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
     $value = 'areamanager';
 } else {
     $value = 'home';

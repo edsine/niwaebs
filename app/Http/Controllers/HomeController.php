@@ -54,6 +54,8 @@ class HomeController extends Controller
             return redirect()->route('superadmin');
         } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
             return redirect()->route('md_user');
+        }else if (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
+            return redirect()->route('ta_dashboard');
         } else if (Auth::check() && Auth::user()->hasRole('Area Manager'))
         {
 

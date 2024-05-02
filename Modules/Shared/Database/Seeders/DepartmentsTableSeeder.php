@@ -20,7 +20,7 @@ class DepartmentsTableSeeder extends Seeder
 
         // DB::table('departments')->truncate();
         $offices = [
-            ['name'=>'Administration And Human Resources'],
+            ['name'=>'Administration, Coporate Services And Human Resources'],
             ['name'=>'Finance/Account'],
             ['name'=>'Marine'],
             ['name'=>'Engineering'],
@@ -34,10 +34,8 @@ class DepartmentsTableSeeder extends Seeder
             ['name'=>'Legal'],
             ['name'=>'Research Planning and ICT'],
             ['name'=>'Business Development'],
-
-            ['name'=>'Coporate Services'],
-
-            ['name'=>'Incoming File'],
+            ['name'=>'Office Of The MD'],
+            ['name'=>'Area Manager'],
 
 
 

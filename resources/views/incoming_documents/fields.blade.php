@@ -18,7 +18,7 @@
     {!! Form::label('phone', 'Sender Phone:') !!}
     {!! Form::number('phone', null, ['class' => 'form-control', 'required']) !!}
     <input type="hidden" name="department_id" value="15" class="form-control" placeholder="">
-    <input type="hidden" name="branch_id" value="15" class="form-control" placeholder="">
+    <input type="hidden" name="branch_id" value="23" class="form-control" placeholder="">
 </div>
 
 <!-- Description Field -->
