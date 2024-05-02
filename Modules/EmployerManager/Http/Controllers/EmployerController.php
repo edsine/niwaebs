@@ -244,7 +244,7 @@ class EmployerController extends AppBaseController
         return view('upload.editapplicantrecord', compact('record'));
     }
 
-    public function updatemassaplicantrecord(Request $request,$id)
+    public function updatemassaplicantrecord(Request $request, $id)
     {
         // dd($request->all());
         $record = Employer::findOrFail($id);
@@ -274,7 +274,7 @@ class EmployerController extends AppBaseController
                     //code...
                     Excel::import(new EmployersImport(), request()->file('file'));
                 } catch (\Throwable $th) {
-                    //
+                    return redirect()->with('error', $th->getMessage());
                 }
 
 
