@@ -16,6 +16,7 @@ return new class extends Migration
         //
         Schema::table('service_applications', function (Blueprint $table) {
             $table->bigInteger('branch_id')->nullable();
+            $table->string('applicant_code')->nullable();
         });
     }
 

@@ -14,6 +14,7 @@ class ServiceApplication extends Model
 
     public $fillable = [
         'service_id',
+        'applicant_code',
         'application_form_payment_status',
         'date_of_inspection',
         'service_type_id',
@@ -80,9 +81,12 @@ class ServiceApplication extends Model
 
     public function employer()
     {
-        $employer = Employer::where('id', $this->user_id)->first();
+        $employer = Employer::where('applicant_code', $this->applicant_code)->first();
         return $employer;
     }
+    // public function employer(){
+    //     return $this->belongsTo(Employer::class,'applicant_code','id');
+    // }
 
     public function theservice()
     {

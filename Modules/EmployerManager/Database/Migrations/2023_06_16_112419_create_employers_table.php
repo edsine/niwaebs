@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->nullable()->unsigned();
+            $table->string('applicant_code')->nullable();
             $table->string('ecs_number')->nullable();
             $table->string('company_name');
             $table->string('company_email');

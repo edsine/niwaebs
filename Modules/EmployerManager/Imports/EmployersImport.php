@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use DateTime;
 use Modules\EmployerManager\Models\Employer;
 use Illuminate\Support\Facades\Validator;
 use Laracasts\Flash\Flash;
@@ -22,11 +23,12 @@ class EmployersImport implements ToCollection
 
 
         foreach ($rows as $row) {
+            $n = 1;
             if (!$skippedFirstRow) {
                 $skippedFirstRow = true;
                 continue; // Skip the first row
             }
-
+            $app_code = "NIRC" . uniqid();
             $employerData = [
                 'company_name' => $row[0],
                 'company_email' => $row[1],
@@ -37,6 +39,7 @@ class EmployersImport implements ToCollection
                 'company_localgovt' => $row[6],
                 'company_state' => $row[7],
                 'status' => $row[8],
+                'applicant_code' => $app_code,
                 'contact_surname' => $row[9],
                 'contact_firstname' => $row[10],
                 'contact_middlename' => $row[11],
@@ -69,8 +72,6 @@ class EmployersImport implements ToCollection
                 # code...
                 Employer::create($employerData);
             }
-
-          
         }
     }
 }

@@ -143,15 +143,15 @@ class ServiceApplicationController extends AppBaseController
         $applicant = Employer::get();
         // dd($applicant);
         $approved = [
-[
-    'id'=>0,
-    'value'=>'Not Approved'
-],
-[
-    'id'=>0,
-    'value'=>'Approved'
-]
-];
+            [
+                'id' => 0,
+                'value' => 'Not Approved'
+            ],
+            [
+                'id' => 0,
+                'value' => 'Approved'
+            ]
+        ];
 
 
 
