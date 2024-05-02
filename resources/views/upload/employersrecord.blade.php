@@ -7,6 +7,7 @@
             <tr>
                 <th>Id</th>
                 <th>Applicant Name</th>
+                <th>Applicant Code</th>
                 <th>Company Email</th>
                 <th>Company Address</th>
                 <th>Contact Person</th>
@@ -20,6 +21,7 @@
                 <tr>
                     <td>{{ $data->id }}</td>
                     <td>{{ $data->company_name }}</td>
+                    <td>{{ $data->applicant_code }}</td>
                     <td>{{ $data->company_email }}</td>
                     <td>{{ $data->company_address }}</td>
                     <td>{{ $data->contact_firstname . '' . $data->contact_middlename . '' . $data->contact_surname }}</td>

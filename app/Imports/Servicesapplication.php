@@ -26,7 +26,7 @@ class Servicesapplication implements ToCollection
 
         // dd($row);
             $records = [
-                'user_id' => $row[0],
+                'applicant_code' => $row[0],
                 'service_id' => $row[1],
                 'service_type_id' => $row[2],
                 'application_form_payment_status' => $row[3],
