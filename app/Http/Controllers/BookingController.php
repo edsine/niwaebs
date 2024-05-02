@@ -92,7 +92,7 @@ class BookingController extends AppBaseController
                 $import= new Paymentrecords();
                 Excel::import($import,$file);
 
-                Flash::success('SUCCESSFULLY DONE');
+                // Flash::success('SUCCESSFULLY DONE');
                 // return back()->with('message', 'SUCCESSFULLY DONE');
                 // return redirect()->route('payhistory')->with('message', 'SUCCESSFULLY DONE');
                 // return redirect()->route('payhistory')->with('message', 'SUCCESSFULLY DONE');

@@ -23,9 +23,10 @@ class Servicesapplication implements ToCollection
                 $skippedFirstRow = true;
                 continue; // Skip the first row
             }
-
-        // dd($row);
+            $code = 'Nisapc' . uniqid();
+            // dd($row);
             $records = [
+                'serviceapplication_code' => $code,
                 'applicant_code' => $row[0],
                 'service_id' => $row[1],
                 'service_type_id' => $row[2],
@@ -41,8 +42,6 @@ class Servicesapplication implements ToCollection
                 'are_equipment_and_monitoring_fees_verified' => $row[11],
                 'area_officer_approval' => $row[12],
                 'hod_marine_approval' => $row[13],
-
-
             ];
 
             DB::table('service_applications')->insert($records);
