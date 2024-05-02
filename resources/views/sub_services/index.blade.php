@@ -57,12 +57,12 @@
                                                 class="icon ni ni-trash"></em></span>
                                             </a> --}}
 
-                                    <a id="delete-service" title="Terminate Sub-Service" style="cursor: pointer;"
+                                   {{--  <a id="delete-service" title="Terminate Sub-Service" style="cursor: pointer;"
                                         onclick="event.preventDefault();
                                     document.getElementById('delete-service-form').submit();"><span
                                             class="nk-menu-icon text-danger eg-swal-av3"><em
                                                 class="fa fa-trash"></em></span>
-                                    </a>
+                                    </a> --}}
                                     <form id="delete-service-form" action="{{ route('sub-services.destroy', $service->id) }}"
                                         method="POST" class="d-inline">
                                         @csrf

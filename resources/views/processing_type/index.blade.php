@@ -51,12 +51,12 @@
                                             class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span></a>
                                     
 
-                                    <a id="delete-service" title="Terminate Service" style="cursor: pointer;"
+                                   {{--  <a id="delete-service" title="Terminate Service" style="cursor: pointer;"
                                         onclick="event.preventDefault();
                                     document.getElementById('delete-service-form').submit();"><span
                                             class="nk-menu-icon text-danger eg-swal-av3"><em
                                                 class="fa fa-trash"></em></span>
-                                    </a>
+                                    </a> --}}
                                     <form id="delete-service-form" action="{{ route('processing_type.destroy', $processing_type->id) }}"
                                         method="POST" class="d-inline">
                                         @csrf
