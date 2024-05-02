@@ -18,59 +18,64 @@ class EmployersImport implements ToCollection
 {
     public function collection(Collection $rows)
     {
-
         $skippedFirstRow = false;
 
-
         foreach ($rows as $row) {
-            $n = 1;
             if (!$skippedFirstRow) {
                 $skippedFirstRow = true;
                 continue; // Skip the first row
             }
+
             $app_code = "NIRC" . uniqid();
-            $employerData = [
-                'company_name' => $row[0],
-                'company_email' => $row[1],
-                'company_address' => $row[2],
-                'company_rcnumber' => $row[3],
-                'cac_reg_year' => $row[4],
-                'contact_number' => $row[5],
-                'company_localgovt' => $row[6],
-                'company_state' => $row[7],
-                'status' => $row[8],
-                'applicant_code' => $app_code,
-                'contact_surname' => $row[9],
-                'contact_firstname' => $row[10],
-                'contact_middlename' => $row[11],
-                'branch_id' => $row[12],
-                'user_type' => $row[14],
-                'password' => Hash::make('12345678'),
-                'user_id' => 1,
-            ];
+
+            $employer = new Employer();
+            $employer->company_name = $row[0];
+            $employer->company_email = $row[1];
+            $employer->company_address = $row[2];
+            $employer->company_rcnumber = $row[3];
+            $employer->cac_reg_year = $row[4];
+            $employer->contact_number = $row[5];
+            $employer->company_localgovt = $row[6];
+            $employer->company_state = $row[7];
+            $employer->status = $row[8];
+            $employer->applicant_code = $app_code;
+            $employer->contact_surname = $row[9];
+            $employer->contact_firstname = $row[10];
+            $employer->contact_middlename = $row[11];
+            $employer->branch_id = $row[12];
+            $employer->user_type = $row[14];
+            $employer->password = Hash::make('12345678');
+            $employer->user_id = 1;
 
             // Define validation rules
             $rules = [
                 'company_email' => 'required|email|unique:employers,company_email',
+                'applicant_code' => 'required|unique:employers,applicant_code',
             ];
 
             // Define custom error messages
             $messages = [
                 'company_email.unique' => 'The email address is already in use.',
+                'applicant_code.unique' => 'The applicant code is already in use.',
+            ];
+
+            // Create an associative array of attributes and their values
+            $attributes = [
+                'company_email' => $employer->company_email,
+                'applicant_code' => $employer->applicant_code,
             ];
 
             // Validate data
-            $validator = Validator::make($employerData, $rules, $messages);
+            $validator = Validator::make($attributes, $rules, $messages);
 
             if ($validator->fails()) {
-                // Validation fails, return error messages
+                // Validation fails, display error messages
                 $errors = $validator->errors()->all();
-                // return response()->json(['errors' => $errors], 422); // Return error response
-                Flash::error('Email Already Exist');
-                return back()->with('error', 'Email Already Exist');
+                Flash::error(implode('<br>', $errors));
+                return back()->withInput()->withErrors($validator);
             } else {
-                # code...
-                Employer::create($employerData);
+                // Validation passes, create Employer record
+                $employer->save();
             }
         }
     }
