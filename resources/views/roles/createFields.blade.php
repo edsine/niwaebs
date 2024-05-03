@@ -59,6 +59,48 @@
         <span class="">delete role</span>
     </div>
             </div>
+            <div class="row">
+                <h4 class="mb-3 mt-5">files</h4>
+                <div class="col-12 mb-3">
+                    <a href="#" class="check-all-link" data-group="files">Select All</a> <!-- Add Check All link -->
+                </div>
+                                    <div class="col-6 mb-3">
+                        <input class="form-checkbox h-4 w-4 files" name="permissions[]" type="checkbox" value="43" id="permissions[]">
+                        <span class="">create files</span>
+                    </div>
+            </div>
+            <div class="row">
+                <h4 class="mb-3 mt-5">service</h4>
+    <div class="col-6 mb-3">
+        <input class="form-checkbox h-4 w-4 service" name="permissions[]" type="checkbox" value="164" id="permissions[]">
+        <span class="">view service applications module</span>
+    </div>
+    <div class="col-6 mb-3">
+        <input class="form-checkbox h-4 w-4 service" name="permissions[]" type="checkbox" value="166" id="permissions[]">
+        <span class="">view service application setup module</span>
+    </div>
+</div>
+
+    <div class="row">
+<h4 class="mb-3 mt-5">view incoming documents module</h4>
+<div class="col-12 mb-3">
+{{--     <a href="#" class="check-all-link" data-group="view incoming documents module">Select All</a> <!-- Add Check All link -->
+ --}}</div>
+                    <div class="col-6 mb-3">
+        <input class="form-checkbox h-4 w-4 view incoming documents module" name="permissions[]" type="checkbox" value="170" id="permissions[]">
+        <span class="">view incoming documents module</span>
+    </div>
+            </div>
+    <div class="row">
+<h4 class="mb-3 mt-5">view incoming documents</h4>
+<div class="col-12 mb-3">
+{{--     <a href="#" class="check-all-link" data-group="view incoming documents">Select All</a> <!-- Add Check All link -->
+ --}}</div>
+                    <div class="col-6 mb-3">
+        <input class="form-checkbox h-4 w-4 view incoming documents" name="permissions[]" type="checkbox" value="171" id="permissions[]">
+        <span class="">view incoming documents</span>
+    </div>
+            </div>
     {{-- <div class="row">
 <h4 class="mb-3 mt-5">client</h4>
 <div class="col-12 mb-3">
@@ -199,7 +241,7 @@
         <span class="">manage timesheet</span>
     </div>
             </div> --}}
-    <div class="row">
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">areamanager</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="areamanager">Select All</a> <!-- Add Check All link -->
@@ -208,8 +250,8 @@
         <input class="form-checkbox h-4 w-4 areamanager" name="permissions[]" type="checkbox" value="33" id="permissions[]">
         <span class="">view areamanager dashboard</span>
     </div>
-            </div>
-    <div class="row">
+            </div> --}}
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">md</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="md">Select All</a> <!-- Add Check All link -->
@@ -218,12 +260,12 @@
         <input class="form-checkbox h-4 w-4 md" name="permissions[]" type="checkbox" value="34" id="permissions[]">
         <span class="">view md dashboard</span>
     </div>
-                    {{-- <div class="col-6 mb-3">
+                    <div class="col-6 mb-3">
         <input class="form-checkbox h-4 w-4 md" name="permissions[]" type="checkbox" value="36" id="permissions[]">
         <span class="">approve as md</span>
-    </div> --}}
-            </div>
-    <div class="row">
+    </div>
+            </div> --}}
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">office_coordination</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="office_coordination">Select All</a> <!-- Add Check All link -->
@@ -232,7 +274,8 @@
         <input class="form-checkbox h-4 w-4 office_coordination" name="permissions[]" type="checkbox" value="35" id="permissions[]">
         <span class="">view area office coordination</span>
     </div>
-            </div>
+            </div> --}}
+            
     {{-- <div class="row">
 <h4 class="mb-3 mt-5">hod</h4>
 <div class="col-12 mb-3">
@@ -747,7 +790,7 @@
         <span class="">read locations</span>
     </div>
             </div> --}}
-    <div class="row">
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">engineering</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="engineering">Select All</a> <!-- Add Check All link -->
@@ -756,8 +799,8 @@
         <input class="form-checkbox h-4 w-4 engineering" name="permissions[]" type="checkbox" value="115" id="permissions[]">
         <span class="">view engineering dashboard</span>
     </div>
-            </div>
-    <div class="row">
+            </div> --}}
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">finance_account</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="finance_account">Select All</a> <!-- Add Check All link -->
@@ -766,8 +809,8 @@
         <input class="form-checkbox h-4 w-4 finance_account" name="permissions[]" type="checkbox" value="116" id="permissions[]">
         <span class="">view finance and account dashboard</span>
     </div>
-            </div>
-    <div class="row">
+            </div> --}}
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">audit</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="audit">Select All</a> <!-- Add Check All link -->
@@ -776,8 +819,8 @@
         <input class="form-checkbox h-4 w-4 audit" name="permissions[]" type="checkbox" value="117" id="permissions[]">
         <span class="">view audit dashboard</span>
     </div>
-            </div>
-    <div class="row">
+            </div> --}}
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">corporate</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="corporate">Select All</a> <!-- Add Check All link -->
@@ -786,7 +829,7 @@
         <input class="form-checkbox h-4 w-4 corporate" name="permissions[]" type="checkbox" value="118" id="permissions[]">
         <span class="">view corporate affairs dashboard</span>
     </div>
-            </div>
+            </div> --}}
    {{--  <div class="row">
 <h4 class="mb-3 mt-5">vendors</h4>
 <div class="col-12 mb-3">
@@ -927,7 +970,7 @@
         <span class="">read tax summary</span>
     </div>
             </div> --}}
-    <div class="row">
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">approval</h4>
 <div class="col-12 mb-3">
     <a href="#" class="check-all-link" data-group="approval">Select All</a> <!-- Add Check All link -->
@@ -952,7 +995,7 @@
         <input class="form-checkbox h-4 w-4 approval" name="permissions[]" type="checkbox" value="165" id="permissions[]">
         <span class="">view approval module</span>
     </div>
-            </div>
+            </div> --}}
     {{-- <div class="row">
 <h4 class="mb-3 mt-5">payments_approval</h4>
 <div class="col-12 mb-3">
@@ -993,18 +1036,7 @@
                     
                     
             </div> --}}
-            <div class="row">
-                <h4 class="mb-3 mt-5">service</h4>
-    <div class="col-6 mb-3">
-        <input class="form-checkbox h-4 w-4 service" name="permissions[]" type="checkbox" value="164" id="permissions[]">
-        <span class="">view service applications module</span>
-    </div>
-    <div class="col-6 mb-3">
-        <input class="form-checkbox h-4 w-4 service" name="permissions[]" type="checkbox" value="166" id="permissions[]">
-        <span class="">view service application setup module</span>
-    </div>
-</div>
-
+            
     {{-- <div class="row">
 <h4 class="mb-3 mt-5">fee</h4>
 <div class="col-12 mb-3">
@@ -1141,46 +1173,27 @@
         <span class="">read suppliers</span>
     </div>
             </div> --}}
-    <div class="row">
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">view operational task module</h4>
 <div class="col-12 mb-3">
-{{--     <a href="#" class="check-all-link" data-group="view operational task module">Select All</a> <!-- Add Check All link -->
- --}}</div>
+    <a href="#" class="check-all-link" data-group="view operational task module">Select All</a> <!-- Add Check All link -->
+</div>
                     <div class="col-6 mb-3">
         <input class="form-checkbox h-4 w-4 view operational task module" name="permissions[]" type="checkbox" value="167" id="permissions[]">
         <span class="">view operational task module</span>
     </div>
-            </div>
-    <div class="row">
+            </div> --}}
+    {{-- <div class="row">
 <h4 class="mb-3 mt-5">view my task module</h4>
 <div class="col-12 mb-3">
-{{--     <a href="#" class="check-all-link" data-group="view my task module">Select All</a> <!-- Add Check All link -->
- --}}</div>
+    <a href="#" class="check-all-link" data-group="view my task module">Select All</a> <!-- Add Check All link -->
+</div>
                     <div class="col-6 mb-3">
         <input class="form-checkbox h-4 w-4 view my task module" name="permissions[]" type="checkbox" value="168" id="permissions[]">
         <span class="">view my task module</span>
     </div>
-            </div>
-    <div class="row">
-<h4 class="mb-3 mt-5">view incoming documents module</h4>
-<div class="col-12 mb-3">
-{{--     <a href="#" class="check-all-link" data-group="view incoming documents module">Select All</a> <!-- Add Check All link -->
- --}}</div>
-                    <div class="col-6 mb-3">
-        <input class="form-checkbox h-4 w-4 view incoming documents module" name="permissions[]" type="checkbox" value="170" id="permissions[]">
-        <span class="">view incoming documents module</span>
-    </div>
-            </div>
-    <div class="row">
-<h4 class="mb-3 mt-5">view incoming documents</h4>
-<div class="col-12 mb-3">
-{{--     <a href="#" class="check-all-link" data-group="view incoming documents">Select All</a> <!-- Add Check All link -->
- --}}</div>
-                    <div class="col-6 mb-3">
-        <input class="form-checkbox h-4 w-4 view incoming documents" name="permissions[]" type="checkbox" value="171" id="permissions[]">
-        <span class="">view incoming documents</span>
-    </div>
-            </div>
+            </div> --}}
+         
     {{-- <div class="row">
 <h4 class="mb-3 mt-5">view overview module</h4>
 <div class="col-12 mb-3">
