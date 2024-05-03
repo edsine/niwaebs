@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Shared\Models\Branch;
+use App\Models\ServiceApplication;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Shared\Models\Branch;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Service extends Model
 {
@@ -38,9 +39,15 @@ class Service extends Model
     return $this->hasMany(ProcessingType::class, 'service_id', 'id');
 }
 
+public function serviceapplication(){
+    return $this->hasMany(ServiceApplication::class,'service_id','id');
+}
+
 public function branch()
     {
         return $this->belongsTo(Branch::class);
     }
+
+
 
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\EmployerManager\Models;
 
+use App\Models\ServiceApplication;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ class Employer extends Model implements Auditable
 
     public $fillable = [
         'user_id',
+        'applicant_code',
         'ecs_number',
         'company_name',
         'company_email',
@@ -54,6 +56,7 @@ class Employer extends Model implements Auditable
         'updated_at',
         'created_at',
         'account_officer_id',
+        'user_type'
     ];
 
     /* protected $casts = [
@@ -79,7 +82,9 @@ class Employer extends Model implements Auditable
         'deleted_by' => 'integer'
     ]; */
 
-    public static array $rules = [];
+    public static array $rules = [
+        'applicant_code'=>'required'
+    ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -111,6 +116,9 @@ class Employer extends Model implements Auditable
         return $this->belongsTo('app\Models\LocalGovt','company_localgovt');
     }
 
+    public function serviceapplication(){
+        return $this->hasMany(ServiceApplication::class,'applicant_code','id');
+    }
     public function employees()
     {
         return $this->hasMany(Employee::class);

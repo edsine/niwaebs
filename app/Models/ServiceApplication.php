@@ -7,13 +7,15 @@ use Modules\EmployerManager\Models\Employer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
- class ServiceApplication extends Model
+class ServiceApplication extends Model
 {
     use HasFactory;
     public $table = 'service_applications';
 
     public $fillable = [
         'service_id',
+        'applicant_code',
+        'serviceapplication_code',
         'application_form_payment_status',
         'date_of_inspection',
         'service_type_id',
@@ -34,7 +36,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'hod_marine_approval',
         'hod_marine_signature_path',
         'permit_document_path',
-         'branch_id',
+        'branch_id',
     ];
 
     protected $casts = [
@@ -78,15 +80,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
         'branch_id' => 'required',
     ];
 
+    public function payment(){
+        return $this->hasMany(Payment::class,'serviceapplication_code','id');
+    }
     public function employer()
     {
-        $employer = Employer::where('id', $this->user_id)->first();
+        $employer = Employer::where('applicant_code', $this->applicant_code)->first();
         return $employer;
     }
+    public function applicant(){
+        return $this->belongsTo(Employer::class,'applicant_code','id');
+    }
 
-    public function service()
+    // public function employer(){
+    //     return $this->belongsTo(Employer::class,'applicant_code','id');
+    // }
+
+    public function theservice()
     {
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsTo(Service::class, 'service_id', 'id');
     }
 
     public function documents()
@@ -95,7 +107,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
     }
 
     public function processingType()
-{
-    return $this->belongsTo(ProcessingType::class, 'service_id', 'service_id');
-}
+    {
+        return $this->belongsTo(ProcessingType::class, 'service_id', 'service_id');
+    }
 }

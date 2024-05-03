@@ -13,10 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('service_applications', function (Blueprint $table) {
-            $table->bigInteger('branch_id')->nullable();
-            $table->string('applicant_code')->nullable();
+        Schema::table('payments', function (Blueprint $table) {
             $table->string('serviceapplication_code')->nullable();
         });
     }
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('payments', function (Blueprint $table) {
+            //
+        });
     }
 };

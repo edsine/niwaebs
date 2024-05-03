@@ -6,17 +6,18 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use DateTime;
 use Modules\EmployerManager\Models\Employer;
 use Illuminate\Support\Facades\Validator;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Notification;
 use Modules\EmployerManager\Notifications\EmployerImportedNotification;
 
+
 class EmployersImport implements ToCollection
 {
     public function collection(Collection $rows)
     {
-
         $skippedFirstRow = false;
 
         foreach ($rows as $row) {
@@ -24,44 +25,58 @@ class EmployersImport implements ToCollection
                 $skippedFirstRow = true;
                 continue; // Skip the first row
             }
-            // dd($row);
-            $employerData = [
-                // Extract other fields and populate staff data array
-                'company_email' => $row[1],
-                'contact_firstname' => $row[2],
-                'contact_middlename' => $row[3],
-                'contact_surname' => $row[4],
-                'ecs_number' => $row[5],
-                'company_name' => $row[6],
-                'password' => Hash::make('12345678'),
-                'company_address' => $row[7],
-                'company_rcnumber' => $row[8],
-                'contact_position' => $row[9],
-                'contact_number' => $row[10],
-                'company_localgovt' => 1, //$row[11],
-                'company_state' => $row[12],
-                'business_area' => $row[13],
-                'inspection_status' => 0,
-                'company_phone' => $row[14],
-                'cac_reg_year' => $row[15],
-                'number_of_employees' => $row[16],
-                'status' => 0,
-                'registered_date' => date("Y-m-d"),
-                'branch_id' => $row[17],
-                'paid_registration' => 0,
-                'user_id' => 1,
-                'region_id' => 1,
-                'transaction_id' => 1,
-                'contribution_id' => 1,
-                'created_by' => 1,
-                'updated_by' => 1,
-                'deleted_by' => 1,
-                //'account_officer_id' => 1,
-            ];
-            Employer::create($employerData);
 
-            // Send notification to the user
-            Notification::send($employerData, new EmployerImportedNotification($employerData));
+            $app_code = "NIRC" . uniqid();
+
+            $employer = new Employer();
+            $employer->company_name = $row[0];
+            $employer->company_email = $row[1];
+            $employer->company_address = $row[2];
+            $employer->company_rcnumber = $row[3];
+            $employer->cac_reg_year = $row[4];
+            $employer->contact_number = $row[5];
+            $employer->company_localgovt = $row[6];
+            $employer->company_state = $row[7];
+            $employer->status = $row[8];
+            $employer->applicant_code = $app_code;
+            $employer->contact_surname = $row[9];
+            $employer->contact_firstname = $row[10];
+            $employer->contact_middlename = $row[11];
+            $employer->branch_id = $row[12];
+            $employer->user_type = $row[14];
+            $employer->password = Hash::make('12345678');
+            $employer->user_id = 1;
+
+            // Define validation rules
+            $rules = [
+                'company_email' => 'required|email|unique:employers,company_email',
+                'applicant_code' => 'required|unique:employers,applicant_code',
+            ];
+
+            // Define custom error messages
+            $messages = [
+                'company_email.unique' => 'The email address is already in use.',
+                'applicant_code.unique' => 'The applicant code is already in use.',
+            ];
+
+            // Create an associative array of attributes and their values
+            $attributes = [
+                'company_email' => $employer->company_email,
+                'applicant_code' => $employer->applicant_code,
+            ];
+
+            // Validate data
+            $validator = Validator::make($attributes, $rules, $messages);
+
+            if ($validator->fails()) {
+                // Validation fails, display error messages
+                $errors = $validator->errors()->all();
+                Flash::error(implode('<br>', $errors));
+                return back()->withInput()->withErrors($validator);
+            } else {
+                // Validation passes, create Employer record
+                $employer->save();
+            }
         }
     }
 }

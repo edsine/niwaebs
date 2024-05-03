@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->string('extension');
                 $table->string('file_size');
                 $table->integer('task_id');
-                $table->String('user_type');
+                $table->string('user_type')->nullable();
                 $table->integer('created_by');
             $table->timestamps();
         });

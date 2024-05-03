@@ -101,7 +101,7 @@ Route::group(['middleware' => ['auth']], function () {
     //End of document manager
 
     //Start of incoming documents
-    Route::get('incoming_document_dashboard',[App\Http\Controllers\IncomingDocumentsController::class,'dashboard'])->name('incoming_document_dashboard');
+    Route::get('incoming_document_dashboard', [App\Http\Controllers\IncomingDocumentsController::class, 'dashboard'])->name('incoming_document_dashboard');
     Route::resource('incoming_documents_category', App\Http\Controllers\IncomingDocumentsCategoryController::class);
     Route::post('/generate-incoming-file-no', 'App\Http\Controllers\IncomingDocumentsCategoryController@generateFileNo');
 
@@ -136,10 +136,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);
     // demo admin role
     Route::get('demo_roles/{id}', 'App\Http\Controllers\RoleController@demo_edit')->name('demo_roles');
-Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update')->name('demo_update');
-
-
-
+    Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update')->name('demo_update');
 });
 
 Route::get('/new/incoming', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
@@ -160,7 +157,7 @@ Route::get('/showDepartementalDocumentsByUser/{id}', 'App\Http\Controllers\Docum
 
 
 // Route::get('thedocumentuser/{deptid}/{branchid}','App\Http\Controllers\DocumentsController@getusersbydept');
-Route::get('thedocumentuser/','App\Http\Controllers\DocumentsController@getusersbydept');
+Route::get('thedocumentuser/', 'App\Http\Controllers\DocumentsController@getusersbydept');
 Route::middleware(['auth'])->group(function () {
     Route::get('/asset/home', 'App\Http\Controllers\Home@index');
     Route::get('/brandlist', 'App\Http\Controllers\Brand@index');
@@ -298,14 +295,14 @@ Route::post('updatesettings','App\Http\Controllers\Settings@update');
     // Route::view('reminder','dms.reminder');
     // Route::view('createreminder','dms.createreminder');
 
-    Route::resource('reminder',ReminderController::class);
+    Route::resource('reminder', ReminderController::class);
     // Route::view('dash','dms.dashboard');
-    Route::get('documentloginaudit',[ReminderController::class,'loginaudit'])->name('loginaudit');
+    Route::get('documentloginaudit', [ReminderController::class, 'loginaudit'])->name('loginaudit');
 
 
-    Route::get('dash',[ReminderController::class,'dashboard'])->name('dash');
-    Route::get('full-calender',[EventController::class,'index'])->name('get-calender');
-    Route::post('full-calender/action',[EventController::class,'action'])->name('save-caleder');
+    Route::get('dash', [ReminderController::class, 'dashboard'])->name('dash');
+    Route::get('full-calender', [EventController::class, 'index'])->name('get-calender');
+    Route::post('full-calender/action', [EventController::class, 'action'])->name('save-caleder');
     //Report API
     Route::get('listassetactivityreport', 'App\Http\Controllers\Reports@getassetactivityreport');
     Route::get('listcomponentactivityreport', 'App\Http\Controllers\Reports@getcomponentactivityreport');
@@ -352,7 +349,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-for-area-manager/{id}', 'App\Http\Controllers\HomeController@getForAreaManager')->name('getForAreaManager');
 
 
-    Route::get('thelist',[HomeController::class,'getbranch']);
+    Route::get('thelist', [HomeController::class, 'getbranch']);
 
     //Express setup
     Route::resource('application_form_fee', App\Http\Controllers\ApplicationFormFeeController::class);
@@ -363,8 +360,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/services/{branch}/processing-types', 'App\Http\Controllers\ProcessingFeeController@getProcessingTypes');
     Route::get('/subservice/{subservice}/subservice-types', 'App\Http\Controllers\EquipmentAndFeeController@getSubServiceTypes');
     Route::resource('registration_fee', App\Http\Controllers\RegistrationFeeController::class);
-
-
 });
 
 // Route::middleware(['auth', 'authuserbyrole'])->group(function(){
@@ -381,7 +376,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('rejectPayment');
 });
 
-Route::get('totalrevenue',[HomeController::class,'totalrevenue']);
+Route::get('totalrevenue', [HomeController::class, 'totalrevenue']);
 
 
 Route::get('/roundcube-login', [HomeController::class, 'roundcubeLogin']);
@@ -448,7 +443,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/save-signature', [UserController::class, 'saveSignature']);
     Route::get('/change-signature', [UserController::class, 'changeSignature'])->name('change.signature');
     Route::get('/assign_role', [UserController::class, 'assignRole'])->name('assign_role');
-
 });
 
 // Route::get('/account', function () {
@@ -606,9 +600,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/document/ldms_create', [DocumentController::class, 'ldmsCreate'])->name('create.document');
 
-	Route::post('/document/ldms_store', [DocumentController::class,'ldmsStore'])->name('documents.stores');
-	// Route::get('/document/ldms_edit/{id}', array("uses"=>'DocumentController@ldmsEdit'));
-	Route::get('/document/ldms_edit/{id}', [DocumentController::class,'ldmsEdit']);
+    Route::post('/document/ldms_store', [DocumentController::class, 'ldmsStore'])->name('documents.stores');
+    // Route::get('/document/ldms_edit/{id}', array("uses"=>'DocumentController@ldmsEdit'));
+    Route::get('/document/ldms_edit/{id}', [DocumentController::class, 'ldmsEdit']);
 
     Route::post('/document/ldms_edit/ldms_update/{id}', [DocumentController::class, 'ldmsUpdate']);
     Route::get('/document/ldms_delete/{id}/{fileName}', [DocumentController::class, 'ldmsDelete']);
@@ -660,7 +654,7 @@ Route::post('client-reset-password/{id}', [ClientController::class, 'clientPassw
 
 
 // Milestone Module
-Route::get('projects/{id}/milestone', [ProjectController::class, 'milestone'])->name('project.milestone')->middleware(['auth' ]);
+Route::get('projects/{id}/milestone', [ProjectController::class, 'milestone'])->name('project.milestone')->middleware(['auth']);
 
 //Route::delete(
 //    '/projects/{id}/users/{uid}' [
@@ -677,59 +671,59 @@ Route::get('projects-view', [ProjectController::class, 'filterProjectView'])->na
 Route::get('/project/copy/{id}', [ProjectController::class, 'copyproject'])->name('project.copy')->middleware(['auth']);
 Route::post('/project/copy/store/{id}', [ProjectController::class, 'copyprojectstore'])->name('project.copy.store')->middleware(['auth']);
 
-Route::post('projects/{id}/milestone', [ProjectController::class, 'milestoneStore'])->name('project.milestone.store')->middleware(['auth', ]);
-Route::get('projects/milestone/{id}/edit', [ProjectController::class, 'milestoneEdit'])->name('project.milestone.edit')->middleware(['auth', ]);
-Route::post('projects/milestone/{id}', [ProjectController::class, 'milestoneUpdate'])->name('project.milestone.update')->middleware(['auth', ]);
-Route::delete('projects/milestone/{id}', [ProjectController::class, 'milestoneDestroy'])->name('project.milestone.destroy')->middleware(['auth', ]);
-Route::get('projects/milestone/{id}/show', [ProjectController::class, 'milestoneShow'])->name('project.milestone.show')->middleware(['auth', ]);
+Route::post('projects/{id}/milestone', [ProjectController::class, 'milestoneStore'])->name('project.milestone.store')->middleware(['auth',]);
+Route::get('projects/milestone/{id}/edit', [ProjectController::class, 'milestoneEdit'])->name('project.milestone.edit')->middleware(['auth',]);
+Route::post('projects/milestone/{id}', [ProjectController::class, 'milestoneUpdate'])->name('project.milestone.update')->middleware(['auth',]);
+Route::delete('projects/milestone/{id}', [ProjectController::class, 'milestoneDestroy'])->name('project.milestone.destroy')->middleware(['auth',]);
+Route::get('projects/milestone/{id}/show', [ProjectController::class, 'milestoneShow'])->name('project.milestone.show')->middleware(['auth',]);
 
 // End Milestone
 
 // Project Module
 
 Route::get('invite-project-member/{id}', [ProjectController::class, 'inviteMemberView'])->name('invite.project.member.view')->middleware(['auth']);
-Route::post('invite-project-user-member', [ProjectController::class, 'inviteProjectUserMember'])->name('invite.project.user.member')->middleware(['auth', ]);
+Route::post('invite-project-user-member', [ProjectController::class, 'inviteProjectUserMember'])->name('invite.project.user.member')->middleware(['auth',]);
 
-Route::delete('projects/{id}/users/{uid}', [ProjectController::class, 'destroyProjectUser'])->name('projects.user.destroy')->middleware(['auth', ]);
-Route::get('project/{view?}', [ProjectController::class, 'index'])->name('projects.list')->middleware(['auth', ]);
-Route::get('projects-view', [ProjectController::class, 'filterProjectView'])->name('filter.project.view')->middleware(['auth', ]);
-Route::post('projects/{id}/store-stages/{slug}', [ProjectController::class, 'storeProjectTaskStages'])->name('project.stages.store')->middleware(['auth', ]);
-
-
-Route::patch('remove-user-from-project/{project_id}/{user_id}', [ProjectController::class, 'removeUserFromProject'])->name('remove.user.from.project')->middleware(['auth', ]);
-Route::get('projects-users', [ProjectController::class, 'loadUser'])->name('project.user')->middleware(['auth', ]);
-Route::get('projects/{id}/gantt/{duration?}', [ProjectController::class, 'gantt'])->name('projects.gantt')->middleware(['auth', ]);
-Route::post('projects/{id}/gantt', [ProjectController::class, 'ganttPost'])->name('projects.gantt.post')->middleware(['auth', ]);
+Route::delete('projects/{id}/users/{uid}', [ProjectController::class, 'destroyProjectUser'])->name('projects.user.destroy')->middleware(['auth',]);
+Route::get('project/{view?}', [ProjectController::class, 'index'])->name('projects.list')->middleware(['auth',]);
+Route::get('projects-view', [ProjectController::class, 'filterProjectView'])->name('filter.project.view')->middleware(['auth',]);
+Route::post('projects/{id}/store-stages/{slug}', [ProjectController::class, 'storeProjectTaskStages'])->name('project.stages.store')->middleware(['auth',]);
 
 
-Route::resource('projects', ProjectController::class)->middleware(['auth', ]);
+Route::patch('remove-user-from-project/{project_id}/{user_id}', [ProjectController::class, 'removeUserFromProject'])->name('remove.user.from.project')->middleware(['auth',]);
+Route::get('projects-users', [ProjectController::class, 'loadUser'])->name('project.user')->middleware(['auth',]);
+Route::get('projects/{id}/gantt/{duration?}', [ProjectController::class, 'gantt'])->name('projects.gantt')->middleware(['auth',]);
+Route::post('projects/{id}/gantt', [ProjectController::class, 'ganttPost'])->name('projects.gantt.post')->middleware(['auth',]);
+
+
+Route::resource('projects', ProjectController::class)->middleware(['auth',]);
 
 // User Permission
-Route::get('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermission'])->name('projects.user.permission')->middleware(['auth', ]);
-Route::post('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermissionStore'])->name('projects.user.permission.store')->middleware(['auth', ]);
+Route::get('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermission'])->name('projects.user.permission')->middleware(['auth',]);
+Route::post('projects/{id}/user/{uid}/permission', [ProjectController::class, 'userPermissionStore'])->name('projects.user.permission.store')->middleware(['auth',]);
 
 // End Project Module
 
 // Task Module
-Route::get('stage/{id}/tasks', [ProjectTaskController::class, 'getStageTasks'])->name('stage.tasks')->middleware(['auth', ]);
+Route::get('stage/{id}/tasks', [ProjectTaskController::class, 'getStageTasks'])->name('stage.tasks')->middleware(['auth',]);
 
 
 Route::get('taskboard/{view?}', [ProjectTaskController::class, 'taskBoard'])->name('taskBoard.view')->middleware(['auth']);
 Route::get('taskboard-view', [ProjectTaskController::class, 'taskboardView'])->name('project.taskboard.view')->middleware(['auth']);
 // Project Task Module
 Route::get('projects/time-tracker/{id}', [ProjectController::class, 'tracker'])->name('projecttime.tracker')->middleware(['auth']);
-Route::get('/projects/{id}/task', [ProjectTaskController::class, 'index'])->name('projects.tasks.index')->middleware(['auth', ]);
-Route::get('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'create'])->name('projects.tasks.create')->middleware(['auth', ]);
-Route::post('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'store'])->name('projects.tasks.store')->middleware(['auth', ]);
-Route::get('/projects/{id}/task/{tid}/show', [ProjectTaskController::class, 'show'])->name('projects.tasks.show')->middleware(['auth', ]);
-Route::get('/projects/{id}/task/{tid}/edit', [ProjectTaskController::class, 'edit'])->name('projects.tasks.edit')->middleware(['auth', ]);
-Route::post('/projects/{id}/task/update/{tid}', [ProjectTaskController::class, 'update'])->name('projects.tasks.update')->middleware(['auth', ]);
-Route::delete('/projects/{id}/task/{tid}', [ProjectTaskController::class, 'destroy'])->name('projects.tasks.destroy')->middleware(['auth', ]);
-Route::patch('/projects/{id}/task/order', [ProjectTaskController::class, 'taskOrderUpdate'])->name('tasks.update.order')->middleware(['auth', ]);
-Route::patch('update-task-priority-color', [ProjectTaskController::class, 'updateTaskPriorityColor'])->name('update.task.priority.color')->middleware(['auth', ]);
+Route::get('/projects/{id}/task', [ProjectTaskController::class, 'index'])->name('projects.tasks.index')->middleware(['auth',]);
+Route::get('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'create'])->name('projects.tasks.create')->middleware(['auth',]);
+Route::post('/projects/{pid}/task/{sid}', [ProjectTaskController::class, 'store'])->name('projects.tasks.store')->middleware(['auth',]);
+Route::get('/projects/{id}/task/{tid}/show', [ProjectTaskController::class, 'show'])->name('projects.tasks.show')->middleware(['auth',]);
+Route::get('/projects/{id}/task/{tid}/edit', [ProjectTaskController::class, 'edit'])->name('projects.tasks.edit')->middleware(['auth',]);
+Route::post('/projects/{id}/task/update/{tid}', [ProjectTaskController::class, 'update'])->name('projects.tasks.update')->middleware(['auth',]);
+Route::delete('/projects/{id}/task/{tid}', [ProjectTaskController::class, 'destroy'])->name('projects.tasks.destroy')->middleware(['auth',]);
+Route::patch('/projects/{id}/task/order', [ProjectTaskController::class, 'taskOrderUpdate'])->name('tasks.update.order')->middleware(['auth',]);
+Route::patch('update-task-priority-color', [ProjectTaskController::class, 'updateTaskPriorityColor'])->name('update.task.priority.color')->middleware(['auth',]);
 
 
-Route::post('/projects/{id}/comment/{tid}/file', [ProjectTaskController::class, 'commentStoreFile'])->name('comment.store.file')->middleware(['auth', ]);
+Route::post('/projects/{id}/comment/{tid}/file', [ProjectTaskController::class, 'commentStoreFile'])->name('comment.store.file')->middleware(['auth',]);
 Route::delete('/projects/{id}/comment/{tid}/file/{fid}', [ProjectTaskController::class, 'commentDestroyFile'])->name('comment.destroy.file');
 Route::post('/projects/{id}/comment/{tid}', [ProjectTaskController::class, 'commentStore'])->name('task.comment.store');
 Route::delete('/projects/{id}/comment/{tid}/{cid}', [ProjectTaskController::class, 'commentDestroy'])->name('comment.destroy');
@@ -784,9 +778,10 @@ Route::group(
         'middleware' => [
             'auth',
         ],
-    ], function (){
-    Route::resource('contractType', ContractTypeController::class);
-}
+    ],
+    function () {
+        Route::resource('contractType', ContractTypeController::class);
+    }
 );
 
 // Project Timesheet
@@ -812,28 +807,28 @@ Route::group(
             'auth',
 
         ],
-    ], function ()
-{
-    Route::resource('projectstages', ProjectstagesController::class);
-    Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth']);
-    Route::post('projects/bug/kanban/order', [ProjectController::class, 'bugKanbanOrder'])->name('bug.kanban.order');
-    Route::get('projects/{id}/bug/kanban', [ProjectController::class, 'bugKanban'])->name('task.bug.kanban');
-    Route::get('projects/{id}/bug', [ProjectController::class, 'bug'])->name('task.bug');
-    Route::get('projects/{id}/bug/create', [ProjectController::class, 'bugCreate'])->name('task.bug.create');
-    Route::post('projects/{id}/bug/store', [ProjectController::class, 'bugStore'])->name('task.bug.store');
-    Route::get('projects/{id}/bug/{bid}/edit', [ProjectController::class, 'bugEdit'])->name('task.bug.edit');
-    Route::post('projects/{id}/bug/{bid}/update', [ProjectController::class, 'bugUpdate'])->name('task.bug.update');
-    Route::delete('projects/{id}/bug/{bid}/destroy', [ProjectController::class, 'bugDestroy'])->name('task.bug.destroy');
-    Route::get('projects/{id}/bug/{bid}/show', [ProjectController::class, 'bugShow'])->name('task.bug.show');
-    Route::post('projects/{id}/bug/{bid}/comment', [ProjectController::class, 'bugCommentStore'])->name('bug.comment.store');
-    Route::post('projects/bug/{bid}/file', [ProjectController::class, 'bugCommentStoreFile'])->name('bug.comment.file.store');
-    Route::delete('projects/bug/comment/{id}', [ProjectController::class, 'bugCommentDestroy'])->name('bug.comment.destroy');
-    Route::delete('projects/bug/file/{id}', [ProjectController::class, 'bugCommentDestroyFile'])->name('bug.comment.file.destroy');
+    ],
+    function () {
+        Route::resource('projectstages', ProjectstagesController::class);
+        Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth']);
+        Route::post('projects/bug/kanban/order', [ProjectController::class, 'bugKanbanOrder'])->name('bug.kanban.order');
+        Route::get('projects/{id}/bug/kanban', [ProjectController::class, 'bugKanban'])->name('task.bug.kanban');
+        Route::get('projects/{id}/bug', [ProjectController::class, 'bug'])->name('task.bug');
+        Route::get('projects/{id}/bug/create', [ProjectController::class, 'bugCreate'])->name('task.bug.create');
+        Route::post('projects/{id}/bug/store', [ProjectController::class, 'bugStore'])->name('task.bug.store');
+        Route::get('projects/{id}/bug/{bid}/edit', [ProjectController::class, 'bugEdit'])->name('task.bug.edit');
+        Route::post('projects/{id}/bug/{bid}/update', [ProjectController::class, 'bugUpdate'])->name('task.bug.update');
+        Route::delete('projects/{id}/bug/{bid}/destroy', [ProjectController::class, 'bugDestroy'])->name('task.bug.destroy');
+        Route::get('projects/{id}/bug/{bid}/show', [ProjectController::class, 'bugShow'])->name('task.bug.show');
+        Route::post('projects/{id}/bug/{bid}/comment', [ProjectController::class, 'bugCommentStore'])->name('bug.comment.store');
+        Route::post('projects/bug/{bid}/file', [ProjectController::class, 'bugCommentStoreFile'])->name('bug.comment.file.store');
+        Route::delete('projects/bug/comment/{id}', [ProjectController::class, 'bugCommentDestroy'])->name('bug.comment.destroy');
+        Route::delete('projects/bug/file/{id}', [ProjectController::class, 'bugCommentDestroyFile'])->name('bug.comment.file.destroy');
 
-    Route::resource('bugstatus', BugStatusController::class);
-    Route::post('/bugstatus/order', [BugStatusController::class, 'order'])->name('bugstatus.order');
-    Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth']);
-}
+        Route::resource('bugstatus', BugStatusController::class);
+        Route::post('/bugstatus/order', [BugStatusController::class, 'order'])->name('bugstatus.order');
+        Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth']);
+    }
 );
 
 
@@ -852,7 +847,7 @@ Route::any('/project/timesheet/update/{timesheet_id}', [TimesheetController::cla
 
 Route::delete('/project/timesheet/{timesheet_id}', [TimesheetController::class, 'timesheetDestroy'])->name('timesheet.destroy')->middleware(['auth']);
 
-Route::get('showarea',[HomeController::class,'showareaoffice'])->name('showarea');
+Route::get('showarea', [HomeController::class, 'showareaoffice'])->name('showarea');
 
 
 Route::group(
@@ -861,28 +856,28 @@ Route::group(
             'auth',
 
         ],
-    ], function ()
-{
-    Route::resource('projectstages', ProjectstagesController::class);
-    Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth']);
-    Route::post('projects/bug/kanban/order', [ProjectController::class, 'bugKanbanOrder'])->name('bug.kanban.order');
-    Route::get('projects/{id}/bug/kanban', [ProjectController::class, 'bugKanban'])->name('task.bug.kanban');
-    Route::get('projects/{id}/bug', [ProjectController::class, 'bug'])->name('task.bug');
-    Route::get('projects/{id}/bug/create', [ProjectController::class, 'bugCreate'])->name('task.bug.create');
-    Route::post('projects/{id}/bug/store', [ProjectController::class, 'bugStore'])->name('task.bug.store');
-    Route::get('projects/{id}/bug/{bid}/edit', [ProjectController::class, 'bugEdit'])->name('task.bug.edit');
-    Route::post('projects/{id}/bug/{bid}/update', [ProjectController::class, 'bugUpdate'])->name('task.bug.update');
-    Route::delete('projects/{id}/bug/{bid}/destroy', [ProjectController::class, 'bugDestroy'])->name('task.bug.destroy');
-    Route::get('projects/{id}/bug/{bid}/show', [ProjectController::class, 'bugShow'])->name('task.bug.show');
-    Route::post('projects/{id}/bug/{bid}/comment', [ProjectController::class, 'bugCommentStore'])->name('bug.comment.store');
-    Route::post('projects/bug/{bid}/file', [ProjectController::class, 'bugCommentStoreFile'])->name('bug.comment.file.store');
-    Route::delete('projects/bug/comment/{id}', [ProjectController::class, 'bugCommentDestroy'])->name('bug.comment.destroy');
-    Route::delete('projects/bug/file/{id}', [ProjectController::class, 'bugCommentDestroyFile'])->name('bug.comment.file.destroy');
+    ],
+    function () {
+        Route::resource('projectstages', ProjectstagesController::class);
+        Route::post('/projectstages/order', [ProjectstagesController::class, 'order'])->name('projectstages.order')->middleware(['auth']);
+        Route::post('projects/bug/kanban/order', [ProjectController::class, 'bugKanbanOrder'])->name('bug.kanban.order');
+        Route::get('projects/{id}/bug/kanban', [ProjectController::class, 'bugKanban'])->name('task.bug.kanban');
+        Route::get('projects/{id}/bug', [ProjectController::class, 'bug'])->name('task.bug');
+        Route::get('projects/{id}/bug/create', [ProjectController::class, 'bugCreate'])->name('task.bug.create');
+        Route::post('projects/{id}/bug/store', [ProjectController::class, 'bugStore'])->name('task.bug.store');
+        Route::get('projects/{id}/bug/{bid}/edit', [ProjectController::class, 'bugEdit'])->name('task.bug.edit');
+        Route::post('projects/{id}/bug/{bid}/update', [ProjectController::class, 'bugUpdate'])->name('task.bug.update');
+        Route::delete('projects/{id}/bug/{bid}/destroy', [ProjectController::class, 'bugDestroy'])->name('task.bug.destroy');
+        Route::get('projects/{id}/bug/{bid}/show', [ProjectController::class, 'bugShow'])->name('task.bug.show');
+        Route::post('projects/{id}/bug/{bid}/comment', [ProjectController::class, 'bugCommentStore'])->name('bug.comment.store');
+        Route::post('projects/bug/{bid}/file', [ProjectController::class, 'bugCommentStoreFile'])->name('bug.comment.file.store');
+        Route::delete('projects/bug/comment/{id}', [ProjectController::class, 'bugCommentDestroy'])->name('bug.comment.destroy');
+        Route::delete('projects/bug/file/{id}', [ProjectController::class, 'bugCommentDestroyFile'])->name('bug.comment.file.destroy');
 
-    Route::resource('bugstatus', BugStatusController::class);
-    Route::post('/bugstatus/order', [BugStatusController::class, 'order'])->name('bugstatus.order');
-    Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth']);
-}
+        Route::resource('bugstatus', BugStatusController::class);
+        Route::post('/bugstatus/order', [BugStatusController::class, 'order'])->name('bugstatus.order');
+        Route::get('bugs-report/{view?}', [ProjectTaskController::class, 'allBugList'])->name('bugs.view')->middleware(['auth']);
+    }
 );
 
 // User_Todo Module
@@ -895,27 +890,38 @@ Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('
 Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth']);
 
 Route::resource('bookings', App\Http\Controllers\BookingController::class);
-Route::controller(BookingController::class)->group(function(){
+Route::controller(BookingController::class)->group(function () {
 
-    Route::post('uploadpayment','paymentupload')->name('uploadpay');
+    Route::post('uploadpayment', 'paymentupload')->name('uploadpay');
 
-    Route::get('paymenthistory','paymenthistoryform')->name('payhistoryform')->middleware(['auth']);
+    Route::get('paymenthistory', 'paymenthistoryform')->name('payhistoryform')->middleware(['auth']);
 });
 
 
-Route::controller(PaymentController::class)->group(function(){
-    Route::get('payhistory','paymenthistory')->middleware('auth')->name('payhistory');
+Route::controller(PaymentController::class)->group(function () {
+    Route::get('payhistory', 'paymenthistory')->middleware('auth')->name('payhistory');
+    Route::get('payhistoryedit/{id}/theupda', 'paymenthistoryedit')->middleware('auth')->name('payhistoryedit');
+    Route::post('payhistoryedit/{id}/', 'paymenthistoryupdate')->middleware('auth')->name('paymentupdate');
+
 });
 
 
-Route::get('serviceappupload',[ServiceApplicationController::class,'uploadpage'])->middleware('auth')->name('serviceupload');
-Route::post('saveupload',[ServiceApplicationController::class,'serviceupload'])->middleware('auth')->name('servicestore');
+Route::get('serviceappupload', [ServiceApplicationController::class, 'uploadpage'])->middleware('auth')->name('serviceupload');
+Route::get('servicemassuploadrecord', [ServiceApplicationController::class, 'showserviceupload'])->middleware('auth')->name('serviceappdata');
+Route::post('saveupload', [ServiceApplicationController::class, 'serviceupload'])->middleware('auth')->name('servicestore');
 
-Route::get('emplhistlist',[EmployerController::class,'displayform'])->name('emplist')->middleware('auth');
-Route::post('emplhistsa',[EmployerController::class,'storemass'])->name('emplistsa')->middleware('auth');
 
+Route::get('serviceapprecoredit/{id}', [ServiceApplicationController::class, 'modifymassuploadpage'])->middleware('auth')->name('serviceedit');
+Route::post('serviceiapprecoreupdate/{id}', [ServiceApplicationController::class, 'updatemassservices'])->middleware('auth')->name('serviceeditiupdate');
+
+Route::get('amplhistlist', [EmployerController::class, 'displayform'])->name('emplist')->middleware('auth');
+Route::get('applicantlistmassrecord', [EmployerController::class, 'showmassemployers'])->name('showemplist')->middleware('auth');
+Route::get('applicantrecordedit/{id}',[EmployerController::class,'editmassemployersrecord'])->name('editappli')->middleware('auth');
+Route::post('applicantmassrecordupdate{id}',[EmployerController::class,'updatemassaplicantrecord'])->name('updateapp')->middleware('auth');
+
+Route::post('amplhistsa', [EmployerController::class, 'storemass'])->name('emplistsa')->middleware('auth');
 
 //download sample
-Route::get('downloademployers',[EmployerController::class,'downloademployersample'])->name('empldownload');
-Route::get('downloadservice',[EmployerController::class,'downloadservicesample'])->name('savapdownload');
-Route::get('downloadpay',[EmployerController::class,'downloadpaymentsample'])->name('paydownload');
+Route::get('downloademployers', [EmployerController::class, 'downloademployersample'])->name('empldownload');
+Route::get('downloadservice', [EmployerController::class, 'downloadservicesamples'])->name('savapdownload');
+Route::get('downloadpay', [EmployerController::class, 'downloadpaymentsample'])->name('paydownload');
