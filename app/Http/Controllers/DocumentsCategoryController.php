@@ -91,12 +91,12 @@ $users = $userData->pluck('name', 'id');
      */
     public function create()
     {
-       // if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY')) {
+        if (Auth()->user()->hasRole('super-admin') ) {
             $departments = Department::get();
-       // } else {
-            //$departments = Department::where('id', Auth()->user()->staff->department->id)->get();
-        //    return redirect()->back()->with('error', 'Permission denied for document audit trail access');
-       // }
+        } else {
+            $departments = Department::where('id', Auth()->user()->staff->department_id)->get();
+            //return redirect()->back()->with('error', 'Permission denied for document audit trail access');
+        }
          return view('documents_categories.create', compact('departments'));
     }
 
@@ -115,7 +115,7 @@ $users = $userData->pluck('name', 'id');
              } else {
              $validated['department_id'] = Auth()->user()->staff->department->id ?? 0;
              } */
-             $validated['department_id'] = Auth()->user()->staff->department_id ?? 0;
+             //$validated['department_id'] = Auth()->user()->staff->department_id ?? 0;
              $documents_category = DocumentsCategory::create($validated);
              return redirect()->route('documents_category.index')->with('success', 'File added successfully!');
        // } else {

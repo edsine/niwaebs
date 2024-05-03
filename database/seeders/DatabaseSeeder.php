@@ -16,6 +16,7 @@ use Modules\DocumentManager\Database\Seeders\DocumentManagerDatabaseSeeder;
 use Modules\EmployerManager\Database\Seeders\EmployerManagerDatabaseSeeder;
 use Modules\ClaimsCompensation\Database\Seeders\ClaimsCompensationDatabaseSeeder;
 use Database\Seeders\LevelsTableSeeder;
+use Database\Seeders\MassUploadSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -62,6 +63,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AssetManagerPermissionsSeeder::class);
         $this->call(OtherUsersTable::class);
         $this->call(LevelsTableSeeder::class);
+        $this->call(MassUploadSeeder::class);
 
     }
 }
