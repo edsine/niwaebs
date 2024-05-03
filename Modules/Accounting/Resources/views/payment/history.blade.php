@@ -23,11 +23,11 @@
                 <tr>
 
                     <td>{{ $item->id }}</td>
-                    {{-- @dd($item->serviceapp); --}}
                     <td>{{ $item->serviceapp ? $item->serviceapp->applicant_code : 'No NAME FOUND' }}</td>
                     <td>{{ $item->branch ? $item->branch->branch_name : 'No Area Office' }}</td>
 
-                    <td>{{ $item->serviceapplication ? $item->serviceapplication->theservice->name : 'No Yet Applied' }}
+                    {{-- @dd($item->serviceapplicationcode->theservice->name); --}}
+                    <td>{{ $item->serviceapplicationcode? $item->serviceapplicationcode->theservice->name : 'No Yet Applied' }}
                     </td>
 
                     @if ($item->payment_status == 1)

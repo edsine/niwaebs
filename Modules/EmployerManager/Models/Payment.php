@@ -54,4 +54,7 @@ class Payment extends Model
     {
         return $this->belongsTo(ServiceApplication::class, 'service_application_id');
     }
+    public function serviceapplicationcode(){
+        return $this->belongsTo(ServiceApplication::class,'serviceapplication_code','id');
+    }
 }
