@@ -11,8 +11,8 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h5 class="text-center mb-2">WELCOME {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h5>
-            <h1 class="text-center text-primary "><span class=" text-uppercase">
-                {{ auth()->user()->staff->branch ? auth()->user()->staff->branch->branch_name : ''}} </span>Area Office </h1>
+            <h1 class="text-center text-primary ">LOCATION: <span class=" text-uppercase">
+                {{ auth()->user()->staff->branch ? auth()->user()->staff->branch->branch_name : ''}} </span> </h1>
                 <p class="text-center text-muted mb-5"><span class=" text-uppercase">
                     {{ auth()->user()->staff->department ? auth()->user()->staff->department->name :  '' }} </span> Department </p>
                 <div class=" d-flex ">

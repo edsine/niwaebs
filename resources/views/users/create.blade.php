@@ -110,7 +110,7 @@
 
                                     <h4 class="card-title">Finish</h4>
                                     <div class="form-group">
-                                        {!! Form::label('branch_id', 'Area Office') !!}
+                                        {!! Form::label('branch_id', 'Location') !!}
                                         {!! Form::select('branch_id', $branch, null, ['class' => 'form-control form-control-solid border border-2']) !!}
                                     </div>
 
