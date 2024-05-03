@@ -13,7 +13,7 @@ use App\Repositories\PermissionRepository;
 use App\Http\Controllers\AppBaseController;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends AppBaseController
 {
@@ -145,7 +145,9 @@ class RoleController extends AppBaseController
             return redirect(route('roles.index'));
         }
 
-        $permissions = $this->permissionRepository->all();
+        //$permissions = $this->permissionRepository->all();
+        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171];
+        $permissions = DB::table('permissions')->whereIn('id', $displayedIds)->get();
 
         $permissions->each(function ($permission) use ($role) {
             $permission->assigned = $role->permissions->pluck('id')->contains($permission->id);
@@ -154,13 +156,16 @@ class RoleController extends AppBaseController
 
         $groupedPermissions = $permissions->groupBy(function ($permission) {
             $words = explode(' ', strtolower($permission->name));
-            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence',  'gifmis', 'asset management', 'crm', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate',   'payments','approval', 'service', 'fee', 'equipment', 'ticket', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis','finance', 'cash flow', 'product stock', 'debtors', 'summary', 'coordination', 'assets']);
+            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical']);
             return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
         });
 
+        
+
+
         return view('roles.edit')->with([
             'role' => $role,
-            // 'permissions' => $permissions,
+            // 'permissions2' => $permissions2,
             'groupedPermissions' => $groupedPermissions
         ]);
     }

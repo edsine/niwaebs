@@ -380,19 +380,20 @@ class UserController extends AppBaseController
     }
 
     public function changePassword(Request $request)
-    {
-        $user = Auth::user();
-        $newPassword = $request->input('password');
+{
+    $user = Auth::user();
+    $newPassword = $request->input('password');
 
-        $user->password = Hash::make($newPassword);
-        $user->save();
+    $user->password = Hash::make($newPassword);
+    $user->save();
 
-        $email = Auth::user()->email;
+    // Logout the user
+    Auth::logout();
 
-        // Handle response and errors as needed
-        Flash::error('Email password & EBS Password changed successfully. ');
-        return redirect(route('change.email.password'));
-    }
+    // Redirect to the login page
+    return redirect(route('login'))->with('success', 'Password changed successfully. Please log in again.');
+}
+
 
     public function saveSignature(Request $request)
     {
