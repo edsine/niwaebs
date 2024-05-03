@@ -21,6 +21,7 @@
             <!-- .nk-block-head-content -->
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
+    @can("update files")
     <div class="nk-block nk-block-lg">
         <div class="card card-bordered card-preview">
             <div class="card-inner">
@@ -32,6 +33,7 @@
             </div>
         </div><!-- .card-preview -->
     </div> <!-- nk-block -->
+    @endcan
     {{-- </div><!-- .components-preview --> --}}
 
 @endsection

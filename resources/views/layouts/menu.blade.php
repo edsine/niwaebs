@@ -236,7 +236,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             </li>
 
         @endcan
-
+        @can('view mass upload module')
         {{-- i was asked to remove the super user lock here --}}
         <li class=" nav-item" id="myTask">
             <a href="#" class="nav-link">
@@ -266,7 +266,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                 </li>
             </ul>
         </li>
-
+@endcan
 
 
         @can('view my task module')

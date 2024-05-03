@@ -1,6 +1,5 @@
 <div class="preview-block">
-    @if (Auth()->user()->hasRole('super-admin'))
-    {{-- <div class="row gy-4 pl-5">
+    <div class="row gy-4 pl-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
                 <div class="form-control-wrap">
@@ -9,8 +8,8 @@
                     </div>
                     <label class="form-label-outlined" for="department_id">Select Department</label>
                     <select class="form-control" name="department_id" id="department_id" required>
-                        <option value="">Select Department</option>
-                        @foreach($departments as $department)
+                         @foreach($departments as $department)
+                         <option>Select Department</option>
                           <option value="{{ $department->id }}" {{ old('department_id', isset($documents_category) && $documents_category->department_id == $department->id ? 'selected' : '') }}>
                                 {{ $department->name }}
                             </option>
@@ -20,8 +19,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
-    @endif
+    </div>
     <div class="row gy-4 p-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
