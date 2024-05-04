@@ -8,9 +8,9 @@
                     </div>
                     <label class="form-label-outlined" for="department_id">Select Department</label>
                     <select class="form-control" name="department_id" id="department_id" required>
+                        <option>Select Department</option>
                          @foreach($departments as $department)
-                         <option>Select Department</option>
-                          <option value="{{ $department->id }}" {{ old('department_id', isset($documents_category) && $documents_category->department_id == $department->id ? 'selected' : '') }}>
+                         <option value="{{ $department->id }}" {{ old('department_id', isset($documents_category) && $documents_category->department_id == $department->id ? 'selected' : '') }}>
                                 {{ $department->name }}
                             </option>
                         @endforeach

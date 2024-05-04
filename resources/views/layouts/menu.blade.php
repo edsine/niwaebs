@@ -19,14 +19,30 @@
 </style>
 <?php
 if (Auth::check() && Auth::user()->hasRole('super-admin')) {
-    $value = 'superadmin';
-} else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
-    $value = 'md_user';
-} else if (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
-    $value = "ta_dashboard";
-} else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
-    $value = 'areamanager';
-} else {
+            $value = 'superadmin';
+        } else if (((Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) || (Auth::user()->level && Auth::user()->level->id == 18))) {
+            $value = 'md_user';
+        }else if ((Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER'))  || (Auth::user()->level && Auth::user()->level->id == 18)) {
+            $value = 'ta_dashboard';
+        } else if ((Auth::check() && Auth::user()->hasRole('SECRETARY'))  || (Auth::user()->level && Auth::user()->level->id == 17))
+        {
+
+            $value = 's_dashboard';
+        } else if (Auth::user()->level && Auth::user()->level->id == 16)
+        {
+
+            $value = 'gm_dashboard';
+        } else if ((Auth::check() && Auth::user()->hasRole('Area Manager'))  || (Auth::user()->level && Auth::user()->level->id == 15))
+        {
+
+            $value = 'areamanager';
+        } else if (Auth::user()->level && 
+        Auth::user()->level->id >= 6 && 
+        Auth::user()->level->id <= 14)
+        {
+
+            $value = 'range_dashboard';
+        } else {
     $value = 'home';
 }
 ?>
@@ -44,12 +60,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     @endif
                 </div>
                 <div class="profile-name">
-                    <p class="name">
+                    <p class="name" style="font-size: small !important;">
                         {{ 'Welcome,' . ' ' . $user->first_name . ' ' . $user->last_name }}
                     </p>
-                    <p class="designation">
-                        {{ auth()->user()->roles->isNotEmpty() ? auth()->user()->roles->pluck('name')->first() : 'no role yet' }}
-                    </p>
+                    <p class="designation text-uppercase">
+                        {{ auth()->user()->staff->rank ? auth()->user()->staff->rank->name : 'NILL' }}
+                    </p>                    
                 </div>
             </div>
         </li>
@@ -63,8 +79,8 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
         </li>
 
 
-        {{-- @can('view user managment module') --}}
-        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
+        @can('view user managment module')
+        {{-- @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin'))) --}}
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="bi bi-tools menu-icon"></i>
@@ -90,12 +106,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                 </ul>
 
             </li>
-        @endif
-        {{-- @endcan --}}
+        {{-- @endif --}}
+        @endcan
 
         @can('view service applications module')
-            @if (auth()->check() &&
-                    (in_array(auth()->user()->staff->department_id, [1, 5, 4]) || auth()->user()->hasRole('super-admin')))
+           {{--  @if (auth()->check() &&
+                    (in_array(auth()->user()->staff->department_id, [1, 5, 4]) || auth()->user()->hasRole('super-admin'))) --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('serviceApplications.index') }}">
                         <i class="fa fa-compass menu-icon"></i>
@@ -103,7 +119,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
 
                     </a>
                 </li>
-            @endif
+           {{--  @endif --}}
         @endcan
 
         @can('view approval module')
@@ -188,11 +204,11 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             </li>
         @endcan
 
-        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
+        @can('view report module')
             <!-- Start Of REport System Menu -->
             @include('accounting::layouts.reportmenu')
             <!-- End Of REport System Menu -->
-        @endif
+        @endcan
 
         @can('view operational task module')
             <li class="nav-item" id="myTask">

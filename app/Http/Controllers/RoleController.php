@@ -49,7 +49,7 @@ class RoleController extends AppBaseController
      */
     public function create()
     {
-        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177];
+        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178];
         $permissions = DB::table('permissions')->whereIn('id', $displayedIds)->get();
         //$permissions = $this->permissionRepository->all();
 
@@ -148,7 +148,7 @@ class RoleController extends AppBaseController
         }
 
         //$permissions = $this->permissionRepository->all();
-        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177];
+        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178];
         $permissions = DB::table('permissions')->whereIn('id', $displayedIds)->get();
 
         $permissions->each(function ($permission) use ($role) {
@@ -236,24 +236,32 @@ class RoleController extends AppBaseController
     }
 
     public function demo_update($id, Request $request)
-    {
-        $role = $this->roleRepository->find($id);
+{
+    $role = $this->roleRepository->find($id);
 
-        if (empty($role)) {
-            Flash::error('Role not found');
-
-            return redirect(route('roles.index'));
-        }
-
-
-        $input =  $request->all();
-        $role = $this->roleRepository->update($input, $id);
-        $role->syncPermissions($request->get('permissions') ?? []);
-
-        Flash::success('Role updated successfully.');
-
+    if (empty($role)) {
+        Flash::error('Role not found');
         return redirect(route('roles.index'));
     }
+
+    $input = $request->all();
+
+    // Update role data
+    $updatedRole = $this->roleRepository->update($input, $id);
+
+    // Delete all previously assigned permissions
+    $updatedRole->syncPermissions([]);
+
+    // Assign new permissions if provided in the request
+    if ($request->has('permissions')) {
+        $permissions = $request->input('permissions');
+        $updatedRole->syncPermissions($permissions);
+    }
+
+    Flash::success('Role updated successfully.');
+    return redirect(route('roles.index'));
+}
+
 
     /**
      * Remove the specified Role from storage.
