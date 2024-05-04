@@ -617,10 +617,10 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
         </a>
         <ul class="nav flex-column sub-menu">
             {{--  @can('read asset manager dashboard') --}}
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('dash') }}"><i class="fas  fa-dashboard "></i>
                     Dashboard</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">My
                     Departmental Documents</a>
