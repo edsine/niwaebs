@@ -28,7 +28,11 @@ class LevelsTableSeeder extends Seeder
             'Level 11',
             'Level 12',
             'Level 13',
-            'Level 14'
+            'Level 14',
+            'Level 15',
+            'Level 16',
+            'Level 17',
+            'Level 18',
         ];
 
         foreach ($levels as $level) {

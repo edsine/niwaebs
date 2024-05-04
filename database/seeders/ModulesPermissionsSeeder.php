@@ -27,6 +27,7 @@ class ModulesPermissionsSeeder extends Seeder
             'view incoming documents module',
             'view incoming documents',
             'view overview module',
+            'view report module',
         ];
 
         // Create permissions

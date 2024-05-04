@@ -11,7 +11,7 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h5 class="text-center mb-2">WELCOME {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h5>
-            <h1 class="text-center text-primary mb-5">LOCATION: <span class=" text-uppercase">
+            <h1 class="text-center text-primary mb-5 text-uppercase">LOCATION: <span class=" text-uppercase">
                 {{ auth()->user()->staff->branch ? auth()->user()->staff->branch->branch_name : '' }} </span> </h1>
                 <div class=" d-flex">
                     <div class=" justify-content-between">
@@ -19,14 +19,8 @@
                             <li class="nav-item">
                               <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document</a>
                             </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Demand Notice</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Update</a>
-                              </li>
                               <li class="nav-item">
-                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Letter Of Intent</a>
+                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Incoming Letter</a>
                               </li>
                           </ul>
                           <div class="tab-content" id="myTabContent">
@@ -34,9 +28,11 @@
                                 <div class="row g-5 g-xl-8">
                                 <div class="row">
                                     <div class="col-md-3">
-                                     {!! Form::label('department_id', 'Cick To Select User Department:', ['style' => 'font-weight:bold;']) !!}
+                                     {{-- {!! Form::label('department_id', 'Cick To Select User Department:', ['style' => 'font-weight:bold;']) !!}
                                      {!! Form::select('department_id', $departments_data1, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
-                                   
+                                    --}}
+                                    <input type="hidden" id="deptSelect1" value="{{ auth()->user()->staff->department_id }}" />
+
                                         </div>
                                 </div>
                                    <div class="row">
@@ -432,7 +428,7 @@
                     <div class="card-body p-5">
                         <h4 class="card-title">
                                   <i class="fas fa-envelope"></i>
-                                 Latest 10 Letter Intent
+                                 Latest 10 Incoming Letter
                                 </h4>
                         <div class="table-responsive1" style="overflow-y: auto;">
                             <table class="table align-middle gs-0 gy-4" id="order-listing11">
@@ -611,7 +607,6 @@ aria-hidden="true" data-backdrop="false">
             var serviceId = $('#serviceSelect').val();
             var month = $('#monthSelect').val();
             var year = $('#yearSelect').val();
-            $('.loader-demo-box1').show();
 
             $.ajax({
                 url: '/get-for-area-manager/' + serviceId,
@@ -621,7 +616,6 @@ aria-hidden="true" data-backdrop="false">
                     year: year
                 },
                 success: function(data) {
-                    $('.loader-demo-box1').hide();
                     // Update the statistics cards with the received data
                     $('#pending_application_forms').text(data.pending_application_forms);
                     $('#pending_inspections').text(data.pending_inspections);
@@ -629,7 +623,6 @@ aria-hidden="true" data-backdrop="false">
                     $('#total_permit').text(data.total_permit);
                 },
                 error: function(xhr, status, error) {
-                    $('.loader-demo-box1').hide();
                     // Handle error if any
                     console.error(error);
                 }

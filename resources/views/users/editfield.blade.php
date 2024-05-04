@@ -13,12 +13,7 @@
         <div class="fv-row">
             <div class="row">
                 <!-- RANK -->
-                <div class="d-flex flex-column col-md-12 mb-8 fv-row">
-                    {!! Form::label('ranking_id', 'Rank') !!}
-                    {!! Form::select('ranking_id', $rank, null, [
-                        'class' => 'form-control form-control-solid border border-2 form-select',
-                    ]) !!}
-                </div>
+                
                 <!-- Role Field -->
                 <div class="d-flex flex-column col-md-12 mb-8 fv-row">
                     {!! Form::label('roles', 'Roles') !!}
@@ -114,6 +109,7 @@
                             {!! Form::select('department_id', $department, null, [
                                 'class' => 'form-control form-control-solid border border-2',
                                 'id' => 'departmentSelect',
+                                'required' => 'required'
                             ]) !!}
 
                         </div>
@@ -125,11 +121,27 @@
                                 'id' => 'unitSelect',
                             ]) !!}
                         </div>
+                        
+                        <div class="form-group">
+                            {!! Form::label('ranking_id', 'Ranks') !!}
+                            {!! Form::select('ranking_id', $ranks, null, [
+                                'class' => 'form-control form-control-solid border border-2 form-select',
+                                'id' => 'ranking_id', // Add an ID for easier targeting in JavaScript
+                                'required' => 'required'
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('level_id', 'Levels') !!}
+                            {!! Form::select('level_id', $levels, null, [
+                                'class' => 'form-control form-control-solid border border-2 form-select',
+                                'required' => 'required',
+                            ]) !!}
+                        </div>
 
                     </div>
 
                     <!-- Branch Field -->
-                    <div class="d-flex flex-column col-md-12 mb-8 fv-row">
+                    <div class="form-group">
                         {!! Form::label('branch_id', 'Location') !!}
                         {!! Form::select('branch_id', $branch, null, ['class' => 'form-control form-control-solid border border-2']) !!}
                     </div>
@@ -295,7 +307,7 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@push('page_scripts')
 
 <script>
     // Get the checkbox element
@@ -344,29 +356,59 @@
     });
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    // JavaScript to handle the department selection and update user dropdown
     $('#departmentSelect').on('change', function() {
-        const selectedDepartmentId = $(this).val();
-        var homeUrl = window.location.origin;
-        if (selectedDepartmentId) {
+    const selectedDepartmentId = $(this).val();
+    var homeUrl = window.location.origin;
+    if (selectedDepartmentId) {
+        // Show loading animation before sending the AJAX request
+        $('.loader-demo-box1').show();
 
-
-            $.get(`${homeUrl}/dept/${selectedDepartmentId}`, function(units) {
-                $('#unitSelect').empty().append('<option value="">Select Unit </option>');
-
-                var u = JSON.stringify(units);
-
-                $.each(units, function(index, unit) {
-                    // alert(unit)
-                    $('#unitSelect').append(
-                        `<option value="${unit.id}">${unit.unit_name}</option>`);
-                });
-
-            });
-        } else {
+        $.get(`${homeUrl}/dept/${selectedDepartmentId}`, function(units) {
             $('#unitSelect').empty().append('<option value="">Select Unit </option>');
-        }
-    });
+
+            var u = JSON.stringify(units);
+
+            $.each(units, function(index, unit) {
+                $('#unitSelect').append(`<option value="${unit.id}">${unit.unit_name}</option>`);
+            });
+        });
+
+        // Make an AJAX request to fetch ranks based on the selected department
+        $.ajax({
+            url: '/get-ranks', // Replace with the actual endpoint to fetch ranks
+            type: 'GET',
+            data: {
+                department_id: selectedDepartmentId // Use selectedDepartmentId instead of undefined variable departmentId
+            },
+            success: function (response) {
+                // Hide loading animation after successful response
+                $('.loader-demo-box1').hide();
+
+                // Populate the ranks dropdown with the fetched ranks
+                var ranks = response.data.ranks;
+                if (ranks.length > 0) {
+                    var options = '';
+                    $.each(ranks, function (index, rank) {
+                        options += '<option value="' + rank.id + '">' + rank.name + '</option>';
+                    });
+                    $('#ranking_id').html(options);
+                } else {
+                    // Display message indicating no results found
+                    $('#ranking_id').html('<option value="">No results found</option>');
+                }
+            },
+            error: function (response) {
+                // Hide loading animation in case of error
+                $('.loader-demo-box1').hide();
+                console.error('Error fetching ranks:', response);
+            }
+        });
+    } else {
+        $('#unitSelect').empty().append('<option value="">Select Unit </option>');
+    }
+});
+
 </script>
+@endpush

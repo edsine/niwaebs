@@ -17,13 +17,29 @@
  </style>
  <?php 
           if (Auth::check() && Auth::user()->hasRole('super-admin')) {
-            $value = "superadmin";
-        } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
-            $value = "md_user";
-        } else if (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
-            $value = "ta_dashboard";
-        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
-        $value = "areamanager";
+            $value = 'superadmin';
+        } else if (((Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) || (Auth::user()->level && Auth::user()->level->id == 18))) {
+            $value = 'md_user';
+        }else if ((Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER'))  || (Auth::user()->level && Auth::user()->level->id == 18)) {
+            $value = 'ta_dashboard';
+        } else if ((Auth::check() && Auth::user()->hasRole('SECRETARY'))  || (Auth::user()->level && Auth::user()->level->id == 17))
+        {
+
+            $value = 's_dashboard';
+        } else if (Auth::user()->level && Auth::user()->level->id == 16)
+        {
+
+            $value = 'gm_dashboard';
+        } else if ((Auth::check() && Auth::user()->hasRole('Area Manager'))  || (Auth::user()->level && Auth::user()->level->id == 15))
+        {
+
+            $value = 'areamanager';
+        } else if (Auth::user()->level && 
+        Auth::user()->level->id >= 6 && 
+        Auth::user()->level->id <= 14)
+        {
+
+            $value = 'range_dashboard';
         } else {
 
             $value = "home";
