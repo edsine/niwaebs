@@ -284,7 +284,7 @@ class UserController extends AppBaseController
     {
         $rank = Rank::all()->pluck('name', 'id');
         $levels = Level::all()->pluck('name', 'id');
-        $roles=Role::where('id','!=', 1)->get()->pluck('name','id');
+        $roles= Role::get()->pluck('name','id');
         $roles->prepend('Select role', '');
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
 
@@ -492,7 +492,7 @@ class UserController extends AppBaseController
 
         // $roles = $this->roleRepository->all()->pluck('name', 'id');
 
-        $roles=Role::where('id','!=', 1)->get()->pluck('name','id');
+        $roles=Role::get()->pluck('name','id');
         $userrole= [];//$user->roles->pluck('name','id')->get();
         // $roles->prepend('Select role', '');
         $single_user = User::find($id);

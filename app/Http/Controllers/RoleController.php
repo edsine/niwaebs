@@ -37,7 +37,7 @@ class RoleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $roles = Role::where('id', '!=', '1')->get();
+        $roles = Role::get();
 
         return view('roles.index')->with('roles', $roles);
     }
