@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group">
                 <label class="form-label" for="default-06">Select bulk
-                    Rank file (Excel only: .xls, .xlsx) <a
+                    Rank file (Excel only: .csv) <a
                         href="{{ Storage::url('ranks.csv') }}">Download bulk Rank
                         template</a></label>
                 <div class="form-control-wrap">
