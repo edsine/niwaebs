@@ -132,7 +132,7 @@ class IncomingDocumentsController extends AppBaseController
         
         $users = $userData->pluck('name', 'id');
 
-} else if (Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+} else if (Auth::user()->level && Auth::user()->level->id == 20) {
     // The logged-in user ID exists in the $userIds array
     //$documents = $this->documentRepository->paginate(10);
     $documents = \App\Models\IncomingDocuments::query()
@@ -164,27 +164,57 @@ class IncomingDocumentsController extends AppBaseController
         ->get();
 
 
-// Get the roles with the specified role IDs
-$roles3 = Role::whereIn('id', [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39])->get();
-
-// Get the users who have any of these roles
-$users3 = User::whereHas('roles', function ($query) use ($roles3) {
-$query->whereIn('id', $roles3->pluck('id'));
-})->get(['id', 'first_name', 'last_name']);
-
-// Transform user data
-$userData = $users3->map(function ($user) {
-return [
-'id' => $user->id,
-'name' => $user->first_name . ' ' . $user->last_name,
-];
-});
+        $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 19
+    ');
+    $users2 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 18
+    ');
+    
+    $users3 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 17
+    ');
+    $users4 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 3
+    ');
+    
+    $users5 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE staff.department_id = 19
+    ');
+    
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->merge($users2)
+        ->merge($users3)
+        ->merge($users4)
+        ->merge($users5)
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
 
 $roles = $this->roleRepository->all()->pluck('name', 'id');
 
 $users = $userData->pluck('name', 'id');
 
-} else if (Auth()->user()->hasRole('Area Manager')) {
+} else if (Auth::user()->level && Auth::user()->level->id == 3) {
     // The logged-in user ID exists in the $userIds array
     //$documents = $this->documentRepository->paginate(10);
     $documents = \App\Models\IncomingDocuments::query()
@@ -215,33 +245,30 @@ $users = $userData->pluck('name', 'id');
         //->with('createdBy')
         ->get();
 
+        $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 20
+    ');
 
-// Fetch roles
-$roles2 = Role::whereIn('id', [2])->get();
-
-// Get the users who have any of these roles
-$users1 = User::whereHas('roles', function ($query) use ($roles2) {
-    $query->whereIn('id', $roles2->pluck('id'));
-})->get(['id', 'first_name', 'last_name']);
-
-$users2 = DB::table('users')
-    ->join('staff', 'staff.user_id', '=', 'users.id')
-    ->join('departments', 'departments.id', '=', 'staff.department_id')
-    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
-    ->where('staff.department_id', '=', Auth::user()->staff->department_id)
-    ->where('staff.branch_id', '=', Auth::user()->staff->branch_id)
-    ->get();
-
-// Combine the data
-$mergedUsers = $users2->merge($users1);
-
-// Process the data for display
-$userData = $mergedUsers->map(function ($user) {
-    return [
-        'id' => $user->id,
-        'name' => $user->first_name . ' ' . $user->last_name,
-    ];
-});
+    $users2 = DB::select('
+    SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+    FROM users
+    JOIN staff ON users.id = staff.user_id
+    WHERE staff.branch_id = ?
+', [auth()->user()->staff->branch_id]);
+   
+        
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->merge($users2)
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
 
 
 $roles = $this->roleRepository->all()->pluck('name', 'id');
@@ -278,7 +305,7 @@ $users = $userData->pluck('name', 'id');
 
         $user_id = $userIds->contains($loggedInUserId);
 
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY')) {
+       // if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY')) {
             
             // The logged-in user ID does not exist in the $userIds array
                 $documents = IncomingDocuments::query()
@@ -309,21 +336,30 @@ $users = $userData->pluck('name', 'id');
                 //->with('createdBy')
                 ->get();
 
-                $roles1 = Role::whereIn('id', [2])->get();
-
-// Get the users who have any of these roles
-$userData = User::whereHas('roles', function ($query) use ($roles1) {
-    $query->whereIn('id', $roles1->pluck('id'));
-})->get(['id', \DB::raw('CONCAT(first_name, " ", last_name) AS name')]);
+                $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 20
+    ');
+    
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
 
 $roles = $this->roleRepository->all()->pluck('name', 'id');
         
         $users = $userData->pluck('name', 'id');
 
-} else{
+//} else{
             
-    return redirect()->back()->with('error', 'Permission denied for incoming / manual document access. Only the super admin and secretary have acces to this page.');
-}
+  //  return redirect()->back()->with('error', 'Permission denied for incoming / manual document access. Only the super admin and secretary have acces to this page.');
+//}
 
         
 
@@ -354,7 +390,7 @@ $roles = $this->roleRepository->all()->pluck('name', 'id');
             return redirect()->back();
         } */
 
-        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR') || Auth()->user()->hasRole('SECRETARY')) {
+        if (Auth()->user()->hasRole('super-admin') || (Auth::user()->level && Auth::user()->level->id == 20) || (Auth::user()->level && Auth::user()->level->id == 18)) {
 
         /* $documents = DB::table('documents_manager')
             ->join('audits', 'incoming_documents_manager.id', '=', 'audits.auditable_id')
@@ -454,7 +490,7 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
     )
     ->latest('incoming_documents_has_users.created_at')
     ->where('incoming_documents_has_users.assigned_by', '!=', '0')
-    ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+    //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
     ->groupBy(
         'incoming_documents_manager.category_id',
         'incoming_documents_categories.id',
@@ -486,7 +522,7 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
         });
 
 
-        } else if (Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        } else if (Auth::user()->level && Auth::user()->level->id == 20) {
 
             $documents = DB::table('incoming_documents_has_users')
             ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
@@ -519,8 +555,8 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
                 DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
             )
             ->latest('incoming_documents_has_users.created_at')
-            ->where('incoming_documents_has_users.assigned_by', '!=', '0')
-            ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->where('incoming_documents_has_users.user_id', '=', $userId)
+            //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
             ->groupBy(
                 'incoming_documents_manager.category_id',
                 'incoming_documents_categories.id',
@@ -542,16 +578,365 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
             ->get();
         
             
-            // Get the roles with the specified role IDs
-        $roles1 = Role::whereIn('id', [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39])->get();
+            $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 19
+    ');
+    $users2 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 18
+    ');
+    
+    $users3 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 17
+    ');
+    $users4 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 3
+    ');
+    
+    $users5 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE staff.department_id = 19
+    ');
+    
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->merge($users2)
+        ->merge($users3)
+        ->merge($users4)
+        ->merge($users5)
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+
         
-        // Get the users who have any of these roles
-        $users0 = User::whereHas('roles', function ($query) use ($roles1) {
-            $query->whereIn('id', $roles1->pluck('id'));
-        })->get(['id', 'first_name', 'last_name']);
+        } else if (Auth::user()->level && Auth::user()->level->id == 19) {
+
+            $documents = DB::table('incoming_documents_has_users')
+            ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+            ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users.user_id', '=', 'users.id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.full_name as sender_full_name',
+                'incoming_documents_manager.email as sender_email',
+                'incoming_documents_manager.phone as sender_phone',
+                'incoming_documents_has_users.created_at as createdAt',
+                'incoming_documents_categories.name as category_name',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.document_url as document_url',
+                'incoming_documents_manager.id as d_m_id',
+                'incoming_documents_categories.id as d_m_c_id',
+                'incoming_documents_categories.name as cat_name',
+                'departments.name as dep_name',
         
-        // Transform user data
-        $userData = $users0->map(function ($user) {
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users.created_at')
+            ->where('incoming_documents_has_users.user_id', '=', $userId)
+            //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->groupBy(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_manager.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.document_url',
+                'incoming_documents_has_users.id',
+                'incoming_documents_has_users.created_at',
+                'incoming_documents_categories.name',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.created_by',
+                'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
+            )
+            ->get();
+        
+            
+            $users1 = DB::select('
+            SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+            FROM users
+            JOIN staff ON users.id = staff.user_id
+            WHERE users.level_id = 20
+        ');
+        
+        // Combine the results of all queries into one collection
+        $userData = collect($users1)
+            ->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->first_name . ' ' . $user->last_name,
+                ];
+            });
+
+        
+        } else if (Auth::user()->level && Auth::user()->level->id == 17) {
+
+            $documents = DB::table('incoming_documents_has_users')
+            ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+            ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users.user_id', '=', 'users.id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.full_name as sender_full_name',
+                'incoming_documents_manager.email as sender_email',
+                'incoming_documents_manager.phone as sender_phone',
+                'incoming_documents_has_users.created_at as createdAt',
+                'incoming_documents_categories.name as category_name',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.document_url as document_url',
+                'incoming_documents_manager.id as d_m_id',
+                'incoming_documents_categories.id as d_m_c_id',
+                'incoming_documents_categories.name as cat_name',
+                'departments.name as dep_name',
+        
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users.created_at')
+            ->where('incoming_documents_has_users.user_id', '=', $userId)
+            //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->groupBy(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_manager.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.document_url',
+                'incoming_documents_has_users.id',
+                'incoming_documents_has_users.created_at',
+                'incoming_documents_categories.name',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.created_by',
+                'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
+            )
+            ->get();
+        
+            
+            $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 20
+    ');
+    
+    $users2 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 17
+    ');
+
+    $users3 = DB::select('
+    SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+    FROM users
+    JOIN staff ON users.id = staff.user_id
+    WHERE staff.department_id = ?
+', [auth()->user()->staff->department_id]);
+   
+    
+    
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->merge($users2)
+        ->merge($users3)
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+
+        
+        } else if (Auth::user()->level && Auth::user()->level->id == 18) {
+
+            $documents = DB::table('incoming_documents_has_users')
+            ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+            ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users.user_id', '=', 'users.id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.full_name as sender_full_name',
+                'incoming_documents_manager.email as sender_email',
+                'incoming_documents_manager.phone as sender_phone',
+                'incoming_documents_has_users.created_at as createdAt',
+                'incoming_documents_categories.name as category_name',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.document_url as document_url',
+                'incoming_documents_manager.id as d_m_id',
+                'incoming_documents_categories.id as d_m_c_id',
+                'incoming_documents_categories.name as cat_name',
+                'departments.name as dep_name',
+        
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users.created_at')
+            ->where('incoming_documents_has_users.user_id', '=', $userId)
+            //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->groupBy(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_manager.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.document_url',
+                'incoming_documents_has_users.id',
+                'incoming_documents_has_users.created_at',
+                'incoming_documents_categories.name',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.created_by',
+                'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
+            )
+            ->get();
+        
+            
+            $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 20
+    ');
+    
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
+        
+        } else if (Auth::user()->level && Auth::user()->level->id == 3) {
+
+            $documents = DB::table('incoming_documents_has_users')
+            ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
+            ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
+            ->join('users', 'incoming_documents_has_users.user_id', '=', 'users.id')
+            ->join('incoming_documents_categories', 'incoming_documents_manager.category_id', '=', 'incoming_documents_categories.id')
+            ->select(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.full_name as sender_full_name',
+                'incoming_documents_manager.email as sender_email',
+                'incoming_documents_manager.phone as sender_phone',
+                'incoming_documents_has_users.created_at as createdAt',
+                'incoming_documents_categories.name as category_name',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.document_url as document_url',
+                'incoming_documents_manager.id as d_m_id',
+                'incoming_documents_categories.id as d_m_c_id',
+                'incoming_documents_categories.name as cat_name',
+                'departments.name as dep_name',
+        
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
+                DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
+            )
+            ->latest('incoming_documents_has_users.created_at')
+            ->where('incoming_documents_has_users.user_id', '=', $userId)
+            //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+            ->groupBy(
+                'incoming_documents_manager.category_id',
+                'incoming_documents_categories.id',
+                'incoming_documents_has_users.start_date',
+                'incoming_documents_has_users.end_date',
+                'incoming_documents_manager.id',
+                'incoming_documents_manager.title',
+                'incoming_documents_manager.document_url',
+                'incoming_documents_has_users.id',
+                'incoming_documents_has_users.created_at',
+                'incoming_documents_categories.name',
+                'incoming_documents_has_users.allow_share',
+                'incoming_documents_has_users.is_download',
+                'incoming_documents_has_users.user_id',
+                'incoming_documents_has_users.assigned_by',
+                'incoming_documents_manager.created_by',
+                'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
+            )
+            ->get();
+        
+            
+            $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 20
+    ');
+
+    $users2 = DB::select('
+    SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+    FROM users
+    JOIN staff ON users.id = staff.user_id
+    WHERE staff.branch_id = ?
+', [auth()->user()->staff->branch_id]);
+   
+    
+    
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->merge($users2)
+        ->map(function ($user) {
             return [
                 'id' => $user->id,
                 'name' => $user->first_name . ' ' . $user->last_name,
@@ -611,36 +996,52 @@ $categories = IncomingDocumentsCategory::whereIn('id', $documentIds)->get()->key
         'departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name',
     )
     ->where('incoming_documents_has_users.user_id', '=', $userId)
-    ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
+    //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
     ->get();
 
     
-    // Fetch roles
-//$roles2 = Role::whereIn('id', [2])->get();
-
-// Get the users who have any of these roles
-/* $users1 = User::whereHas('roles', function ($query) use ($roles2) {
-    $query->whereIn('id', $roles2->pluck('id'));
-})->get(['id', 'first_name', 'last_name']); */
-
-$users2 = DB::table('users')
-    ->join('staff', 'staff.user_id', '=', 'users.id')
-    ->join('departments', 'departments.id', '=', 'staff.department_id')
-    ->select('users.id as id', 'users.first_name as first_name', 'users.last_name as last_name')
-    ->where('staff.department_id', '=', Auth::user()->staff->department_id)
-    ->where('staff.branch_id', '=', Auth::user()->staff->branch_id)
-    ->get();
-
-// Combine the data
-//$mergedUsers = $users2;
-
-// Process the data for display
-$userData = $users2->map(function ($user) {
-    return [
-        'id' => $user->id,
-        'name' => $user->first_name . ' ' . $user->last_name,
-    ];
-});
+   
+    if(auth()->user()->staff && auth()->user()->staff->branch_id == 23){
+        $users1 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE users.level_id = 17
+    ');
+    
+    $users2 = DB::select('
+    SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+    FROM users
+    JOIN staff ON users.id = staff.user_id
+    WHERE staff.department_id = ?
+', [auth()->user()->staff->department_id]);
+        } else{
+            $users1 = DB::select('
+            SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+            FROM users
+            JOIN staff ON users.id = staff.user_id
+            WHERE users.level_id = 3
+        ');
+        
+        $users2 = DB::select('
+        SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
+        FROM users
+        JOIN staff ON users.id = staff.user_id
+        WHERE staff.branch_id = ?
+    ', [auth()->user()->staff->branch_id]);
+        }
+   
+    
+    
+    // Combine the results of all queries into one collection
+    $userData = collect($users1)
+        ->merge($users2)
+        ->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        });
 
 
         
@@ -988,7 +1389,7 @@ public function showIncomingDepartementalDocumentsAndBranch(Request $request, $i
         // If the user has only one role, you can directly access it like this:
         $roleId = $roleIds->first();
 
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR') || Auth()->user()->hasRole('SECRETARY')) {
+        if (Auth::user()->hasRole('super-admin') || (Auth::user()->level && Auth::user()->level->id == 20) || (Auth::user()->level && Auth::user()->level->id == 18)) {
             $documents = DB::table('documents_has_roles')
                 ->join('documents_manager', 'incoming_documents_manager.id', '=', 'documents_has_roles.document_id')
                 ->join('roles', 'roles.id', '=', 'documents_has_roles.role_id')
@@ -1049,7 +1450,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
     public function shareDocument(Request $request, $id)
     {
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR') || Auth()->user()->hasRole('SECRETARY')) {
+        if (Auth::user()->hasRole('super-admin') || (Auth::user()->level && Auth::user()->level->id == 20) || (Auth::user()->level && Auth::user()->level->id == 18)) {
         $share_documents = DB::table('documents_manager')
             //->join('documents_has_roles', 'documents_has_roles.role_id', '=', 'roles.id')
             ->join('incoming_documents_has_users', 'incoming_documents_has_users.document_id', '=', 'incoming_documents_manager.id')
@@ -1410,6 +1811,26 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
     }
 
     }
+
+    public function shareSecretary(Request $request)
+    {
+        $user = Auth::user();
+        $input = $request->all();
+
+        $notify_id = $input['notify_id'];
+         if ($notify_id != null) {
+            $find = IncomingDocuments::find($request->shareuser_id);
+            $find->status = '1';
+            $find->approved_date_time = $request->approved_date_time;
+            $find->save();
+
+        Flash::success('Letter received and sent successfully.');
+
+        return redirect(route('incoming_documents_manager.all_documents.secretary'));
+    }
+
+    }
+
 
     public function shareRole(Request $request)
     {

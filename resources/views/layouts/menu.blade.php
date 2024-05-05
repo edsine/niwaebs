@@ -20,31 +20,29 @@
 <?php
 if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             $value = 'superadmin';
-        } else if (((Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) || (Auth::user()->level && Auth::user()->level->id == 18))) {
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 20) {
             $value = 'md_user';
-        }else if ((Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER'))  || (Auth::user()->level && Auth::user()->level->id == 18)) {
+        }else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 19) {
             $value = 'ta_dashboard';
-        } else if ((Auth::check() && Auth::user()->hasRole('SECRETARY'))  || (Auth::user()->level && Auth::user()->level->id == 17))
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 18)
         {
-
             $value = 's_dashboard';
-        } else if (Auth::user()->level && Auth::user()->level->id == 16)
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 17)
         {
-
             $value = 'gm_dashboard';
-        } else if ((Auth::check() && Auth::user()->hasRole('Area Manager'))  || (Auth::user()->level && Auth::user()->level->id == 15))
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 3)
         {
-
             $value = 'areamanager';
-        } else if (Auth::user()->level && 
-        Auth::user()->level->id >= 6 && 
-        Auth::user()->level->id <= 14)
+        } else if (Auth::check() && Auth::user()->level && 
+        Auth::user()->level->id >= 14 && 
+        Auth::user()->level->id <= 16)
         {
-
             $value = 'range_dashboard';
         } else {
-    $value = 'home';
-}
+            $value = "home";
+            
+        }
+
 ?>
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar-text  sidebar sidebar-offcanvas" id="sidebar">

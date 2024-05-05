@@ -17,7 +17,7 @@
                     <div class=" justify-content-between">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document</a>
+                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">My Departmental Document</a>
                             </li>
                               <li class="nav-item">
                                 <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Incoming Letter</a>
