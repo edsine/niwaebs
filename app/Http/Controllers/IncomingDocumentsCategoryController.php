@@ -49,13 +49,12 @@ class IncomingDocumentsCategoryController extends Controller
      */
     public function create()
     {
-        /* if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR') || Auth()->user()->hasRole('SECRETARY')) {
+        if (Auth()->user()->hasRole('super-admin')) {
             $departments = Department::get();
         } else {
-            //$departments = Department::where('id', Auth()->user()->staff->department->id)->get();
-            return redirect()->back()->with('error', 'Permission denied for document audit trail access');
-        } */
-        $departments = Department::get();
+            $departments = Department::where('id', Auth()->user()->staff->department_id)->get();
+        }
+        
          return view('incoming_documents_categories.create', compact('departments'));
     }
 
@@ -69,11 +68,11 @@ class IncomingDocumentsCategoryController extends Controller
     try {
         //if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR') || Auth()->user()->hasRole('SECRETARY')) {
             $validated = $request->validated();
-             if (Auth()->user()->hasRole('super-admin')) {
+             /* if (Auth()->user()->hasRole('super-admin')) {
              $validated['department_id'] = $request->input('department_id');
              } else {
              $validated['department_id'] = Auth()->user()->staff->department_id ?? 0;
-             }
+             } */
              $incoming_documents_category = IncomingDocumentsCategory::create($validated);
              return redirect()->route('incoming_documents_category.index')->with('success', 'File added successfully!');
         //} else {
@@ -105,7 +104,7 @@ class IncomingDocumentsCategoryController extends Controller
         if (Auth()->user()->hasRole('super-admin')) {
             $departments = Department::get();
         } else {
-            $departments = Department::where('id', Auth()->user()->staff->department->id)->get();
+            $departments = Department::where('id', Auth()->user()->staff->department_id)->get();
         }
         return view('incoming_documents_categories.edit', compact(['incoming_documents_category', 'departments']));
     }
@@ -116,11 +115,11 @@ class IncomingDocumentsCategoryController extends Controller
     public function update(UpdateDocumentsCategoryRequest $request, IncomingDocumentsCategory $incoming_documents_category)
     {
         $validated = $request->validated();
-        if (Auth()->user()->hasRole('super-admin')) {
+        /* if (Auth()->user()->hasRole('super-admin')) {
             $validated['department_id'] = $request->input('department_id');
             } else {
             $validated['department_id'] = Auth()->user()->staff->department_id ?? 0;
-            }
+            } */
         $incoming_documents_category->update($validated);
         return redirect()->route('incoming_documents_category.index')->with('success', 'File udpated successfully!');
     }
