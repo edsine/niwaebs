@@ -1,4 +1,27 @@
 <div class="preview-block">
+    
+    <div class="row gy-4 pl-5">
+        <div class="col-lg-4 col-sm-6">
+            <div class="form-group">
+                <div class="form-control-wrap">
+                    <div class="form-icon form-icon-right">
+                        <em class="icon ni ni-user"></em>
+                    </div>
+                    <label class="form-label-outlined" for="department_id">Select Department</label>
+                    <select class="form-control" name="department_id" id="department_id" required>
+                        <option value="">Select Department</option>
+                        @foreach($departments as $department)
+                          <option value="{{ $department->id }}" {{ old('department_id', isset($incoming_documents_category) && $incoming_documents_category->department_id == $department->id ? 'selected' : '') }}>
+                                {{ $department->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+   
     <div class="row gy-4 p-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
