@@ -65,6 +65,7 @@
     $(document).ready(function () {
         $('#department_id').change(function () {
             var departmentId = $(this).val();
+            $('.loader-demo-box1').show();
             if (departmentId) {
                 $.ajax({
                     url: '/generate-file-no',
@@ -74,10 +75,12 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function (response) {
+                        $('.loader-demo-box1').hide();
                        // alert(JSON.stringify(response));
                         $('#file_no').val(response.data.name);
                     },
                     error: function (response) {
+                        $('.loader-demo-box1').hide();
                         alert("Can not generate file no. Contact administrator for help");
                     }
                 });

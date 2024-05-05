@@ -27,7 +27,7 @@
                   <a class="nav-link" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Incoming Letter</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Departmental Documents</a>
+                  <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">My Departmental Documents</a>
                 </li>
                 
                 </ul>

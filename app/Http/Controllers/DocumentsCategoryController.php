@@ -21,7 +21,7 @@ class DocumentsCategoryController extends Controller
     public function index()
     {
 
-     if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY')) {
+     if (Auth()->user()->hasRole('super-admin') || (Auth::user()->level && Auth::user()->level->id == 18)) {
         $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->get();
         
         $documents_categories1 = DB::table('documents_categories')
@@ -41,7 +41,7 @@ class DocumentsCategoryController extends Controller
     ->latest('documents_categories.created_at')
     ->groupBy('documents_manager.id', 'documents_categories.department_id', 'documents_categories.deleted_at', 'departments.name', 'documents_manager.branch_id', 'documents_manager.department_id', 'documents_manager.deleted_at', 'documents_categories.updated_at', 'documents_manager.updated_at', 'documents_manager.created_at', 'documents_manager.created_by', 'documents_manager.document_url', 'documents_categories.description', 'documents_manager.title', 'documents_categories.id', 'documents_categories.created_at', 'documents_categories.name')
     ->get();
-     $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->where('department_id', Auth()->user()->staff->department->id)->get();
+     $documents_categories = DocumentsCategory::orderBy('id' ,'desc')->where('department_id', Auth()->user()->staff->department_id)->get();
     } 
 
 

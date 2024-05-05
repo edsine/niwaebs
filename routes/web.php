@@ -137,6 +137,9 @@ Route::group(['middleware' => ['auth']], function () {
     // demo admin role
     Route::get('demo_roles/{id}', 'App\Http\Controllers\RoleController@demo_edit')->name('demo_roles');
     Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update')->name('demo_update');
+
+    Route::post('incoming_documents_manager/share_secretary', [App\Http\Controllers\IncomingDocumentsController::class, 'shareSecretary'])->name('IncomingDocumentsController.share_secretary');
+
 });
 
 Route::get('/new/incoming', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
@@ -460,7 +463,7 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::view('am','am');
 
 Route::get('md_user', [HomeController::class, 'md'])->name('md_user');
-Route::get('ta_dashboard', [HomeController::class, 'md'])->name('ta_dashboard');
+Route::get('ta_dashboard', [HomeController::class, 'taDashboard'])->name('ta_dashboard');
 
 
 Route::get('areamanager', [HomeController::class, 'areamanager'])->name('am');

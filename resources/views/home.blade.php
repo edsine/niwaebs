@@ -19,7 +19,7 @@
                     <div class=" justify-content-between">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document</a>
+                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">My Departmental Document</a>
                             </li>
                             {{-- <li class="nav-item">
                               <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Demand Notice</a>
@@ -28,7 +28,13 @@
                                 <a class="nav-link" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Updates</a>
                               </li> --}}
                               <li class="nav-item">
-                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Letter Of Intent</a>
+                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">
+                                    @if(auth()->user()->staff && auth()->user()->staff->branch_id == 23)
+                                    Incoming Letter
+                                    @else
+                                    Letter Of Intent
+                                    @endif
+                                </a>
                               </li>
                               <li class="nav-item">
                                 <a class="nav-link" id="clock-tab" data-toggle="tab" href="#clock" role="tab" aria-controls="clock" aria-selected="false">Mark Attendance</a>
@@ -471,7 +477,12 @@
                     <div class="card-body p-5">
                         <h4 class="card-title">
                                   <i class="fas fa-envelope"></i>
-                                 Latest 10 Letter Intent
+                                  @if(auth()->user()->staff && auth()->user()->staff->branch_id == 23)
+                                    Latest 10 Incoming Letter
+                                    @else
+                                    Latest 10 Letter Of Intent
+                                    @endif
+                                 
                                 </h4>
                         <div class="table-responsive1" style="overflow-y: auto;">
                             <table class="table align-middle gs-0 gy-4" id="order-listing11">
