@@ -7,6 +7,7 @@
             <tr>
                 <th>ID</th>
                 <th>APPLICANT CODE </th>
+                <th>PAYMENT TYPE</th>
                 <th>AREA OFFICE </th>
 
                 <th>SERVICES </th>
@@ -20,14 +21,18 @@
         </thead>
         <tbody>
             @foreach ($payment as $item)
+{{-- @dd($item->serviceapp()->theservice); --}}
                 <tr>
 
+
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->serviceapp ? $item->serviceapp->applicant_code : 'No NAME FOUND' }}</td>
+                    <td>{{ $item->serviceapp() ? $item->serviceapp()->applicant_code : 'NO CODE FOUND' }}</td>
+
+                    <td>{{ $item->type?$item->type->name : 'Payment Type not found' }}</td>
                     <td>{{ $item->branch ? $item->branch->branch_name : 'No Area Office' }}</td>
 
-                    {{-- @dd($item->serviceapplicationcode->theservice->name); --}}
-                    <td>{{ $item->serviceapplicationcode? $item->serviceapplicationcode->theservice->name : 'No Yet Applied' }}
+                    {{-- @dd($item->serviceapp()->theservice->name); --}}
+                    <td>{{ $item->serviceapp()? $item->serviceapp()->theservice->name : 'No Yet Applied' }}
                     </td>
 
                     @if ($item->payment_status == 1)

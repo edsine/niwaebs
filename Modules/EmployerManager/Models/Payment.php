@@ -2,13 +2,16 @@
 
 namespace Modules\EmployerManager\Models;
 
+use App\Models\PaymentType;
 use App\Models\Service;
-use App\Models\ServiceApplication;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Modules\EmployerManager\Models\Certificate;
-use Modules\EmployerManager\Models\Employer;
+
+
 use Modules\Shared\Models\Branch;
+use App\Models\ServiceApplication;
+use Illuminate\Database\Eloquent\Model;
+use Modules\EmployerManager\Models\Employer;
+use Modules\EmployerManager\Models\Certificate;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Payment extends Model
 {
@@ -26,13 +29,25 @@ class Payment extends Model
         return $this->belongsTo(Employer::class);
     }
 
+    public function type()
+    {
+
+        // $type= PaymentType::where('id',$this->payment_type())->get()->first();
+
+        // return $type;
+        return $this->belongsTo(PaymentType::class, 'payment_type', 'id');
+    }
     // public function employ(){
     //    $data=ServiceApplication::where('serviceapplication_code',$this->serviceapplication_code)->first();
     //    $data=ServiceApplication::where('serviceapplication_code',$this->serviceapplication_code)->first();
     //    return $data;
     // }
-    public function serviceapp(){
-        return $this->belongsTo(ServiceApplication::class,'serviceapplication_code','id');
+    public function serviceapp()
+    {
+        $service=ServiceApplication::where('serviceapplication_code',$this->serviceapplication_code)->first();
+
+        // return $this->belongsTo(ServiceApplication::class,'serviceapplication_code', 'id');
+    return $service;
     }
     public function certificate()
     {
@@ -54,7 +69,8 @@ class Payment extends Model
     {
         return $this->belongsTo(ServiceApplication::class, 'service_application_id');
     }
-    public function serviceapplicationcode(){
-        return $this->belongsTo(ServiceApplication::class,'serviceapplication_code','id');
+    public function serviceapplicationcode()
+    {
+        return $this->belongsTo(ServiceApplication::class, 'serviceapplication_code', 'id');
     }
 }

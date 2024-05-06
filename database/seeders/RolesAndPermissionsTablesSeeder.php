@@ -35,8 +35,12 @@ class RolesAndPermissionsTablesSeeder extends Seeder
                     'create client',
                     'manage client',
                     'edit client',
-                   
-                   
+                    'applicant massupload',
+                    'service massupload',
+                    'payment massupload',
+
+
+
                     // 'create project',
 
                     // 'manage project',

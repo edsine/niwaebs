@@ -22,17 +22,18 @@
 
         <div class="card">
 
-            <div class="card-body p-5">
+            <div class="card-body ">
                 <div class="table-responsive">
                     <table class="table align-middle gs-0 gy-4" id="mytable1">
                         <thead>
                             <tr>
-                                <th class="min-w-200px">ID</th>
-                                <th class="min-w-200px">Applicant</th>
-                                <th class="min-w-200px">Service Name</th>
-                                <th class="min-w-200px">Service Type</th>
-                                <th class="min-w-200px">Form Payment Status</th>
-                                <th class="min-w-200px">Date of Inspection</th>
+                                <th class="">ID</th>
+                                <th class="">Applicant</th>
+                                <th class="">Service Code</th>
+                                <th class="">Service Name</th>
+                                <th class="">Service Type</th>
+                                <th class="">Form Payment Status</th>
+                                <th class="">Date of Inspection</th>
                                 <th> Action</th>
                             </tr>
                         </thead>
@@ -42,15 +43,18 @@
                                     <td>{{ $serviceApplication->id }}</td>
                                     <td>{{ $serviceApplication->employer() ? $serviceApplication->employer()->company_name : 'Name Not Found' }}
                                     </td>
+                                    <td>{{ $serviceApplication->serviceapplication_code ? $serviceApplication->serviceapplication_code : 'No Code Found' }}
+                                    </td>
                                     <td>{{ $serviceApplication->theservice ? $serviceApplication->theservice->name : '' }}
-                                        <td>{{ $serviceApplication->service_type_id == 'mechanical' ? 'Mechanical' : 'Manual' }}
+                                    <td>{{ $serviceApplication->service_type_id == 'mechanical' ? 'Mechanical' : 'Manual' }}
                                     </td>
                                     <td>{{ $serviceApplication->application_form_payment_status ? 'Paid' : 'Not Paid' }}
                                     </td>
                                     <td>{{ $serviceApplication->date_of_inspection }}</td>
                                     </td>
                                     <td>
-                                        <a href="{{ route('serviceedit', [$serviceApplication->id]) }}" class="">Modify
+                                        <a href="{{ route('serviceedit', [$serviceApplication->id]) }}"
+                                            class="">Modify
                                             Record</a>
                                     </td>
                                 </tr>

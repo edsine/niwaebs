@@ -20,11 +20,11 @@
 <?php
 if (Auth::check() && Auth::user()->hasRole('super-admin')) {
     $value = 'superadmin';
-} else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
+} elseif (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
     $value = 'md_user';
-} else if (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
-    $value = "ta_dashboard";
-} else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+} elseif (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
+    $value = 'ta_dashboard';
+} elseif (Auth::check() && Auth::user()->hasRole('Area Manager')) {
     $value = 'areamanager';
 } else {
     $value = 'home';
@@ -245,25 +245,31 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('showemplist') }}">
-                        <i class="fas fa-balance-scale menu-icon"></i>
-                        <span>Applicant Record</span>
-                    </a>
-                </li>
+                @can('applicant massupload')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('showemplist') }}">
+                            <i class="fas fa-balance-scale menu-icon"></i>
+                            <span>Applicant Record</span>
+                        </a>
+                    </li>
+                @endcan
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('serviceappdata') }}">
-                        <i class="fas fa-balance-scale menu-icon"></i>
-                        <span>Service Application Record</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('payhistory') }}">
-                        <i class="fas menu-icon fa-book"></i>
-                        <span>Payment Record</span>
-                    </a>
-                </li>
+                @can('service massupload')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('serviceappdata') }}">
+                            <i class="fas fa-balance-scale menu-icon"></i>
+                            <span>Service Application Record</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('payment massupload')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('payhistory') }}">
+                            <i class="fas menu-icon fa-book"></i>
+                            <span>Payment Record</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </li>
 
