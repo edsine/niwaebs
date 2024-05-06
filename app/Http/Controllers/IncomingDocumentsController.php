@@ -238,7 +238,7 @@ $users = $userData->pluck('name', 'id');
             //'incoming_documents_has_users.assigned_by',
             //DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name')
             )
-        ->where('incoming_documents_manager.status','!=', '0')
+        ->where('incoming_documents_manager.status','=', '0')
         ->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
         ->latest('incoming_documents_manager.created_at')
         ->groupBy('departments.name','incoming_documents_manager.status','incoming_documents_manager.phone','incoming_documents_manager.email','incoming_documents_manager.full_name','incoming_documents_categories.description','incoming_documents_manager.document_url','incoming_documents_manager.title','incoming_documents_categories.id', 'incoming_documents_categories.name', 'incoming_documents_manager.created_at', 'incoming_documents_manager.id') // Include the nonaggregated column in the GROUP BY clause
