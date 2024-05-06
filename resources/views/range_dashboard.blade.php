@@ -471,7 +471,7 @@
                                                         <a class="document-link" target="_blank" onClick="saveData('{{ $document->document_url }}')" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}</a>
                                                     </td>
                                           <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
-                                            data-shareuser={{ $document->d_id }}>User</a></td>  
+                                            data-shareuser={{ $document->d_m_id }}>User</a></td>  
                                                       <td>{{ $document->doc_description ?? 'NILL' }}</td>
                                                       <td>{{ $document->document_created_at ?? 'NILL' }}</td>
                                                      
