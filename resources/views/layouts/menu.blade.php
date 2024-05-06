@@ -667,7 +667,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     <a class="nav-link" href="{{ route('incoming_document_dashboard') }}"><i class="fas  fa-dashboard "></i>
                         Dashboard</a>
                 </li> --}}
-                @if (auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
+                @can('view incoming letter and files')
                     <li class="nav-item">
                         <a class="nav-link"
                             href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming
@@ -676,7 +676,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('incoming_documents_category.index') }}">Files</a>
                     </li>
-                @endif
+                @endcan
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_documents_manager.shareduser') }}">My
                         Letters</a>
@@ -691,12 +691,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     </li>
                 @endcan
 
-                @if (auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR'))
+                @can('view document audit trail')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">Document Audit
                             Trail</a>
                     </li>
-                @endif
+                @endcan
                 <li class="nav-item">
 
                     <a class="nav-link" href="{{ route('reminder.index') }}"> <i class="bi bi-alarm "></i>Reminder</a>
