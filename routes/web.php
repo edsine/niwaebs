@@ -138,7 +138,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('demo_roles/{id}', 'App\Http\Controllers\RoleController@demo_edit')->name('demo_roles');
     Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update')->name('demo_update');
 
-    Route::post('incoming_documents_manager/share_secretary', [App\Http\Controllers\IncomingDocumentsController::class, 'shareSecretary'])->name('IncomingDocumentsController.share_secretary');
+    Route::post('incoming_documents_manager/share_secretary', [App\Http\Controllers\IncomingDocumentsController::class, 'shareSecretary'])->name('incoming_documents_manager.share_secretary');
 
 });
 
