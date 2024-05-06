@@ -24,10 +24,13 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
+     @can('view incoming letter and files')
+    
 
         <div class="card">
             @include('incoming_documents.secretary_table')
         </div>
+        @endcan
     </div>
 
 @endsection
