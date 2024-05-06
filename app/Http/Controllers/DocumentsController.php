@@ -322,7 +322,7 @@ class DocumentsController extends AppBaseController
                     });
                 
                 } else{
-                    
+
                     if(auth()->user()->staff && auth()->user()->staff->branch_id == 23){
                         $users1 = DB::select('
                         SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
@@ -541,7 +541,7 @@ public function showDepartementalDocumentsByUser(Request $request, $id)
             return redirect()->back();
         } */
 
-        if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+       // if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
 
         /* $documents = DB::table('documents_manager')
             ->join('audits', 'documents_manager.id', '=', 'audits.auditable_id')
@@ -566,10 +566,10 @@ public function showDepartementalDocumentsByUser(Request $request, $id)
         // Now that you have the documents, you can load the category relationship
 $documentIds = $documents->pluck('d_c_id')->toArray();
 $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id');
-        } else{
+       /*  } else{
             
             return redirect()->back()->with('error', 'Permission denied for document audit trail access');
-        }
+        } */
 
         return view('documents.document_audits', compact('documents','categories'));
     }
@@ -1270,7 +1270,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
             ];
         });
 
-        } else if (Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        } else if (Auth::user()->level && Auth::user()->level->id == 20) {
 
             /* $documents = DB::table('documents_has_users_files')
     ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_users_files.document_id')
@@ -1468,7 +1468,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
         // If the user has only one role, you can directly access it like this:
         $roleId = $roleIds->first();
 
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        if (Auth::user()->hasRole('super-admin') || Auth::user()->level && Auth::user()->level->id == 20) {
             $documents = DB::table('documents_has_roles')
                 ->join('documents_manager', 'documents_manager.id', '=', 'documents_has_roles.document_id')
                 ->join('roles', 'roles.id', '=', 'documents_has_roles.role_id')
@@ -1529,7 +1529,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
     public function shareDocument(Request $request, $id)
     {
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        if (Auth::user()->hasRole('super-admin') || Auth::user()->level && Auth::user()->level->id == 18) {
         $share_documents = DB::table('documents_manager')
             //->join('documents_has_roles', 'documents_has_roles.role_id', '=', 'roles.id')
             ->join('documents_has_users', 'documents_has_users.document_id', '=', 'documents_manager.id')
@@ -1715,7 +1715,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
        
         //$categories = $this->documentsCategoryRepository->all()->pluck('name', 'id');
-        if (Auth::user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR')) {
+        if (Auth::user()->hasRole('super-admin') || Auth::user()->level && Auth::user()->level->id == 20) {
         $categories1 = DB::table('documents_categories')
             ->join('departments', 'departments.id', '=', 'documents_categories.department_id')
             //->join('documents_categories', 'documents_manager.category_id', '=', 'documents_categories.id')

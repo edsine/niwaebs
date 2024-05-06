@@ -17,6 +17,8 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
+        
+@can('view document audit trail')
 
         <div class="card">
             <div class="card-body p-5">
@@ -71,6 +73,7 @@
            
             
         </div>
+        @endcan
     </div>
 
 @endsection

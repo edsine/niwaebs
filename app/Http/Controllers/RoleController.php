@@ -49,7 +49,7 @@ class RoleController extends AppBaseController
      */
     public function create()
     {
-        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178];
+        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178,179,180];
         $permissions = DB::table('permissions')->whereIn('id', $displayedIds)->get();
         //$permissions = $this->permissionRepository->all();
 
@@ -148,7 +148,7 @@ class RoleController extends AppBaseController
         }
 
         //$permissions = $this->permissionRepository->all();
-        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178];
+        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178,179,180];
         $permissions = DB::table('permissions')->whereIn('id', $displayedIds)->get();
 
         $permissions->each(function ($permission) use ($role) {
