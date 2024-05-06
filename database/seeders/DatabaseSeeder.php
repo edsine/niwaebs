@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\Paymenttype;
 use App\Models\ServiceApplication;
 use Database\Seeders\ServicesSeeder;
 use Database\Seeders\OtherUsersTable;
+use Database\Seeders\LevelsTableSeeder;
 use Database\Seeders\NewStaffTableSeeder;
 use Database\Seeders\NewUsersTableSeeder;
 use Modules\Shared\Database\Seeders\SharedDatabaseSeeder;
@@ -15,8 +17,10 @@ use Modules\WorkflowEngine\Database\Seeders\WorkflowEngineDatabaseSeeder;
 use Modules\DocumentManager\Database\Seeders\DocumentManagerDatabaseSeeder;
 use Modules\EmployerManager\Database\Seeders\EmployerManagerDatabaseSeeder;
 use Modules\ClaimsCompensation\Database\Seeders\ClaimsCompensationDatabaseSeeder;
+
 use Database\Seeders\LevelsTableSeeder;
 use Database\Seeders\MassUploadSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,6 +47,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(EmployersTableSeeder::class);
 
         $this->call(NewRolesAndPermissionsTablesSeeder::class);
+        $this->call(Paymenttype::class);
 
         // Modules
         $this->call(WorkflowEngineDatabaseSeeder::class);
@@ -64,6 +69,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OtherUsersTable::class);
         $this->call(LevelsTableSeeder::class);
         $this->call(MassUploadSeeder::class);
+
 
     }
 }
