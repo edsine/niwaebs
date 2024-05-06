@@ -27,6 +27,7 @@
            <!-- .nk-block-head-content -->
         </div><!-- .nk-block-between -->
     </div><!-- .nk-block-head -->
+    @can("read files")
     <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
@@ -60,10 +61,11 @@
                                         <td>{{ $documents_category->description }}</td>
                                         <td>{{ $documents_category->documents()->count() ?? 'N/A' }}</td>
                                 <td>
+                                    @can("update files")
                                             <a style="padding-right:10px;" href="{{ route('documents_category.edit', $documents_category->id) }}" title="Edit Document Category">
                                                 <span class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span>
                                             </a>
-                                           
+                                    @endcan       
                                                   
                                                     
                                         </td>
@@ -121,6 +123,7 @@
         </div>
       </div>
     <!-- .card-preview -->
+    @endcan
 
         <div class="modal fade" id="shareuserModal" tabindex="-1" role="dialog" aria-labelledby="shareuserModalLabel"
 aria-hidden="true" data-backdrop="false">

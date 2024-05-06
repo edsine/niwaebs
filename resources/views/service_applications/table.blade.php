@@ -17,7 +17,7 @@
             <tbody>
                 @foreach ($serviceApplications as $serviceApplication)
                     <tr class="fw-bold text-muted bg-light">
-                        <td>{{$serviceApplication->employer()->company_name}}</td>
+                        <td>{{$serviceApplication->employer() ? $serviceApplication->employer()->company_name : 'NILL'}}</td>
                         <td>{{ $serviceApplication->service ? $serviceApplication->service->name : '' }}</td>
                         <td>{{ $serviceApplication->application_form_payment_status ? 'Paid' : 'Not Paid' }}</td>
                         <td>{{ $serviceApplication->date_of_inspection }}</td>

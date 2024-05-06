@@ -11,13 +11,13 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h5 class="text-center mb-2">WELCOME {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h5>
-            <h1 class="text-center text-primary mb-5"><span class=" text-uppercase">
-                {{ auth()->user()->staff->branch->branch_name }} </span>AREA MANAGER </h1>
+            <h1 class="text-center text-primary mb-5">LOCATION: <span class=" text-uppercase">
+                {{ auth()->user()->staff->branch ? auth()->user()->staff->branch->branch_name : '' }} </span> </h1>
                 <div class=" d-flex">
                     <div class=" justify-content-between">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document</a>
+                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">My Departmental Document</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Demand Notice</a>
@@ -611,6 +611,7 @@ aria-hidden="true" data-backdrop="false">
             var serviceId = $('#serviceSelect').val();
             var month = $('#monthSelect').val();
             var year = $('#yearSelect').val();
+            $('.loader-demo-box1').show();
 
             $.ajax({
                 url: '/get-for-area-manager/' + serviceId,
@@ -620,6 +621,7 @@ aria-hidden="true" data-backdrop="false">
                     year: year
                 },
                 success: function(data) {
+                    $('.loader-demo-box1').hide();
                     // Update the statistics cards with the received data
                     $('#pending_application_forms').text(data.pending_application_forms);
                     $('#pending_inspections').text(data.pending_inspections);
@@ -627,6 +629,7 @@ aria-hidden="true" data-backdrop="false">
                     $('#total_permit').text(data.total_permit);
                 },
                 error: function(xhr, status, error) {
+                    $('.loader-demo-box1').hide();
                     // Handle error if any
                     console.error(error);
                 }

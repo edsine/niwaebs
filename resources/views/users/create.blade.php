@@ -17,23 +17,29 @@
                                 <section>
                                     <h4 class="card-title">POSITION ATTAINED</h4>
                                     <div class="form-group">
-                                        {!! Form::label('ranking_id', 'Rank') !!}
-                                        {!! Form::select('ranking_id', $rank, null, [
-                                            'class' => 'form-control form-control-solid border border-2 form-select',
+                                        {!! Form::label('department_id', 'Departments') !!}
+                                        {!! Form::select('department_id', $departments, null, [
+                                            'class' => 'form-control form-control-solid border border-2',
+                                            'id' => 'department_id', // Add an ID for easier targeting in JavaScript
+                                            'required' => 'required'
                                         ]) !!}
                                     </div>
                                     <div class="form-group">
-
-                                        {!! Form::label('roles', 'Roles') !!}
-                                        {!! Form::select('roles[]', $roles, null, [
+                                        {!! Form::label('ranking_id', 'Ranks') !!}
+                                        {!! Form::select('ranking_id', [], null, [
                                             'class' => 'form-control form-control-solid border border-2 form-select',
+                                            'id' => 'ranking_id', // Add an ID for easier targeting in JavaScript
+                                            'required' => 'required'
                                         ]) !!}
                                     </div>
-
                                     <div class="form-group">
-                                        {!! Form::label('email', 'Email') !!}
-                                        {!! Form::email('email', null, ['class' => 'form-control form-control-solid border border-2']) !!}
+                                        {!! Form::label('level_id', 'Levels') !!}
+                                        {!! Form::select('level_id', $levels, null, [
+                                            'class' => 'form-control form-control-solid border border-2 form-select',
+                                            'required' => 'required'
+                                        ]) !!}
                                     </div>
+                                    
 
                                 </section>
                                 <h3>PERSONAL INFORMATION</h3>
@@ -57,6 +63,10 @@
                                 <section>
                                     <h4 class="card-title">CREDENTIALS AREA </h4>
                                     <div class="form-group">
+                                        {!! Form::label('email', 'Email') !!}
+                                        {!! Form::email('email', null, ['class' => 'form-control form-control-solid border border-2']) !!}
+                                    </div>
+                                    <div class="form-group">
                                         {!! Form::label(
                                             'password',
                                             'Password (Password must be a minimum of 12 characters including atleast a number and symbol)',
@@ -78,13 +88,7 @@
                                         ]) !!}
                                         <div id="password-match" class="form-text"></div>
                                     </div>
-                                    <div class="form-group">
-                                        {!! Form::label('department_id', 'Department') !!}
-                                        {!! Form::select('department_id', $department, null, [
-                                            'class' => 'form-control form-control-solid border border-2',
-                                        ]) !!}
-                                    </div>
-
+                                    
                                 </section>
                                 <h3>OTHER INFORMATION</h3>
                                 <section>
@@ -110,9 +114,18 @@
 
                                     <h4 class="card-title">Finish</h4>
                                     <div class="form-group">
-                                        {!! Form::label('branch_id', 'Area Office') !!}
+                                        {!! Form::label('branch_id', 'Location') !!}
                                         {!! Form::select('branch_id', $branch, null, ['class' => 'form-control form-control-solid border border-2']) !!}
                                     </div>
+                                    <div class="form-group">
+
+                                        {!! Form::label('roles', 'Roles') !!}
+                                        {!! Form::select('roles[]', $roles, null, [
+                                            'class' => 'form-control form-control-solid border border-2 form-select',
+                                        ]) !!}
+                                    </div>
+
+                                    
 
                                     <div class="form-check">
                                         <label class="form-check-label">
@@ -130,4 +143,48 @@
             </div>
         </div>
     </div>
+
+@push('page_scripts')
+<script>
+   $(document).ready(function () {
+    // Listen for changes in the department dropdown
+    $('#department_id').change(function () {
+        var departmentId = $(this).val();
+        // Show loading animation before sending the AJAX request
+        $('.loader-demo-box1').show();
+        // Make an AJAX request to fetch ranks based on the selected department
+        $.ajax({
+            url: '/get-ranks', // Replace with the actual endpoint to fetch ranks
+            type: 'GET',
+            data: {
+                department_id: departmentId
+            },
+            success: function (response) {
+                // Hide loading animation after successful response
+                $('.loader-demo-box1').hide();
+
+                // Populate the ranks dropdown with the fetched ranks
+                var ranks = response.data.ranks;
+                if (ranks.length > 0) {
+                    var options = '';
+                    $.each(ranks, function (index, rank) {
+                        options += '<option value="' + rank.id + '">' + rank.name + '</option>';
+                    });
+                    $('#ranking_id').html(options);
+                } else {
+                    // Display message indicating no results found
+                    $('#ranking_id').html('<option value="">No results found</option>');
+                }
+            },
+            error: function (response) {
+                // Hide loading animation in case of error
+                $('.loader-demo-box1').hide();
+                console.error('Error fetching ranks:', response);
+            }
+        });
+    });
+});
+
+</script>
+@endpush
 @endsection

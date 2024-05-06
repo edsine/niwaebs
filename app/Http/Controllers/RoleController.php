@@ -13,7 +13,7 @@ use App\Repositories\PermissionRepository;
 use App\Http\Controllers\AppBaseController;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends AppBaseController
 {
@@ -37,7 +37,7 @@ class RoleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $roles = Role::where('id', '!=', '1')->get();
+        $roles = Role::get();
 
         return view('roles.index')->with('roles', $roles);
     }
@@ -49,7 +49,9 @@ class RoleController extends AppBaseController
      */
     public function create()
     {
-        $permissions = $this->permissionRepository->all();
+        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178,179,180];
+        $permissions = DB::table('permissions')->whereIn('id', $displayedIds)->get();
+        //$permissions = $this->permissionRepository->all();
 
         $permissions->each(function ($permission) {
             $permission->assigned = false;
@@ -145,7 +147,9 @@ class RoleController extends AppBaseController
             return redirect(route('roles.index'));
         }
 
-        $permissions = $this->permissionRepository->all();
+        //$permissions = $this->permissionRepository->all();
+        $displayedIds = [1,2,3,4,163,5,6,7,8,173,174,175,164,166,170,171,177,178,179,180];
+        $permissions = DB::table('permissions')->whereIn('id', $displayedIds)->get();
 
         $permissions->each(function ($permission) use ($role) {
             $permission->assigned = $role->permissions->pluck('id')->contains($permission->id);
@@ -154,13 +158,16 @@ class RoleController extends AppBaseController
 
         $groupedPermissions = $permissions->groupBy(function ($permission) {
             $words = explode(' ', strtolower($permission->name));
-            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical', 'head office', 'hr', 'folder', 'document', 'memo', 'correspondence',  'gifmis', 'asset management', 'crm', 'calender', 'marine', 'engineering', 'audit', 'requisition', 'corporate',   'payments','approval', 'service', 'fee', 'equipment', 'ticket', 'maintenances', 'asset', 'brands', 'suppliers', 'locations', 'assignment', 'salary', 'vendors', 'clients', 'survey', 'qgis and arcgis','finance', 'cash flow', 'product stock', 'debtors', 'summary', 'coordination', 'assets']);
+            $commonWords = array_intersect($words, ['user', 'role', 'client', 'project', 'milestone', 'bug', 'grant chart', 'project task', 'timesheet', 'areamanager', 'area office', 'hod', 'md', 'account', 'regional', 'medical']);
             return count($commonWords) > 0 ? implode('_', $commonWords) : $permission->name;
         });
 
+        
+
+
         return view('roles.edit')->with([
             'role' => $role,
-            // 'permissions' => $permissions,
+            // 'permissions2' => $permissions2,
             'groupedPermissions' => $groupedPermissions
         ]);
     }
@@ -229,24 +236,32 @@ class RoleController extends AppBaseController
     }
 
     public function demo_update($id, Request $request)
-    {
-        $role = $this->roleRepository->find($id);
+{
+    $role = $this->roleRepository->find($id);
 
-        if (empty($role)) {
-            Flash::error('Role not found');
-
-            return redirect(route('roles.index'));
-        }
-
-
-        $input =  $request->all();
-        $role = $this->roleRepository->update($input, $id);
-        $role->syncPermissions($request->get('permissions') ?? []);
-
-        Flash::success('Role updated successfully.');
-
+    if (empty($role)) {
+        Flash::error('Role not found');
         return redirect(route('roles.index'));
     }
+
+    $input = $request->all();
+
+    // Update role data
+    $updatedRole = $this->roleRepository->update($input, $id);
+
+    // Delete all previously assigned permissions
+    $updatedRole->syncPermissions([]);
+
+    // Assign new permissions if provided in the request
+    if ($request->has('permissions')) {
+        $permissions = $request->input('permissions');
+        $updatedRole->syncPermissions($permissions);
+    }
+
+    Flash::success('Role updated successfully.');
+    return redirect(route('roles.index'));
+}
+
 
     /**
      * Remove the specified Role from storage.

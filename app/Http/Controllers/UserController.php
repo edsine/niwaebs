@@ -7,6 +7,8 @@ use view;
 
 use Response;
 use App\Models\User;
+use App\Models\Rank;
+use App\Models\Level;
 use App\Mail\EBSMail;
 use App\Models\Signature;
 use Laracasts\Flash\Flash;
@@ -280,16 +282,16 @@ class UserController extends AppBaseController
      */
     public function create()
     {
-        // $rank=Ranking::pluck('name','id')->all();
-        $rank = $this->rankRepository->all()->pluck('name', 'id');
-        $roles = Role::pluck('name', 'id')->all();
-        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        $rank = Rank::all()->pluck('name', 'id');
+        $levels = Level::all()->pluck('name', 'id');
+        $roles= Role::get()->pluck('name','id');
         $roles->prepend('Select role', '');
         $branch = $this->branchRepository->all()->pluck('branch_name', 'id');
 
 
-        $department = $this->departmentRepository->all()->pluck('name', 'id');
-        return view('users.create', compact('roles', 'branch', 'department', 'rank'));
+        $departments = $this->departmentRepository->all()->pluck('name', 'id');
+        $departments->prepend('Select department' , '');
+        return view('users.create', compact('roles', 'branch', 'departments', 'rank', 'levels'));
     }
 
 
@@ -380,19 +382,20 @@ class UserController extends AppBaseController
     }
 
     public function changePassword(Request $request)
-    {
-        $user = Auth::user();
-        $newPassword = $request->input('password');
+{
+    $user = Auth::user();
+    $newPassword = $request->input('password');
 
-        $user->password = Hash::make($newPassword);
-        $user->save();
+    $user->password = Hash::make($newPassword);
+    $user->save();
 
-        $email = Auth::user()->email;
+    // Logout the user
+    Auth::logout();
 
-        // Handle response and errors as needed
-        Flash::error('Email password & EBS Password changed successfully. ');
-        return redirect(route('change.email.password'));
-    }
+    // Redirect to the login page
+    return redirect(route('login'))->with('success', 'Password changed successfully. Please log in again.');
+}
+
 
     public function saveSignature(Request $request)
     {
@@ -471,8 +474,10 @@ class UserController extends AppBaseController
         // $department = $this->departmentRepository->all()->pluck('name', 'id');
 
         $department = $this->departmentRepository->all()->pluck('name', 'id');
+        $department->prepend('Select department' , '');
         // dd($branch);
-        $rank = Ranking::all()->pluck('name', 'id');
+        $ranks = Rank::all()->pluck('name', 'id');
+        $levels = Level::all()->pluck('name', 'id');
 
         if (empty($user)) {
             Flash::error('User not a staff so it can not be edited');
@@ -487,14 +492,14 @@ class UserController extends AppBaseController
 
         // $roles = $this->roleRepository->all()->pluck('name', 'id');
 
-        $roles=Role::all()->pluck('name','id')->all();
-        $userrole=$user->roles->pluck('name','id')->all();
+        $roles=Role::get()->pluck('name','id');
+        $userrole= [];//$user->roles->pluck('name','id')->get();
         // $roles->prepend('Select role', '');
         $single_user = User::find($id);
 
         return view('users.edit', compact('user','roles',
         'branch', 'department', 'id',
-         'rank','userrole','single_user'));
+         'ranks','userrole','single_user', 'levels'));
     }
 
     /**

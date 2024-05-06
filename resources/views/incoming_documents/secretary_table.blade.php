@@ -314,7 +314,7 @@ aria-hidden="true" data-backdrop="false">
 aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            {!! Form::open(['route' => 'incoming_documents_manager.shareuser', 'enctype' => 'multipart/form-data', 'id' => 'approve-form']) !!}
+            {!! Form::open(['route' => 'incoming_documents_manager.share_secretary', 'enctype' => 'multipart/form-data', 'id' => 'approve-form']) !!}
         @csrf
             <div class="modal-header">
                 <h5 class="modal-title">Approve Document</h5>

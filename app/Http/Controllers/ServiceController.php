@@ -44,6 +44,15 @@ class ServiceController extends Controller
     }
 
 
+    public function getServices(Request $request)
+    {
+        $branchId = $request->get('branch_id');
+
+        // Fetch services based on the branch ID
+        $services = Service::where('branch_id', $branchId)->get();
+
+        return response()->json(['data' => ['services' => $services]]);
+    }
 
     /**
      * Store a newly created resource in storage.

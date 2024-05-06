@@ -33,7 +33,7 @@ use App\Http\Controllers\ZoomMeetingController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\EmployerDocumentController;
 use App\Http\Controllers\DocumentsCategoryController;
-
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\ServiceApplicationController;
 use Modules\Accounting\Http\Controllers\ReportController;
 use Modules\Accounting\Http\Controllers\ExpenseController;
@@ -137,6 +137,9 @@ Route::group(['middleware' => ['auth']], function () {
     // demo admin role
     Route::get('demo_roles/{id}', 'App\Http\Controllers\RoleController@demo_edit')->name('demo_roles');
     Route::post('demo_update/{id}', 'App\Http\Controllers\RoleController@demo_update')->name('demo_update');
+
+    Route::post('incoming_documents_manager/share_secretary', [App\Http\Controllers\IncomingDocumentsController::class, 'shareSecretary'])->name('incoming_documents_manager.share_secretary');
+
 });
 
 Route::get('/new/incoming', 'App\Http\Controllers\IncomingDocumentsController@add_document')->name('add.new.incoming.document');
@@ -347,6 +350,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     //area manager dashboard
     Route::get('/get-for-area-manager/{id}', 'App\Http\Controllers\HomeController@getForAreaManager')->name('getForAreaManager');
+    Route::get('/get-for-md/{id}', 'App\Http\Controllers\HomeController@getForMD')->name('getForMD');
+    Route::get('/get-services', 'App\Http\Controllers\ServiceController@getServices')->name('get.services');
+
 
 
     Route::get('thelist', [HomeController::class, 'getbranch']);
@@ -443,6 +449,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/save-signature', [UserController::class, 'saveSignature']);
     Route::get('/change-signature', [UserController::class, 'changeSignature'])->name('change.signature');
     Route::get('/assign_role', [UserController::class, 'assignRole'])->name('assign_role');
+
+    // Ranks and levels added to user details
+    Route::post('/rank_upload_now', [RankController::class, 'upload'])->name('rank_upload_now');
+    Route::get('/rankUpload', [RankController::class, 'rankUpload'])->name('rankUpload');
+    Route::get('/get-ranks', 'App\Http\Controllers\RankController@getRanks')->name('get.ranks');
 });
 
 // Route::get('/account', function () {
@@ -452,11 +463,16 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::view('am','am');
 
 Route::get('md_user', [HomeController::class, 'md'])->name('md_user');
-Route::get('ta_dashboard', [HomeController::class, 'md'])->name('ta_dashboard');
+Route::get('ta_dashboard', [HomeController::class, 'taDashboard'])->name('ta_dashboard');
 
 
 Route::get('areamanager', [HomeController::class, 'areamanager'])->name('am');
 Route::get('areamanager', [HomeController::class, 'areamanager'])->name('areamanager');
+Route::get('s_dashboard', [HomeController::class, 'sDashboard'])->name('s_dashboard');
+Route::get('gm_dashboard', [HomeController::class, 'gmDashboard'])->name('gm_dashboard');
+Route::get('range_dashboard', [HomeController::class, 'rangeDashboard'])->name('range_dashboard');
+
+
 //=================================== Zoom Meeting ======================================================================
 Route::get('zoom', function () {
     return view('zoom-meeting.index');

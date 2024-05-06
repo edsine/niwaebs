@@ -19,6 +19,7 @@
 </style>
 <?php
 if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+
     $value = 'superadmin';
 } elseif (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
     $value = 'md_user';
@@ -29,6 +30,32 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
 } else {
     $value = 'home';
 }
+
+            $value = 'superadmin';
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 20) {
+            $value = 'md_user';
+        }else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 19) {
+            $value = 'ta_dashboard';
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 18)
+        {
+            $value = 's_dashboard';
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 17)
+        {
+            $value = 'gm_dashboard';
+        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 3)
+        {
+            $value = 'areamanager';
+        } else if (Auth::check() && Auth::user()->level && 
+        Auth::user()->level->id >= 14 && 
+        Auth::user()->level->id <= 16)
+        {
+            $value = 'range_dashboard';
+        } else {
+            $value = "home";
+            
+        }
+
+
 ?>
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar-text  sidebar sidebar-offcanvas" id="sidebar">
@@ -44,12 +71,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     @endif
                 </div>
                 <div class="profile-name">
-                    <p class="name">
+                    <p class="name" style="font-size: small !important;">
                         {{ 'Welcome,' . ' ' . $user->first_name . ' ' . $user->last_name }}
                     </p>
-                    <p class="designation">
-                        {{ auth()->user()->roles->isNotEmpty() ? auth()->user()->roles->pluck('name')->first() : 'no role yet' }}
-                    </p>
+                    <p class="designation text-uppercase">
+                        {{ auth()->user()->staff->rank ? auth()->user()->staff->rank->name : 'NILL' }}
+                    </p>                    
                 </div>
             </div>
         </li>
@@ -63,8 +90,8 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
         </li>
 
 
-        {{-- @can('view user managment module') --}}
-        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin')))
+        @can('view user managment module')
+        {{-- @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [13]) || auth()->user()->hasRole('super-admin'))) --}}
             <li class="nav-item" id="myTask">
                 <a class="nav-link" href="#">
                     <i class="bi bi-tools menu-icon"></i>
@@ -90,12 +117,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                 </ul>
 
             </li>
-        @endif
-        {{-- @endcan --}}
+        {{-- @endif --}}
+        @endcan
 
         @can('view service applications module')
-            @if (auth()->check() &&
-                    (in_array(auth()->user()->staff->department_id, [1, 5, 4]) || auth()->user()->hasRole('super-admin')))
+           {{--  @if (auth()->check() &&
+                    (in_array(auth()->user()->staff->department_id, [1, 5, 4]) || auth()->user()->hasRole('super-admin'))) --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('serviceApplications.index') }}">
                         <i class="fa fa-compass menu-icon"></i>
@@ -103,7 +130,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
 
                     </a>
                 </li>
-            @endif
+           {{--  @endif --}}
         @endcan
 
         @can('view approval module')
@@ -188,11 +215,11 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             </li>
         @endcan
 
-        @if (auth()->check() && (in_array(auth()->user()->staff->department_id, [2]) || auth()->user()->hasRole('super-admin')))
+        @can('view report module')
             <!-- Start Of REport System Menu -->
             @include('accounting::layouts.reportmenu')
             <!-- End Of REport System Menu -->
-        @endif
+        @endcan
 
         @can('view operational task module')
             <li class="nav-item" id="myTask">
@@ -236,7 +263,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
             </li>
 
         @endcan
-
+        @can('view mass upload module')
         {{-- i was asked to remove the super user lock here --}}
         <li class=" nav-item" id="myTask">
             <a href="#" class="nav-link">
@@ -272,7 +299,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                 @endcan
             </ul>
         </li>
-
+@endcan
 
 
         @can('view my task module')
@@ -607,10 +634,10 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
         </a>
         <ul class="nav flex-column sub-menu">
             {{--  @can('read asset manager dashboard') --}}
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('dash') }}"><i class="fas  fa-dashboard "></i>
                     Dashboard</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('documents_manager.shareduser') }}">My
                     Departmental Documents</a>
@@ -659,7 +686,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     <a class="nav-link" href="{{ route('incoming_document_dashboard') }}"><i class="fas  fa-dashboard "></i>
                         Dashboard</a>
                 </li> --}}
-                @if (auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
+                @can('view incoming letter and files')
                     <li class="nav-item">
                         <a class="nav-link"
                             href="{{ route('incoming_documents_manager.all_documents.secretary') }}">Incoming
@@ -668,7 +695,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('incoming_documents_category.index') }}">Files</a>
                     </li>
-                @endif
+                @endcan
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('incoming_documents_manager.shareduser') }}">My
                         Letters</a>
@@ -683,12 +710,12 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     </li>
                 @endcan
 
-                @if (auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('MANAGING DIRECTOR'))
+                @can('view document audit trail')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('incoming_documents_manager.audits') }}">Document Audit
                             Trail</a>
                     </li>
-                @endif
+                @endcan
                 <li class="nav-item">
 
                     <a class="nav-link" href="{{ route('reminder.index') }}"> <i class="bi bi-alarm "></i>Reminder</a>

@@ -3,6 +3,7 @@
 namespace Modules\WorkflowEngine\Models;
 
 use App\Models\User;
+use App\Models\Rank;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -67,6 +68,10 @@ class Staff extends Model implements Auditable
         return $this->belongsTo(User::class);
     }
    
+    public function rank()
+    {
+        return $this->belongsTo(Rank::class,'ranking_id','id');
+    }
 
     public function department(){
         return $this->belongsTo(Department::class);

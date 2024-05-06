@@ -16,18 +16,29 @@
 }
  </style>
  <?php 
-          if (Auth::check() && Auth::user()->hasRole('super-admin')) {
-            $value = "superadmin";
-        } else if (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
-            $value = "md_user";
-        } else if (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
-            $value = "ta_dashboard";
-        } else if (Auth::check() && Auth::user()->hasRole('Area Manager')) {
-        $value = "areamanager";
+          if (Auth::user()->hasRole('super-admin')) {
+            $value = 'superadmin';
+        } else if (Auth::user()->level && Auth::user()->level->id == 20) {
+            $value = 'md_user';
+        }else if (Auth::user()->level && Auth::user()->level->id == 19) {
+            $value = 'ta_dashboard';
+        } else if (Auth::user()->level && Auth::user()->level->id == 18)
+        {
+            $value = 's_dashboard';
+        } else if (Auth::user()->level && Auth::user()->level->id == 17)
+        {
+            $value = 'gm_dashboard';
+        } else if (Auth::user()->level && Auth::user()->level->id == 3)
+        {
+            $value = 'areamanager';
+        } else if (Auth::user()->level && 
+        Auth::user()->level->id >= 14 && 
+        Auth::user()->level->id <= 16)
+        {
+            $value = 'range_dashboard';
         } else {
-
             $value = "home";
-            //atp take note, you have not yet done page for ed_op,no role as ed operation yet
+            
         } 
  ?>
  <!--begin::Header-->

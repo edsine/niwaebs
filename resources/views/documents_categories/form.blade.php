@@ -1,6 +1,5 @@
 <div class="preview-block">
-    @if (Auth()->user()->hasRole('super-admin'))
-    {{-- <div class="row gy-4 pl-5">
+    <div class="row gy-4 pl-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
                 <div class="form-control-wrap">
@@ -9,9 +8,9 @@
                     </div>
                     <label class="form-label-outlined" for="department_id">Select Department</label>
                     <select class="form-control" name="department_id" id="department_id" required>
-                        <option value="">Select Department</option>
-                        @foreach($departments as $department)
-                          <option value="{{ $department->id }}" {{ old('department_id', isset($documents_category) && $documents_category->department_id == $department->id ? 'selected' : '') }}>
+                        <option>Select Department</option>
+                         @foreach($departments as $department)
+                         <option value="{{ $department->id }}" {{ old('department_id', isset($documents_category) && $documents_category->department_id == $department->id ? 'selected' : '') }}>
                                 {{ $department->name }}
                             </option>
                         @endforeach
@@ -20,8 +19,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
-    @endif
+    </div>
     <div class="row gy-4 p-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
@@ -67,6 +65,7 @@
     $(document).ready(function () {
         $('#department_id').change(function () {
             var departmentId = $(this).val();
+            $('.loader-demo-box1').show();
             if (departmentId) {
                 $.ajax({
                     url: '/generate-file-no',
@@ -76,10 +75,12 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function (response) {
+                        $('.loader-demo-box1').hide();
                        // alert(JSON.stringify(response));
                         $('#file_no').val(response.data.name);
                     },
                     error: function (response) {
+                        $('.loader-demo-box1').hide();
                         alert("Can not generate file no. Contact administrator for help");
                     }
                 });

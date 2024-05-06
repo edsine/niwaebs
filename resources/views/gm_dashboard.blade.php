@@ -11,77 +11,29 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <h5 class="text-center mb-2">WELCOME {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h5>
-            <h1 class="text-center text-primary ">LOCATION: <span class=" text-uppercase">
-                {{ auth()->user()->staff->branch ? auth()->user()->staff->branch->branch_name : ''}} </span> </h1>
-                <p class="text-center text-muted mb-5"><span class=" text-uppercase">
-                    {{ auth()->user()->staff->department ? auth()->user()->staff->department->name :  '' }} </span> Department </p>
-                <div class=" d-flex ">
+            <h1 class="text-center text-primary mb-5 text-uppercase">LOCATION: <span class=" text-uppercase">
+                {{ auth()->user()->staff->branch ? auth()->user()->staff->branch->branch_name : '' }} </span> </h1>
+                <div class=" d-flex">
                     <div class=" justify-content-between">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">My Departmental Document</a>
+                              <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab" aria-controls="letter" aria-selected="true">Departmental Document</a>
                             </li>
-                            {{-- <li class="nav-item">
-                              <a class="nav-link" id="demand-tab" data-toggle="tab" href="#demand" role="tab" aria-controls="demand" aria-selected="false">Demand Notice</a>
-                            </li> --}}
-                            {{-- <li class="nav-item">
-                                <a class="nav-link" id="revenue-tab" data-toggle="tab" href="#revenue" role="tab" aria-controls="revenue" aria-selected="false">Revenue Updates</a>
-                              </li> --}}
-                              <li class="nav-item">
-                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">
-                                    @if(auth()->user()->staff && auth()->user()->staff->branch_id == 23)
-                                    Incoming Letter
-                                    @else
-                                    Letter Of Intent
-                                    @endif
-                                </a>
+                             <li class="nav-item">
+                                <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab" aria-controls="letter1" aria-selected="true">Incoming Letter</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" id="clock-tab" data-toggle="tab" href="#clock" role="tab" aria-controls="clock" aria-selected="false">Mark Attendance</a>
+                                <a class="nav-link" href="{{ route('documents_category.create') }}" >Create File</a>
                               </li>
                           </ul>
                           <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade" id="clock" role="tabpanel" aria-labelledby="clock-tab">
-                                <div class="row">
-                                    <div class="col-12" id="clockInCard">
-                                        <div class="card" style="padding-top: 10px;">
-                                            <div class="card-header">
-                                                <h4 class="card-title">Mark Attendance</h4>
-                                            </div>
-                                            <div class="card-body dash-card-body">
-                                                <h5 class="text-muted pb-0-5">My Office Time: 08:00am to 05:00pm </h5>
-                                                <br>
-                                                <center>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <button type="button" id="clock_in" class="btn btn-success" @if(auth()->user()->hasClockedInToday()) disabled @endif onclick="hideCards()">CLOCK IN</button>
-                                                        </div>
-                                                        
-                                                        <div class="col-md-6">
-                                                            <button type="button" id="clock_out" class="btn btn-danger" disabled>CLOCK OUT</button>
-                                                        </div>
-                                                    </div>
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- <button id="showButton" onclick="showCards()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10" />
-                                            <line x1="12" y1="8" x2="12" y2="16" />
-                                            <line x1="8" y1="12" x2="16" y2="12" />
-                                        </svg>
-                                    </button> --}}
-                                </div>
-                            </div>
                             <div class="tab-pane fade show active" id="letter" role="tabpanel" aria-labelledby="letter-tab">
                                 <div class="row g-5 g-xl-8">
-                                <div class="row" style="display: none;">
+                                <div class="row">
                                     <div class="col-md-3">
-                                     {!! Form::label('department_id', 'Cick To Select User Department:', ['style' => 'font-weight:bold;']) !!}
-                                     {!! Form::select('department_id', $departments_data1, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!}
-                                   
+                                     {{-- {!! Form::label('department_id', 'Cick To Select User Department:', ['style' => 'font-weight:bold;']) !!}
+                                     {!! Form::select('department_id', $departments_data1, null, ['class' => 'form-control', 'id' => 'deptSelect1']) !!} --}}
+                                   <input type="hidden" id="deptSelect1" value="{{ auth()->user()->staff->department_id }}" />
                                         </div>
                                 </div>
                                    <div class="row">
@@ -131,7 +83,7 @@
                             });
                         
                             function fetchDocumentsData(departmentId) {
-                                fetch(`/showDepartementalDocumentsByUser/${departmentId}`)
+                                fetch(`/showDepartementalDocuments/${departmentId}`)
                                     .then(response => response.json())
                                     .then(data => {
                                         displayDocumentsData(data);
@@ -477,12 +429,7 @@
                     <div class="card-body p-5">
                         <h4 class="card-title">
                                   <i class="fas fa-envelope"></i>
-                                  @if(auth()->user()->staff && auth()->user()->staff->branch_id == 23)
-                                    Latest 10 Incoming Letter
-                                    @else
-                                    Latest 10 Letter Of Intent
-                                    @endif
-                                 
+                                 Latest 10 Incoming Letter
                                 </h4>
                         <div class="table-responsive1" style="overflow-y: auto;">
                             <table class="table align-middle gs-0 gy-4" id="order-listing11">
@@ -515,7 +462,7 @@
                                                         <a class="document-link" target="_blank" onClick="saveData('{{ $document->document_url }}')" href="{{ asset($document->document_url) }}">{{ substr($document->document_url, 10) }}</a>
                                                     </td>
                                           <td><a class="open-modal-shareuser btn btn-primary" href="#" data-toggle="modal" data-target="#shareuserModal1"
-                                            data-shareuser={{ $document->d_m_id }}>User</a></td>  
+                                            data-shareuser={{ $document->d_id }}>User</a></td>  
                                                       <td>{{ $document->doc_description ?? 'NILL' }}</td>
                                                       <td>{{ $document->document_created_at ?? 'NILL' }}</td>
                                                      
@@ -703,56 +650,3 @@ aria-hidden="true" data-backdrop="false">
 
 
             @endsection
-
-
-
-
-
-
-
-
-
-
-{{-- @extends('layouts.app')
-
-@section('content')
-
-    --}} {{-- <div class="container-fluid"> --}}
-        {{-- Sweet-alert --}}
-       {{--  @include('flash::message') --}}
-        {{-- end::Sweet-alert --}}
-
-        <!--begin::Row-->
-        @php
-           // $departmentId = optional(auth()->user()->staff)->department_id;
-        // dd($departmentId);
-        @endphp
-
-{{-- @includeWhen($departmentId == 1, 'hradmin') --}}
-
-<!-- the department_id ==2  will be from the finace module dashboard, it is redirecting to dashoard-->
-{{-- @includeWhen($departmentId == 2, 'financeadmin') --}}
-
-{{-- @includeWhen($departmentId == 3, 'marineadmin')
-@includeWhen($departmentId == 4, 'engineering')
-@includeWhen($departmentId == 5, 'surveyadmin')
-
-@includeWhen($departmentId == 6, 'portsandenvironment')
-@includeWhen($departmentId == 7, 'auditadmin')
-@includeWhen($departmentId == 8, 'policeadmin')
-@includeWhen($departmentId == 9, 'coordinationadmin')
-
-@includeWhen($departmentId == 10, 'projectadmin')
-@includeWhen($departmentId == 11, 'procurementadmin')
-@includeWhen($departmentId == 12, 'legalsadmin')
-
-
-
-@includeWhen($departmentId == 13, 'ictadmin')
-@includeWhen($departmentId == 14, 'businessdevadmin')
-@includeWhen($departmentId == 15, 'hradmin')
-        @include('defaultdashboard') --}}
-   {{--  </div>
-@endsection --}}
-
-

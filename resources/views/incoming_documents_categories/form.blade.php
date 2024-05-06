@@ -1,5 +1,5 @@
 <div class="preview-block">
-    @if (Auth()->user()->hasRole('super-admin') || Auth()->user()->hasRole('SECRETARY'))
+    
     <div class="row gy-4 pl-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    @endif
+   
     <div class="row gy-4 p-5">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
