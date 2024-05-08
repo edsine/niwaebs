@@ -2,8 +2,13 @@
 
 @section('content')
     <style>
-        .nav-link {
+       .nav-link {
             font-weight: 600;
+            color: blue !important;
+        }
+
+        .nav-link:hover {
+            color: green !important;
         }
     </style>
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -14,7 +19,7 @@
                     {{ auth()->user()->staff->branch ? auth()->user()->staff->branch->branch_name : '' }} </span> </h1>
             <div class=" row">
                 <div class=" justify-content-between">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs bg-success " id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab"
                                 aria-controls="letter" aria-selected="true">Departmental Document</a>
@@ -27,7 +32,7 @@
                             <a class="nav-link" href="{{ route('documents_category.create') }}">Create File</a>
                         </li>
                     </ul>
-                    <div class="tab-content bg-success" id="myTabContent">
+                    <div class="tab-content " id="myTabContent">
                         <div class="tab-pane fade show active" id="letter" role="tabpanel" aria-labelledby="letter-tab">
                             <div class="row g-5 g-xl-8">
                                 <div class="row">
