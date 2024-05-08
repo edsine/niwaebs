@@ -19,42 +19,22 @@
 </style>
 <?php
 if (Auth::check() && Auth::user()->hasRole('super-admin')) {
-
     $value = 'superadmin';
-} elseif (Auth::check() && Auth::user()->hasRole('MANAGING DIRECTOR')) {
+} elseif (Auth::check() && Auth::user()->level && Auth::user()->level->id == 20) {
     $value = 'md_user';
-} elseif (Auth::check() && Auth::user()->hasRole('TECHNICAL ADVISER')) {
+} elseif (Auth::check() && Auth::user()->level && Auth::user()->level->id == 19) {
     $value = 'ta_dashboard';
-} elseif (Auth::check() && Auth::user()->hasRole('Area Manager')) {
+} elseif (Auth::check() && Auth::user()->level && Auth::user()->level->id == 18) {
+    $value = 's_dashboard';
+} elseif (Auth::check() && Auth::user()->level && Auth::user()->level->id == 17) {
+    $value = 'gm_dashboard';
+} elseif (Auth::check() && Auth::user()->level && Auth::user()->level->id == 3) {
     $value = 'areamanager';
+} elseif (Auth::check() && Auth::user()->level && Auth::user()->level->id >= 14 && Auth::user()->level->id <= 16) {
+    $value = 'range_dashboard';
 } else {
     $value = 'home';
 }
-
-            $value = 'superadmin';
-        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 20) {
-            $value = 'md_user';
-        }else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 19) {
-            $value = 'ta_dashboard';
-        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 18)
-        {
-            $value = 's_dashboard';
-        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 17)
-        {
-            $value = 'gm_dashboard';
-        } else if (Auth::check() && Auth::user()->level && Auth::user()->level->id == 3)
-        {
-            $value = 'areamanager';
-        } else if (Auth::check() && Auth::user()->level && 
-        Auth::user()->level->id >= 14 && 
-        Auth::user()->level->id <= 16)
-        {
-            $value = 'range_dashboard';
-        } else {
-            $value = "home";
-            
-        }
-
 
 ?>
 <!-- partial:partials/_sidebar.html -->
@@ -76,7 +56,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
                     </p>
                     <p class="designation text-uppercase">
                         {{ auth()->user()->staff->rank ? auth()->user()->staff->rank->name : 'NILL' }}
-                    </p>                    
+                    </p>
                 </div>
             </div>
         </li>
@@ -268,7 +248,7 @@ if (Auth::check() && Auth::user()->hasRole('super-admin')) {
         <li class=" nav-item" id="myTask">
             <a href="#" class="nav-link">
                 <i class="fas fa-columns menu-icon"></i>
-                <span class="menu-title">Mass Upload</span>
+                <span class="menu-title">Data Migration</span>
                 <i class="menu-arrow"></i>
             </a>
             <ul class="nav flex-column sub-menu">

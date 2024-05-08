@@ -18,7 +18,7 @@ use Modules\DocumentManager\Database\Seeders\DocumentManagerDatabaseSeeder;
 use Modules\EmployerManager\Database\Seeders\EmployerManagerDatabaseSeeder;
 use Modules\ClaimsCompensation\Database\Seeders\ClaimsCompensationDatabaseSeeder;
 
-use Database\Seeders\LevelsTableSeeder;
+// use Database\Seeders\LevelsTableSeeder;
 use Database\Seeders\MassUploadSeeder;
 
 
