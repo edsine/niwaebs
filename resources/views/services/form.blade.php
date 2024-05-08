@@ -22,7 +22,7 @@
                     <div class="form-icon form-icon-right">
                         <em class="icon ni ni-user"></em>
                     </div>
-                    <label class="form-label-outlined" for="branch_id">Select Area Office</label>
+                    <label class="form-label-outlined" for="branch_id">Select Location</label>
                     <select class="form-control" name="branch_id">
                         <option value="0" {{ isset($service) && $service->branch_id == 0 ? 'selected' : '' }}>
                             Nationwide

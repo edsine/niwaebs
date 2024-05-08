@@ -8,9 +8,9 @@
                         <div class="form-icon form-icon-right">
                             <em class="icon ni ni-user"></em>
                         </div>
-                        <label class="form-label-outlined" for="branch_id">Area Office</label>
+                        <label class="form-label-outlined" for="branch_id">Select Location</label>
                         <select class="form-control" name="branch_id" id="branch_id" required>
-                            <option value="">Select Area Office</option>
+                            <option value="">Select Location</option>
                             @foreach($branches as $branch)
                                 <option value="{{ $branch->id }}" >
                                     {{ $branch->branch_name }}
