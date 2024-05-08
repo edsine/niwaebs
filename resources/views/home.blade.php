@@ -4,6 +4,11 @@
     <style>
         .nav-link {
             font-weight: 600;
+            color: green !important;
+        }
+
+        .nav-link:hover {
+            color: green !important;
         }
     </style>
 
@@ -19,17 +24,18 @@
 
 
             <div class="row-12  ">
-                <div class=" justify-content-between  bg-primary">
-                    <ul class="nav nav-tabs  " id="myTab" role="tablist">
+                <div class=" justify-content-between ">
+                    <ul class="nav nav-tabs  bg-primary" id="myTab" role="tablist">
                         <li class="nav-item ">
-                            <a class="nav-link text-success active" id="letter-tab" data-toggle="tab" href="#letter" role="tab"
-                                aria-controls="letter" aria-selected="true">My Departmental Document</a>
+                            <a class="nav-link text-primary text-hover-success active" id="letter-tab" data-toggle="tab"
+                                href="#letter" role="tab" aria-controls="letter" aria-selected="true">My Departmental
+                                Document</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a class="nav-link text-success" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab"
-                                aria-controls="letter1" aria-selected="true">
+                            <a class="nav-link  text-primary" id="letter1-tab" data-toggle="tab" href="#letter1"
+                                role="tab" aria-controls="letter1" aria-selected="true">
                                 @if (auth()->user()->staff && auth()->user()->staff->branch_id == 23)
                                     Incoming Letter
                                 @else
@@ -38,7 +44,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-success" id="clock-tab" data-toggle="tab" href="#clock" role="tab"
+                            <a class="nav-link text-primary" id="clock-tab" data-toggle="tab" href="#clock" role="tab"
                                 aria-controls="clock" aria-selected="false">Mark Attendance</a>
                         </li>
                     </ul>
@@ -322,8 +328,8 @@
                                 <div class="col-5">
                                     <div class="row">
                                         <!-- <div class="col-3">
-                                                        {!! Form::label('', 'Filter By', ['class' => 'form-label mt-2']) !!}
-                                                    </div> -->
+                                                                {!! Form::label('', 'Filter By', ['class' => 'form-label mt-2']) !!}
+                                                            </div> -->
                                         <div class="col-3">
                                             {!! Form::select('service_id', $services, null, ['class' => 'form-select', 'id' => 'serviceSelect']) !!}
                                         </div>

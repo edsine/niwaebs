@@ -2,8 +2,13 @@
 
 @section('content')
     <style>
-        .nav-link {
+         .nav-link {
             font-weight: 600;
+            color: blue !important;
+        }
+
+        .nav-link:hover {
+            color: green !important;
         }
     </style>
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -24,7 +29,7 @@
 
                 </div>
                 <div class=" justify-content-between">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs bg-primary" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="letter-tab" data-toggle="tab" href="#letter" role="tab"
                                 aria-controls="letter" aria-selected="true">My Departmental Document</a>
@@ -51,7 +56,7 @@
                                 <div class="row">
                                     <div class="col-md-12 depDoc1" id="depDoc1">
 
-                                        <div class="card  text-bg-success">
+                                        <div class="card  ">
 
                                             <div class="card-body p-5">
                                                 <h4 class="card-title">
@@ -212,7 +217,7 @@
                             <div class="row">
                                 <div class="col-md-12">
 
-                                    <div class="card text-bg-success" style="">
+                                    <div class="card " style="">
                                         <div class="card-body p-5">
                                             <h4 class="card-title">
                                                 <i class="fas fa-envelope"></i>
@@ -423,7 +428,7 @@
                                 </div>
                                 <div class="col-xl-3">
                                     <!--begin::Statistics Widget 5-->
-                                    <a href="#" class="card bg-success hoverable card-xl-stretch mb-xl-8">
+                                    <a href="#" class="card hoverable card-xl-stretch mb-xl-8">
                                         <!--begin::Body-->
                                         <div class="card-body">
                                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm008.svg-->

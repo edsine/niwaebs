@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <a href="{{ route('payhistoryform') }}" class="float-end btn btn-sm btn-success">UPLOAD RECORD</a>
+    <div class=" my-3">
+
+        <a href="{{ route('payhistoryform') }}" class="btn btn-sm btn-success">UPLOAD RECORD</a>
+    </div>
 
     <table class="table data-table" id="atpdata-table">
         <thead>
@@ -14,25 +17,25 @@
                 <th>PAYMENT STATUS</th>
                 <th>AMOUNT </th>
                 <th>TRANSACTION ID</th>
-                <th> PAID AT</th>
+                <th> DATE</th>
                 <th>ACTION</th>
 
             </tr>
         </thead>
         <tbody>
             @foreach ($payment as $item)
-{{-- @dd($item->serviceapp()->theservice); --}}
+                {{-- @dd($item->serviceapp()->theservice); --}}
                 <tr>
 
 
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->serviceapp() ? $item->serviceapp()->applicant_code : 'NO CODE FOUND' }}</td>
 
-                    <td>{{ $item->type?$item->type->name : 'Payment Type not found' }}</td>
+                    <td>{{ $item->type ? $item->type->name : 'Payment Type not found' }}</td>
                     <td>{{ $item->branch ? $item->branch->branch_name : 'No Area Office' }}</td>
 
                     {{-- @dd($item->serviceapp()->theservice->name); --}}
-                    <td>{{ $item->serviceapp()? $item->serviceapp()->theservice->name : 'No Yet Applied' }}
+                    <td>{{ $item->serviceapp() ? $item->serviceapp()->theservice->name : 'No Yet Applied' }}
                     </td>
 
                     @if ($item->payment_status == 1)
@@ -44,7 +47,8 @@
                     @endif
                     <td>{{ $item->amount }}</td>
                     <td>{{ $item->transaction_id }}</td>
-                    <td>{{ $item->paid_at }}</td>
+
+                    <td> {{date('l,F,j,Y',strtotime($item->paid_at ))}}</td>
                     <td>
                         <a href="{{ route('payhistoryedit', [$item->id]) }}">Modify Record</a>
                     </td>
