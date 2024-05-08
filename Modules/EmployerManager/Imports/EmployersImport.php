@@ -2,11 +2,13 @@
 
 namespace Modules\EmployerManager\Imports;
 
+use App\Mail\BulkApplicant;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use DateTime;
+use Illuminate\Support\Facades\Mail;
 use Modules\EmployerManager\Models\Employer;
 use Illuminate\Support\Facades\Validator;
 use Laracasts\Flash\Flash;
@@ -20,12 +22,15 @@ class EmployersImport implements ToCollection
     {
         $skippedFirstRow = false;
 
+
+
         foreach ($rows as $row) {
             if (!$skippedFirstRow) {
                 $skippedFirstRow = true;
                 continue; // Skip the first row
             }
 
+            $password = $this->generateRandomPassword();
             $app_code = "NIRC" . uniqid();
 
             $employer = new Employer();
@@ -75,8 +80,35 @@ class EmployersImport implements ToCollection
                 return back()->withInput()->withErrors($validator);
             } else {
                 // Validation passes, create Employer record
+
                 $employer->save();
+                try {
+                    Mail::to($row[1])->send(new BulkApplicant($employer,$password));
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    Flash::error($th->getMessage());
+                }
             }
         }
+    }
+    function generateRandomPassword($length = 12)
+    {
+        // Define the character sets to use for the password
+        $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        $numbers = '0123456789';
+        $specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+        // Combine all character sets
+        $allChars = $uppercase . $lowercase . $numbers . $specialChars;
+
+        // Generate a random password
+        $password = '';
+        $max = strlen($allChars) - 1;
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $allChars[random_int(0, $max)];
+        }
+
+        return $password;
     }
 }
