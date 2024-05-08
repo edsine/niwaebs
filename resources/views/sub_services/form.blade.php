@@ -1,23 +1,4 @@
 <div class="preview-block ml-4">
-    
-   
-    <div class="row gy-4">
-        <div class="col-lg-4 col-sm-6">
-            <div class="form-group">
-                <div class="form-control-wrap">
-                    <label class="form-label-outlined" for="outlined-select">Select Service:</label>
-                    <select class="form-select js-select2" data-ui="xl" id="state_of_origin1"
-                        name="service_id" data-search="on" required>
-                        @foreach($services as $service)
-                            <option value="{{ $service->id }}" @selected(old('service_id', $subservices->service_id ?? '')==$service->id)>{{ $service->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row gy-4">
         <div class="col-lg-4 col-sm-6">
             <div class="form-group">
@@ -25,11 +6,11 @@
                     <div class="form-icon form-icon-right">
                         <em class="icon ni ni-user"></em>
                     </div>
-                    <label class="form-label-outlined" for="branch_id">Area Office</label>
+                    <label class="form-label-outlined" for="branch_id">Select Location</label>
                     <select class="form-control" name="branch_id" id="branch_id">
-                        <option>Select Area Office</option>
+                        <option value="">Select Location</option>
                         @foreach($branches as $branch)
-                            <option value="{{ $branch->id }}" {{ old('branch_id', isset($subservices) && $subservices->branch_id == $branch->id ? 'selected' : '') }}>
+                            <option value="{{ $branch->id }}">
                                 {{ $branch->branch_name }}
                             </option>
                         @endforeach
@@ -39,6 +20,21 @@
             </div>
         </div>
     </div>
+   
+    <div class="row gy-4">
+        <div class="col-lg-4 col-sm-6">
+            <div class="form-group">
+                <div class="form-control-wrap">
+                    <label class="form-label-outlined" for="outlined-select">Select Service:</label>
+                    <select class="form-control" name="service_id" id="service_id">
+                        <option value="">Select Service</option>
+                    </select>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+   
 <div class="row gy-4">
     <div class="col-lg-4 col-sm-6">
         <div class="form-group">
@@ -64,3 +60,34 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $('#branch_id').change(function () {
+        var branchId = $(this).val();
+        $('.loader-demo-box1').show();
+         if (branchId) {
+            $.ajax({
+                type: "GET",
+                url: "/services/" + branchId + "/get-services",
+                success: function (data) {
+                    $('.loader-demo-box1').hide();
+                    $('#service_id').empty();
+                    if (data.length > 0) {
+                        $.each(data, function (key, value) {
+                            $('#service_id').append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    } else {
+                        $('#service_id').append('<option value="0">No result</option>');
+                    }
+                     // Trigger change event to set the selected value
+                $('#service_id').trigger('change');
+                }
+            });
+        } else {
+            $('.loader-demo-box1').hide();
+            $('#service_id').empty();
+        }
+    });
+});
+</script>
