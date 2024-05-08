@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="form-group col-6 mt-2">
-                    <a href="{{ route('paydownload') }}" class="btn  btn-secondary  btn-sm "> <i
+                    <a href="{{ route('paydownload') }}" class="btn  btn-success  btn-sm "> <i
                             class=" bi bi-download"></i>
                         DOWNLOAD SAMPLE</a>
 
