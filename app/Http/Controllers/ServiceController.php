@@ -58,18 +58,31 @@ class ServiceController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function store(StoreServiceRequest $request)
-    {
-        $validated = $request->validated();
-        $validated['status'] = 1;
-        $check = Service::where('name', $request->input('name'))->where('branch_id', $request->input('branch_id'))->first();
-        if ($check) {
-            return redirect()->route('services.create')->with('error', 'Service type already exist in this area office!');
-        }
-        $service = Service::create($validated);
-
-        return redirect()->route('services.index')->with('success', 'Service added successfully!');
-    }
+     public function store(StoreServiceRequest $request)
+     {
+         $validated = $request->validated();
+         $validated['status'] = 1;
+     
+         // Check if any of the selected branches already have the same service type
+         foreach ($validated['branch_id'] as $branchId) {
+             $check = Service::where('name', $validated['name'])->where('branch_id', $branchId)->first();
+             if ($check) {
+                 return redirect()->route('services.create')->with('error', 'Service type already exists in one of the selected area offices!');
+             }
+         }
+     
+         // Create service for each branch
+         foreach ($validated['branch_id'] as $branchId) {
+             $service = new Service;
+             $service->name = $validated['name'];
+             $service->branch_id = $branchId;
+             $service->status = $validated['status'];
+             $service->save();
+         }
+     
+         return redirect()->route('services.index')->with('success', 'Service added successfully!');
+     }
+     
 
     public function storebulk(Request $request)
     {

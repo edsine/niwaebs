@@ -26,11 +26,15 @@
         <a href="{{ route('processing_fee.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span>Add New Processing Fee</span></a>
     </div>
 </div>
+<div class="content px-3">
+    <div class="clearfix"></div>
+   <div class="card">
     <div class="card-body p-5">
-    <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="order-listing">
-            <thead>
-                <tr>
+        <div class="table-responsive1">
+            <table class="table align-middle gs-0 gy-4" id="order-listing">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
                             <th>Service Name</th>
                             <th>Area Office</th>
                             <th>Service Type</th>
@@ -41,9 +45,9 @@
                     <tbody> @php
                         $no = 1;
                     @endphp
-                        @foreach ($processing_fees as $processing_fee)
-                        <tr class="fw-bold text-muted bg-light">
-                                
+                        @foreach ($processing_fees  as $index =>  $processing_fee)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ ucwords(strtolower($processing_fee->service->name ?? 'NILL')) }}</td>
                             <td>{{ $processing_fee->branch->branch_name ?? 'NILL' }}</td>
                             <td>{{ ucwords(strtolower($processing_fee->processingType->name ?? 'NILL')) }}</td>
@@ -72,7 +76,7 @@
                     </tbody>
                 </table>
             </div>
-
+        </div></div>
         </div>
 
 @endsection

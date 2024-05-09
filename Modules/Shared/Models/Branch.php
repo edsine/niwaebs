@@ -9,103 +9,9 @@ use OwenIt\Auditing\Auditable as AuditingAuditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\UnitManager\Models\Region;
 use Modules\WorkflowEngine\Models\Staff;
+use App\Models\Service;
 
-/**
- * @OA\Schema(
- *      schema="Branch",
- *      required={"branch_name","branch_region","branch_code","highest_rank","staff_strength","managing_id","branch_email","branch_phone","branch_address"},
- *      @OA\Property(
- *          property="branch_name",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="branch_region",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="branch_code",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="last_ecsnumber",
- *          description="",
- *          readOnly=false,
- *          nullable=true,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="highest_rank",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="staff_strength",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="managing_id",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="integer",
- *          format="int32"
- *      ),
- *      @OA\Property(
- *          property="branch_email",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="branch_phone",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="branch_address",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="string",
- *      ),
- *      @OA\Property(
- *          property="created_at",
- *          description="",
- *          readOnly=true,
- *          nullable=true,
- *          type="string",
- *          format="date-time"
- *      ),
- *      @OA\Property(
- *          property="updated_at",
- *          description="",
- *          readOnly=true,
- *          nullable=true,
- *          type="string",
- *          format="date-time"
- *      )
- * )
- */ class Branch extends Model implements Auditable
+ class Branch extends Model implements Auditable
 {
     use SoftDeletes;
     use HasFactory;
@@ -168,5 +74,8 @@ use Modules\WorkflowEngine\Models\Staff;
         return $this->hasMany(Staff::class);
     }
 
-    // public function
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
 }

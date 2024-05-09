@@ -26,11 +26,15 @@
         <a href="{{ route('application_form_fee.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span>Add New Fees</span></a>
     </div>
 </div>
+<div class="content px-3">
+    <div class="clearfix"></div>
+   <div class="card">
     <div class="card-body p-5">
-    <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="order-listing">
-            <thead>
-                <tr>
+        <div class="table-responsive1">
+            <table class="table align-middle gs-0 gy-4" id="order-listing">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
                             <th>Service Name</th>
                             <th>Area Office</th>
                             <th>Application Form Fee</th>
@@ -40,9 +44,9 @@
                     <tbody> @php
                         $no = 1;
                     @endphp
-                        @foreach ($application_form_fees as $application_form_fee)
+                        @foreach ($application_form_fees  as $index =>  $application_form_fee)
                         <tr class="fw-bold text-muted bg-light">
-                                
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ ucwords(strtolower($application_form_fee->service->name ?? 'NILL')) }}</td>
                             <td>{{ $application_form_fee->branch->branch_name ?? 'NILL' }}</td>
                                 <td>{{ "₦".number_format($application_form_fee->amount, 2) }}</td>
@@ -70,7 +74,7 @@
                     </tbody>
                 </table>
             </div>
-
+        </div> </div>
            
         </div>
 

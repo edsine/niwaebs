@@ -26,11 +26,15 @@
         <a href="{{ route('processing_type.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span>Add New Processing Type</span></a>
     </div>
 </div>
+<div class="content px-3">
+    <div class="clearfix"></div>
+   <div class="card">
     <div class="card-body p-5">
-    <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="order-listing">
-            <thead>
-                <tr>
+        <div class="table-responsive1">
+            <table class="table align-middle gs-0 gy-4" id="order-listing">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
                             <th>Service Name</th>
                             <th>Area Office</th>
                             <th>Processing Type Name</th>
@@ -40,9 +44,9 @@
                     <tbody> @php
                         $no = 1;
                     @endphp
-                        @foreach ($processing_types as $processing_type)
-                        <tr class="fw-bold text-muted bg-light">
-                                
+                        @foreach ($processing_types  as $index =>  $processing_type)
+                        <tr class="">
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ ucwords(strtolower($processing_type->service->name ?? 'NILL')) }}</td>
                             <td>{{ $processing_type->branch->branch_name ?? 'NILL' }}</td>
                                 <td>{{ $processing_type->name }}</td>
@@ -70,8 +74,8 @@
                     </tbody>
                 </table>
             </div>
-
-            
+        </div>
+        </div> 
         </div>
 
 @endsection
