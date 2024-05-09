@@ -1,24 +1,28 @@
-<div class="card-body p-5">
-    <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="">
-            <thead>
-                <tr>
-                    <th class="min-w-200px">Client</th>
-                    <th class="min-w-200px">Service</th>
-                    <th class="min-w-200px">Application Form Payment Status</th>
-                    <th class="min-w-200px">Date Of Inspection</th>
-                    <th class="min-w-200px">Service Type</th>
-                    <th class="min-w-200px">Status Summary</th>
-                    <th class="min-w-200px">Created</th>
-                    <th class="min-w-120px" colspan="1">Action</th>
-                    <th class="min-w-200px text-end rounded-end"></th>
+<div class="content px-3">
+    <div class="clearfix"></div>
+    <div class="card-body p-5">
+        <div class="table-responsive">
+            <table class="table align-middle gs-0 gy-4" id="order-listing">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                    <th class="min-w-100px">Client</th>
+                    <th class="">Service</th>
+                    <th class="">Application Form Payment Status</th>
+                    <th class="">Date Of Inspection</th>
+                    <th class="">Service Type</th>
+                    <th class="">Status Summary</th>
+                    <th class="">Created</th>
+                    <th class="" colspan="1">Action</th>
+                    <th class="text-end rounded-end"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($serviceApplications as $serviceApplication)
-                    <tr class="fw-bold text-muted bg-light">
+                @foreach ($serviceApplications  as $index => $serviceApplication)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
                         <td>{{$serviceApplication->employer() ? $serviceApplication->employer()->company_name : 'NILL'}}</td>
-                        <td>{{ $serviceApplication->service ? $serviceApplication->service->name : '' }}</td>
+                        <td>{{ $serviceApplication->theservice ? $serviceApplication->theservice->name : '' }}</td>
                         <td>{{ $serviceApplication->application_form_payment_status ? 'Paid' : 'Not Paid' }}</td>
                         <td>{{ $serviceApplication->date_of_inspection }}</td>
                         <td>{{ $serviceApplication->service_type_id == 'mechanical' ? 'Mechanical' : 'Manual' }}</td>
@@ -38,16 +42,12 @@
                                 </a>
                             </div>
                         </td>
-                        <th class="min-w-200px text-end rounded-end"></th>
+                        <th class=" text-end rounded-end"></th>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </div></div>
 
-    <div class="card-footer clearfix">
-        <div class="float-right">
-            @include('adminlte-templates::common.paginate', ['records' => $serviceApplications])
-        </div>
-    </div>
+    
 </div>

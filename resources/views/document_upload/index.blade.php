@@ -26,11 +26,15 @@
         <a href="{{ route('document_upload.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span>Add New Document</span></a>
     </div>
 </div>
+<div class="content px-3">
+    <div class="clearfix"></div>
+   <div class="card">
     <div class="card-body p-5">
-    <div class="table-responsive">
-        <table class="table align-middle gs-0 gy-4" id="order-listing">
-            <thead>
-                <tr>
+        <div class="table-responsive1">
+            <table class="table align-middle gs-0 gy-4" id="order-listing">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
                             <th>Service Name</th>
                             <th>Area Office</th>
                             <th>Document Name</th>
@@ -40,9 +44,9 @@
                     <tbody> @php
                         $no = 1;
                     @endphp
-                        @foreach ($document_uploads as $document_upload)
-                        <tr class="fw-bold text-muted bg-light">
-                                
+                        @foreach ($document_uploads  as $index =>  $document_upload)
+                        <tr class="">
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ ucwords(strtolower($document_upload->service->name ?? 'NILL')) }}</td>
                             <td>{{ $document_upload->branch->branch_name ?? 'NILL' }}</td>
                                 <td>{{ $document_upload->name }}</td>
@@ -51,12 +55,12 @@
                                             class="nk-menu-icon text-info"><em class="fa fa-edit"></em></span></a>
                                     
 
-                                    <a id="delete-service" title="Terminate Service" style="cursor: pointer;"
+                                    {{-- <a id="delete-service" title="Terminate Service" style="cursor: pointer;"
                                         onclick="event.preventDefault();
                                     document.getElementById('delete-service-form').submit();"><span
                                             class="nk-menu-icon text-danger eg-swal-av3"><em
                                                 class="fa fa-trash"></em></span>
-                                    </a>
+                                    </a> --}}
                                     <form id="delete-service-form" action="{{ route('document_upload.destroy', $document_upload->id) }}"
                                         method="POST" class="d-inline">
                                         @csrf
@@ -71,7 +75,7 @@
                 </table>
             </div>
 
-            
+        </div></div> 
         </div>
 
 @endsection

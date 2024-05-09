@@ -13,7 +13,7 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Services & Sub-Services</h3>
+                <h3 class="nk-block-title page-title">List of Services & Sub-Services</h3>
                 <div class="nk-block-des text-soft">
 
                 </div>
@@ -26,11 +26,15 @@
             <a href="{{ route('sub-services.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span> Add New</span></a>
         </div>
     </div>
-    <div class="card-body p-5">
-        <div class="table-responsive">
-            <table class="table align-middle gs-0 gy-4" id="order-listing">
-                    <thead>
-                        <tr>
+    <div class="content px-3">
+        <div class="clearfix"></div>
+       <div class="card">
+        <div class="card-body p-5">
+            <div class="table-responsive1">
+                <table class="table align-middle gs-0 gy-4" id="order-listing">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
                             <th>Service Name</th>
                             <th>Sub-Service Name</th>
                             <th>Area Office</th>
@@ -41,9 +45,9 @@
                     <tbody> @php
                         $no = 1;
                     @endphp
-                        @foreach ($services as $service)
+                        @foreach ($services as $index => $service)
                             <tr>
-
+                                <td>{{ $index + 1 }}</td>
                                 <td>{{ $service->service ? $service->service->name : '' }}</td>
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->branch->branch_name ?? 'NILL' }}</td>
@@ -77,7 +81,7 @@
                 </table>
             </div>
 
-
+        </div></div>
         </div>
 
 @endsection
@@ -111,5 +115,5 @@
         });
     </script>
     <!-- JavaScript -->
-    <script src="./assets/js/libs/datatable-btns.js?ver=3.1.3"></script>
+    
 @endpush

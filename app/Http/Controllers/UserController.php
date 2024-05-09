@@ -91,7 +91,7 @@ class UserController extends AppBaseController
 
         // Auth::check() && Auth::user()->hasRole('minister')
         // if ((Auth::check() && Auth::user()->hasRole('super-admin') || (Auth::check() && Auth::user()->hasRole('supervisor')&& Auth()->user()->staff->department_id=3) ) )
-      if   (Auth::check() && (Auth::user()->hasRole('super-admin') || (Auth::user()->hasRole('SUPERVISOR') && Auth::user()->staff->department_id == 3)))
+      if   (Auth::check() && (Auth::user()->hasRole('super-admin') || ( Auth::user()->staff->department_id == 3)))
         {
 
 

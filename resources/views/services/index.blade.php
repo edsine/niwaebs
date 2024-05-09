@@ -13,7 +13,7 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Services</h3>
+                <h3 class="nk-block-title page-title">List of Services</h3>
                 <div class="nk-block-des text-soft">
                     
                 </div>
@@ -26,11 +26,15 @@
             <a href="{{ route('services.create') }}" class="btn btn-primary"><em class="fa fa-plus"></em><span> Add New</span></a>
         </div>
     </div>
+    <div class="content px-3">
+    <div class="clearfix"></div>
+   <div class="card">
     <div class="card-body p-5">
-        <div class="table-responsive">
+        <div class="table-responsive1">
             <table class="table align-middle gs-0 gy-4" id="order-listing">
                     <thead>
                         <tr>
+                            <th>S/N</th>
                             <th>Service Name</th>
                             <th>Area Office</th>
                             <th>Status</th>
@@ -40,9 +44,9 @@
                     <tbody> @php
                         $no = 1;
                     @endphp
-                        @foreach ($services as $service)
+                        @foreach ($services as $index => $service)
                             <tr>
-                                
+                                <td>{{ $index + 1 }}</td>
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->branch->branch_name ?? 'NILL' }}</td>
                                  <td><span
@@ -75,38 +79,8 @@
                 </table>
             </div>
 
-            {{-- <div class="card-footer clearfix">
-                <div class="float-right">
-                    @include('adminlte-templates::common.paginate', ['records' => $services])
-                </div>
-            </div> --}}
-        </div>
+           
+    </div>
+</div></div>
 
 @endsection
-
-{{-- @push('scripts') --}}
-    <script>
-     $(document).ready(function() {
-    $('#delete-service').on('click', function(e) {
-        e.preventDefault();
-        let id = $(this).closest('form').attr('action').split('/').pop(); // Fetch the ID from the form's action attribute
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $('#delete-service-form').submit();
-            }
-        });
-    });
-});
-  
-    </script>
-    <!-- JavaScript -->
-   {{--  <script src="./assets/js/libs/datatable-btns.js?ver=3.1.3"></script> --}}
-{{-- @endpush --}}

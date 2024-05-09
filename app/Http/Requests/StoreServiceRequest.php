@@ -24,7 +24,8 @@ class StoreServiceRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'branch_id' => 'required|integer',
+            'branch_id' => 'required|array',
+            'branch_id.*' => 'integer', // Ensure each item in the array is an integer
         ];
     }
 }

@@ -23,7 +23,7 @@
                         <em class="icon ni ni-user"></em>
                     </div>
                     <label class="form-label-outlined" for="branch_id">Select Location</label>
-                    {{-- <select class="form-control " name="branch_id">
+                    <select class="form-control " name="branch_id">
                         <option value="">
                             Select Location
                         </option>
@@ -33,15 +33,8 @@
                                 {{ $branch->branch_name }}
                             </option>
                         @endforeach
-                    </select> --}}
-                    <select class="form-control form-control-solid border border-2 form-select multiple" name="branch_id[]" multiple>
-                        @foreach ($branches as $branch)
-                            <option value="{{ $branch->id }}"
-                                {{ in_array($branch->id, (array) old('branch_id', isset($service) ? $service->branch_id : [])) ? 'selected' : '' }}>
-                                {{ $branch->branch_name }}
-                            </option>
-                        @endforeach
                     </select>
+                    
                     
 
                 </div>

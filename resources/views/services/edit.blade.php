@@ -27,7 +27,7 @@
                 <form action="{{ route('services.update', $service->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    @include('services.form')
+                    @include('services.editform')
                 </form>
             </div>
         </div><!-- .card-preview -->
