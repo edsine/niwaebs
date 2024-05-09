@@ -19,9 +19,9 @@ class InspectionFeeController extends Controller
     public function index()
     {
         if(Auth()->user()->hasRole('super-admin')){
-        $inspection_fees = InspectionFee::limit(20)->get();
+        $inspection_fees = InspectionFee::limit(50)->get();
         }else{
-        $inspection_fees = InspectionFee::limit(20)->where('branch_id', Auth()->user()->staff->branch->id)->get();
+        $inspection_fees = InspectionFee::limit(50)->where('branch_id', Auth()->user()->staff->branch->id)->get();
         }
 
         return view('inspection_fee.index', compact('inspection_fees'));

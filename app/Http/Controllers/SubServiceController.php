@@ -13,9 +13,9 @@ class SubServiceController extends Controller
     public function index()
     {
         if(Auth()->user()->hasRole('super-admin')){
-        $services = SubService::all();
+        $services = SubService::limit(50)->get();
     }else{
-        $services = SubService::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        $services = SubService::limit(50)->where('branch_id', Auth()->user()->staff->branch->id)->get();
     }
 
         return view('sub_services.index', compact('services'));

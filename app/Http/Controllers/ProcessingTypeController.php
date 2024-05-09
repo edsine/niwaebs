@@ -18,9 +18,9 @@ class ProcessingTypeController extends Controller
     public function index()
     {
         if(Auth()->user()->hasRole('super-admin')){
-        $processing_types = ProcessingType::limit(20)->get();
+        $processing_types = ProcessingType::limit(50)->get();
     }else{
-        $processing_types = ProcessingType::limit(20)->where('branch_id', Auth()->user()->staff->branch->id)->get();
+        $processing_types = ProcessingType::limit(50)->where('branch_id', Auth()->user()->staff->branch->id)->get();
     }
 
         return view('processing_type.index', compact('processing_types'));

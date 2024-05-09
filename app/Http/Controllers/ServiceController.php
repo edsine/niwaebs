@@ -21,9 +21,9 @@ class ServiceController extends Controller
     public function index()
     {
         if (Auth()->user()->hasRole('super-admin')) {
-            $services = Service::all();
+            $services = Service::limit(50)->get();
         } else {
-            $services = Service::where('branch_id', Auth()->user()->staff->branch->id)->get();
+            $services = Service::limit(50)->where('branch_id', Auth()->user()->staff->branch->id)->get();
         }
 
         return view('services.index', compact('services'));
