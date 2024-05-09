@@ -1500,11 +1500,11 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
     public function documentsComment(Request $request, $id)
     {
-        $documentHistory = DB::table('documents_comments')
-            ->join('users', 'documents_comments.created_by', '=', 'users.id')
-            ->join('documents_manager', 'documents_comments.document_id', '=', 'incoming_documents_manager.id')
-            ->select('documents_comments.*', 'documents_comments.created_at as createdAt', 'users.first_name as firstName', 'users.last_name as lastName', 'incoming_documents_manager.document_url as doc_url')
-            ->where('documents_comments.document_id', $id)
+        $documentHistory = DB::table('incoming_documents_comments')
+            ->join('users', 'incoming_documents_comments.created_by', '=', 'users.id')
+            ->join('incoming_documents_manager', 'incoming_documents_comments.document_id', '=', 'incoming_documents_manager.id')
+            ->select('incoming_documents_comments.*', 'incoming_documents_comments.created_at as createdAt', 'users.first_name as firstName', 'users.last_name as lastName', 'incoming_documents_manager.document_url as doc_url')
+            ->where('incoming_documents_comments.document_id', $id)
             ->get();
 
         return response()->json($documentHistory);
@@ -2045,7 +2045,7 @@ $categories = DocumentsCategory::whereIn('id', $documentIds)->get()->keyBy('id')
 
         Flash::success('New comment saved successfully.');
 
-        return redirect(route('incoming_documents_manager.index'));
+        return redirect()->back();
     }
     /**
      * assign memo to userss
