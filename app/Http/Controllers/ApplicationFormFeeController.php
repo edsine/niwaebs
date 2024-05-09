@@ -18,9 +18,9 @@ class ApplicationFormFeeController extends Controller
     public function index()
     {
         if(Auth()->user()->hasRole('super-admin')){
-        $application_form_fees = ApplicationFormFee::all();
+        $application_form_fees = ApplicationFormFee::limit(20)->get();
     }else{
-        $application_form_fees = ApplicationFormFee::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        $application_form_fees = ApplicationFormFee::limit(20)->where('branch_id', Auth()->user()->staff->branch->id)->get();
     }
 
         return view('application_form_fee.index', compact('application_form_fees'));

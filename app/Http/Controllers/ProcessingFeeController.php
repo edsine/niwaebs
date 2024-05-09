@@ -19,9 +19,9 @@ class ProcessingFeeController extends Controller
     public function index()
     {
         if(Auth()->user()->hasRole('super-admin')){
-        $processing_fees = ProcessingFee::all();
+        $processing_fees = ProcessingFee::limit(20)->get();
     }else{
-        $processing_fees = ProcessingFee::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        $processing_fees = ProcessingFee::limit(20)->where('branch_id', Auth()->user()->staff->branch->id)->get();
     }
 
         return view('processing_fee.index', compact('processing_fees'));
