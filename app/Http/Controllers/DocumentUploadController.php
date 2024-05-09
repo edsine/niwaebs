@@ -18,9 +18,9 @@ class DocumentUploadController extends Controller
     public function index()
     {
         if(Auth()->user()->hasRole('super-admin')){
-        $document_uploads = DocumentUpload::all();
+        $document_uploads = DocumentUpload::limit(20)->get();
     }else{
-        $document_uploads = DocumentUpload::where('branch_id', Auth()->user()->staff->branch->id)->get();
+        $document_uploads = DocumentUpload::limit(20)->where('branch_id', Auth()->user()->staff->branch->id)->get();
     }
 
         return view('document_upload.index', compact('document_uploads'));
