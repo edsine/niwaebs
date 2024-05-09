@@ -245,7 +245,7 @@ foreach ($b_ids as $branch_id) {
 
 // processing fees
 $processingTypes1 = [
-    "type1" => ["7500", "150000", "0"],
+    "type1" => ["7500", "150000", "7500"],
     "type2" => ["10000",
     "30000",
     "20000",
