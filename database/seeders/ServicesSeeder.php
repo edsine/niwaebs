@@ -29,9 +29,12 @@ class ServicesSeeder extends Seeder
             "Use of Right of Ways",
             "Dredging",
             "Reclamation",
+            "Advertising Within Right of Ways",
+            "Ferry Services",
+            "River Guide Pilotage",
+/* 
             "Canalization/Dredging of Slots",
             "Hydroelectric Power Dams and Power Generating Station/Plants on Water and Its Right of Ways",
-            "Advertising Within Right of Ways",
             "Pipeline Layings/Crossing",
             "Utility Lines",
             "Survey Under Water Engineering Works and Removal of Wrecks",
@@ -47,10 +50,9 @@ class ServicesSeeder extends Seeder
             "Passage and Tolls",
             "Permit Fees for River Crafts Per Anum",
             "Slipway and Dockyards Services",
-            "Ferry Services",
             "Ferry Vehicles",
             "Equipments and Property Leasing",
-            "Landed Properties",
+            "Landed Properties", */
         ];
 
         // Iterate through each branch id
@@ -67,7 +69,7 @@ class ServicesSeeder extends Seeder
         }
 
         $servicesIds = [
-            's_id' => [1, 26, 51, 76, 101, 126, 151, 176, 201, 226, 251, 276],
+            's_id' => [1, 26, 51, 76, 101, 126],//[1, 26, 51, 76, 101, 126, 151, 176, 201, 226, 251, 276],
             'b_id' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         ];
 
