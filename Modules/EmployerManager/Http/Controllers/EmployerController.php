@@ -26,6 +26,7 @@ use Modules\EmployerManager\Models\Certificate;
 use Modules\Shared\Repositories\BranchRepository;
 use Modules\EmployerManager\Imports\EmployersImport;
 use App\Imports\UsersImport; // Create this import class
+use App\Mail\ApprovevendorMail;
 use Modules\EmployerManager\Repositories\EmployerRepository;
 use Modules\EmployerManager\Http\Requests\CreateEmployerRequest;
 use Modules\EmployerManager\Http\Requests\UpdateEmployerRequest;
@@ -130,6 +131,42 @@ class EmployerController extends AppBaseController
         return redirect()->route('certificates')->with('success', 'Certificate approved successfully.');
     }
 
+    public function viewapplicant($id)
+    {
+        $data = Employer::find($id);
+        // dd($data);
+        if (!$data) {
+            return redirect()->back()->with('error', 'Record Not Found');
+        }
+        return view('upload.viewapplicant', compact('data'));
+    }
+    public function saveapplicate(Request $request, $id)
+    {
+
+
+        $data = Employer::find($id);
+        $data->update(
+            [
+                'status'=> $request->status
+            ]
+
+        );
+        try {
+            //code...
+
+            Mail::to($data['company_email'])->send(new ApprovevendorMail($data));
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+
+        if ($data->status==2) {
+            # code...
+            return redirect()->route('areamanager')->with('success', 'Successfully Approved Applicant');
+        } elseif ($data->status==0) {
+            return redirect()->route('areamanager')->with('success', 'Successfully Rejected Application');
+            # code...
+        }
+    }
     public function displayCertificateDetails($certificateId)
     {
         $certificate = Certificate::with(['employer', 'employer.employees', 'employer.payments'])->find($certificateId);

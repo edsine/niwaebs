@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
-         .nav-link {
+        .nav-link {
             font-weight: 600;
             color: blue !important;
         }
@@ -45,6 +45,10 @@
                         <li class="nav-item">
                             <a class="nav-link" id="letter1-tab" data-toggle="tab" href="#letter1" role="tab"
                                 aria-controls="letter1" aria-selected="true">Letters Of Intent</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="vendor-tab" data-toggle="tab" href="#vendor" role="tab"
+                                aria-controls="vendor" aria-selected="true">Vendor Approval</a>
                         </li>
 
                     </ul>
@@ -293,8 +297,8 @@
                                 <div class="col-5">
                                     <div class="row">
                                         <!-- <div class="col-3">
-                                                {!! Form::label('', 'Filter By', ['class' => 'form-label mt-2']) !!}
-                                            </div> -->
+                                                                                                {!! Form::label('', 'Filter By', ['class' => 'form-label mt-2']) !!}
+                                                                                            </div> -->
                                         <div class="col-3">
                                             {!! Form::select('service_id', $services, null, ['class' => 'form-select', 'id' => 'serviceSelect']) !!}
                                         </div>
@@ -457,13 +461,94 @@
 
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="vendor" role="tabpanel" aria-labelledby="vendor-tab">
+                            <div class=" justify-content-between">
+
+                                <ul class="nav nav-tabs bg-primary" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" data-toggle="tab" href="#pendingvendor">Pending Vendors <i class=" text-danger">{{ $pendingcount }}</i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#approvedvendor">Approved Vendors <i class=" text-success">{{ $approvecount }}</i></a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content" id="vendortabcontent">
+                                    <div class="tab-pane fade show active" id="pendingvendor" role="tabpanel" aria-labelledby="pendingvendor-tab">
+                                        <div class="row g-5 g-xl-8">
+                                            <table class="table">
+                                                <thead>
+                                                    <th>Applicant Code</th>
+                                                    <th>Email </th>
+                                                    <th>Name</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Action</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($pendingvendors as $pendingvendor)
+                                                        <tr>
+                                                            <td>{{ $pendingvendor->applicant_code ? $pendingvendor->applicant_code : '' }}
+                                                            </td>
+                                                            <td>{{ $pendingvendor->company_email }}</td>
+                                                            <td>{{ $pendingvendor->contact_firstname . '  ' . $pendingvendor->contact_surname }}
+                                                            </td>
+                                                            <td>{{ $pendingvendor->company_phone }}</td>
+                                                            <td>
+                                                                <a href="{{ route('viewapplicant', [$pendingvendor->id]) }}"
+                                                                    class="btn btn-success">View</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="approvedvendor" role="tabpanel" aria-labelledby="approvedvendor-tab">
+                                        <div class="row g-5 g-xl-8">
+                                            <table class="table">
+                                                <thead>
+                                                    <th>Applicant Code</th>
+                                                    <th>Email </th>
+                                                    <th>Name</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Action</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ( $approvedvendors as $pendingvendor)
+                                                        <tr>
+                                                            <td>{{ $pendingvendor->applicant_code ? $pendingvendor->applicant_code : '' }}
+                                                            </td>
+                                                            <td>{{ $pendingvendor->company_email }}</td>
+                                                            <td>{{ $pendingvendor->contact_firstname . '  ' . $pendingvendor->contact_surname }}
+                                                            </td>
+                                                            <td>{{ $pendingvendor->company_phone }}</td>
+                                                            <td>
+                                                                <a href="{{ route('viewapplicant', [$pendingvendor->id]) }}"
+                                                                    class="btn btn-success">View</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- where i end   all the tables -->
+
                         <div class="tab-pane fade" id="letter1" role="tabpanel" aria-labelledby="letter1-tab">
                             <div class="col-md-12 grid-margin stretch-card depDoc2" id="depDoc2">
-                                {{-- <div class="col-md-3">
-                     {!! Form::label('department_id', 'Click to select user department:') !!}
-                     {!! Form::select('department_id', $departments_data, null, ['class' => 'form-control', 'id' => 'inDeptSelect']) !!}
 
-                        </div> --}}
                                 <div class="card">
                                     <div class="card-body p-5">
                                         <h4 class="card-title">
