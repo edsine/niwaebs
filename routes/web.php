@@ -763,6 +763,8 @@ Route::post('project-task-new-stage', [TaskStageController::class, 'storingValue
 
 // Project Expense Module
 
+
+
 // Project Expense Module
 Route::get('/projects/{id}/expense', [ExpenseController::class, 'index'])->name('projects.expenses.index')->middleware(['auth']);
 Route::get('/projects/{pid}/expense/create', [ExpenseController::class, 'create'])->name('projects.expenses.create')->middleware(['auth']);
@@ -942,3 +944,7 @@ Route::post('amplhistsa', [EmployerController::class, 'storemass'])->name('empli
 Route::get('downloademployers', [EmployerController::class, 'downloademployersample'])->name('empldownload');
 Route::get('downloadservice', [EmployerController::class, 'downloadservicesamples'])->name('savapdownload');
 Route::get('downloadpay', [EmployerController::class, 'downloadpaymentsample'])->name('paydownload');
+
+Route::get('viewapplicantrecord/{id}',[EmployerController::class,'viewapplicant'])->name('viewapplicant');
+
+Route::post('saveapplicantrecord/{id}',[EmployerController::class,'saveapplicate'])->name('apsav');

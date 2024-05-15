@@ -51,7 +51,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-       
+
         if (Auth::check() && Auth::user()->hasRole('super-admin')) {
 
             return redirect()->route('superadmin'); // go to super admin dashboard
@@ -66,14 +66,14 @@ class HomeController extends Controller
 
         } else if (Auth::user()->level && Auth::user()->level->id == 18){
 
-            return redirect()->route('s_dashboard'); 
+            return redirect()->route('s_dashboard');
 
         } else if (Auth::user()->level && Auth::user()->level->id == 17){
 
             return redirect()->route('gm_dashboard');
 
-        } else if (Auth::user()->level && 
-        Auth::user()->level->id >= 14 && 
+        } else if (Auth::user()->level &&
+        Auth::user()->level->id >= 14 &&
         Auth::user()->level->id <= 16){
 
             return redirect()->route('range_dashboard');
@@ -81,14 +81,14 @@ class HomeController extends Controller
         } else if (Auth::user()->level && Auth::user()->level->id == 3){
 
             return redirect()->route('areamanager');
-            
+
         } else {
 
 
-            
+
             $branch = Branch::all();
             $services = Service::where('branch_id', Auth()->user()->staff->branch_id)->get();
-            
+
             $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
            // $services->prepend('Select Service', 0); // Add an empty option with label 'Select Service'
            $documents12 = \App\Models\IncomingDocuments::query()
@@ -144,7 +144,7 @@ class HomeController extends Controller
                         'incoming_documents_categories.id as d_m_c_id',
                         'incoming_documents_categories.name as cat_name',
                         'departments.name as dep_name',
-                
+
                         DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
                         DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
                         DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
@@ -171,7 +171,7 @@ class HomeController extends Controller
                     ->where('incoming_documents_has_users.user_id', '=', auth()->user()->id)
                     //->where('incoming_documents_manager.branch_id', auth()->user()->staff->branch_id)
                     ->get();
-    
+
                     $dept = Department::get();
          $deptData = $dept->map(function ($dept1) {
                 return [
@@ -179,13 +179,13 @@ class HomeController extends Controller
                     'name' => $dept1->name,
                 ];
             });
-    
+
             $departments_data = $deptData->pluck('name', 'id');
             $departments_data->prepend('Select Department', '');
-    
+
             $departments_data1 = $deptData->pluck('name', 'id');
             //$departments_data1->prepend('Select Department', '');
-    
+
             if(auth()->user()->staff && auth()->user()->staff->branch_id == 23){
                 $users1 = DB::select('
                 SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
@@ -193,7 +193,7 @@ class HomeController extends Controller
                 JOIN staff ON users.id = staff.user_id
                 WHERE users.level_id = 17
             ');
-            
+
             $users2 = DB::select('
             SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
             FROM users
@@ -207,7 +207,7 @@ class HomeController extends Controller
                     JOIN staff ON users.id = staff.user_id
                     WHERE users.level_id = 3
                 ');
-                
+
                 $users2 = DB::select('
                 SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
                 FROM users
@@ -215,7 +215,7 @@ class HomeController extends Controller
                 WHERE staff.branch_id = ?
             ', [auth()->user()->staff->branch_id]);
                 }
-            
+
     // Combine the results of all queries into one collection
     $userData = collect($users1)
         ->merge($users2)
@@ -225,19 +225,28 @@ class HomeController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ];
         });
-    
-            
+
+
             $users123 = $userData->pluck('name', 'id');
             if (Auth()->user()->hasRole('super-admin')) {
             $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->get();
             } else{
             $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->where('branch_id', '=', Auth::user()->staff->branch_id)->get();
             }
-    
+
             return view('home', compact('branch', 'services', 'documents1', 'departments_data1', 'departments_data', 'users123', 'service_applications'));
-        
+
         }
     }
+
+
+
+
+
+    // public function atp(){
+
+    //     return view()
+    // }
 
     public function engineering()
     {
@@ -628,7 +637,7 @@ class HomeController extends Controller
     {
         $branch = Branch::all();
         $services = Service::where('branch_id', Auth()->user()->staff->branch_id)->get();
-        
+
         $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
        // $services->prepend('Select Service', 0); // Add an empty option with label 'Select Service'
        $documents1vv = \App\Models\IncomingDocuments::query()
@@ -683,7 +692,7 @@ class HomeController extends Controller
                     'incoming_documents_categories.id as d_m_c_id',
                     'incoming_documents_categories.name as cat_name',
                     'departments.name as dep_name',
-            
+
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
@@ -737,9 +746,9 @@ class HomeController extends Controller
     JOIN staff ON users.id = staff.user_id
     WHERE staff.branch_id = ?
 ', [auth()->user()->staff->branch_id]);
-   
-    
-    
+
+
+
     // Combine the results of all queries into one collection
     $userData = collect($users1)
         ->merge($users2)
@@ -749,11 +758,11 @@ class HomeController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ];
         });
-        
 
 
 
-        
+
+
         $users123 = $userData->pluck('name', 'id');
         if (Auth()->user()->hasRole('super-admin')) {
         $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->get();
@@ -761,7 +770,23 @@ class HomeController extends Controller
         $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->where('branch_id', '=', Auth::user()->staff->branch_id)->get();
         }
 
-        return view('am', compact('branch', 'services', 'documents1', 'departments_data1', 'departments_data', 'users123', 'service_applications'));
+
+        //for the vendor applicant section
+        $pendingvendors = Employer::where('status', '1')->where(function ($query) {
+            $query->where('user_type', 'e-promta');
+        })->get();
+        $pendingcount = Employer::where('status', '1')->where(function ($query) {
+            $query->where('user_type', 'e-promta');
+        })->count();
+        $approvecount = Employer::where('status', '2')->where(function ($query) {
+            $query->where('user_type', 'e-promta');
+        })->count();
+        // dd($pendingvendors);
+        $approvedvendors = Employer::where('status', '2')->where(function ($query) {
+            $query->where('user_type', 'e-promta');
+        })->get();
+
+        return view('am', compact('branch','approvecount','pendingcount', 'services', 'documents1', 'departments_data1', 'departments_data', 'users123', 'service_applications','pendingvendors','approvedvendors'));
     }
 
     //secretary dashboard
@@ -769,7 +794,7 @@ class HomeController extends Controller
     {
         $branch = Branch::all();
         $services = Service::where('branch_id', Auth()->user()->staff->branch_id)->get();
-        
+
         $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
        // $services->prepend('Select Service', 0); // Add an empty option with label 'Select Service'
        $documents12 = \App\Models\IncomingDocuments::query()
@@ -872,7 +897,7 @@ class HomeController extends Controller
         JOIN staff ON users.id = staff.user_id
         WHERE users.level_id = 20
     ');
-    
+
     // Combine the results of all queries into one collection
     $userData = collect($users1)
         ->map(function ($user) {
@@ -881,10 +906,10 @@ class HomeController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ];
         });
-        
 
 
-        
+
+
         $users123 = $userData->pluck('name', 'id');
         if (Auth()->user()->hasRole('super-admin')) {
         $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->get();
@@ -900,9 +925,9 @@ class HomeController extends Controller
     {
         $branch = Branch::all();
         $services = Service::where('branch_id', Auth()->user()->staff->branch_id)->get();
-        
+
         $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
-       
+
                 $documents1 = DB::table('incoming_documents_has_users')
     ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
     ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
@@ -970,14 +995,14 @@ class HomeController extends Controller
         $departments_data1 = $deptData->pluck('name', 'id');
         //$departments_data1->prepend('Select Department', '');
 
-        
+
     $users1 = DB::select('
         SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
         FROM users
         JOIN staff ON users.id = staff.user_id
         WHERE users.level_id = 20
     ');
-    
+
     $users2 = DB::select('
         SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
         FROM users
@@ -991,9 +1016,9 @@ class HomeController extends Controller
     JOIN staff ON users.id = staff.user_id
     WHERE staff.department_id = ?
 ', [auth()->user()->staff->department_id]);
-   
-    
-    
+
+
+
     // Combine the results of all queries into one collection
     $userData = collect($users1)
         ->merge($users2)
@@ -1004,10 +1029,10 @@ class HomeController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ];
         });
-        
 
 
-        
+
+
         $users123 = $userData->pluck('name', 'id');
         if (Auth()->user()->hasRole('super-admin')) {
         $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->get();
@@ -1023,7 +1048,7 @@ class HomeController extends Controller
     {
         $branch = Branch::all();
         $services = Service::where('branch_id', Auth()->user()->staff->branch_id)->get();
-        
+
         $services = $services->pluck('name', 'id'); // Pluck the values and assign it back to $services variable
        // $services->prepend('Select Service', 0); // Add an empty option with label 'Select Service'
        $documents1 = DB::table('incoming_documents_has_users')
@@ -1052,7 +1077,7 @@ class HomeController extends Controller
            'incoming_documents_categories.id as d_m_c_id',
            'incoming_documents_categories.name as cat_name',
            'departments.name as dep_name',
-   
+
            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
            DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
@@ -1100,7 +1125,7 @@ class HomeController extends Controller
         JOIN staff ON users.id = staff.user_id
         WHERE users.level_id = 17
     ');
-    
+
     $users2 = DB::select('
     SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
     FROM users
@@ -1114,7 +1139,7 @@ class HomeController extends Controller
             JOIN staff ON users.id = staff.user_id
             WHERE users.level_id = 3
         ');
-        
+
         $users2 = DB::select('
         SELECT users.id as id, users.first_name as first_name, users.last_name as last_name
         FROM users
@@ -1122,9 +1147,9 @@ class HomeController extends Controller
         WHERE staff.branch_id = ?
     ', [auth()->user()->staff->branch_id]);
         }
-   
-    
-    
+
+
+
     // Combine the results of all queries into one collection
     $userData = collect($users1)
         ->merge($users2)
@@ -1135,7 +1160,7 @@ class HomeController extends Controller
             ];
         });
 
-        
+
         $users123 = $userData->pluck('name', 'id');
         if (Auth()->user()->hasRole('super-admin')) {
         $service_applications = ServiceApplication::orderBy('id', 'desc')->where('current_step', '=', '110')->get();
@@ -1150,7 +1175,7 @@ class HomeController extends Controller
 {
     $month = request()->input('month');
     $year = request()->input('year');
-    
+
     $pending_application_forms = ServiceApplication::whereMonth('created_at', $month)
         ->whereYear('created_at', $year)
         ->where('service_id', $id)
@@ -1177,7 +1202,7 @@ class HomeController extends Controller
         ->where('current_step', 15)
         ->where('branch_id', Auth()->user()->staff->branch->id)
         ->count();
-    
+
     // Return the data as JSON
     return response()->json([
         'pending_application_forms' => $pending_application_forms,
@@ -1192,7 +1217,7 @@ public function getForMD($id)
     $month = request()->input('month');
     $year = request()->input('year');
     $branch = request()->input('branch');
-    
+
     $pending_application_forms = ServiceApplication::whereMonth('created_at', $month)
         ->whereYear('created_at', $year)
         ->where('service_id', $id)
@@ -1219,7 +1244,7 @@ public function getForMD($id)
         ->where('current_step', 15)
         ->where('branch_id', $branch)
         ->count();
-    
+
     // Return the data as JSON
     return response()->json([
         'pending_application_forms' => $pending_application_forms,
@@ -1316,7 +1341,7 @@ $data2 = \DB::table('incoming_documents_manager')
                 //->where('incoming_documents_manager.department_id', '=', '15')
                 ->limit(10)
                 ->get();
-                
+
                 $documents1 = DB::table('incoming_documents_has_users')
                 ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
                 ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
@@ -1342,7 +1367,7 @@ $data2 = \DB::table('incoming_documents_manager')
                     'incoming_documents_categories.id as d_m_c_id',
                     'incoming_documents_categories.name as cat_name',
                     'departments.name as dep_name',
-            
+
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
@@ -1511,9 +1536,9 @@ $userData = collect($users1)
             'name' => $user->first_name . ' ' . $user->last_name,
         ];
     });
-   
+
         $roles = $this->roleRepository->all()->pluck('name', 'id');
-        
+
         $users123 = $userData->pluck('name', 'id');
 
     /* $reminder = \DB::table('reminders')
@@ -1627,7 +1652,7 @@ $data2 = \DB::table('incoming_documents_manager')
                 //->where('incoming_documents_manager.department_id', '=', '15')
                 ->limit(10)
                 ->get();
-                
+
                 $documents1 = DB::table('incoming_documents_has_users')
                 ->join('incoming_documents_manager', 'incoming_documents_manager.id', '=', 'incoming_documents_has_users.document_id')
                 ->join('departments', 'departments.id', '=', 'incoming_documents_manager.department_id')
@@ -1653,7 +1678,7 @@ $data2 = \DB::table('incoming_documents_manager')
                     'incoming_documents_categories.id as d_m_c_id',
                     'incoming_documents_categories.name as cat_name',
                     'departments.name as dep_name',
-            
+
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.user_id) AS assigned_to_name'),
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_has_users.assigned_by) AS assigned_by_name'),
                     DB::raw('(SELECT CONCAT(first_name, " ", last_name) FROM users WHERE users.id = incoming_documents_manager.created_by) AS created_by_name')
@@ -1792,9 +1817,9 @@ $userData = collect($users1)
             'name' => $user->first_name . ' ' . $user->last_name,
         ];
     });
-   
+
         $roles = $this->roleRepository->all()->pluck('name', 'id');
-        
+
         $users123 = $userData->pluck('name', 'id');
 
     /* $reminder = \DB::table('reminders')
